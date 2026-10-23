@@ -1,0 +1,2 @@
+# Windows 启动脚本在检出和打包源码 ZIP 时统一使用 CRLF。
+*.cmd text eol=crlf

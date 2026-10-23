@@ -1,0 +1,3 @@
+[*.cmd]
+charset = utf-8
+end_of_line = crlf
