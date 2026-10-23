@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "cdnOrigin": "https://testingcf.jsdelivr.net",
+  "sources": [
+    {
+      "id": "mvu-beta",
+      "repository": "MagicalAstrogy/MagVarUpdate",
+      "mode": "floating-default",
+      "artifacts": { "mvu": "artifact/bundle.js" }
+    },
+    {
+      "id": "mvu-zod",
+      "repository": "StageDog/tavern_resource",
+      "mode": "stable-tags",
+      "tagPattern": "^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "artifacts": { "mvuZod": "dist/util/mvu_zod.js" }
+    },
+    {
+      "id": "creative-workshop",
+      "repository": "Akabanesaki/myrepo",
+      "mode": "stable-tags",
+      "tagPattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "artifacts": {
+        "workshop": "dist/CreativeWorkshop/index.js",
+        "autoRegex": "dist/AutoDialogueBeautifier/index.js"
+      }
+    },
+    {
+      "id": "character-manager",
+      "repository": "uikawinwing/CharInfo-Manager",
+      "mode": "stable-tags",
+      "tagPattern": "^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "artifacts": {
+        "characterManager": "dist/char_info_viewer_runtime/index.js"
+      }
+    }
+  ]
+}

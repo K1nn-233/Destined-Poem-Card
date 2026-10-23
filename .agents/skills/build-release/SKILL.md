@@ -1,0 +1,16 @@
+---
+name: build-release
+description: 构建、检查或准备发布命定之诗角色卡与静态资源时使用，核对 profile、装配契约、依赖版本及本地和远端边界。
+---
+
+先读 [角色卡契约](../../../docs/contracts.md) 和 [修改与验证](../../../docs/workflow.md)。装配入口是 `card/greetings/index.json`、`card/scripts/index.json`、`card/regex/index.json`（模板在 `views/`）。构建配置在 `build/`，统一命令在 `tools/`，导出卡不直接编辑。
+
+运行 `pnpm card check`、`pnpm card build --profile local`、`pnpm card diff` 和 `pnpm verify`。发布准备再用 `--profile release`，检查自有资源目标、外部固定版本、三条开场白、七个脚本和十条正则的装配结果。
+
+版本号与发版用 `pnpm card version` / `pnpm card release <patch|minor|major>`，规则见 [docs/versioning.md](../../../docs/versioning.md)。release 目标为 `The-poem-of-destiny/Destined-Poem-Card@v<版本>`；构建配置不证明该 tag/CDN 已可访问。旧版本、旧 tag 与旧 CDN 保留原身份，不把所有历史引用批量替换。
+
+jsDelivr 的 `gh/仓库@tag/dist/release/...` 要求该 tag 的 Git 提交实际包含 `dist/release/**`，仅上传 Release 附件不足以发布这些地址；根目录默认忽略产物。授权发布时明确打入该目录，核对报告中的物理文件与 URL，保留来源提交；`imports/` 与测试缓存不进入发布。
+
+推送到酒馆用 `pnpm card sync` 或工作台的「推送到酒馆」页；先检查目标与覆盖范围，具体命令、备份与恢复见 [推送到酒馆](../../../docs/sync.md)。
+
+实际发布须在当前任务已授权范围内执行；本地构建不隐含创建远端、tag、推送或上传授权。许可见根目录 [LICENSE](../../../LICENSE)。区分静态检查、构建、测试酒馆与真实模型生成结果，未执行项明确列出。

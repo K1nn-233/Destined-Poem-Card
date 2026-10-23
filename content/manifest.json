@@ -1,0 +1,16 @@
+{
+  "agreement.json": "content/ui/agreement.json",
+  "assets.json": "content/catalogs/assets.json",
+  "avatar-presets.json": "content/ui/avatar-presets.json",
+  "backgrounds.json": "content/catalogs/backgrounds.json",
+  "baseInfo.json": "content/catalogs/baseInfo.json",
+  "coreClassification.json": "content/ui/coreClassification.json",
+  "DLC条目命名规范.md": "content/catalogs/DLC条目命名规范.md",
+  "equipments.json": "content/catalogs/equipments.json",
+  "items.json": "content/catalogs/items.json",
+  "partners.json": "content/catalogs/partners.json",
+  "predefined-avatars.json": "content/ui/predefined-avatars.json",
+  "predefined-partner-gallery.json": "content/ui/predefined-partner-gallery.json",
+  "skills.json": "content/catalogs/skills.json",
+  "SPECIAL_RECOMMEND_CORES.json": "content/catalogs/SPECIAL_RECOMMEND_CORES.json"
+}

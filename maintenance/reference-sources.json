@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "description": "锁定的上游参考资料；只读、不执行、不自动打包进角色卡。",
+  "sources": [
+    {
+      "id": "tavern-helper",
+      "repository": "N0VI028/JS-Slash-Runner",
+      "ref": "main",
+      "dest": "tavern-helper",
+      "note": "酒馆助手 4.11.3 完整函数与 iframe API 声明；运行接口以此固定提交为准。",
+      "license": null,
+      "files": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "@types/function/:-> references/upstream/tavern-helper/@types/function",
+        "@types/iframe/:-> references/upstream/tavern-helper/@types/iframe"
+      ],
+      "include": [
+        "re:\\.d\\.ts$",
+        "re:(^|/)LICENSE$",
+        "re:(^|/)README\\.md$",
+        "re:(^|/)package\\.json$"
+      ],
+      "exclude": [],
+      "required": [
+        "LICENSE",
+        "@types/function/index.d.ts",
+        "@types/iframe/event.d.ts"
+      ],
+      "maxFiles": 60,
+      "pinCommit": "1292dbfa0f16943f70d55cfdf3bb5a0ce690ef8b",
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "tavern-helper-docs",
+      "repository": "N0VI028/JS-Slash-Runner-Doc",
+      "ref": "main",
+      "dest": "tavern-helper-docs",
+      "note": "酒馆助手中文文档。",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "N0VI028/JS-Slash-Runner-Doc 在该提交没有 LICENSE 文件（GitHub license API 返回 404），许可证按上游实际情况记为 NOASSERTION"
+      },
+      "files": [
+        "README.md",
+        "src/guide/功能详情/世界书/",
+        "src/guide/功能详情/变量/",
+        "src/guide/功能详情/楼层消息/",
+        "src/guide/功能详情/酒馆助手脚本/",
+        "src/guide/功能详情/酒馆正则/",
+        "src/guide/功能详情/请求生成.md",
+        "src/guide/功能详情/监听和发送事件.md",
+        "src/guide/功能详情/注入提示词.md",
+        "src/guide/功能详情/酒馆助手宏.md",
+        "src/guide/功能详情/访问酒馆接口或其他插件.md",
+        "src/guide/基本用法/渲染器.md",
+        "src/guide/基本用法/脚本库.md"
+      ],
+      "include": ["re:\\.md$", "re:(^|/)LICENSE$"],
+      "exclude": [],
+      "required": ["README.md", "src/guide/功能详情/请求生成.md"],
+      "maxFiles": 120,
+      "pinCommit": "08c81a21147498ce0de6f18cbfffc28a364ca27c",
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "sillytavern",
+      "pinCommit": "7e8663cd9c184a550b37238218bdd32c6efc68e9",
+      "repository": "SillyTavern/SillyTavern",
+      "ref": "1.19.0",
+      "dest": "sillytavern",
+      "note": "项目锁定的 SillyTavern 1.19.0 官方源码；宏、世界书、正则及角色卡解析实现。",
+      "license": null,
+      "files": [
+        "LICENSE",
+        "package.json",
+        "src/character-card-parser.js",
+        "src/charx.js",
+        "src/validator/TavernCardValidator.js",
+        "src/endpoints/characters.js",
+        "src/endpoints/worldinfo.js",
+        "public/scripts/world-info.js",
+        "public/script.js",
+        "public/scripts/openai.js",
+        "public/scripts/PromptManager.js",
+        "public/scripts/macros.js",
+        "public/scripts/slash-commands.js",
+        "public/scripts/macros/definitions/",
+        "public/scripts/extensions/regex/engine.js",
+        "tests/tavern-card-validator.test.js",
+        "public/scripts/macros/engine/",
+        "src/types/spec-v2.d.ts",
+        "public/scripts/extensions/regex/index.js"
+      ],
+      "include": [],
+      "exclude": [],
+      "required": [
+        "LICENSE",
+        "src/character-card-parser.js",
+        "public/scripts/world-info.js"
+      ],
+      "maxFiles": 55,
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "sillytavern-docs",
+      "repository": "SillyTavern/SillyTavern-Docs",
+      "ref": "main",
+      "dest": "sillytavern-docs",
+      "note": "SillyTavern 官方文档：宏、世界书、角色、聊天、正则。",
+      "license": null,
+      "files": [
+        "Usage/macros.md",
+        "Usage/Prompts/prompt-manager.md",
+        "Usage/worldinfo.md",
+        "extensions/Regex.md",
+        "LicenseCredits.md",
+        "Usage/Characters/",
+        "Usage/Chatting/",
+        "LICENSE",
+        "readme.md"
+      ],
+      "include": ["re:\\.md$", "re:(^|/)LICENSE$"],
+      "exclude": [],
+      "required": [
+        "LICENSE",
+        "Usage/macros.md",
+        "Usage/Prompts/prompt-manager.md",
+        "Usage/worldinfo.md"
+      ],
+      "maxFiles": 40,
+      "pinCommit": "ed5423d809c6b10b8c1e9ef4a0c8ddc7f2ef7f3d",
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "prompt-template",
+      "repository": "zonde306/ST-Prompt-Template",
+      "ref": "main",
+      "dest": "prompt-template",
+      "note": "EJS ST-Prompt-Template 1.17.9 固定提交：接口文档、函数实现与模板引擎；只读不执行。",
+      "license": null,
+      "files": [
+        "LICENSE",
+        "README_CN.md",
+        "docs/features_cn.md",
+        "docs/reference_cn.md",
+        "include/reference_cn.js",
+        "package.json",
+        "src/3rdparty/ejs.js",
+        "src/function/ejs.ts",
+        "src/function/"
+      ],
+      "include": [],
+      "exclude": [],
+      "required": [
+        "LICENSE",
+        "docs/reference_cn.md",
+        "include/reference_cn.js"
+      ],
+      "maxFiles": 20,
+      "pinCommit": "d6f520d149aba146305b0b781ddd691d449c28d2",
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "mvu",
+      "repository": "MagicalAstrogy/MagVarUpdate",
+      "ref": "v0.196.0",
+      "pinCommit": "d03b7dc8a6ebf9bd611c7e2dc91f3b35462deebc",
+      "dest": "mvu",
+      "note": "MVU beta v0.196.0 固定提交；变量初始化、JsonPatch/结构更新、请求、协议与类型；旧教程仅供对照，以实现为准。",
+      "license": null,
+      "files": [
+        "LICENSE",
+        "README.md",
+        "CHANGELOG.md",
+        "package.json",
+        "global.d.ts",
+        "auto-imports.zod.d.ts",
+        "util/README.md",
+        "src/variable_def.ts",
+        "src/function/global/",
+        "src/function/update_variables.ts",
+        "src/function/function_call.ts",
+        "src/function/is_extra_model_supported.ts",
+        "src/function/character_override/",
+        "src/function/exported_events.ts",
+        "src/function/initvar/",
+        "src/function/update/index.ts",
+        "src/function/schema.ts",
+        "src/prompts/",
+        "doc/",
+        "tests/helpers/json_patch_suite.ts",
+        "tests/helpers/schema_suite.ts",
+        "tests/variable_init.test.ts",
+        "tests/json_patch.test.ts",
+        "src/util.ts",
+        "src/store.ts",
+        "src/function/update/structured_update.ts",
+        "src/function/is_function_calling_supported.ts",
+        "src/function/request/index.ts",
+        "src/function/request/filter_entries.ts",
+        "src/function/request/worldinfo_scan.ts",
+        "src/function/request/worldinfo_request.ts"
+      ],
+      "include": ["re:\\.(md|txt|ts|js|json|yaml|yml)$", "re:(^|/)LICENSE$"],
+      "exclude": ["/artifact/", "re:\\.map$"],
+      "required": [
+        "LICENSE",
+        "doc/tutorial.md",
+        "src/function/global/index.ts",
+        "src/function/update_variables.ts",
+        "src/variable_def.ts",
+        "tests/helpers/json_patch_suite.ts"
+      ],
+      "maxFiles": 120,
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "character-card-spec",
+      "repository": "malfoyslastname/character-card-spec-v2",
+      "ref": "main",
+      "dest": "character-card-spec",
+      "note": "社区角色卡规范 v2（chara_card_v2 字段）；该上游仓库没有 LICENSE 文件，许可证记为 NOASSERTION。v3 规范见独立来源 character-card-spec-v3。",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "malfoyslastname/character-card-spec-v2 在该提交没有 LICENSE 文件（GitHub license API 返回 404），许可证按上游实际情况记为 NOASSERTION"
+      },
+      "files": [
+        "README.md",
+        "spec_v1.md",
+        "spec_v2.md",
+        "keyword_definitions.md"
+      ],
+      "include": [],
+      "exclude": [],
+      "required": ["README.md"],
+      "maxFiles": 20,
+      "pinCommit": "8083fb388615ccbce768e97cbbd49d2b3214632c",
+      "updatePolicy": {
+        "mode": "follow-upstream",
+        "trackingRef": "main"
+      }
+    },
+    {
+      "id": "character-card-spec-v3",
+      "repository": "kwaroran/character-card-spec-v3",
+      "ref": "main",
+      "dest": "character-card-spec-v3",
+      "note": "角色卡规范 v3（chara_card_v3）权威文本；上游 LICENSE 为 MIT 风格文本，由工具按原文识别。",
+      "license": null,
+      "files": [
+        "README.md",
+        "SPEC_V3.md",
+        "concepts.md",
+        "LICENSE",
+        ".gitignore"
+      ],
+      "include": [],
+      "exclude": [],
+      "required": ["SPEC_V3.md", "LICENSE"],
+      "maxFiles": 20,
+      "pinCommit": "f3a86af019fbd99f788f7a1155f399655b34ab35",
+      "updatePolicy": {
+        "mode": "follow-upstream",
+        "trackingRef": "main"
+      }
+    },
+    {
+      "id": "tavern-resource",
+      "repository": "StageDog/tavern_resource",
+      "ref": "v0.3.459",
+      "pinCommit": "cc37b3b472ca5f7e7f7c7779298b59e2c078003b",
+      "dest": "tavern-resource",
+      "note": "StageDog tavern_resource v0.3.459：mvu_zod 注册适配器源码与同提交产物，仅供查阅。",
+      "files": [
+        "LICENSE",
+        "package.json",
+        "util/mvu_zod.ts",
+        "util/common.ts",
+        "dist/util/mvu_zod.js"
+      ],
+      "include": [],
+      "exclude": [],
+      "required": ["util/mvu_zod.ts", "dist/util/mvu_zod.js"],
+      "maxFiles": 10,
+      "license": null,
+      "updatePolicy": {
+        "mode": "host-bound",
+        "trackingRef": "@default"
+      }
+    },
+    {
+      "id": "tavern-sync",
+      "repository": "StageDog/tavern_sync",
+      "ref": "main",
+      "pinCommit": "96c4eac86b68f372940e9dea98e1e33a8649a501",
+      "dest": "tavern-sync",
+      "note": "tavern_sync schema/type; only read as reference.",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "dist/schema/",
+        "dist/type/",
+        "src/type/"
+      ],
+      "required": [
+        "LICENSE",
+        "dist/schema/character.zh.json",
+        "dist/schema/worldbook.zh.json",
+        "dist/type/character.zh.ts",
+        "dist/type/worldbook.zh.ts"
+      ],
+      "maxFiles": 40,
+      "updatePolicy": {
+        "mode": "follow-upstream",
+        "trackingRef": "main"
+      }
+    }
+  ]
+}

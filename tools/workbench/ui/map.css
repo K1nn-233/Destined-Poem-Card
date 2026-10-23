@@ -1,0 +1,98 @@
+/* 地图页 */
+.mapx { height: 100vh; display: flex; flex-direction: column; gap: 10px; padding-bottom: 12px; }
+.mapx-head { display: flex; align-items: center; gap: 16px; padding: 18px 16px 0; flex-wrap: wrap; }
+.mapx-head .unsaved { color: var(--warning); font-weight: 600; }
+.mapx-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 270px minmax(0, 1fr) 370px; gap: 12px; padding: 0 16px; }
+.mapx-side, .mapx-detail, .mapx-map { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); min-height: 0; }
+.mapx-side { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
+.mapx-tabs { flex-wrap: nowrap; }
+.mapx-tabs .tab { flex: 1; }
+.mapx-tabs .count { background: var(--danger); color: #fff; border-radius: 999px; padding: 0 6px; margin-left: 4px; font-size: 11px; opacity: 1; }
+.mapx-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mapx-filters select { font-size: 12.5px; padding: 4px 6px; }
+.mapx-filters .wide { grid-column: 1 / -1; }
+.mapx-list { flex: 1; overflow: auto; margin: 0 -4px; padding: 0 4px; }
+.tree-row { display: flex; align-items: center; gap: 4px; padding: 3px 6px 3px 4px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+.tree-row:hover { background: var(--surface-2); }
+.tree-row.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.tree-row.dim { opacity: 0.45; }
+.tree-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tree-flag { color: var(--muted); font-size: 12px; }
+.twisty { border: 0; background: none; color: var(--muted); cursor: pointer; width: 16px; padding: 0; font-size: 11px; flex: none; }
+.issue-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warning); flex: none; }
+.issue-dot.bad { background: var(--danger); }
+.list-row { padding: 8px; border-radius: 7px; cursor: pointer; border-bottom: 1px solid var(--border); font-size: 13px; }
+.list-row:hover { background: var(--surface-2); }
+.list-row.active { background: var(--accent-soft); }
+.mapx-map { display: flex; flex-direction: column; overflow: hidden; }
+.mapx-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.seg { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.seg button { border: 0; border-right: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; font-size: 12.5px; padding: 5px 10px; cursor: pointer; white-space: nowrap; }
+.seg button:last-child { border-right: 0; }
+.seg button:hover { color: var(--accent); }
+.seg button.on { background: var(--accent); color: var(--accent-text); }
+label.check { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; cursor: pointer; white-space: nowrap; }
+.mapx-viewport { flex: 1; overflow: auto; position: relative; background: #d9cfbf; cursor: grab; user-select: none; scrollbar-width: thin; }
+.mapx-viewport.tool-add, .mapx-viewport.tool-edge { cursor: crosshair; }
+.mapx-viewport.tool-move .map-point { cursor: move; }
+.map-canvas { position: relative; }
+.map-canvas img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.map-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.map-line .hit { stroke: transparent; stroke-width: 10px; fill: none; vector-effect: non-scaling-stroke; cursor: pointer; }
+.map-line .stroke { stroke: #3b2a1a; stroke-opacity: 0.55; stroke-width: 1.6px; fill: none; vector-effect: non-scaling-stroke; pointer-events: none; }
+.map-line.na .stroke { stroke-dasharray: 4 4; stroke: #7c6f64; }
+.map-line.related .stroke { stroke: #d26f22; stroke-opacity: 0.9; stroke-width: 2.4px; }
+.map-line.active .stroke { stroke: #e11d48; stroke-opacity: 1; stroke-width: 3.2px; }
+.map-line.faded .stroke { stroke-opacity: 0.15; }
+.map-point { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--c); border: 1.5px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 35%); cursor: pointer; z-index: 2; }
+.map-point.big { width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; }
+.map-point span { display: none; position: absolute; left: 50%; top: 100%; transform: translate(-50%, 3px); white-space: nowrap; font-size: 11.5px; font-weight: 600; color: #1d150f; background: rgb(255 252 245 / 88%); padding: 0 5px; border-radius: 4px; pointer-events: none; }
+.map-point.labeled span, .map-point:hover span { display: block; }
+.map-point.related { box-shadow: 0 0 0 2px #d26f22; z-index: 3; }
+.map-point.active { box-shadow: 0 0 0 3px #e11d48, 0 0 12px #e11d48; z-index: 4; transform: scale(1.3); }
+.map-point.pending { box-shadow: 0 0 0 3px #16a34a, 0 0 12px #16a34a; z-index: 4; }
+.map-point.faded { opacity: 0.35; }
+.map-loading { position: absolute; top: 12px; left: 12px; display: flex; gap: 8px; align-items: center; background: var(--surface); padding: 6px 12px; border-radius: 8px; box-shadow: var(--shadow); font-size: 13px; }
+.map-loading.error { color: var(--danger); }
+.mapx-hint { display: flex; gap: 12px; align-items: center; padding: 6px 10px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+.legend { display: flex; gap: 10px; flex-wrap: wrap; }
+.legend span { display: inline-flex; align-items: center; gap: 4px; }
+.legend i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 25%); }
+.mapx-detail { overflow: auto; padding: 0; }
+.detail-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 1; }
+.crumbs { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px; }
+.crumbs a { cursor: pointer; color: var(--muted); }
+.crumbs a::after { content: " ›"; }
+.crumbs a:hover { color: var(--accent); }
+.dsec { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
+.dsec > summary { font-weight: 650; color: var(--text); }
+.dsec h3 { font-size: 13.5px; }
+.switch { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.switch input { margin-top: 3px; flex: none; }
+.switch span { display: flex; flex-direction: column; }
+.mini-list { display: flex; flex-direction: column; gap: 2px; max-height: 200px; overflow: auto; }
+.mini-list a { cursor: pointer; padding: 3px 6px; border-radius: 5px; color: var(--text); font-size: 13px; }
+.mini-list a:hover { background: var(--surface-2); text-decoration: none; color: var(--accent); }
+.seg-card { border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 10px; background: var(--surface-2); }
+.detail-empty { padding: 20px 18px; }
+.detail-empty .howto { margin-top: 10px; gap: 8px; }
+.menu-wrap { position: relative; }
+.menu { position: absolute; right: 0; top: calc(100% + 4px); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: 4px; z-index: 20; display: flex; flex-direction: column; min-width: 230px; }
+.menu button, .menu a { text-align: left; border: 0; background: none; font: inherit; font-size: 13px; padding: 7px 10px; border-radius: 6px; color: var(--text); cursor: pointer; }
+.menu button:hover, .menu a:hover { background: var(--surface-2); text-decoration: none; }
+.modal-back { position: fixed; inset: 0; background: rgb(20 14 8 / 45%); display: grid; place-items: center; z-index: 40; padding: 16px; }
+.modal { background: var(--surface); border-radius: 12px; padding: 20px 22px; width: min(460px, 100%); box-shadow: 0 20px 60px rgb(0 0 0 / 30%); display: flex; flex-direction: column; gap: 10px; }
+.modal.wide { width: min(680px, 100%); max-height: 85vh; overflow: auto; }
+.modal h3 { margin-top: 8px; }
+.modal ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.modal-options { display: flex; flex-direction: column; gap: 8px; }
+.btn.danger-solid { background: var(--danger); border-color: var(--danger); color: #fff; }
+@media (max-width: 1280px) {
+  .mapx-body { grid-template-columns: 240px minmax(0, 1fr) 320px; }
+}
+@media (max-width: 1000px) {
+  .mapx { height: auto; }
+  .mapx-body { grid-template-columns: 1fr; }
+  .mapx-side { max-height: 360px; }
+  .mapx-map { height: 70vh; }
+}

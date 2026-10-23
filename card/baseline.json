@@ -1,0 +1,4136 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "name": "命定之诗与黄昏之歌v4.3.png",
+    "sha256": "955ad373f19e5ca229fb719563a516ea223f8f426602e959eecdb4232bb135ab",
+    "note": "V4.3.3 发布卡（2026-09-12）的结构与内容摘要，供 pnpm card diff 对照。"
+  },
+  "summary": {
+    "name": "命定之诗与黄昏之歌v4.3",
+    "version": "V4.3.3",
+    "world": "命定之诗与黄昏之歌v4.3",
+    "greetings": [
+      {
+        "index": 0,
+        "characters": 4,
+        "sha256": "ae2a75fbee1e5e57134592f9397d5ab336273acd399365b494bd7a994d822703"
+      },
+      {
+        "index": 1,
+        "characters": 34,
+        "sha256": "34f1afb9fd52b27e3901272ff9b4f39d7baae0b0e16fdae986f910908eae0017"
+      },
+      {
+        "index": 2,
+        "characters": 8344,
+        "sha256": "efe89ee4c244263d78d1c665235564814b6311ec8f58f7b60eaa765eb8895949"
+      }
+    ],
+    "scripts": [
+      {
+        "id": "f8926eff-b77c-45aa-8e75-344f3b1409c9",
+        "name": "【命定之诗】mvu zod",
+        "enabled": true,
+        "contentSha256": "41c317bcf584c0026d3b40217a3e30200530ba6ffe62275a592a6f801901a452",
+        "buttons": {
+          "enabled": true,
+          "buttons": []
+        }
+      },
+      {
+        "id": "6006373c-0d53-4723-a747-582e38a4f490",
+        "name": "【命定之诗】MVU beta",
+        "enabled": true,
+        "contentSha256": "d669d4adddff40fccf1ae154e569b7a5e2e40e0c04d6fad978c3dd232f5afdeb",
+        "buttons": {
+          "enabled": true,
+          "buttons": [
+            {
+              "name": "重新读取初始变量",
+              "visible": true
+            },
+            {
+              "name": "清除旧楼层变量",
+              "visible": false
+            },
+            {
+              "name": "重新处理变量",
+              "visible": true
+            },
+            {
+              "name": "快照楼层",
+              "visible": false
+            },
+            {
+              "name": "重演楼层",
+              "visible": false
+            },
+            {
+              "name": "重试额外模型解析",
+              "visible": false
+            },
+            {
+              "name": "增量校正额外模型解析",
+              "visible": false
+            }
+          ]
+        }
+      },
+      {
+        "id": "fa861702-3d99-4b0a-933c-57c8354f8b0e",
+        "name": "【命定之诗】自动化脚本",
+        "enabled": true,
+        "contentSha256": "5384f43ae86f564a8f7cee7e13c82a77b2a4ef2dff2a09ca94363c1e85ea6873",
+        "buttons": {
+          "enabled": true,
+          "buttons": []
+        }
+      },
+      {
+        "id": "39a69b21-b9c0-48d7-8eee-91dcb130427d",
+        "name": "【命定之诗】创意工坊",
+        "enabled": true,
+        "contentSha256": "8e2f865d9d3855fc520a9a0d3ba43ebe598806078e6c31de9c951af1355ea3db",
+        "buttons": {
+          "enabled": true,
+          "buttons": [
+            {
+              "name": "命定创意工坊",
+              "visible": true
+            }
+          ]
+        }
+      },
+      {
+        "id": "d7d7d08c-b7cd-46b7-a1ef-6f7b6310a528",
+        "name": "【命定之诗】自动正则",
+        "enabled": true,
+        "contentSha256": "568939c44917ecb97f671db6edb98f41d17f49d7186743ff71855dc3afd0d084",
+        "buttons": {
+          "enabled": false,
+          "buttons": [
+            {
+              "name": "强制更新美化",
+              "visible": true
+            }
+          ]
+        }
+      },
+      {
+        "id": "206fbe15-423e-417b-b415-ed2cfaa36f08",
+        "name": "【命定之诗】地理数据加载脚本",
+        "enabled": true,
+        "contentSha256": "e75d7f5c3619767f0ec5b1606ea8eeacc5c417344d286e2dfbd31527e5b94a5d",
+        "buttons": {
+          "enabled": true,
+          "buttons": []
+        }
+      },
+      {
+        "id": "55644d5c-d99a-43a7-bf31-c64b0afd4efb",
+        "name": "【命定之诗】角色管理库",
+        "enabled": true,
+        "contentSha256": "f01c11a84d5d85fb60b16fbf9d58ff7159a8e8721c1d4ff1750c1ad39c1dc6f1",
+        "buttons": {
+          "enabled": true,
+          "buttons": []
+        }
+      }
+    ],
+    "regex": [
+      {
+        "id": "1f619452-dea9-4361-afdc-852faf5ec6e2",
+        "scriptName": "[折叠]变量更新中",
+        "disabled": false,
+        "runOnEdit": false,
+        "findRegex": "/<update(?:variable)?>(?!.*<\\/update(?:variable)?>)\\s*(.*)\\s*$/gsi",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "a7f1f732c9a1efc402cadb4be881958e72d06137b3ff4a4f4ece32e1bd7b753a"
+      },
+      {
+        "id": "0245e58c-135f-476a-8b93-d6e0de8237c4",
+        "scriptName": "[折叠]完整变量更新",
+        "disabled": false,
+        "runOnEdit": false,
+        "findRegex": "/<update(?:variable)?>\\s*(.*)\\s*<\\/update(?:variable)?>/gsi",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "cc7299daab5ba9d27cf2ecca194fc7fd95b8924a9b0f7b33d267e61dac607248"
+      },
+      {
+        "id": "7a26d129-d24f-41dc-bf1a-2b85c5459cae",
+        "scriptName": "[不发送]去除变量更新",
+        "disabled": false,
+        "runOnEdit": false,
+        "findRegex": "/<update(?:variable)?>(?:(?!.*<\\/update(?:variable)?>).*$|.*<\\/update(?:variable)?>)/gsi",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "replacementSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "id": "43a3ebdb-20c4-47f8-8fc2-85c3510fa0bb",
+        "scriptName": "对 AI 隐藏状态栏",
+        "disabled": false,
+        "runOnEdit": true,
+        "findRegex": "<StatusPlaceHolderImpl/>",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "replacementSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "id": "09a2c244-435a-45c8-82d3-c4dc67648abc",
+        "scriptName": "防隐藏爆代码",
+        "disabled": false,
+        "runOnEdit": true,
+        "findRegex": "<StatusPlaceHolderImpl/>",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": 3,
+        "maxDepth": null,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "id": "f84dd111-3c26-4f02-a365-aa6b92b6da13",
+        "scriptName": "状态栏",
+        "disabled": false,
+        "runOnEdit": true,
+        "findRegex": "<StatusPlaceHolderImpl/>",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": 2,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "37a15beeabfc98efc3c13fad5c84db5444a43958060a615b61a8b61894e9a411"
+      },
+      {
+        "id": "73844570-ac84-46d1-815a-d2c883a02f67",
+        "scriptName": "首页",
+        "disabled": false,
+        "runOnEdit": true,
+        "findRegex": "【首页】",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "c4a677968434e67a3fae6065e1bd224932b9896497cfb2d075ba6ef8f0cefdeb"
+      },
+      {
+        "id": "02af59f9-2429-4b56-ad17-e731cecdd3b3",
+        "scriptName": "自定义开局",
+        "disabled": false,
+        "runOnEdit": true,
+        "findRegex": "<customized>\\s*(.*?)\\s*</customized>",
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": 1,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "beda1b741715aa6bfc4be00f4b208f2fe39b36a4b05d2acbc5a5ded5b70c5252"
+      },
+      {
+        "id": "c9472880-7a0a-4920-953c-d259de77ff8a",
+        "scriptName": "命运抽卡",
+        "disabled": false,
+        "runOnEdit": false,
+        "findRegex": "<state_bar>([\\s\\S]+?)</state_bar>",
+        "trimStrings": [],
+        "placement": [
+          1,
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "626b2de0a60809d5e512b819e10fe499803761b0bb31f5ff57a9b69b3780a800"
+      },
+      {
+        "id": "2756fc60-2856-4448-aede-21bd6090e7e6",
+        "scriptName": "战斗&生产制作美化",
+        "disabled": false,
+        "runOnEdit": true,
+        "findRegex": "/<action_info>((?:(?!<\\/?action_info>)[\\s\\S])*?)<\\/action_info>/gs",
+        "trimStrings": [],
+        "placement": [
+          1,
+          2
+        ],
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": 10,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "replacementSha256": "ddcc62a4ed69e23bff2f28241d35af56c132e37360ab09e0fed3a6e3c56df56e"
+      }
+    ],
+    "worldbook": {
+      "entries": 545,
+      "enabled": 423,
+      "items": [
+        {
+          "name": "[本体][额外设定]角色命名指导",
+          "order": 0,
+          "enabled": true,
+          "contentSha256": "edd062491ae5a2a53463bfb86d4ca5ce7191b365acb9f4e650f0dc503bc5056d",
+          "settingsSha256": "9e07a162e2d0f18bf8657219194f9d2af159804eb6793474ff269dde4d98fd0f"
+        },
+        {
+          "name": "[DLC][事件][神选者]神选者_自定义神(aoo-填写一个自定义神并注入神选者事件)",
+          "order": 1,
+          "enabled": false,
+          "contentSha256": "48677a755ddf356b2cd24aa1d33c1523ea69b1bcc95231aa8c9984995d9acec5",
+          "settingsSha256": "d15cfc7bcb52739b86c2d1ae6535261027a77527e380a00b38f5785537050569"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][挽歌堡]锻炉区",
+          "order": 2,
+          "enabled": true,
+          "contentSha256": "ba933dfff35c48380ee04c993436be10a7f028243d180ecacc02915109a48849",
+          "settingsSha256": "9609edca90e1ef17b7ef8c8ee1862a3bfbe8c5ad44d8163cc963fa952cca2ef0"
+        },
+        {
+          "name": "[本体][额外设定]➡️额外设定结束",
+          "order": 3,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "5eb318365752a7b26a82ecc0c57cf1d25e4a2a67403bda8b6dc9549cbfec5ad0"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]怪物生态-星之彩(风见幽冷，Aoo改)",
+          "order": 4,
+          "enabled": false,
+          "contentSha256": "2d74351d38d4f18c8c1052786df7aead191394108267bfe08b059562b96fe3a8",
+          "settingsSha256": "fdfb7b38ce6eb14ccc2125bacb5673f03ca922f46bd0584035d9f203ba7168e9"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]山脚试炼营地",
+          "order": 5,
+          "enabled": true,
+          "contentSha256": "569f8bed9f15d98a623e6bee9cfb52794df012973f826c01d1c09c8057c2b599",
+          "settingsSha256": "23cc81cdf7c3aa0420e3712d101617c4f9fd06000c9e5ca7dd200b770b81332d"
+        },
+        {
+          "name": "[本体][怪物生态]➡️怪物生态开始",
+          "order": 6,
+          "enabled": false,
+          "contentSha256": "4603392c98ce7742d5dcff5f898c5aea9263dc02e97963ecd04681be7e168bb0",
+          "settingsSha256": "bde383a837c5738b4482936c8ca16f35348bcb174f7f4aac1bf9a93ade60c9ae"
+        },
+        {
+          "name": "[本体][种族]光翅妖精",
+          "order": 7,
+          "enabled": true,
+          "contentSha256": "4f1fd8ecdb351c9918d118472a7db5754e3a56233f906851b0e7723aad5fb396",
+          "settingsSha256": "f6b3cf8a38edae639cc6f54c6098e06b0ac6ce6604a96e2b86229769c6a55450"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][潮汐王座]漂流环礁(外环区)",
+          "order": 8,
+          "enabled": true,
+          "contentSha256": "0479d02681cb41aeb9b1bbca2bce1b4327319d2ccfa368f9154f7dd4c3d4b30e",
+          "settingsSha256": "9aff4407ce3ec1ec208c80475359c0f16247460c548802e6e1cd3907f3429af1"
+        },
+        {
+          "name": "[本体][额外设定][非专用预设需开启的条目]美化规则(自行删改/作者十七)",
+          "order": 9,
+          "enabled": false,
+          "contentSha256": "22e1a60adacfeab3280b3455d420f0fda570898d5e66aeadbabb34d02bfe786f",
+          "settingsSha256": "166c0b005c8773097c8963939ab316f7cc552b70ae806c37ffe9a679e3e10425"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]金穗宫(快乐柠萌茶)",
+          "order": 10,
+          "enabled": true,
+          "contentSha256": "478e87a7b0352015fb495210c283e333ddc7d5ea018f21519511b10e40670cc7",
+          "settingsSha256": "d58844435a49f2064100b18e9fe071b15ffd951feac5b453a8a81b483e3da54e"
+        },
+        {
+          "name": "[本体][产业]技能书和技能课程",
+          "order": 11,
+          "enabled": true,
+          "contentSha256": "4424098fcb46bf7d27624bebfb12629c34508989ff4dd7def345a703a8273d04",
+          "settingsSha256": "c32515a09d0840f3d4d79437672b7408d13c7eff99efa5b8c87872cda7a44aa2"
+        },
+        {
+          "name": "[DLC][角色][天原绘璃奈]天原绘璃奈(OwO-人造龙姬，活跃于艾瑟嘉德学院区)",
+          "order": 12,
+          "enabled": false,
+          "contentSha256": "c544602a10dfbef74eae0bfc1d9602c11af75edb1e54a1df2eb309c79186a934",
+          "settingsSha256": "f1b07877c8ce92c235a65acdbcac2d4adca4d30d500d33433359a801dc19ad0e"
+        },
+        {
+          "name": "[本体][组织]魔法协会(快乐柠萌茶)",
+          "order": 13,
+          "enabled": true,
+          "contentSha256": "8c863a7a3578ec558e15c36eb0f73f5422d80507f1c30e3f6b4cb7ea82cc85fa",
+          "settingsSha256": "2f68a03f34d4e073f853ba70adc518eada35d04ba472f8316dc6ebd5c99da463"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][凛风渡]港口区",
+          "order": 14,
+          "enabled": true,
+          "contentSha256": "3d03c428a61ae5ed27b224531bc0b8c33bac704d7d75b518df273bab5c708eae",
+          "settingsSha256": "67b712c75eb2bf1406d4c831689e3b5616e8db01840c62572246e3fadcc52e07"
+        },
+        {
+          "name": "[DLC][角色][福尔摩斯探案集]福尔摩斯探案集(Angtuck-诗灵;福尔摩斯探案集)",
+          "order": 15,
+          "enabled": false,
+          "contentSha256": "0ff20d9f424408ad342f152203d8668f6d04ed40bce7cd44a0254ad7f4e7fdf0",
+          "settingsSha256": "d535a5eb0709d9b2da95b7b56feaa030e904c4f757d263ac04268c5ff1a27f6e"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]艾尔文海姆-长老之环",
+          "order": 16,
+          "enabled": true,
+          "contentSha256": "38546dcba4b581c2c903d5f8aef70dae7c824a98fe29a557a638bd3b3ffd3c87",
+          "settingsSha256": "70b96b2a90a1fb776e5c9f11c0a126e1c02ca8152abaea44f6744b565b107219"
+        },
+        {
+          "name": "[本体][种族]物灵",
+          "order": 17,
+          "enabled": true,
+          "contentSha256": "38747d9732325e35617033b9fa51efe8c223e09f7d997491b8cedb530fcee8ac",
+          "settingsSha256": "79e029f54333918c6983761c8754a4a3dcdd0cc0328f90f210536980c3ddd649"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]贵族家族",
+          "order": 18,
+          "enabled": true,
+          "contentSha256": "75633a432062cdfcaf87dcf46bf444fd0c48ea36b88b6cde4ad1141590e9aa5e",
+          "settingsSha256": "c9172ad9e012ea0f1b17fe7737d1389bac07248fcec561509f77f26b324ac417"
+        },
+        {
+          "name": "[DLC][角色][柳比哈卡]柳比哈卡(K1nn-半龙女,雾晶学院留级生)",
+          "order": 19,
+          "enabled": false,
+          "contentSha256": "3aa22c90e12eeb9c80cb6a9dc89bb56490b93abd444e2c292ffae2455c67bb8d",
+          "settingsSha256": "0761489b3bf571c6d9661850426dfed6da4ffc50c23096432b493a7a9d2f5a03"
+        },
+        {
+          "name": "[DLC][角色][雌小鬼与熟女与龙][雌小鬼与熟女与龙-Spaceperson]奥希莉雅·骸响龙姬",
+          "order": 20,
+          "enabled": false,
+          "contentSha256": "23c07ad26747234a7b9340c79939478c766d68b205366e73ce2acb7403cd7791",
+          "settingsSha256": "496426845ecbc1d7876b52661d397f85d199670528b71379a3e0b09e25fa6a5f"
+        },
+        {
+          "name": "[本体][产业]奴隶",
+          "order": 21,
+          "enabled": true,
+          "contentSha256": "458ce3d4a57128fd89b5b83439979070cf3b1692861754e583b26bb9c9bee2da",
+          "settingsSha256": "6525937913c81d9883e474e531d9208574c035f358dfa3ff3e69a72ee1b75f68"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区(快乐柠萌茶)",
+          "order": 22,
+          "enabled": true,
+          "contentSha256": "837833d45703f1e7500261b9022372b66930326c4f1dbf519b9315b3911cba2b",
+          "settingsSha256": "2de7b4ed490da563974a8d626f2aba4ffddeca9fd7631fe52749db2dfe6ad819"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]南部沿海带",
+          "order": 23,
+          "enabled": true,
+          "contentSha256": "22c7a751c6d592fac85bd700cdd06041b8f58dfb162c4d4aad846e9244c425ba",
+          "settingsSha256": "e6044e64d6a3428fb5f72d190bbe2d13f285c50d63dda4d007d6002fa9fdb685"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-教会区(快乐柠萌茶)",
+          "order": 24,
+          "enabled": true,
+          "contentSha256": "dad8586a4d4ad47648e2877ae986cca0beb2413a6ec20562841ed0243ae07620",
+          "settingsSha256": "d577c9bb52557f7d56aa016f0029bb7b82794d39bf0dc89da2ef0d20c56e8c9f"
+        },
+        {
+          "name": "[本体][命定系统]null核心(H一串)",
+          "order": 25,
+          "enabled": false,
+          "contentSha256": "37230ae7d1350db5ef1c057024f0a93b83d6cb7f34b139fadde6402123e13f3f",
+          "settingsSha256": "3fa7a5a1d813a572eb729e7fde1e11c25d6ff2376be9fe1fc7aa909fd18671eb"
+        },
+        {
+          "name": "[本体][势力][精灵王庭]政治与社会",
+          "order": 26,
+          "enabled": true,
+          "contentSha256": "f51be2a9bfdf422dfaf9f1762d519303b445e75c4e3d0befc0b87436f7e40847",
+          "settingsSha256": "aa187a559f77bac3578556b1bf42150b7b83909b9c2340837d365a4492fc1364"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]潮汛大市",
+          "order": 27,
+          "enabled": true,
+          "contentSha256": "f4497c266522df66153cc3929e40698092aaf58c161daccece50621ddda1e670",
+          "settingsSha256": "9dad01b8e3a7519a3c6cdcd146c1870728d3a58ee96a22f4e371980ec6df9fe3"
+        },
+        {
+          "name": "[本体][产业]银行信贷业",
+          "order": 28,
+          "enabled": true,
+          "contentSha256": "bdad46c237a57a690ccfeff0218b0271785c1c5967970fd341b7b8e75fbd6cc7",
+          "settingsSha256": "4943bfb834aa3581d5d8fe7fbf95323a7fde8c6106f8bad316b7ee13b60a9482"
+        },
+        {
+          "name": "[本体][产业]服装与奢侈品",
+          "order": 29,
+          "enabled": true,
+          "contentSha256": "337f28960b678ceae5f579ed8f7f08752e20161ec789894447a03176674e55f4",
+          "settingsSha256": "2762ca44981b51a20737443eb69ee2dc0a8cf72bac05f71efd6985d7886a8394"
+        },
+        {
+          "name": "[本体][冒险区域][碎星群岛]碎星群岛",
+          "order": 30,
+          "enabled": true,
+          "contentSha256": "406c83402d3593fccc5531b1a2edc9043a0c7a45abc489176ee985c7d1e5a3f2",
+          "settingsSha256": "11c937050e1a11bb023dbb3753ecf4828768d98d49c0ba7d7239825a2294e635"
+        },
+        {
+          "name": "[本体][产业]情报交易",
+          "order": 31,
+          "enabled": true,
+          "contentSha256": "c67b88331a8f1e3b5323a33034bd738e78046324590004899690113aba3f5de1",
+          "settingsSha256": "0c43d937bd391ce564681ad7be526550d565b6a48a4e07b1aa53d2bf104f5a1f"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]悬崖居住区",
+          "order": 32,
+          "enabled": true,
+          "contentSha256": "b4a5589de1fc597722be6e3f0905de4407a1f584c4ca1ae34922992ccf530aaf",
+          "settingsSha256": "757ffcb02711d3b6fbe54bec1d4e67a23bee79ec5deb55c2100022575b4d05f7"
+        },
+        {
+          "name": "[本体][额外设定]品质效果限定",
+          "order": 33,
+          "enabled": true,
+          "contentSha256": "10ded0e2260215195d5ec1f6e0e9f0f4cbbd9b483d356d0259f91c64ea2dc2bb",
+          "settingsSha256": "27df4399e54500c3b8c817328131ef0454688f0f7381078d8f8c81756b36bd9c"
+        },
+        {
+          "name": "[本体][势力][兽族联盟]地理",
+          "order": 34,
+          "enabled": true,
+          "contentSha256": "e559424e3a1c31a512d4761496c29a21bc94531b7261be205d8192eb705de349",
+          "settingsSha256": "7a023449d94efe4341c1cd4bae1d3a922e923c788d8ca946e095b9a1ec917b97"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]东部山林区",
+          "order": 35,
+          "enabled": true,
+          "contentSha256": "a7c5118eea7398059ecba58c3077d9cf2f353ddffbefa985031ec2d7d399fb87",
+          "settingsSha256": "340be52032eee908929060e7d2d6e03338a25331d7b940763573d9d6d674ff98"
+        },
+        {
+          "name": "[DLC][扩展][无尽地城扩展]无尽地城-控制",
+          "order": 36,
+          "enabled": false,
+          "contentSha256": "98d91a7dc978c57e85b6799294c0455239c2897d92e94fbea6dc1e964f544461",
+          "settingsSha256": "da65dd93aa3046632796e2260c1ba34eee4fd41a9fa4d4251a379acfd562ab27"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]冠石台",
+          "order": 37,
+          "enabled": true,
+          "contentSha256": "b230d33421d34e087696bba21f12d933e1b99ef797897642be140380f54d8e8a",
+          "settingsSha256": "82bb741e8a0ba9d2b6a975f65cceb7f415fec1a73502d370c7e04cb50b31f14c"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][地块]群山边缘",
+          "order": 38,
+          "enabled": true,
+          "contentSha256": "7b58b93a0bd49172050cb3b5196e88adcf6e421b7140121808cf7ece242d0f35",
+          "settingsSha256": "b53ce23caef41e5a4f1afa2661a8e49f2d98026fb64faf77e1de6793b0c54cd0"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]重要家族与集团",
+          "order": 39,
+          "enabled": true,
+          "contentSha256": "20dd22864bc5e3a71f537507399e61ff989418aba5264a1e2baa48069b294506",
+          "settingsSha256": "ac88f2a12ce9bd6f3ec1cd5c8a2fab28c26728ac88374c3962fa4627ce426640"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]斯卡尔公国",
+          "order": 40,
+          "enabled": true,
+          "contentSha256": "dbe4b367d706501c0b54a6eed3003bfe953d4d40e5effe6e8798d20b4caaae03",
+          "settingsSha256": "ce4705eb3996ba254d8cc3e3135faf5756e412557f378e508071627e6481575c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]联盟直辖区",
+          "order": 41,
+          "enabled": true,
+          "contentSha256": "fd99791cac813f0d73c13b49e5e6c2c36d41f928bedda7e0a1fd1d23fa979d3c",
+          "settingsSha256": "33bbfef2455fed1ad6fb05ee0325991a22589a5d2b0b9fb400e9f17e83c502a6"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]红丘省(快乐柠萌茶)",
+          "order": 42,
+          "enabled": true,
+          "contentSha256": "9dcd7b879329e6d1f58b49fd5b38f92f6b259f264513273bcd87e0c7dc6bad20",
+          "settingsSha256": "c5b7ae088895345955417aa76e454ece447b4a24d86a9831d53e2f18c57882b7"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区][圣录城区]圣录城区(快乐柠萌茶)",
+          "order": 43,
+          "enabled": true,
+          "contentSha256": "2fc54ad55552bc677b89f9a257a295a67daa922cd7c86fae977851b5457c94a3",
+          "settingsSha256": "b870e6cb18ad63de5d76eab4382502396aaa2e9ea903c77230607c0c506555bb"
+        },
+        {
+          "name": "[本体][组织]锻造协会",
+          "order": 44,
+          "enabled": true,
+          "contentSha256": "8d875691429d9cb2db4f1975022ca05f47915c7db8a3aa22ad4e4b7eb7463467",
+          "settingsSha256": "91fa946cccc87c8db323ccfc90f6c506cb0abe751bae10d137cd919c2db3480a"
+        },
+        {
+          "name": "[本体][种族]人鱼",
+          "order": 45,
+          "enabled": true,
+          "contentSha256": "61d422750840eda6bf2904f83434d440c55ad53bea15760343414824639a6396",
+          "settingsSha256": "72c0fe905331e08385ba2f44a43ab262c4bf60a1d07d78a49177f71b2d971276"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]悲叹之城-双生堡垒",
+          "order": 46,
+          "enabled": false,
+          "contentSha256": "4fe305627e2a62d5cc9780be3a5a13cd7527f15ddb47c7ff1dcb625bca38791b",
+          "settingsSha256": "a0373d2365565e82c2573ee9d37809116f45b6608c64fdb5f891250eae37ee6a"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]迎冬节",
+          "order": 47,
+          "enabled": true,
+          "contentSha256": "b3c71c251bf11cefe4ea7e2cbee6cc25cf90e8c1a2f402b02d262cd48f0f06a2",
+          "settingsSha256": "35bf2946a0456bb8efaee6df764fc8a0accbe33a15651b66a912389e35fba2b8"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白港]北崖台",
+          "order": 48,
+          "enabled": true,
+          "contentSha256": "4ad7e8a0858bdb50bda35ebd3183a6549af484c27d4429b72c357755691166ba",
+          "settingsSha256": "8ccf84ef0440a2d1fe6b56afd714889f00a0db3926353f6ec94a677a008386c3"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]艾尔文海姆-栖居之环",
+          "order": 49,
+          "enabled": true,
+          "contentSha256": "81b8a383e303ca54b36b5a4e87d0cf7899d51798e3ba06473b95e57400db6994",
+          "settingsSha256": "25add47647a5d444124c9e33055cfe9c3d3194075908904ea5ef149055ced331"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][红叶镇]梦境神爱梅斯教堂(快乐柠萌茶)",
+          "order": 50,
+          "enabled": true,
+          "contentSha256": "3f53be6a314578565049049d1ae07e11494ec080766c1cc57d9502879dc1d6b0",
+          "settingsSha256": "00dab6229c644ae7e0d8a1b5e093a6a610d7b36be253aa3e0465d7e4c1cceae8"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]诺德海姆公国",
+          "order": 51,
+          "enabled": true,
+          "contentSha256": "58d3d446d3f68c901656e4a8385eef0ac73e77cc077fa417881ca03275c565a2",
+          "settingsSha256": "6656700d06321324e1249bc38a9fa2bca275bac2b110999ab0a1c167bd227797"
+        },
+        {
+          "name": "[本体][势力][兽族联盟]游牧部落",
+          "order": 52,
+          "enabled": true,
+          "contentSha256": "f365f976e9203e50d5d5c606d7485aa076b8761ef45dbcd2b054d3a886a28436",
+          "settingsSha256": "970220ee714325e88a93f4b2776eb25d8f18353665e5e9021feba5563b98d5cf"
+        },
+        {
+          "name": "[本体][组织]➡️组织开始",
+          "order": 53,
+          "enabled": true,
+          "contentSha256": "baf857f1fcecb271100b07953cfb7497cefdf4c9e719dbfc8e3cdc04c7b968aa",
+          "settingsSha256": "0ed8022485a091e5efee46ed1fe533855b3e602ae73261227677bf275b808cbf"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]文明哨站",
+          "order": 54,
+          "enabled": true,
+          "contentSha256": "3c7ae7fe4c3305581549039d2f25c9689eb0da68d63f6aacbdf6dd8fb72035da",
+          "settingsSha256": "e3efa959b008549f471fa9d601aa89a1ff3319fabff1243a5faf5e521bdfac83"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]卢泰西亚-内环-冠环",
+          "order": 55,
+          "enabled": true,
+          "contentSha256": "3db7704345de2e79ecddd6ff371a7ad34cf6e41478053e4ca7d9e6c06324af88",
+          "settingsSha256": "104efa80e0ee5e4bea6c68932d32fddcbfe056c1253d72786750c397fc3e7df3"
+        },
+        {
+          "name": "[DLC][扩展][迷宫经济生态与冒险产业]迷宫经济生态与冒险产业(Aoo-迷宫饭式地下城设定，地下城经营必开)",
+          "order": 56,
+          "enabled": false,
+          "contentSha256": "10c11a22f0cc5be94eb3431a186aa72163d22de7ea731ad6efeb9484696b5df3",
+          "settingsSha256": "a05475468ca6bb8ef6a1ff2124666fc0f94e84b32c1bf3d101d0201ea290a446"
+        },
+        {
+          "name": "[本体][事件]➡️事件结束",
+          "order": 57,
+          "enabled": false,
+          "contentSha256": "34f8d137649dc26be6dc4af729b245d187f80835e2d222df10db4e9df49faded",
+          "settingsSha256": "f16f68908c6ae4e3c650914e02432c1a12540dc4294d9432e764a8eb9342e806"
+        },
+        {
+          "name": "[DLC][事件][双子星的咏叹调]【双子】幻灵_info",
+          "order": 58,
+          "enabled": false,
+          "contentSha256": "2d24f011e08dd4e262d4e406e8b681386408927929bd786abcbcd5981c7366e4",
+          "settingsSha256": "9932b989662c759be099408cc8e5ada8a5900dcdbf6cdbfe33b38fab0ff6915a"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][银溪镇]圣艾瑟拉姐妹会修道院(快乐柠萌茶)",
+          "order": 59,
+          "enabled": true,
+          "contentSha256": "1a4ed4ade776c6ebf8736656b65b50e1df45f31f374baf82549b0b845f1a4d57",
+          "settingsSha256": "126362628fa3264083146fcf2010c38af4d8ba3853a850f0f17e4074015afcd4"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]冒险区域-边陲之国",
+          "order": 60,
+          "enabled": false,
+          "contentSha256": "43f56053b6a534159d3bdead126b58ef123a0d1a817f2e58cfae83d9da9ddf1e",
+          "settingsSha256": "ccc1530db2997923f037444a34a73ad10300ce26b861c65a3564f0aec4e77492"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]恐龙生态瓶",
+          "order": 61,
+          "enabled": true,
+          "contentSha256": "bee38d3c9ffa25ecc44f5da27e5a00255a0721150f1f84c14310e8aa1279ab10",
+          "settingsSha256": "45be11b3d29f7672b73143e48de5eee620b1cb839b5cb6cecefe7ac70033141c"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]灯芯绒广场(快乐柠萌茶)",
+          "order": 62,
+          "enabled": true,
+          "contentSha256": "ff276afb5480b0f79f3f3c180781e98f863b60d6a56f586869fd7fe55dbe441e",
+          "settingsSha256": "04647b71afe1d5ff0dca78702340c2514386d128075e4abdd7660c5bd07ae62d"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]无尽树海",
+          "order": 63,
+          "enabled": true,
+          "contentSha256": "a04fedf28f59d3195e338eaa4a1884125d810f616ab432ad437ea8de9c90de31",
+          "settingsSha256": "4b88368682ef17aa74ec8fdecbc57916cbe1109fdcafcd34554e9ccfd70c7909"
+        },
+        {
+          "name": "[本体][产业]魔宠",
+          "order": 64,
+          "enabled": true,
+          "contentSha256": "1153c663d18e487e6a75fd6010f3a112866f7f2ba4f74b28908a76306eb880b4",
+          "settingsSha256": "3a70fdffc234c8b9f37d9c32789e0fca1a7ec1eb386607adba63517e50f7a19a"
+        },
+        {
+          "name": "[本体][势力]➡️势力结束",
+          "order": 65,
+          "enabled": true,
+          "contentSha256": "1338e5ce17f981c5ef2a29862832c4fb8c55ea97e7862f501412eb3b2409c4c0",
+          "settingsSha256": "c3e96e4d802e4d2b5e495d1b2f83999b103bf6fef93c91c50a2d6972c8d62e80"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][叛离派系]碎星市",
+          "order": 66,
+          "enabled": true,
+          "contentSha256": "4436c7068e9ff9b7578b499fc79f754204381874034ac43ec71f0722467db6a8",
+          "settingsSha256": "f3a45cd9443ebab3d114843baa9363b7bd3e2d8304db360d368dd5d433dea23a"
+        },
+        {
+          "name": "[DLC][扩展][男娘扮演功能]男娘扮演功能(快乐柠萌茶-提供男娘形象设定：娇小女性化外表、穿女装、被误认为女性的扮演规则)",
+          "order": 67,
+          "enabled": false,
+          "contentSha256": "780be133689cb3c5c7d6961452337603b5f3fce6c01264de2dcb2dfa0542a742",
+          "settingsSha256": "8654d1d8c46b00481a3e81980f0653e0f23baa90d29755faa14c75f5c83108cb"
+        },
+        {
+          "name": "[本体][命定系统]类脑娘(by_lili)",
+          "order": 68,
+          "enabled": false,
+          "contentSha256": "104549877ecafdd83f75ae0c411e2d8c4d170ce9da51b1a72ba3e42babe3e769",
+          "settingsSha256": "ea6285a5450b3d5b174e38bbeda543b6929b1cb8345ce68c45045c2e25d751e2"
+        },
+        {
+          "name": "[本体][额外设定]战斗协议",
+          "order": 69,
+          "enabled": true,
+          "contentSha256": "dfea93bca98149085a5d6b9ae53ff7e88d0dba1d7193238f6b76b3bb94bd27b2",
+          "settingsSha256": "04b5e5a8c2b634153b9990ca185c7ee597a244d661a64e817e4922b9458a2fdc"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]风车镇(快乐柠萌茶)",
+          "order": 70,
+          "enabled": true,
+          "contentSha256": "10e2cff34ad564726ca12879230660f4059075968c1faa6681c26ddc79c2a350",
+          "settingsSha256": "15c406a404562839d98ab7e1bc50f61a922613b308427557d6d99b90430223ae"
+        },
+        {
+          "name": "[本体][怪物生态]灾厄之翼·安博卡(k1nn)",
+          "order": 71,
+          "enabled": true,
+          "contentSha256": "2cc9d659e51d7489ad3f9b83a93369f08413382043f2d2242900f93e0c2e318f",
+          "settingsSha256": "4a7af7a610fd1672b1a42d9ca6ab6bd4d61e57a136f9b8d6e584ce48f516e70f"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][时钟塔城]活动(快乐柠萌茶)",
+          "order": 72,
+          "enabled": true,
+          "contentSha256": "78177378c9cc3d871714624df0645e0fa67ee313d6785b1efa1ce9ddc2ad4531",
+          "settingsSha256": "f402c5afc24c3ca22996fc8496ba78620785a972740a6bada81a501de5a66738"
+        },
+        {
+          "name": "[DLC][扩展][种族-泰坦人族]泰坦人族(K1nn-随地大小变的锻造宗师，神性碎片)",
+          "order": 73,
+          "enabled": true,
+          "contentSha256": "d81d3468ad7e9bc214847bd4876907e8d7844743598ab8a50fb4b17f24571f3b",
+          "settingsSha256": "9e78edc9b8954fd25a7b38a9152b654551cd98c8da7c973dbf598403ae8672e5"
+        },
+        {
+          "name": "[本体][种族]古龙",
+          "order": 74,
+          "enabled": true,
+          "contentSha256": "5d2d318dc41e6d9c00358406a25a56cc84fed1bd46e356e6c74a8ea1c0dc2a54",
+          "settingsSha256": "0823b90d700c3ea1bcf0b5216af27c6f7b0c66bbfc4aa98e2755ffb7fcd48f41"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]卢泰西亚",
+          "order": 75,
+          "enabled": true,
+          "contentSha256": "4b0f5e458982131f177b327e9d87585d43516e25e76f6a487c35cd297b9bebb0",
+          "settingsSha256": "1914a4f055e2721794fce4e3dfb502d9f85cccc50c20532ebfdfeb0105295f20"
+        },
+        {
+          "name": "[本体][变量][mvu_update]用户最新输入(使用额外模型更新变量开)",
+          "order": 76,
+          "enabled": false,
+          "contentSha256": "df819664e7c957e2de73e53754173b6e41974db12d6045de036e9f1185776661",
+          "settingsSha256": "313aad65bfefcad944339642124e924408d078255a086b647332e50b9a5f6978"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][王庭正朔]星辉学塔",
+          "order": 77,
+          "enabled": true,
+          "contentSha256": "79d691c86e5676d21ec38abfff8d5167a33050879f2233cdc0f031afba70030c",
+          "settingsSha256": "108ce36faf95acbe2bedfef379b47033f27c60d01d859920ee6d59e45a65e9bf"
+        },
+        {
+          "name": "[本体][种族]植物生物",
+          "order": 78,
+          "enabled": true,
+          "contentSha256": "0fbf10374d1ac416df6c7ee7b1e98ae8266a08ddc8b26d5ed0bb3b053b39d8bf",
+          "settingsSha256": "2aa369885fe96637cc86e265484bdd1944469c864f51c2f0bc1a81d6578189ba"
+        },
+        {
+          "name": "[本体][命定系统]先祖(镜梦幻)",
+          "order": 79,
+          "enabled": false,
+          "contentSha256": "95dd4eb76e380a8c4ba7f91e4aba1868a2c1db906949ed045387a4bfbd2db5cd",
+          "settingsSha256": "7e303d170c289053727fd0fba4e694fec030d12788733eaeffe74a67abc1cec5"
+        },
+        {
+          "name": "[本体][额外设定]角色生成",
+          "order": 80,
+          "enabled": true,
+          "contentSha256": "6cd547d59fe554270831cb44763d4aeba1abd02c40c5fbe5b23d9c559fb8527d",
+          "settingsSha256": "0fcde583c52fd46ffe175ea3b949e8d731791d4451ecb377607209d685d2c579"
+        },
+        {
+          "name": "[本体][额外设定]复活机制",
+          "order": 81,
+          "enabled": true,
+          "contentSha256": "4412d4abece95ff9f927c4b479343cdb6eee406d01baf40d4c3ae6cf26c8e8ca",
+          "settingsSha256": "8e96f9258bca367599669a340c48d892776016f65daf8af2d5b69d81a1e9f114"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][凛风渡]下城区",
+          "order": 82,
+          "enabled": true,
+          "contentSha256": "791816ff1b1173efb1939035baa9c075c639f5652e617d542aea2bcc57b58ecd",
+          "settingsSha256": "1012b5cf537e0ddf7887b3c36d97fa2a653d48b649810ddc18e75e21a5f72877"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]阿勒穆特",
+          "order": 83,
+          "enabled": true,
+          "contentSha256": "6d6c5ae751c4532f448211567e51c06412d963bae3a6a916f2b41f93bf54187f",
+          "settingsSha256": "c3bf9c06c986072dccb46403da958f44dddd81b7b87d35922e1f6151174a0a70"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]赛瑞利亚自治区(△一串)",
+          "order": 84,
+          "enabled": true,
+          "contentSha256": "8bdf6af76e40a445a8ad42b9258125301d0cdeca5e6942b9ac4d43aebf58f058",
+          "settingsSha256": "213251cf0b42a753755fecdf411548f5cae0d9056268fe5f192d2f50ad992359"
+        },
+        {
+          "name": "[本体][种族][智慧生物]翼民",
+          "order": 85,
+          "enabled": true,
+          "contentSha256": "36e4aff3ac488d41e83aadc5abb95ec77fdf3e6ef7d6ec1469d10f6a8f466ea5",
+          "settingsSha256": "b430aaeaaa52c277cf599ce1188cdc6aaae31df751ba6b38c052f545589cbc5c"
+        },
+        {
+          "name": "[DLC][扩展][种族-山妖]山妖(K1nn-很高的看上去像石头的猴子)",
+          "order": 86,
+          "enabled": true,
+          "contentSha256": "efffb0431e495dcc0b101607ce80b3934fa25c56a795522391576f5a3ad6b5eb",
+          "settingsSha256": "a96efa13e72cbf3c82f5c05d8cc027037309228c4b481b0a22bb83d006bf5b64"
+        },
+        {
+          "name": "[本体][种族]半人马",
+          "order": 87,
+          "enabled": true,
+          "contentSha256": "6e380387998bc7a80593503a65ded5d9fbb888ca221b0ee623e83b499ef00927",
+          "settingsSha256": "a539ca78ea7ba6955b22d3c37c6c5b4cac3df4ed96aa8f589e67ae7bef3a32e3"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]暮林城(快乐柠萌茶)",
+          "order": 88,
+          "enabled": true,
+          "contentSha256": "becbc4826d5b67d8ac6f76f40ef393b4147ca63bb9d2e21d412e614e08b2f299",
+          "settingsSha256": "c543017448994db08ed6ebd4f55503f625d4142897e68e849b2149fcdbd650c2"
+        },
+        {
+          "name": "[本体][产业]炼金",
+          "order": 89,
+          "enabled": true,
+          "contentSha256": "ca3d66cf7d0f391694aac317226601bb73949f552b0235cd88c59b4d252fff5e",
+          "settingsSha256": "9d599386bacee5a23b9c44927dcc38fc79743529e2e619e7ac2a8e16d7ae895a"
+        },
+        {
+          "name": "[本体][产业]黑市",
+          "order": 90,
+          "enabled": true,
+          "contentSha256": "c4375af02abf5df574e0eaf966dd727bbe2fc8b46f26caa6da07580c2e0970fd",
+          "settingsSha256": "be2dc7024a8a6321c0ee4d5c97937fd82253b4d5abc951874146820a682a4846"
+        },
+        {
+          "name": "[DLC][角色][澪]澪(glen0822（扭曲亚提）-神造人，走出神殿的人偶/候补圣女/旅行者)",
+          "order": 91,
+          "enabled": false,
+          "contentSha256": "0d179bda9c54b2fd8b0a0fc4bad37a2a06df724b747151c1be8207fc67c2ebd4",
+          "settingsSha256": "2a9613b291873527868697d3ee8f85b061123c545fc3d3f3c87a0beec6c5fe85"
+        },
+        {
+          "name": "[本体][命定系统]妲丽安核心(随风渐变)",
+          "order": 92,
+          "enabled": false,
+          "contentSha256": "c35a005b6543654ba0bca898e70277fe7d07c103f5c28fd64248250368ffc74d",
+          "settingsSha256": "9712aafee3bab0d1101d6609ee420a5ff086f603d57eab525956e763f5b3c590"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][天霜王国]天霜王国(快乐柠萌茶)",
+          "order": 93,
+          "enabled": true,
+          "contentSha256": "d30e3ee956d4e7de0c2d8031eb8ac13771305f27d141af3ca3ec036faa4455b9",
+          "settingsSha256": "efdfa4a5788d5b18d8f4f1bef2958473adbd20102b49396760345d4ffdc5326c"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]游牧民聚落",
+          "order": 94,
+          "enabled": true,
+          "contentSha256": "2f3e8219fdefc18c2e28c23aeff1cd8efb48ff81252d130d65f05ef595837b9d",
+          "settingsSha256": "56fa1f92ddadd31b00147cdd2633214d4d987dbd9d6eb57c003d3c7c5df01720"
+        },
+        {
+          "name": "[本体][产业]妓女和娼妇",
+          "order": 95,
+          "enabled": true,
+          "contentSha256": "f0f4580ed59c6d4f64b5b1ce5fa6b4f56af0ca01323a8bf98c609a0d46937f4c",
+          "settingsSha256": "4d7d006ae9a550903e2d4e49ed7eac5fe97d7f03459a9351ef10d2e067dca5bf"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][地块]主峰圣域",
+          "order": 96,
+          "enabled": true,
+          "contentSha256": "3c4426b8c82e3e0edb935c1623919067474bb38f4c4ea02f0244480eb01ff843",
+          "settingsSha256": "b00de512537d41111c88206913362c75454cb6631df64aa6d1d10cf3ece511fc"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]圣光技艺与圣纹体系",
+          "order": 97,
+          "enabled": true,
+          "contentSha256": "33ab2b11ac54b41713940e6811a47954ef1ca500b237e640df7f1a76394e1ad4",
+          "settingsSha256": "5ee9091c39139557806b0e759fa7845d6c47f8666055f580b8aaefd7544e9e3d"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]莉莉",
+          "order": 98,
+          "enabled": false,
+          "contentSha256": "7460748f58ed6ac492996961ab75dbc7635d55e8c19015048c19d0626f5ef767",
+          "settingsSha256": "3ea732954c65137c7dca538940eed265af2d9c75a7d756dc15ac3e6ec7d36578"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]悲叹之城-迷雾森林",
+          "order": 99,
+          "enabled": false,
+          "contentSha256": "53a4f2fe6156b5373f125deeeeed3ebedc5fea9489d41cd07f86fd6c819a2a66",
+          "settingsSha256": "92b0c0851af56e26a6b342efd4d7a252e1439c77abc8426fd99b7ff3c80b1c9f"
+        },
+        {
+          "name": "[本体][COT]正文cot(专用预设关)",
+          "order": 100,
+          "enabled": false,
+          "contentSha256": "b859017be6ff3125b3604c2bbf0b6d26d0ae7dc0e57c89643c5a987389aed470",
+          "settingsSha256": "da973b166118029722660282dccfdb0cf455f4f5f8d7f0867ff68b180af55ba2"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][地块]群峰地带",
+          "order": 101,
+          "enabled": true,
+          "contentSha256": "5755b7d963be70edbdc0d3519dcca29636001a93be7bea1c59722aae2d7f0602",
+          "settingsSha256": "30c97147d1cb63f62755e8c8f89bfaddfd6f1ccf7cdd60bfd89aae36bbd18d30"
+        },
+        {
+          "name": "[DLC][扩展][种族-东方龙裔]东方龙裔(lili-很中国风的小龙人)",
+          "order": 102,
+          "enabled": true,
+          "contentSha256": "36dee22c70a026b1b07ec0f52046dc7fefbc3870deed4860759e2882cd945a92",
+          "settingsSha256": "f938e7c8f7890b75b52be9b9d7ca0b9e08ae24e547eb4815eb42354640d91cc6"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]风切崖",
+          "order": 103,
+          "enabled": true,
+          "contentSha256": "8b3ff0f7d4f1f010ee04ff662ca595877bfdf3c4612863ed803a007de8e20822",
+          "settingsSha256": "18705d846f25304fa60bf743ecd7bfda9b5ac79111d58fd53e1ecc2b88793a40"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]青穗田城区(快乐柠萌茶)",
+          "order": 104,
+          "enabled": true,
+          "contentSha256": "0a58c477205a2d1f6ed1eaa0209f2100b54ee6b49cb1ec90a7fdec9b0b2eab0e",
+          "settingsSha256": "337a1138f7cbb32f70b75e906f47e531f09f16ed515a72ec86781c62c9d03bcd"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]政治与社会",
+          "order": 105,
+          "enabled": true,
+          "contentSha256": "5a09b48f40db1afee1d7f2cc7abfca51350f3b40409414e40381ac7db35c0ed2",
+          "settingsSha256": "42e58ab849eea1c29ba9b3df22e9541ffdda95e5db8e0955507ab2fd4b980abb"
+        },
+        {
+          "name": "[本体][种族]愿灵(快乐柠萌茶)",
+          "order": 106,
+          "enabled": true,
+          "contentSha256": "45714472a096d1b16d146bb1c64c3c7ea48d1519b30056c06b72992303a87f3e",
+          "settingsSha256": "e310133731a3f7e2ebaebe790446c4620419f353e08c3427315d92efe0650e8f"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][圣都]水岚区",
+          "order": 107,
+          "enabled": true,
+          "contentSha256": "df78c12b2de67dead9544ffe3074b859b45e4d7123754daa1551dc292d3db570",
+          "settingsSha256": "8223b46cd2d37ce8acadeb58675e3037ea1c610071e870e6fc3d06ad7b17b850"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]渡鸦港(快乐柠萌茶)",
+          "order": 108,
+          "enabled": true,
+          "contentSha256": "ab02cad792791a75cc90d1734061e63abcba84649580c99cd48632d6072bcc8c",
+          "settingsSha256": "5c9a8a5dd7f3c4a8bbee6150e6e0ad7ef70881826717b644830ae4aa8732daaf"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环]三色海雾",
+          "order": 109,
+          "enabled": true,
+          "contentSha256": "532c1b22520268c09ddc14001c3b7c0f4baecfe3944e5390b9582664531d4188",
+          "settingsSha256": "93b0d8105b8c78d79c108a753c10a5f5a7ebef43bbbf9cc9979505840724c862"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][王庭正朔]高精灵",
+          "order": 110,
+          "enabled": true,
+          "contentSha256": "1392cb057f7089d1cc81e6d636723919dbb41928fa679e5ddfb9a29b46046b86",
+          "settingsSha256": "b315c1668bd3f4fe4870b7129d3f19ebe745620bff344773771459908cc5b856"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][林歌城]林歌城",
+          "order": 111,
+          "enabled": true,
+          "contentSha256": "605189daeb337c7bd0061c768eec5d7228f075fcbc905890c12ee308ec9a1eae",
+          "settingsSha256": "05618c6723f50453ff76e1469a6bbb580d1fff8c7b6d91b327dc4e4f1710dc16"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][红叶镇]古战场(快乐柠萌茶)",
+          "order": 112,
+          "enabled": true,
+          "contentSha256": "eb204db10076932f845bf5f22f31a18b02b0589baf5b6f8315ef97e793988c84",
+          "settingsSha256": "7d6bba6f22220adb6b9fd617a992602e381bec98af419ab7f2ee05aff6bd7c82"
+        },
+        {
+          "name": "[DLC][事件][群山回响]【群山回响】群山回响-本体(Aerra-关于我莫名其妙加入了矮人萝莉组织的远征然后一路干死一堆牛鬼蛇神后成功帮助矮人复国的这件事)",
+          "order": 113,
+          "enabled": false,
+          "contentSha256": "9053572e54ab69a9924ab2946a9ca04408f6db3536a049ad20e808195133080b",
+          "settingsSha256": "133681a44ddcd31e1e184210853cb307bbd4ba957f60849563d6a86ad05caa94"
+        },
+        {
+          "name": "[本体][种族]➡️种族结束",
+          "order": 114,
+          "enabled": true,
+          "contentSha256": "96563ac870dfddc715bed1e72931a150c2fda52751fe219296570aacfdb30e68",
+          "settingsSha256": "cb3ee3c905380032be0b820aad2b0a2b6bcee45167deb7cd7ce9032ca695a9c7"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][地块]群山空域",
+          "order": 115,
+          "enabled": true,
+          "contentSha256": "6476ce3739350b1b28abf11b3f66142cd082b941d06ba30f4bef360f249d9b60",
+          "settingsSha256": "b449970a8217cf029ce5b317484f0c821a37fc608b8f2b7dca703f179ff39f4b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]耀日回归祭",
+          "order": 116,
+          "enabled": true,
+          "contentSha256": "eeaa656594a844a320225f079eca90e8e9bd647ab3c18407c03453352f25e191",
+          "settingsSha256": "8d8f3f3b26ec3fa61d44cc4e77b9248a011deb993d2531fee76c90bb94c99f30"
+        },
+        {
+          "name": "[本体][命定系统]阿米娅核心(秋天的咸鱼)",
+          "order": 117,
+          "enabled": false,
+          "contentSha256": "4b9db96265d9137584ab6adb70157cab5d92b5cd7714c9f14e09d9b1278eb34d",
+          "settingsSha256": "53d37d5f305c9177d2d29054e9bf33def9874e618d8de5df16da742840dc7493"
+        },
+        {
+          "name": "[本体][产业]暗杀和绑架",
+          "order": 118,
+          "enabled": true,
+          "contentSha256": "14522b337364f3f1d02173ce531bc83d544b27bd9945f6b55dfcfebdc06b4039",
+          "settingsSha256": "df7b03915675f90d5dcabbe1b5da61dbc544c4d64fec4432b55aaaf08f691be6"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]圣日镇(快乐柠萌茶)",
+          "order": 119,
+          "enabled": true,
+          "contentSha256": "896ca789a65b48c2c99026292c0304b88db1477bba6927c3958d23f95ff5e04c",
+          "settingsSha256": "a532a2fe0788f277e06ce6915ce0dedb45e2281ecb21c281be3f431efe245867"
+        },
+        {
+          "name": "[DLC][角色][丝特拉]丝特拉(△一串-「燃烧心火，击溃其身」)",
+          "order": 120,
+          "enabled": false,
+          "contentSha256": "7cbf318983079ed414775f1c0044046f9e1306a2083fdaa45743fdbc5d9cee92",
+          "settingsSha256": "c0dfde20d42d66de494916067ca8baf3cde955c3015054e47ebbb671ff909bf0"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]总览",
+          "order": 121,
+          "enabled": true,
+          "contentSha256": "7a1f2770eefb549b08d516a883d92bf300a1c65badd4e8a35c3bcae32df1421b",
+          "settingsSha256": "7cb1a4bcaa2cbb7cb08017c9b075d27f7a4b57eb9d0930e96a54f745679edbe7"
+        },
+        {
+          "name": "[本体][世界设定]生命层级与社会阶级",
+          "order": 122,
+          "enabled": true,
+          "contentSha256": "07e6dde4c7060d0f7303f44db58ada07fd4f265e3a9bede7a929bc72ba82609d",
+          "settingsSha256": "f632d00b923deebf9796da46264b30b0bc12d9abedf6bfc475e133bb117f5f5a"
+        },
+        {
+          "name": "[DLC][角色][薇薇拉]薇薇拉(K1nn-半血魔,古代的凡人贵族,常出现于瓦伦蒂亚)",
+          "order": 123,
+          "enabled": false,
+          "contentSha256": "c784f660c4db31e06f4ef3f620bba2f2581201461b762b7483355775774e9692",
+          "settingsSha256": "c67a2222dc77ec5ad18121054bd0674c8d79e6f8083695e283262f96cffc23e8"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]种族-星之眷族(风见幽冷，Aoo改)",
+          "order": 124,
+          "enabled": false,
+          "contentSha256": "aa1cdb32a0f37da3e6a9b284df04c309b616a3bfd154e999808cedafc6fd56db",
+          "settingsSha256": "9c07105166a029e0f80ed7295fcfa57d52223a1781fb94a5d9f3848102768416"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]死亡之雨",
+          "order": 125,
+          "enabled": false,
+          "contentSha256": "6cb6552453a5d2901f282fe1e09d2b4d9c7e8aa0711f19416319327e1579dfdd",
+          "settingsSha256": "603cc8d42d211850f07af581dc23179c2f8f70c708b1b1edeca928056229127f"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]政治与社会",
+          "order": 126,
+          "enabled": true,
+          "contentSha256": "8f68274e49ba8f4a1453362bd027b65d0fe65818bec48f55c864c9cf0a87c470",
+          "settingsSha256": "ea58b269184a8724da9e7ef605aa7a766227997bcb989e291ef9fabba709f4c5"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]织光坊城区(快乐柠萌茶)",
+          "order": 127,
+          "enabled": true,
+          "contentSha256": "bb22910ae19a22b242ef84f3db01bda7949a5cdfe78de687ecce962eb2b5a404",
+          "settingsSha256": "11ab8b296892c0f70c9dcb29d32702e652eaa43f56b3a7265cc50f2b457403ac"
+        },
+        {
+          "name": "[DLC][事件][关于我战败后被血族女王变成女儿的那些事][<莉莉娅丝]【血姬】血姬-入口(Hilo-懒得喷)",
+          "order": 128,
+          "enabled": false,
+          "contentSha256": "2693aeb5332ed94c73e9d6a4759c0c7a72dd854bd84d92879a04bc0352d2eb57",
+          "settingsSha256": "9eaa784fc304f8c20bb80f95eba0d075f6de723c93781e9191b4b5fc092c8422"
+        },
+        {
+          "name": "[本体][冒险区域][悲鸣沼泽]伯恩·瑞瑟喃斯",
+          "order": 129,
+          "enabled": true,
+          "contentSha256": "a2145814cf99dd152f7b51941d60403053232a30739a40f54f67900b54cf5e35",
+          "settingsSha256": "e312b3efe4dfc50aca53abca19d263a4d384b249df50479e24b3d892b2bb779e"
+        },
+        {
+          "name": "[DLC][角色][莉莉娅丝]【血姬】Liliyas_info(Hilo-1011)",
+          "order": 130,
+          "enabled": false,
+          "contentSha256": "5abf1fe071045ebc5ba2b28d315d9d4ee98bff61efab5653fc7c0606b0575fc0",
+          "settingsSha256": "554040986724c801f8e579908e20ebbc6ed9e624fefa0be0fd1e0ff9b4f51f42"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][林歌城]灰冠庭",
+          "order": 131,
+          "enabled": true,
+          "contentSha256": "557c4ed8841e9f0b42858e182c275dbc561749cee33ee448cf75ba8ad03fada7",
+          "settingsSha256": "f227e90babda124c0914b692445331b68c37bb7ff61bddf5c8a7469668cd7f6f"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]霜叶之森",
+          "order": 132,
+          "enabled": true,
+          "contentSha256": "9ce9b078d6d8f41b33a6548f971fe74c09056797886641775a1760691fcfca0c",
+          "settingsSha256": "b92b337adc8bb62e53f579673c351a23ff0715e8579f14ba106863da5d445a8f"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]索伦蒂斯王国(△一串)",
+          "order": 133,
+          "enabled": true,
+          "contentSha256": "28896c830b74f3afa64aa4212ccb5ffda1fd7ac94970b6a7026e4e62065c9a5a",
+          "settingsSha256": "10b0f0569dd090b05bca8f1748bfe5e423abd7ca5fe8a5fe65070690ea4bc1fb"
+        },
+        {
+          "name": "[本体][额外设定]经济价格指南",
+          "order": 134,
+          "enabled": true,
+          "contentSha256": "045821516426ace7d2fb49e01763d8b9a703add0cb3c87345cebec348a0b34b7",
+          "settingsSha256": "d7d619e40105257b4341b2275801a5940f5f23fba3ef3cfef09a804b59224e0b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]外环前庭",
+          "order": 135,
+          "enabled": true,
+          "contentSha256": "639dcf8cb7363745e58187299ad997071e77334317199af42d2b0137c5ebeae5",
+          "settingsSha256": "9b008ca2db3489a0044b27d2648b2d25faf02df6fdf2d7665e969db6362d24d4"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]冰峨镇(快乐柠萌茶)",
+          "order": 136,
+          "enabled": true,
+          "contentSha256": "ebe05448a980f2de6c2a6143f0af9e24aab9c802b5d8971476c949e2c1b07a2d",
+          "settingsSha256": "c6bb7665fd77ff9f5ed7386f1af98f67963d48835a688ba8604d32ddf43f1e3d"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]地理与文化",
+          "order": 137,
+          "enabled": true,
+          "contentSha256": "50261b9970fa41d08c07749bd1126102ec47ff2ad9dbac999c761dc8e7c15645",
+          "settingsSha256": "ab0ef6cbacb9268c7cc031e466b067bdb358738553d5e9d6d8fb227a479dbdd4"
+        },
+        {
+          "name": "[本体][变量][InitVar]世界初始设定",
+          "order": 138,
+          "enabled": false,
+          "contentSha256": "b94f35e82463b6747e4d8fcd9dada3ebd743de099e46fd085de260046603fed8",
+          "settingsSha256": "9f6158f44d9f4e0f7fb9bdf126861e9ca3b97e3235684799ab42bfeaa294cb36"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][银溪镇]银溪镇(快乐柠萌茶)",
+          "order": 139,
+          "enabled": true,
+          "contentSha256": "df1ce7e010f8ed64a6452be67e7cd7b0b29b5312ad62ae3d63b1b2c7d0eb2bf6",
+          "settingsSha256": "6adcc79b7c5f789b0ca6054d5a1bba554a715aecf5fd6d446b7da99513d8ca22"
+        },
+        {
+          "name": "[DLC][角色][乌雅娅]乌雅娅(k1nn-血族真祖,活跃于银帆城)",
+          "order": 140,
+          "enabled": false,
+          "contentSha256": "94d50f4282e54b08e9e772a23a5f1d0df88e5c120b61fc38bf1d89594fc9c5d7",
+          "settingsSha256": "7f0a54afb80b6fb8740acddbb3c1c73ce30d9f6d44ef7c9134aa0230aeb3dc12"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]王国都城-城区",
+          "order": 141,
+          "enabled": false,
+          "contentSha256": "ae7abc12524b429227bc70edb6dcc6abf7b25acd6d51bb60babfe83cfb8c9b5f",
+          "settingsSha256": "2f737bee48f4626ff8da61e1e6afe83041fe6019da66d4b1025f71fc3c2af7b6"
+        },
+        {
+          "name": "[本体][额外设定]核心数值表",
+          "order": 142,
+          "enabled": true,
+          "contentSha256": "48428716f975d3dfd9560d4652e2c78e805f91bc6ea869d4100983aed80b91cd",
+          "settingsSha256": "e83b8c2617c873bb2c62a6eee1f4196f848cd7148a60c96cd52d7903f7909d6c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]风切半岛",
+          "order": 143,
+          "enabled": true,
+          "contentSha256": "bac35385e262414ae72bfa5e396d516bacc8cda4399ebe3ea475c6062816fcbc",
+          "settingsSha256": "c9e0e09dd68b3ad62d275192254de983b5c797ef30c67a6b87ad13b9152443e1"
+        },
+        {
+          "name": "[本体][种族][智慧生物]精灵",
+          "order": 144,
+          "enabled": true,
+          "contentSha256": "ad8c90f28769ccc5ca81b3ca8d9039eadcc3fd6437e8a1de646806cd98dc4ec9",
+          "settingsSha256": "dbab781fa990ff5d0bece3dc2e1e5a183f493e10e2cf39ad989836c6bf9ce86b"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]大鼠巢都(快乐柠萌茶)",
+          "order": 145,
+          "enabled": true,
+          "contentSha256": "65d0fc41db389112c53c1261140d5459837dcfbaf3ba6d52639dc0fed6df84b9",
+          "settingsSha256": "b133634f9d0ce59b1acb0ea62526a940924242393f0d84d2ed2d3e772f1333e5"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]长夜守望节",
+          "order": 146,
+          "enabled": true,
+          "contentSha256": "09a383675c8d61a509ccdf8acbd305872df3d653b5e92e4c0d3c5f32f175a6b7",
+          "settingsSha256": "ab4e2a838f50bc3b0d7bd5c9d82eb8abad55cd4cdeeca59474a38c81542596cb"
+        },
+        {
+          "name": "[本体][组织]金狮商会",
+          "order": 147,
+          "enabled": true,
+          "contentSha256": "dd16f2319443e3ad30e11a6103da20569a34c744c3994c6d68f43dfd39b952e2",
+          "settingsSha256": "74156c67b2a8687f323bd3ff6e8fe6d0015361f394030e8f4a7b51103badcd03"
+        },
+        {
+          "name": "[本体][组织]炼金公会",
+          "order": 148,
+          "enabled": true,
+          "contentSha256": "ce677adbe4d0be2cdfe8f2dc8437a7419603c81216fc01f6ead03610e3f8b667",
+          "settingsSha256": "e9c82b2e4018ad7cc9fe50db77a69fe2a280da7b6af6ddb0816077d8c4403b02"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]曙峰",
+          "order": 149,
+          "enabled": true,
+          "contentSha256": "611df04ced2396c53b85393340df39c7d3e8d106379e022622ea84dbbb23ffa0",
+          "settingsSha256": "8255f07268c2f3c98c98ba52b0a623e8d442c0172266ead759e8188ed6ed8512"
+        },
+        {
+          "name": "[本体][额外设定]技能装备道具生成规则",
+          "order": 150,
+          "enabled": true,
+          "contentSha256": "474258aa1e53faae7cbda3bb41eafc59bfc7459477822177b6b906e738c4f801",
+          "settingsSha256": "f3ae1fb33fc3f024309a7740f520ec72558a0290149d3854bf81d569b067b848"
+        },
+        {
+          "name": "[DLC][扩展][种族-英灵]英灵(△一串-历史传说投影, 纯魔力灵基, 执掌宝具与权能, 需定契约补魔体液交换)",
+          "order": 151,
+          "enabled": true,
+          "contentSha256": "126ceb2acc7dbc5eb8ace0da7e2cea5095880be8bdf8218851e67e4c022be73c",
+          "settingsSha256": "e243b31b0bfab9f29ef9028b15b84ea194a6f358e1df2521cb1fed2811999673"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][琥珀加德]酿坊区",
+          "order": 152,
+          "enabled": true,
+          "contentSha256": "6f407435129e76ae687567af1ec56042ea775e494b31984e785f07a9b079c0d6",
+          "settingsSha256": "def1bc0a7cfdd15526a25277a4f6ff35cd1ffd296d308c7427057ddbff991d91"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]种族-无形之子(风见幽冷，Aoo改)",
+          "order": 153,
+          "enabled": false,
+          "contentSha256": "97ee5bedfd6fa6c3dfe9c6beb0cfdcd5c50264cf68008b0fd9db6ee18b84ce2a",
+          "settingsSha256": "37644866cfdd9021483936b78dfeff4667a968130155ddde0f84b72ce0c63c48"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]绒绒窝城区(快乐柠萌茶)",
+          "order": 154,
+          "enabled": true,
+          "contentSha256": "1a5cb2c722531d3a3245cc41ad3955ba29570bcb9dc445bcea28d73eb39eb202",
+          "settingsSha256": "59134e3a28ae9cb4bcea96d5df21d6f374c9e466054623d327223f68917ca01b"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][圣都]穹顶圣域",
+          "order": 155,
+          "enabled": true,
+          "contentSha256": "718232598886a468dffbc7aec1d9a01b49656d73e37d517514d833cefd0be44d",
+          "settingsSha256": "cc677e237c919e997e700738c8b96adc336b71763cfcf5fc89462904685ea472"
+        },
+        {
+          "name": "[本体][命定系统]阿比盖尔核心-里(风见幽冷)",
+          "order": 156,
+          "enabled": false,
+          "contentSha256": "81e8fc7ba91977d7f0fa6f3fccf605a1543425f18561ed996ad7873917264de8",
+          "settingsSha256": "f4f75bbe23448bd261143732d4901701e4235444012a7962243b5f0bfd464b91"
+        },
+        {
+          "name": "[本体][组织]组织概览",
+          "order": 157,
+          "enabled": true,
+          "contentSha256": "bd2ed5dd38b103200f7c1b753cb43bebb6fc95f92a05630b4367ef4bfa0766ef",
+          "settingsSha256": "d335d6d06d41cb05a87b194844a37427c0779725a817727ad9860e570d8376ee"
+        },
+        {
+          "name": "[本体][冒险区域][永冻冰原]永冻冰原",
+          "order": 158,
+          "enabled": true,
+          "contentSha256": "bf513d18017fea5f08b5ae677581ca089ec017638e5e7126d43bc6d1f40d3206",
+          "settingsSha256": "4f4cd5585dd686ce65f6258b550260912caf9b1b3c620613765e35ba28c70f6b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][琥珀加德]城外农郭",
+          "order": 159,
+          "enabled": true,
+          "contentSha256": "33e953e6d3576bd60f5153fb274498598e9c20e4c823c1b104774c0bc77a755f",
+          "settingsSha256": "6f12d1f6eca2872c72130122a956d7598211941500d8a4a0d00edea5d31af2fa"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]织流生活区",
+          "order": 160,
+          "enabled": true,
+          "contentSha256": "806500e2d344571b96d6762fb86c0290381742f95b8f1a4ec1ecf392cb4f2cbf",
+          "settingsSha256": "1d133fd34c9c601b1bdf8d9ee5abcf16ea547cbd46493c631dbc1f9a1bbc625e"
+        },
+        {
+          "name": "[本体][世界设定]世界主设定",
+          "order": 161,
+          "enabled": true,
+          "contentSha256": "1aafd99854fd19b7d8431bb93a87c0fc936a105eb1b4796206b2c045f2216e42",
+          "settingsSha256": "df8f822504fc948b249840d92753712c563c508c5c39ac61fa3075a210ea1fd2"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]地流旧城区",
+          "order": 162,
+          "enabled": true,
+          "contentSha256": "9d4cf3ece2719a5dd5cec0b10100ba842371e0d489da94be87ef11a9ec49c5e9",
+          "settingsSha256": "512c0dc9354a74d42fc3b49d757a36457aeffaa4c97f8024219354e19bfefe30"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]维里迪斯省(快乐柠萌茶)",
+          "order": 163,
+          "enabled": true,
+          "contentSha256": "1f0d1ef83fa327d1537325474005325f2a049d8fe33343dd376c2cd28fdaf49f",
+          "settingsSha256": "9068ae669a7fc250aad5c4e7b7aadcc3dc2e514f2cf4f17eab2dc823359bbaae"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]外围村落-悬崖村",
+          "order": 164,
+          "enabled": false,
+          "contentSha256": "4ced81aea113681fdbb7db8621e4bf983720bf4d3aefc7b7d4f7e7efd3f67d8d",
+          "settingsSha256": "1dcf5fb0d93e31c4f93b344035034113c85716b767927b1b132d13e40732d1da"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]外环区-彼岸街(快乐柠萌茶)",
+          "order": 165,
+          "enabled": true,
+          "contentSha256": "9bc0b5d427645685059450467183c0c922a5f485a1daae2399492059e6edf711",
+          "settingsSha256": "dea4f3365b0f4fd6f575b9e4579ee6fbc7385da21c4e7f31454c910881bffaf8"
+        },
+        {
+          "name": "[本体][势力][兽族联盟]文化",
+          "order": 166,
+          "enabled": true,
+          "contentSha256": "315ca5e07bda7d25684f7a3e7a4def34fbcb4b7402cef4e8ebb52a4614efc63e",
+          "settingsSha256": "2bf275d63d161e9adb0b807bf560b0ac07ebc21586950ae60703be0e8f35b770"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][王庭正朔]龙誓骑团",
+          "order": 167,
+          "enabled": true,
+          "contentSha256": "547ba94150256b5a82523039570b5f69e85f0a9e1df68dfe01c71f580c907442",
+          "settingsSha256": "ba3c09eaab402b51a106f527422faaba812eac8da995860ec1322fda06a2c828"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]内苍白海",
+          "order": 168,
+          "enabled": true,
+          "contentSha256": "1c3d1c72416b87cfd44b9309356b31db54efaafe2c246aa89207f68ce156462d",
+          "settingsSha256": "99d774e39bccdba6d369a159197a5e9f2c6b25fc28c39229f83dc5ca8823e2e5"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]埋骨圣所",
+          "order": 169,
+          "enabled": true,
+          "contentSha256": "8569a5c4ec5068121d69cf4fbfb609060c69f8e706417a4938fe849ae9d8e0a8",
+          "settingsSha256": "2e8c3165e4c4cade1358938b5ae53ac678746eb1561d2f16b2f32c4a3bdf4c30"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]怪物生态-黑山羊幼崽(风见幽冷，Aoo改)",
+          "order": 170,
+          "enabled": false,
+          "contentSha256": "e57b88e782016399813a50906f89d461783af0a91cd118a92d7d8fccd8feb49c",
+          "settingsSha256": "79f0bda94a8f908c698c452cd363a74ec4d1f78c980a984f2bd8e680c8330875"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][潮汐王座]琉璃回廊(中层区)",
+          "order": 171,
+          "enabled": true,
+          "contentSha256": "6b6771bf8b2a8c5a040cdb44fd65c3e4473bf9faaf5965a0095705394460ccde",
+          "settingsSha256": "73f9885ff508f5114cda7a0ab69b69ce35a757eed51fa251542ef1ef6f290ca2"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]盟约广场区",
+          "order": 172,
+          "enabled": true,
+          "contentSha256": "1b1f8c853c4890ab1ab0f33c3e297374ee4a35643a6fd685a50ce3259c7a4772",
+          "settingsSha256": "3db58eec727bafbec0e73b4103336d97be66a4ad0c8f64ab48bfc8a2db1fc18a"
+        },
+        {
+          "name": "[本体][种族]元素生物",
+          "order": 173,
+          "enabled": true,
+          "contentSha256": "872f2b992290fcf35b8d21465b3cdf26f2e6b9477a4d2d6cb0ec8536786c29c3",
+          "settingsSha256": "56acf817a5f7adefd198eefc5500cb98d7a222780dd5cbf23614bd8461d1ca77"
+        },
+        {
+          "name": "[本体][冒险区域][碎星群岛]落星之岛",
+          "order": 174,
+          "enabled": true,
+          "contentSha256": "be3e707aeff7316c17b7950886bb4a15479ce1f8ca47283c210aca67dbf5f9e8",
+          "settingsSha256": "cf53b482ad61bf7f7a0636f5dd192c38992b6256d4853a30f3783a36d209fa37"
+        },
+        {
+          "name": "[本体][命定系统]UNN演播室核心(lili)",
+          "order": 175,
+          "enabled": false,
+          "contentSha256": "f84eb00180e457031b8e9c0153758b9ab442a35688b916a298935de8a64b69dd",
+          "settingsSha256": "2f01d6e4a41c60f3b763895661081c185a4659f2bee9bb2fab88f413c2bf34c8"
+        },
+        {
+          "name": "[本体][种族][智慧生物]半身人",
+          "order": 176,
+          "enabled": true,
+          "contentSha256": "45f9a6ab8146eec0cd0370ac6fec3ae414a21f59a9c04c37f48429ad5d3984f9",
+          "settingsSha256": "e470861ca25de9c264475122cd55a74cfc39531e63eb074aca97b0f0f48fb90a"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]晶锚中心区",
+          "order": 177,
+          "enabled": true,
+          "contentSha256": "9e86f08a6f21cbe0c05062dbda49d00c27f01b8a516d20a39d2f2d9e16584a5b",
+          "settingsSha256": "19491a1c2b30d05963e4097a3db963a4335481dd21b0f23744bbbfdfe6aba35a"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]栖羽城",
+          "order": 178,
+          "enabled": true,
+          "contentSha256": "daf174e70ceb82821a6a83ae4aeea9fd833dbc037a93a61be84f1349510bcae7",
+          "settingsSha256": "c3b0d974e6b68519c2d939477d11623e9c827f6d67f3ab8514305425534bf1af"
+        },
+        {
+          "name": "[本体][种族]魔造生物",
+          "order": 179,
+          "enabled": true,
+          "contentSha256": "f9603d297b7a89eccdc975a33f408b99ccb67ddea00fe1d63c7b842143a555aa",
+          "settingsSha256": "54caaf3d63fec527c164a0bf5ba8dd1f585120b38556507a5859ce3dbfac21da"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][赛瑞利亚]地理与文化",
+          "order": 180,
+          "enabled": true,
+          "contentSha256": "aabda6ea85ae07ba89fc3a5d10522cea5be90f5dd4f84b68d6b69d46276a43ba",
+          "settingsSha256": "e4e0c71955590cab7df01ef1ce8e1765429b36da97a67c657cb4dc9f7552f35b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]乌尔芬公国",
+          "order": 181,
+          "enabled": true,
+          "contentSha256": "cc0e4035a1016ddd84b08571584788c735e076dda9997a48d875a9af37c4c63a",
+          "settingsSha256": "edc7e2fcccaccabf6d8b9f1c163832640066ac21f0f5f861afbe551586aaaa53"
+        },
+        {
+          "name": "[DLC][角色][克瑞西达]克瑞西达(那什么阿法-在哪都可能出现的，也可以变成任何人的 怀表幼女？)",
+          "order": 182,
+          "enabled": false,
+          "contentSha256": "82b58deeff811bf284269ba7c94207943256e08fd421cdf47f0f4b26d907ca1b",
+          "settingsSha256": "a5f0ac80a39fbadcc17c13b6a5acadebaec367b603ff02339b429df4d92854c1"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][红叶镇]红叶镇(快乐柠萌茶)",
+          "order": 183,
+          "enabled": true,
+          "contentSha256": "bcd406150b35c2520c498774f806e366cf92134ae4658587bf985187578818f3",
+          "settingsSha256": "8f3caa4524a71dc044fe05cd31e519bad47360bf33bd479291aa9c5bc2a17a8a"
+        },
+        {
+          "name": "[本体][额外设定][非专用预设需开启的条目]审美叙事原则(作者十七)",
+          "order": 184,
+          "enabled": false,
+          "contentSha256": "a1bb97fd90f92818fad27994b634c06cf83735059a8c20dd5fa3e70746f659b7",
+          "settingsSha256": "d580489d0524aab166fbf0208f836eb4b2e3d61c32e972df7c59f70a7ba751fb"
+        },
+        {
+          "name": "[本体][命定系统]阿比盖尔核心-表(风见幽冷)",
+          "order": 185,
+          "enabled": false,
+          "contentSha256": "ebfd93e7eddd672c9cc106eae610c0447c043de1fb2319a3298bc1646394fae9",
+          "settingsSha256": "e245ca7dbe2328e9bd4c70be6664286945691a7b27266bce0fac88a80401bcd0"
+        },
+        {
+          "name": "[本体][命定系统]奥托·阿波卡利斯(by_lili)",
+          "order": 186,
+          "enabled": false,
+          "contentSha256": "5c25b51eb90541d1215b1c0470e4eef47438d6cb0e1a02f0b8ccfc460bae97fc",
+          "settingsSha256": "f709522d332a41c3773ef54a64a2ca08f5ad987714e3c20e84deb19af4895a3b"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]中央平原区",
+          "order": 187,
+          "enabled": true,
+          "contentSha256": "89dc344698a1e441f718f6b26240d69e8a2d6aa37b1481a1dc3a73a3dfc319d1",
+          "settingsSha256": "f4a3465d7776d1bbcfe1005d9d2dabb214e1d2d265ab4a63f2c27fa2e4a171df"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][霜镜港]商务行政区",
+          "order": 188,
+          "enabled": true,
+          "contentSha256": "45436201c90bf0b2f8419c2131c4e9e7e0b9181da0891d14fc0d0964172d1837",
+          "settingsSha256": "1d822302ee3cbc5e5f41bd257bfba54f2ae1cda0f12572187c136526ac69b4f9"
+        },
+        {
+          "name": "[本体][额外设定]➡️额外设定开始",
+          "order": 189,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "855721cb7e5524047c8c6a967c8f7398f5f3a70198bd065f601933936c73fcb3"
+        },
+        {
+          "name": "[DLC][事件][群山回响]【群山回响】群山回响-入口",
+          "order": 190,
+          "enabled": false,
+          "contentSha256": "bc04fcd2f88f380a6031bb6c66086eee19255f85f6ec082e0eca757a90c018ae",
+          "settingsSha256": "60baf004c1d36b68bf08252b65d36b55689d1194777474545181b5780fbad182"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]珍珠湾",
+          "order": 191,
+          "enabled": true,
+          "contentSha256": "8d533b4862c3c1670095be7a240fa0c158d2cd92ec094865c732c4708cf55415",
+          "settingsSha256": "2b106f53180552195e61e4f8d0b4be5afe984820f36ca83dbe0408d6cbadae23"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]月岭",
+          "order": 192,
+          "enabled": true,
+          "contentSha256": "b831b8dd3d7d5df6b5ec2b356c12c35a055453d87cbeabae41729c24664d9d02",
+          "settingsSha256": "93cebc47d107c9951f369cf85127730fd8f361fa34468415d60932a8901d50d8"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][城镇]眠根谷",
+          "order": 193,
+          "enabled": true,
+          "contentSha256": "0c81876b639a397ee97fffa95b75808d54343939acc220932956d939214110d2",
+          "settingsSha256": "fb03751d532f3cea687caa47ca0c79663699e085e0408264e2908c4e1d7bf421"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]贵族",
+          "order": 194,
+          "enabled": true,
+          "contentSha256": "8273bc819b323510a3acf4d49009dde20942c8e9b976a49749f11a0737d2920e",
+          "settingsSha256": "449936774657a7939e3f42ec296b0beed563bf5fd070ee58b829afde9a483954"
+        },
+        {
+          "name": "[本体][势力][永夜盟约]永夜盟约-地理与治理",
+          "order": 195,
+          "enabled": true,
+          "contentSha256": "c8f0d89e635d36dc4391c16ea4aa61bac45cb4656900891c98c11e344041d462",
+          "settingsSha256": "150e2c18af9d179347a6cf1b7c032a1f915b75d8ced3c7c13748deb3b4fc5ee3"
+        },
+        {
+          "name": "[DLC][事件][群山回响]【群山回响】艾波丽斯_info",
+          "order": 196,
+          "enabled": false,
+          "contentSha256": "4cae4e84462352126ce6db0063652aa5c3877056203adaec4528a86faee031d7",
+          "settingsSha256": "d1636122dd1cecd18fc96575e6e99e9d23684f5a64b70df8da3c4a44e4a26ad0"
+        },
+        {
+          "name": "[本体][控制]➡️DLC开始",
+          "order": 197,
+          "enabled": false,
+          "contentSha256": "34f8d137649dc26be6dc4af729b245d187f80835e2d222df10db4e9df49faded",
+          "settingsSha256": "0bfccf8739a9d8544d8a79893a31ee0b38e2a14bcbbd62a4b0f47f34456694ff"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]郁金香大剧院(快乐柠萌茶)",
+          "order": 198,
+          "enabled": true,
+          "contentSha256": "7055bb0299b4e3c46e7f1c85963846633d2c4a56431531b6e0e5589140ffb54e",
+          "settingsSha256": "4be5610b30c524c798d642cf00d29acde9f3918e742ee435b311cf8c2dd1c8f8"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]长夜之境",
+          "order": 199,
+          "enabled": true,
+          "contentSha256": "46fccaecb890eb1d2e7005a15df38981965e295447f4318dd313b2108cdd1b1a",
+          "settingsSha256": "7e5b73c3dd337dc4c4e400feadd0edf03d475b5b7758f1a262054a7f6a96ebaf"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][琥珀加德]金冠高地",
+          "order": 200,
+          "enabled": true,
+          "contentSha256": "76cee0c80451ff5fc72d199a3972f02cd0578b80f4da2c174e539fe7a9ff170a",
+          "settingsSha256": "1c6cb9f483830571393f4ca35f2e53f160eee4275f4d6f27246e65d485e6c2a4"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇]风切堡",
+          "order": 201,
+          "enabled": true,
+          "contentSha256": "3f738fc232cf55e5ea7fe80fe0239e9e8257124f7c7526f9ee1befabb8ae377c",
+          "settingsSha256": "d7229118c1d873a53d51ae0934b40e7fbce910d3165202e3b8bafbe75e622f7d"
+        },
+        {
+          "name": "[本体][势力][永夜盟约]永夜盟约",
+          "order": 202,
+          "enabled": true,
+          "contentSha256": "681cd41f26dd5ae935cb07aeae54d480738c68110b65e3b86149b8e8f5ef3d92",
+          "settingsSha256": "fdd1d10764f6621c0921bbe2a8b365bdcb308ad73de4aafdfb20c16ca998ad2d"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-蔷薇之壁(快乐柠萌茶)",
+          "order": 203,
+          "enabled": true,
+          "contentSha256": "0e46fbce103c8b97520c146b75b0b723fea8a1106627f1f62deb4765848ca4c5",
+          "settingsSha256": "5e047a2be252fc72d27bb86f97aad7a6e52ff8eb71694a28f04e294fa403c87c"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]索莱尔省(快乐柠萌茶)",
+          "order": 204,
+          "enabled": true,
+          "contentSha256": "3b232805e0fa60682cfc4c8300c4f6018b62d5889fa419844f4ae3387d2a723a",
+          "settingsSha256": "97fb804f1f3917ead77d3add03c67db5b47297e9e707690948b54934c1c4b469"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]春潮祭",
+          "order": 205,
+          "enabled": true,
+          "contentSha256": "54daadc4bba13468113f322f870b06701b5c7f7c774fd2cb7a38479ae740d37e",
+          "settingsSha256": "438284dfe31f04e0e753295b536b141549cf7b3cff24f608fffcaa94d74c1af2"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]魔女塔楼(快乐柠萌茶)",
+          "order": 206,
+          "enabled": true,
+          "contentSha256": "b50f2bcf24f13b63fb82a38ec47ce36384196663f3565d44d6eb156ab42dc542",
+          "settingsSha256": "4958f0c0775ff38b884adfa64842260485a54a77be522b2c0d9bf476251bab89"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]试炼阶梯",
+          "order": 207,
+          "enabled": true,
+          "contentSha256": "708a4952b2e521f5f3fe9fe219a088dfe321802c359bbe5fe1194557354c3ae8",
+          "settingsSha256": "f5f1a060233b2cb4e495190e3b4a27108a00aae7efab24553145fc8244234631"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]种族-深潜者(风见幽冷，Aoo改)",
+          "order": 208,
+          "enabled": false,
+          "contentSha256": "e07dbef4604232265b0bba567799294f1150f8c6ac2aab0996cdeca2b42df267",
+          "settingsSha256": "8c7c1ecc93b12d72a64e63d55d7106d8f51a87f33ef8d817d3728cdefdf5d76d"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]金浪丰收祭",
+          "order": 209,
+          "enabled": true,
+          "contentSha256": "86e36b913f2e0d71ea781cbc43bc52c84af99b57f5204e417e11acdadfe1f0bf",
+          "settingsSha256": "072eb01287b858f97f8031ef414d49d77e70a2a6d73081fd1416157e6dc17cd7"
+        },
+        {
+          "name": "[本体][世界设定]➡️世界设定结束",
+          "order": 210,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "e526eb82c536cc25e3d3aef4e9f267efdab08d9d86977d8845c531a7c42e9f61"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][王庭正朔]银帆同盟",
+          "order": 211,
+          "enabled": true,
+          "contentSha256": "e66f6192148dbeaa9d3b6932743dd59ec175eb9231f8bfe7e4ac4623ffedb06b",
+          "settingsSha256": "89520b04c3663f74ea72bf8b5cf3393f2304c54a9168ae8dcb7f5595278ee34d"
+        },
+        {
+          "name": "[DLC][扩展][种族-奶龙]奶龙(快乐柠萌茶-编者注:求你了别开😭)",
+          "order": 212,
+          "enabled": false,
+          "contentSha256": "06ac63805b57510a231a5a97517e57b237b558a3a566639dd6ab6197622c2038",
+          "settingsSha256": "b535068658ad72749191158f1c796616bc9a7c9d20d8fe8e3984987bb366d929"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]风暴堡",
+          "order": 213,
+          "enabled": true,
+          "contentSha256": "23371c4062821e2dff0c99300bd271347930df3b50e7919fc24e98b02d2601ea",
+          "settingsSha256": "6075b15cb82a18d111d60559be79e28806eff093d315a2a0e034512787e0d81f"
+        },
+        {
+          "name": "[本体][组织]联合海防巡逻队",
+          "order": 214,
+          "enabled": true,
+          "contentSha256": "5ca6c5dd2abb66172a8102b146e6107cc2eaf2126f7fc45e57d958386af685cf",
+          "settingsSha256": "70f7c311d1d0c033d3a409ed80b7f3b9e797e7dea45d6b47eba1fe4889a02ae9"
+        },
+        {
+          "name": "[DLC][扩展][种族-边境精灵]种族-边境精灵(Kaine-在沙漠和在雪原的精灵)",
+          "order": 215,
+          "enabled": true,
+          "contentSha256": "006dba86e656cab8f2c239baa1dad32de82d8df1f0b9ada43b727d14afc08daf",
+          "settingsSha256": "88b0ca163232c4fb22e3b435ab8cf384022e8e20629f20b4dcc409b04314f207"
+        },
+        {
+          "name": "[本体][命定系统]lily核心(青砚)",
+          "order": 216,
+          "enabled": false,
+          "contentSha256": "fb34de62b650841c6753c29a7339b3eed84ad5249ffab58772d5a720128e2fc4",
+          "settingsSha256": "62078763c64097d9b459865105efebc5e4202fb73006cf491990e6d8da8352c2"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]苍白海",
+          "order": 217,
+          "enabled": true,
+          "contentSha256": "fd76044238ae180749497fc394bb45b50a8bf033d63575369d6caa3dcd427dd2",
+          "settingsSha256": "6d2730296466658f107b86c73efb5e3cdc2af854c92e5f28e6a2acc915914f90"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]枢机厅(快乐柠萌茶)",
+          "order": 218,
+          "enabled": true,
+          "contentSha256": "a2d8399851040c8b31745675893b4d03868e9e5e056a322e7afe2fb97ebb49e3",
+          "settingsSha256": "1ad1b06c13a815796d0f2d7ee65c6198069ef2fce5e0d6521b665e670c2e2189"
+        },
+        {
+          "name": "[DLC][扩展][种族-半巨人]半巨人(K1nn-皮糙肉厚的高高的人)",
+          "order": 219,
+          "enabled": true,
+          "contentSha256": "d04c8741217f620ad89ba827d38ef3130168b4e717551cb0b21956b606476ad6",
+          "settingsSha256": "1144a822462e7f88c13c46268c4d404a7194dfe4f2ddd77ad54f93b41fe59997"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展][食尸鬼势力]食尸鬼势力-政治与社会(风见幽冷，Aoo改)",
+          "order": 220,
+          "enabled": false,
+          "contentSha256": "63615bb96c96b78107b7884f85f759cb9a56b2a2a1b2dbfd0902916e1ef0f1c8",
+          "settingsSha256": "f3db8bbd705c95967160e2cb7fe0e16c5a5bdf5a0dc20b16bc899d1a086e5cbc"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][挽歌堡]挽歌堡",
+          "order": 221,
+          "enabled": true,
+          "contentSha256": "424542a166923cbea0985ec1773707727d7291cc5bad8aa6284d020775e209ce",
+          "settingsSha256": "c20e1938399dffca2b54f8c5f66e2762e721e67474ef23f66e4e96fa26b90f88"
+        },
+        {
+          "name": "[本体][额外设定]任务与委托规则",
+          "order": 222,
+          "enabled": true,
+          "contentSha256": "585933fa2480ef3ee3125b3839ff2d107d2fa0a5caac1334c4c46cb026aaa4fd",
+          "settingsSha256": "515b91ce35122f07e10952d061eb2534aa1a02423dbc58e314561491a6fd5a63"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]迷雾村(快乐柠萌茶)",
+          "order": 223,
+          "enabled": true,
+          "contentSha256": "2231ca0dc22ada6fbd989abced791a59b7c09ad39ec8b787bd50caa29a9c12bf",
+          "settingsSha256": "0fc64ff9286164f8d6ece7af239aed6fb3dacfa95550776026533e03a6a4cff4"
+        },
+        {
+          "name": "[DLC][角色][维奥莱塔]维奥莱塔(奥古斯提姆女皇)",
+          "order": 224,
+          "enabled": true,
+          "contentSha256": "432ea1a0dc6ef4b2ec8e8f0eda4060a2250d01cf154638ed58839359cc2f1474",
+          "settingsSha256": "c9306d2cb2667c59e92911bc34031501b1fae7f8ce6b1b121e7ff57100d3165f"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]外环区-长别之壁(快乐柠萌茶)",
+          "order": 225,
+          "enabled": true,
+          "contentSha256": "fb2f6f9aebc7dce4291b5ba93ddfa6c33a1cfafc33e7bbb755affed015144edb",
+          "settingsSha256": "6cbf77591798344718166ea46f828887bcfddfc1e1b15332cf4f10daaacb0272"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]山脚聚集地",
+          "order": 226,
+          "enabled": true,
+          "contentSha256": "2edb563d4cf7f129220d22b98935ed9df0f3b1357c46603da52edf33a9b4493d",
+          "settingsSha256": "2e320ef337ef2a3f11bb7d85c661666d8a310c5f9ba791ca47a123a5290eb11b"
+        },
+        {
+          "name": "[本体][种族]霜巨人",
+          "order": 227,
+          "enabled": true,
+          "contentSha256": "1a59fd217f94aa31084061912460e8122f067d56e128cf7bf2820272470b2678",
+          "settingsSha256": "17cad29dc72d4d7ddae012bee4543aae700432a956d2c62a8543fba1f095754e"
+        },
+        {
+          "name": "[本体][命定系统]小夜莺核心(fishfish)",
+          "order": 228,
+          "enabled": false,
+          "contentSha256": "88930918f2d735cce8d36671f606f4609103e4c432260befc10be2268686630b",
+          "settingsSha256": "58515dba6a354afb6b443bc4e1c28de55bdffd58d41e2e7435a57d8f791c07ee"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][时钟塔城]苍律时计塔(快乐柠萌茶)",
+          "order": 229,
+          "enabled": true,
+          "contentSha256": "e7111768199844136c0ac0e63a550894ad4009bf5c2107ae29d5b6552ae12282",
+          "settingsSha256": "0c9116c11f6653f31e54732daab903bf0a66141a62e0450c6123dd1cd4d491c2"
+        },
+        {
+          "name": "[本体][种族]血族",
+          "order": 230,
+          "enabled": true,
+          "contentSha256": "56e49689050b99add989b6ca1d27dcc38df525229afb0b0c8bc49b66b406a8d5",
+          "settingsSha256": "656bbd530e88aa8d05c72d6fe843f45ffce317afbad94e4e34cb625bbc933135"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]白石镇(快乐柠萌茶)",
+          "order": 231,
+          "enabled": true,
+          "contentSha256": "08f59cf628bfb39b30465792f20b9753973e8e1ff70979d55fe50980086a1c17",
+          "settingsSha256": "4646978f0bcc29ae81e0858cb4c5e00c163850ef366501c6c450b36b2c4f1f60"
+        },
+        {
+          "name": "[本体][种族]构装体",
+          "order": 232,
+          "enabled": true,
+          "contentSha256": "6e6a0f9ea275ec290bb4c14179df5ce1c98caafa5dba0a949136a301feba4908",
+          "settingsSha256": "ba15f4f29b0e8f842d146e515aac3a2bec4d4c91d1a38e3dd4db143b4bd7466b"
+        },
+        {
+          "name": "[本体][冒险区域][悲鸣沼泽]悲鸣沼泽",
+          "order": 233,
+          "enabled": true,
+          "contentSha256": "e35f7abe60f6e47a3ec23e15f62228f71b9ee15755d78da176758605443d4d9d",
+          "settingsSha256": "7d9504287344da3bfe12a00823fab909ca50070e8b5e76821be4f02a831a3c66"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]银叶夜",
+          "order": 234,
+          "enabled": true,
+          "contentSha256": "074a8ab2d3627e273975b7b85762642b0601b0b15cf464050e1021a03752705a",
+          "settingsSha256": "de9416cd576d99d6158912588bd1a229e0efa96ec20a091fdbdf8660951c5dae"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]天陨学院",
+          "order": 235,
+          "enabled": true,
+          "contentSha256": "1e99bfd310beec2089510a574312b00868459507007f95741fc539c3633de051",
+          "settingsSha256": "d34bd59ee5af38a5e9978b3b138b581ec6655a01c77cfe8964fccb4f16c2c25b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]鎏金沃土",
+          "order": 236,
+          "enabled": true,
+          "contentSha256": "97cddbe805c3c840ab0120341b87e99dafb5f8916191f80e301e6407c0a13493",
+          "settingsSha256": "ae6eeb8be90b3ea1cfcd3d1085e9d963a3f1494228e4314aed9812c11f07a83b"
+        },
+        {
+          "name": "[本体][产业]材料采集与贸易",
+          "order": 237,
+          "enabled": true,
+          "contentSha256": "08548d81e03141116fb0f7400d32b7a7bc57a5a87e6a1ea478eb9b8519fe7b05",
+          "settingsSha256": "1f3b74c6dbd37850f1fa611c3dd2cce694befa950748ca42fd6696143f432037"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环]伯伦斯法环(作者Aoo)",
+          "order": 238,
+          "enabled": true,
+          "contentSha256": "803b2381abaa5e124cfb5de25fd1e8aacd2ef35332b647a5c7c7c21cdc0b0ecb",
+          "settingsSha256": "106fd7507251e7029501ac928c11b60ba0b54150fcd3187d456917ffab842b52"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]盟约日",
+          "order": 239,
+          "enabled": true,
+          "contentSha256": "c8ceb31235ae0e0c0eb8a31dbd8f17f0e94bafd19e717a81c00452418d429614",
+          "settingsSha256": "7c6ab59f7501530d5c99b5adece900acd2dc925052f7e8b5dda1b9520526d980"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]文化",
+          "order": 240,
+          "enabled": true,
+          "contentSha256": "e27c49922ae61845bf0e306eeecebce7446552fb3b77b29084d296794a33478e",
+          "settingsSha256": "d139172ae6970065ddf0fd6f4a785866d00da558a6f04730061efe88856342d6"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]拜特·纳尔",
+          "order": 241,
+          "enabled": true,
+          "contentSha256": "587f34c2316fb12156483b87da5f2e5b179bec0570b66f5af1e9d3d2819e7a4b",
+          "settingsSha256": "6fd1ff1ddd4d8bdc738360765edda1209d80e66e782786d00d738d5f82dec0ed"
+        },
+        {
+          "name": "[本体][种族]汐海妖精(△一串-水母触手头发的水母生物)",
+          "order": 242,
+          "enabled": true,
+          "contentSha256": "c7ff78412dfdca84290452c34d2f8321441c448655ea765f460b263e59529da3",
+          "settingsSha256": "44ba2237619bfcd1330b85cc9e201f782cf9bbe2752b95f39a86d18a46a21538"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]雾晶港",
+          "order": 243,
+          "enabled": true,
+          "contentSha256": "1412454b293630963b2d07c2a7419b9eb2092b3910dfc3da3d0522212a8c2709",
+          "settingsSha256": "975818ce8ab634b35196352c807226e48787458423ae78ee5a89a70d2d477be7"
+        },
+        {
+          "name": "[本体][产业]➡️产业结束",
+          "order": 244,
+          "enabled": true,
+          "contentSha256": "72ff7cbfdda714ffae7c623fa5fd69fe2b6125012b370496dab7bed9f5dd8782",
+          "settingsSha256": "684a895146c631398b5cc27d0481611563a96b1c55c785a4441f9715b0f7f097"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][圣都]云钟区",
+          "order": 245,
+          "enabled": true,
+          "contentSha256": "82092de9e202da2c1c64c282849ee10c26fb36a0017ee672cc92d4ecf2f5f124",
+          "settingsSha256": "0ba7a90f04c3b3ae29a971506e5e6dcdb1f920579dbf49f4f68a00eaf849560a"
+        },
+        {
+          "name": "[本体][种族][智慧生物]兽族",
+          "order": 246,
+          "enabled": true,
+          "contentSha256": "1bc2d954a1d2d3f28aad1823e73396d0b5ab601a521eb3240c6baf9de783d864",
+          "settingsSha256": "a34b62ce4d425db3a04457b4c6cc6f78ce80224e69f2afa2f8449f79a538f2dc"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]内城区-织锦鸟裁缝铺(快乐柠萌茶)",
+          "order": 247,
+          "enabled": true,
+          "contentSha256": "cb71555aaf1d837be1e268303fde444e1dc72f67e8c005284273f9e6dd3decbc",
+          "settingsSha256": "104d61015c1c18b21e68a277b9dd9ee0021f8833d927452f1c94425f5f20c8e4"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]皇城区(快乐柠萌茶)",
+          "order": 248,
+          "enabled": true,
+          "contentSha256": "c19f9510361337a191759244f63582d87166b65b16d4c025f2ab70c516d5e361",
+          "settingsSha256": "27bdd09931834d632accf0288735db2522703fb8397fc1d8cff776d0adad4367"
+        },
+        {
+          "name": "[本体][产业]房产与装修",
+          "order": 249,
+          "enabled": true,
+          "contentSha256": "96372b4f59b688800ec194b3bb90a881f9e8c0f67d90b3e4aaeec7a04a8c13e8",
+          "settingsSha256": "a8193183efb03a09d8a5bc19124606d92013606893ffe3ce6c07d98e2922cfb3"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展][深潜者势力]深潜者势力(风见幽冷，Aoo改)",
+          "order": 250,
+          "enabled": false,
+          "contentSha256": "6599cd7ae16c25442ac3da43910607eb30d30c615eb41faba945684c2484a0d4",
+          "settingsSha256": "7749d8f7d46fa607ca3b33ecd648114b0172f6fd7dd61a95cc0b2c27887154f3"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]光砾坪",
+          "order": 251,
+          "enabled": true,
+          "contentSha256": "665ddb510894bc76525b8b4c46db6dcccd1e017c2e0c94881c951039751fe91e",
+          "settingsSha256": "f231a7d41ddeb8dd7dd276183ba95702be2964136a719073515876be437343e4"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]维斯格拉德公国",
+          "order": 252,
+          "enabled": true,
+          "contentSha256": "f50d4ad6bf8249ff9dd7a50cc7dee65c34016d1680ccef46960de0e077ed9ffa",
+          "settingsSha256": "82b09b5279cf2c1204ca690ee30ecd9dcc6e323f0c5f08215418f8c78717ff52"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]归港节",
+          "order": 253,
+          "enabled": true,
+          "contentSha256": "0011825e0f13f901e185088d65a5d436e037c7abc6dda75bbfb806732f62fe5a",
+          "settingsSha256": "bf657d44d8ca34016866699bf7bdf752f3941e53f8bda24dabf1bb65876e80f7"
+        },
+        {
+          "name": "[本体][额外设定][非专用预设需开启的条目]➡️非专用预设需开启的条目起",
+          "order": 254,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "dea68098b0722dd19a5c120ad044f01730f08aaadf80d8576d9552d651dc5dc7"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]西部海峡",
+          "order": 255,
+          "enabled": true,
+          "contentSha256": "8808d19b1060dea7181442dae5e2e8f95a46754454b85fd15526764e4ea4925b",
+          "settingsSha256": "b9dcd5c7a6a22d5b20deb87adcb7f338f317880cdf74bd89e21ff5f9825fbd35"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]暗澜群岛",
+          "order": 256,
+          "enabled": true,
+          "contentSha256": "5c1818d06871e9041a1a685f74766ee8f1dbd052ae403b62b118050878f90625",
+          "settingsSha256": "b12d851a9294442a5eee98c8c420bf725e85e5900f76e7bd06e4b48351195527"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]政治与社会",
+          "order": 257,
+          "enabled": true,
+          "contentSha256": "a00a31fd3b17f309846f18ace5de36c02e96c29b7783b36526195705371d0ef0",
+          "settingsSha256": "316efaa591fc4764b90e3db3e1990f5c1bc9a43a9200216c4cb855896486ac52"
+        },
+        {
+          "name": "[本体][产业]➡️产业开始",
+          "order": 258,
+          "enabled": true,
+          "contentSha256": "1817e44cbb29aa006b587d4f81e19e7678882ab22dd565eb75a4d0cce1f746ba",
+          "settingsSha256": "84496aa3d3e059bd574bb642688f595d8b854ba18098e25832e89b0e97e7598e"
+        },
+        {
+          "name": "[本体][冒险区域]冒险区域概览",
+          "order": 259,
+          "enabled": true,
+          "contentSha256": "bb6ffcba8aee7841854adaf68ec44891e255c64a5a1ef81d525abda6de1ea519",
+          "settingsSha256": "7019bf37facd22d2d81f3128d9494e2f065a8432d728326666b6e6e17f9fde4b"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]星籽仓城区(快乐柠萌茶)",
+          "order": 260,
+          "enabled": true,
+          "contentSha256": "77e227402ad8b164c3bf3eb3b4b9fbe12eb199244efb0b5dc54b900648f1265a",
+          "settingsSha256": "7848c4fc647bf7aaf07b8db39cc455b1736337c95f5fe5fcc8ff69a47f858250"
+        },
+        {
+          "name": "[本体][种族]史莱姆(风见幽泠)",
+          "order": 261,
+          "enabled": true,
+          "contentSha256": "b77d413a089d3407af5dd179c40240ed3e2dd028d2d16646310d041d4ad5ab80",
+          "settingsSha256": "12f68064ae1803ed2d4f564f89943fc44c68df2745867d3b705ad1fa9e3979a6"
+        },
+        {
+          "name": "[DLC][事件][瓷化密室]瓷化密室(aoo-密室逃脱，需要动屏幕外的人的脑子来解谜，在雾晶港旧城区搜索入口吧)",
+          "order": 262,
+          "enabled": false,
+          "contentSha256": "9014aa227a8e293a5787140cea73a13329329db3811542e97512470be7b1bb73",
+          "settingsSha256": "e8c156586843833c7e02eb64e6ead5b8669670111d1cffceb51166b32a12890e"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][霜镜港]霜镜港",
+          "order": 263,
+          "enabled": true,
+          "contentSha256": "bd2a3b15e72b70eef8a6cbc79b64e345785734a192d3130c75e3ff623008d482",
+          "settingsSha256": "8cbd500ca1e2a8b8643b15ec22ef7ccdee8143ac99a183df57bedd47283a0631"
+        },
+        {
+          "name": "[本体][势力][兽族联盟]政治与社会",
+          "order": 264,
+          "enabled": true,
+          "contentSha256": "dd7b2198d1d3627c743c7142c3ee0806a926e56f59954740932ed8fda251faee",
+          "settingsSha256": "ac5d72f4cfa885ef93230adfa2ff8aa6645c3d653df207884df576054fc79e0f"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国]石蒜城(快乐柠萌茶)",
+          "order": 265,
+          "enabled": true,
+          "contentSha256": "d17bf5aa0e10cdcda0c99f21522017cdec886ecdd9869e2ffcb942b5d68ca805",
+          "settingsSha256": "e7a1fa3bbd381fa37f5cd4cd6bfcdd08b1d1db56c65cdbafb29f3b4e204f26bd"
+        },
+        {
+          "name": "[本体][额外设定]经验值获取",
+          "order": 266,
+          "enabled": true,
+          "contentSha256": "04f36c5dec6e1ebb1793da725f4ecab78974f8193cd64a63ee2bc9a512a16d44",
+          "settingsSha256": "b0c0ce1818fd8ee069100d54bf8d217c430ee7fde7d388198350640169501f41"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][王庭正朔]恒星內侍院",
+          "order": 267,
+          "enabled": true,
+          "contentSha256": "704c2f13ae8456d4a4690d3c684c5b4185b8b2547c448617a47acfa32879537b",
+          "settingsSha256": "6901707a4144f4557ea199059f1766c656673d9f23bc27bb434aeeec05f94b86"
+        },
+        {
+          "name": "[本体][额外设定]长途移动与地理参考",
+          "order": 268,
+          "enabled": true,
+          "contentSha256": "a997d381a6af497b882463e50d8c1492556a1c0cc44d00627dc2e1465c392014",
+          "settingsSha256": "d7a1f800e3b06638d232f1aa25301586f9a8e95dc82afa3882507deeeb778b0e"
+        },
+        {
+          "name": "[本体][角色]➡️角色结束",
+          "order": 269,
+          "enabled": true,
+          "contentSha256": "75ecfc2b4b745ed04532f6e90c027b67eeb1bff25c586a9dec2bc46c637b473a",
+          "settingsSha256": "0a4b5ed80571e270211446b5a1d58f6fb006891cb75de5995e89fb91d6a68cf7"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城]风信子城(快乐柠萌茶)",
+          "order": 270,
+          "enabled": true,
+          "contentSha256": "01c67a6f9041be6888d210854c7db6ca1da5bfd2e9a255773ea912252a12a648",
+          "settingsSha256": "875f5f3fb28b10a1021a466af404ee7508aa25129fe81973a04fb57f4b81881c"
+        },
+        {
+          "name": "[本体][种族]异域生物",
+          "order": 271,
+          "enabled": true,
+          "contentSha256": "e3459b19af1541a8da1f855e6bace31eac483f3494dfae956e12889749e4cda7",
+          "settingsSha256": "4f9f895fd0cce1b83aeddba65a13a0431d6e0569de80e348de0cc66d52646271"
+        },
+        {
+          "name": "[本体][产业]锻造与装备",
+          "order": 272,
+          "enabled": true,
+          "contentSha256": "04fe7c432379955e3fc6da46b0b57fdd806bff32127f47259e4c6953cb20028e",
+          "settingsSha256": "7c156ff1ac3dc677d4d17f4a7fa6fc2e75f06c1173f2c39bc724df0f19038833"
+        },
+        {
+          "name": "[本体][怪物生态]末世星",
+          "order": 273,
+          "enabled": true,
+          "contentSha256": "63079c281795e12d018c2fad73f832101b953a2cb1970cf3d63241ae7c98e1b7",
+          "settingsSha256": "efa9b1893cc13dd62d00b8054107d072c49711c89124240de99f83dffe2409c2"
+        },
+        {
+          "name": "[DLC][角色][雌小鬼与熟女与龙]骸响龙姬-骸响之都部分补充(Spaceperson)",
+          "order": 274,
+          "enabled": false,
+          "contentSha256": "e99beb53d816364224788eabd7ac29db90d5b5269a534cd3d1ef797b90f95e1a",
+          "settingsSha256": "9445ad71e938b330c4f01b9a82ca4fdad0fabd7a038e2fe5a71efd93f72acc26"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]鎏金沃土",
+          "order": 275,
+          "enabled": true,
+          "contentSha256": "c501d3ed6487903e7e77004a012b85b655db1fef01a9f35804ef5d6b45033ff3",
+          "settingsSha256": "0fda26faf642d6ab3db8067a5b1b7e818f72c4d19c10eeeb3050aff916151d6b"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]艾尔文海姆-根心圣域",
+          "order": 276,
+          "enabled": true,
+          "contentSha256": "b3fa5bf918b505f0ab2f8eafd9618a3119d2e9d6bdddd4ef1996b233ddac3937",
+          "settingsSha256": "75104a98c66c396431dd9e1f7115fb2da224bf974e9c43a858f39fb359a680b6"
+        },
+        {
+          "name": "[本体][势力][精灵王庭]总览",
+          "order": 277,
+          "enabled": true,
+          "contentSha256": "f26df4e078bf1e8b2117a7bb2a25c81daf365ee76ea6eb9da9a6da3c55effcbd",
+          "settingsSha256": "b8921a092127a1f334044a3b40931e80822786c3c51eb4291e5ad35bcc14737e"
+        },
+        {
+          "name": "[DLC][扩展][种族-羽民]羽民(镜梦幻-添加堕天使羽民，黑色翅膀的翼民)",
+          "order": 278,
+          "enabled": true,
+          "contentSha256": "79281bddac0c1dc698388734acefa997e8f75474bc52aadcb97d885c571a2471",
+          "settingsSha256": "13a3fb5f0c71f0d9b10b409a346c75d565bcf809209ddb45876843b44affb1ac"
+        },
+        {
+          "name": "[本体][命定系统]长颈鹿核心(仰望星空)",
+          "order": 279,
+          "enabled": false,
+          "contentSha256": "3a211d94a71140f93db216a0977455d2946ddad1d3d466c8e0fcdbd0fa539a8b",
+          "settingsSha256": "6f30ac94dbee710bb225dbb844aa496799500796de085ade9c185a3899439351"
+        },
+        {
+          "name": "[本体][变量][mvu_update]output_format_(使用额外模型更新变量开)",
+          "order": 280,
+          "enabled": false,
+          "contentSha256": "77411061953e8e0f36aea4390b1fe24d0f7227bca69f9fc7026e43f08c016e06",
+          "settingsSha256": "c7cbf06043b5d5478a0ee5f0ede741e18774555ddeaaf5e86f50eaff7403fb6e"
+        },
+        {
+          "name": "[本体][变量][mvu_update]变量输出规则",
+          "order": 281,
+          "enabled": true,
+          "contentSha256": "da1f279ab775e444cb92fd2f9fc3c0756fbcca08e9733be93a1b3b72da9317e5",
+          "settingsSha256": "cc1fc7776ef375512a2428f03b66f2daabde3f2cacc9af603c5c6ee6c89d5664"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][林歌城]学院林区",
+          "order": 282,
+          "enabled": true,
+          "contentSha256": "6da17bf445102dac3c7f0df0b7da666fc1dc1a955bf08f20205d2fbced865435",
+          "settingsSha256": "fecfe97a86e5da91e28efc7caa0ade97ee6919af807567c3768296280b6908cd"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]碎冕冰脊-东段",
+          "order": 283,
+          "enabled": true,
+          "contentSha256": "49abf25b6ebb17a8f34cb794f1a9ee515c711338f59cff77e9f004cfb4592c03",
+          "settingsSha256": "1badbc9c364b0b3dba70343b5fc28f4d5dec4dd311b8776dc049ea5bbdc61548"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][林歌城]林缘庄园带",
+          "order": 284,
+          "enabled": true,
+          "contentSha256": "22b354c547bd508f32f41f182483eef1bc4c93769208d850d980a3ee81526b1b",
+          "settingsSha256": "169fa370bcc308bb2082eb379fe04d043a6b0d0b443d8378ce3dd97b953e1cff"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]种族-修格斯(风见幽冷，Aoo改)",
+          "order": 285,
+          "enabled": false,
+          "contentSha256": "c40461b74b51563f4a55f009a9c85fc4800a2110745cee3b969fe9fcc3276504",
+          "settingsSha256": "699a6d26f3c721834b3a2df97ed44616df8439749bf66e663048c4245b669d37"
+        },
+        {
+          "name": "[DLC][角色][幽露]幽露(仰望星空-史莱姆少女,活跃于瓦伦蒂亚和无尽雨林)",
+          "order": 286,
+          "enabled": false,
+          "contentSha256": "e3a7506cbf64a0357e0963e6085a60dca4885a18da19c168bf290e3c2e2dbb3a",
+          "settingsSha256": "df9df5563c17800471e0a33dd3d861ed432188387f5ce82335be0bb3619891cf"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]组织-汐链商会联盟(风见幽冷，Aoo改)",
+          "order": 287,
+          "enabled": false,
+          "contentSha256": "968dfe5676371c31cd6bd70031f247ef85a4d23b891cf7355757ce1d62f62e5d",
+          "settingsSha256": "acdae6de4584882c7af43ec268a7be0ef165b24f086b8d338ced12cd17518c10"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][地块]山谷地带",
+          "order": 288,
+          "enabled": true,
+          "contentSha256": "42203516a38280f2b323291111751d8a3ce37785dde8808946b45a953757ef22",
+          "settingsSha256": "1f4a470235345fdf27f2ebb5d27f38380459053a0e377e9eedb804489684fce0"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][霜镜港]北崖哨区",
+          "order": 289,
+          "enabled": true,
+          "contentSha256": "f37af5a11872fb2517b618bf98b7091915ba61b86b4cbaab9d89ba6132ce8e57",
+          "settingsSha256": "932838dec23ec3568cd9ce65a1a78902d2d9527fb98e3bae5549c12ff73905f5"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]磨爪卫城区(快乐柠萌茶)",
+          "order": 290,
+          "enabled": true,
+          "contentSha256": "fa79cb62f5f98c205cc8ef9f9a99f9e11cfad44960128efaa59f85cdd2134125",
+          "settingsSha256": "9892f6e3e956dc52708d47dacf17c1509a308e8ee41afc2d40d48fc13646dabd"
+        },
+        {
+          "name": "[本体][快捷功能]➡️快捷功能开始",
+          "order": 291,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "1ac5d99596d4904f355164e5419f957fb4de15a812484730713c281c5c0d44f5"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环]捕雾产业链",
+          "order": 292,
+          "enabled": true,
+          "contentSha256": "24945edf02074e2fad94ac484c18234b35028a3f0a177d0c73b1e5267a4e0b6b",
+          "settingsSha256": "5436140af0478dbfbcf94a48917f8bd297b8c7991a4faa65ac7b469519c49565"
+        },
+        {
+          "name": "[本体][命定系统辅助功能]命运抽卡(作者十七)",
+          "order": 293,
+          "enabled": false,
+          "contentSha256": "b9cd00e9052e3018b39de694aa4cebb02382f94407f731b481900cd3ad542b8f",
+          "settingsSha256": "43939f16293496502d3d2dc1902a6cff95d28e62f5e0816a2903f79e8e48ad71"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白港]港湾区",
+          "order": 294,
+          "enabled": true,
+          "contentSha256": "3844decda346c48bd4e749745c18d511138b9fd422c8be626df0b12f626da103",
+          "settingsSha256": "61cd17f89bd2bd9041fd824a644eed6c0a723acc36a8b86e714b920be153d203"
+        },
+        {
+          "name": "[本体][组织]苍棘之塔",
+          "order": 295,
+          "enabled": true,
+          "contentSha256": "7fb89321e08ff6f3de3229a65d7a7624f5983264d9a52f401227b6502bf30fd8",
+          "settingsSha256": "00d1e3bd361a25b8895ec2607881f352e6fe69838afbc590d1d5956d2bcbfd3d"
+        },
+        {
+          "name": "[本体][事件]➡️事件开始",
+          "order": 296,
+          "enabled": false,
+          "contentSha256": "36d5d011d7dbc1494b542f9ac142b0a3cc00884453ad15fde613a78b0e0be9bb",
+          "settingsSha256": "84e2a0360ab057e5a6cb46d574ce07dea0f2e510e5537cb1123e8f2e5f49050f"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][挽歌堡]峡谷市区",
+          "order": 297,
+          "enabled": true,
+          "contentSha256": "4aeed15f325380fb0f8dddd69e89b73530ebd3cc2cef049210744928c6096006",
+          "settingsSha256": "82923b984c538e42146591f7f091b0cd54ebe5f2ce325162bd00eb8bf08ae1ad"
+        },
+        {
+          "name": "[DLC][事件][双子星的咏叹调]【双子】Lilim_info",
+          "order": 298,
+          "enabled": false,
+          "contentSha256": "fb8f63dd78fa88c393c85ee504b296343cd4afa5f44d966bfa3c9db86261d2a8",
+          "settingsSha256": "dd795ccb2c9e216022ad1967018c4507201333c71f7bd185df100b171ac665a9"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]银帆城",
+          "order": 299,
+          "enabled": true,
+          "contentSha256": "e216a5b62b260e2dbb4ddf64173a652c418d138df6143fecddcdde70a1a28911",
+          "settingsSha256": "9727775af2b761ea39d4a8ff244005e0e84a25bdd2b2537efb1bf2d9dc8f1edf"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]王国都城-禁区",
+          "order": 300,
+          "enabled": false,
+          "contentSha256": "da43ea762bf907ac16e8b608f3f6ffb11bc82667c794b45637c1a0bd9181b9bf",
+          "settingsSha256": "4fc05008a9f35fd4d85df65449e5f7d8d798813c294a4177433d3b386a5b581f"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]艾瑟嘉德(快乐柠萌茶)",
+          "order": 301,
+          "enabled": true,
+          "contentSha256": "58cc0970c2d7a4cf14e88f887d7485b06aa86625e02d27c9f5fa9041cb9b2c2d",
+          "settingsSha256": "0fa29dd97de42cb0b2f3da786be04860fc698fd7e86ce825fc7caf1926c419b3"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][凛风渡]凛风渡",
+          "order": 302,
+          "enabled": true,
+          "contentSha256": "297b24d0665a3f5ab4d6f466e5c8272a623ebae826a933178f12d869753384cd",
+          "settingsSha256": "a8d38f37efcf95062c4d77e2e308c2e3e6227e6a4b86fa0672ba2b47ddd7f869"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区][圣录城区]海棠学院(快乐柠萌茶)",
+          "order": 303,
+          "enabled": true,
+          "contentSha256": "156084be65b3b8dfdbaa543bae26a6dce3c534fbd846a4bb1fc1445522632a65",
+          "settingsSha256": "b9c8d7571f586d528e23e4c2c42fa5992f7de4b698a36c67d86c0839d9de7e06"
+        },
+        {
+          "name": "[本体][世界设定]世界规则",
+          "order": 304,
+          "enabled": true,
+          "contentSha256": "3a84ee6bef20c7794b625edb4c72cedc7e1e17b20fb090d7db385c41ca672a1c",
+          "settingsSha256": "3b11db489a0674d2ba716c3c8962f812d4b6fcd34b8485cffd5a8aa2bc49630c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][挽歌堡]黑冠台",
+          "order": 305,
+          "enabled": true,
+          "contentSha256": "434450254e48bfaf1b2771c84e0875d94a9f922e0a3b464fb1b47014a5ec66a7",
+          "settingsSha256": "191d216d638fbfcb6bf2c67a8884e5862b5a2c4ffb2dd2ff72a88f8da54cc64f"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]埃吉尔海德公国",
+          "order": 306,
+          "enabled": true,
+          "contentSha256": "933532f56de8c88a95e5ae26deb6d53eb30f2d40d2e44a752aa56e282eeed0e5",
+          "settingsSha256": "381fa387143b5c62871fc1cc3f3b63d5902a6a9eb0578bfa99e72e888353749a"
+        },
+        {
+          "name": "[本体][冒险区域]➡️冒险区域开始",
+          "order": 307,
+          "enabled": true,
+          "contentSha256": "1ed6eb0209befb3c0a7365a980e4a38c2536a52f688f7263573bc660b552540d",
+          "settingsSha256": "7c83316e95e0c513e18b3902463a34c058f673430c3c912a2ea28bd1cf0c010f"
+        },
+        {
+          "name": "[本体][势力]➡️势力开始",
+          "order": 308,
+          "enabled": true,
+          "contentSha256": "a4debe34edc1c0801d034bbada4baa7bac5bfc9988dda103d58febbb44921b4a",
+          "settingsSha256": "f862eb7e38e74daacc78ff43da06454ada795e405662bd447bd4374cb9bb5de9"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]外围村落-白教区",
+          "order": 309,
+          "enabled": false,
+          "contentSha256": "4d829eec971587895566849287f912652acdbe339d0b43b0a54680c75b891109",
+          "settingsSha256": "f68cf3b472fa1a2c7663bca00997c00b617fbddfe87988d980d0907cbd6f9a93"
+        },
+        {
+          "name": "[DLC][事件][关于我战败后被血族女王变成女儿的那些事]【血姬】血姬-本体",
+          "order": 310,
+          "enabled": false,
+          "contentSha256": "e8eb918b7f811101cb1f3e1da5199b362f6645578ce4b8917679a6dc02e0f7fa",
+          "settingsSha256": "74651d92a98010e90463c3827e5fa325f986199d7c7b248b122ec93ddd0ab31e"
+        },
+        {
+          "name": "[本体][冒险区域][龙脊山脉]龙脊山脉",
+          "order": 311,
+          "enabled": true,
+          "contentSha256": "f0c8f93a8518f1ee063473007142bd72908e9730fa33809a4e4cecffca53aa6f",
+          "settingsSha256": "d5afdbccd5879dd76f66767582a83ad0a6b6993732dffc164868e4f31edabd18"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][霜镜港]造船工业区",
+          "order": 312,
+          "enabled": true,
+          "contentSha256": "f80e9491f442fb5227332310090dfd94a9df37ab1ccb06b55cb1eac3bb368a57",
+          "settingsSha256": "45a523e6990584c325b39ab4f0a2fd306f0df55330709fbb96c8d5e228a734e1"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][时钟塔城]派阀(快乐柠萌茶)",
+          "order": 313,
+          "enabled": true,
+          "contentSha256": "f56f2dc91bb7db9c1afade0916fef3305e3c3df0cffb1fb7ff363616638ea66b",
+          "settingsSha256": "bde3954b74d3742e6d8f3ae640fd6eb7cdaa9e05091102444319421fd93ec6dd"
+        },
+        {
+          "name": "[本体][命定系统]梅林核心(北游)",
+          "order": 314,
+          "enabled": false,
+          "contentSha256": "af0b0719e52341f44921bf8dfb1b82b31e3e1c1b11c89b7b573075075d7b0ff2",
+          "settingsSha256": "3956a4b167a6e05b898425e8df24853c2e10c56e4bcbb43551a450d988cd4a07"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国]鼠族王国(快乐柠萌茶)",
+          "order": 315,
+          "enabled": true,
+          "contentSha256": "89b08b357e7ea86f854d7fb564cc8c1b3c8f44c52e97e494c7a218431047245f",
+          "settingsSha256": "2bc02af6999f05252292baff4481f2c6bcfb296f24d64b8cd8f6d086052099b7"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]白曜城",
+          "order": 316,
+          "enabled": true,
+          "contentSha256": "d7d058d6642605fa18d466c0fa783dbe3cda8143397c4418769701f3d0e16582",
+          "settingsSha256": "964650125f25edfb3c46dab5cc1c112514fbb82d3d2f9b4119dc52da5889d2f1"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]云息盆地",
+          "order": 317,
+          "enabled": true,
+          "contentSha256": "e4fdf024e47da5373b0b0502bf2b171d25ffefc81e75db804097703fb920eac7",
+          "settingsSha256": "4434f37a91467fa203ee2b6438bcea0c2bab494e807d257a8a2d06c4c4ffaaf3"
+        },
+        {
+          "name": "[本体][世界设定]➡️世界设定开始",
+          "order": 318,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "3ea6b0d834b2d1dcd462c07bf9fc028f192974fb9b3f94ee0873a6fef791c5e6"
+        },
+        {
+          "name": "[本体][命定系统]莉莉丝核心(作者FL)",
+          "order": 319,
+          "enabled": true,
+          "contentSha256": "515d41f532b55409658f097cfb2c7a9385bcde7fdcc6fa23bf8d44c38f07a6eb",
+          "settingsSha256": "4b9f53f42af7e0474445a74f3e7c30728f554c7fac8cda9d3be2809a552fd1ce"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]霜临城(快乐柠萌茶)",
+          "order": 320,
+          "enabled": true,
+          "contentSha256": "4738ca46de0482993b1894026de8f3b847e0c7dae1d65e3cec42920bc3f8f76d",
+          "settingsSha256": "dd332c4802e07e22e27c4d9c9b1be74d83a9b6dfdcc4b2f2ada9ad25c4887802"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][霜镜港]镇民区",
+          "order": 321,
+          "enabled": true,
+          "contentSha256": "bcdcd29dfc82eb4768830507e8a6a7d938fcf46b4763ca15123bcfbe9533048f",
+          "settingsSha256": "943c2f2db98358084336c3c04a9729379f3bd3f9c3d3e6ceb32c80895223b513"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-炼金公会(快乐柠萌茶)",
+          "order": 322,
+          "enabled": true,
+          "contentSha256": "2ec3d78f7522e1a7a3eefc7299498e3cfe70e2f5c3d447655f02074799952c58",
+          "settingsSha256": "f836e6ad8dfeb8c2343d7454bce3cd1a407fb224b99f58d811cbeb04cbed0f37"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]艾瑟尼亚省(快乐柠萌茶)",
+          "order": 323,
+          "enabled": true,
+          "contentSha256": "3a61207d88e1f5b8346ee551fc6d35a02cc6b4dfc09005896786072b2feafc42",
+          "settingsSha256": "aa24f9d724b676765198247750e138a1e8f5534c43d1a573da57072217b21a64"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][林歌城]谷心市街",
+          "order": 324,
+          "enabled": true,
+          "contentSha256": "710a1beb187b6f34d8970f561f60335c2135b0d8659a510e29017088bf21e1ae",
+          "settingsSha256": "2505e02e375e855ecf95e59bfed597f6691c22010045c496240e09f350585549"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]种族-食尸鬼(风见幽冷，Aoo改)",
+          "order": 325,
+          "enabled": false,
+          "contentSha256": "3518ea816c5480118e7e2526f3c6c391c7f78a0ec527e45750f93f9d4b3c1581",
+          "settingsSha256": "bc01f86066fef776ed00e2698ba7b6478ae5dc5f4fb14a700aec1e08ee5670ab"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][世界树圣域]木精灵",
+          "order": 326,
+          "enabled": true,
+          "contentSha256": "0f50e0346d2d32f3726f19c2e6198760fce6119480bbcd902e38ada1871d4f1a",
+          "settingsSha256": "92286e9c8ac9bc1d0fac4102c0da4d9b51569fdb278729d3dea188fcb3f66a08"
+        },
+        {
+          "name": "[DLC][扩展][无尽地城扩展]无尽地城-详情(Hilo-为无尽树海的无尽地城提供114层15区块的详细设定，包含层级追踪系统、区块环境/怪物/战利品配置，当前已实现前7区块的完整内容)",
+          "order": 327,
+          "enabled": false,
+          "contentSha256": "9930f0487dfb035f0809e7c7a0749ee0d08ec8d8d7622ce0e912d0d0799dc025",
+          "settingsSha256": "69aaa68c4af7f8553052597a44b61c9b71e8556711bc6d8c2ba45b271486e8b1"
+        },
+        {
+          "name": "[DLC][角色][哈桑]哈桑(萨赫拉联邦静寂之王-编者注:唉，又一个写自传的，自恋狂|编者S注:已删了日轻警告，这也日轻？)",
+          "order": 328,
+          "enabled": true,
+          "contentSha256": "e57d267830a01e5edc26dfb1aa105aebf20a83320ef5090789088bc3082202d1",
+          "settingsSha256": "ed9df64ba62c009b68c4fa5130e3815ae7db1f5da00d0b474fcaa1b567f73206"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][琥珀加德]琥珀加德",
+          "order": 329,
+          "enabled": true,
+          "contentSha256": "1d0320e5949e13939ea034f613ab2c97d1a179cc8ee8b9cd3ffd432f600d5567",
+          "settingsSha256": "3b7a07e474ec467b6df198cbb5a09d42ca15eb0d663f0e1320bee3ed7f24aae9"
+        },
+        {
+          "name": "[本体][命定系统辅助功能]命运抽卡阿比核心(风见幽冷)",
+          "order": 330,
+          "enabled": false,
+          "contentSha256": "fc8c24bef3537fad5adbc72ae502b9855099557f24c5f66656de6262891d89ad",
+          "settingsSha256": "48401d4c01d7b3cef7a9c9dbdfdf5ea07c472336107a15ba8bd6d2ccd7d48d8e"
+        },
+        {
+          "name": "[本体][组织]捕奴队",
+          "order": 331,
+          "enabled": true,
+          "contentSha256": "ef9a7d0932eb53b214f1d71abeb8200adc0ba98ada38ab7adba28a4dfaca9ce4",
+          "settingsSha256": "e52cd3a57c4f43f0094f64ea1f28cc51c8b9ec61cdb41cfbac58a540f7ecaab5"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][霜镜港]军港区",
+          "order": 332,
+          "enabled": true,
+          "contentSha256": "f9b06aaa6a858b8823c34fa8c091ffcc78fff28626e51b7a93cbfb8c19381858",
+          "settingsSha256": "fd389b00977549c5308136c6b9ccda4f304a0da98d820b74af510a334fc0cf70"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]臭鱼窝",
+          "order": 333,
+          "enabled": true,
+          "contentSha256": "611ee80783dd9bb333b507d1d8a232595482d71f2ab83d30e398892523e52217",
+          "settingsSha256": "135b5ab0594f194877e405b838d3117411e618ea9f9744d1f09ae5921ce065e1"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][挽歌堡]谷口营",
+          "order": 334,
+          "enabled": true,
+          "contentSha256": "164d481315ea2bac8b860d1a3b6f1cdefc26f0bb0b09209746bbe23b826c071c",
+          "settingsSha256": "2e4dd64792023e92aa1c352c28c95d62480f5bbbbb583b5e9ae0b261a331b059"
+        },
+        {
+          "name": "[DLC][角色][弗洛洛]弗洛洛角色卡DLC(彼岸花开局必开_作者十七）",
+          "order": 335,
+          "enabled": false,
+          "contentSha256": "d84c393ef424d80e6b3378a7b96b752d0a53380ed44fee1cb57d63df2f3febef",
+          "settingsSha256": "e2f242e33611eb1f0793363fb36d9cd0260faff0dc7f5190236683032df24d25"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]政治与社会",
+          "order": 336,
+          "enabled": true,
+          "contentSha256": "10fda655cbc7d82bd35a9032d79e456d3189de30980ecc0c4319856067301ab8",
+          "settingsSha256": "5164739302a63096d915db146c78f24274f521be1ee36eb019816fc8c7ac90f3"
+        },
+        {
+          "name": "[本体][组织]异界信徒",
+          "order": 337,
+          "enabled": true,
+          "contentSha256": "725e6be39dbdbe59b48e3999801443d60bfbdab9d7dcd2b1b878be94dbaa223a",
+          "settingsSha256": "dd9f53ef5049984fa5dacd34b74c8a208f9f9f8b968ad3af92e9cad73399785c"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]净羽台",
+          "order": 338,
+          "enabled": true,
+          "contentSha256": "75ae81b4a67c6118a7accfa0ff55a880d8143acaa4e0f257fe12da41176fd602",
+          "settingsSha256": "6b8bddf8e83506aa3638b5e3767d9e605b9034c86886985faa92959951ea2fb2"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展][深潜者势力]深潜者势力-地理与治理(风见幽冷，Aoo改)",
+          "order": 339,
+          "enabled": false,
+          "contentSha256": "9bc52f1e37d94205d0ae9241e69558f9e37d6df63c22ed39914ee2ddd72ce074",
+          "settingsSha256": "34fe63793f01e0e5a6e05bd34cc32a5935471f0a0c0f544ae31b0d608a9423a0"
+        },
+        {
+          "name": "[本体][冒险区域][克摩什大陆]克摩什大陆",
+          "order": 340,
+          "enabled": true,
+          "contentSha256": "37040eb4c7d6318b9087af3596d98d8c72f8332bac74eb6a50bec4f4b9224550",
+          "settingsSha256": "87752a52ba7923cefc6144b2301546a73e076b92b329fb54af6e3732b1652ab5"
+        },
+        {
+          "name": "[DLC][事件][斯芬克斯猜猜迷]斯芬克斯(aoo-短线剧情，解答斯芬克斯的几个迷)",
+          "order": 341,
+          "enabled": false,
+          "contentSha256": "29693ec46fbea8e7e85063b84e8ae8ab8679a2db91a576b3b42d490f9a0e1c0a",
+          "settingsSha256": "59e4a3abba82834d224ee8791a94b2dcb563b7c722412d9af984a760fdb30629"
+        },
+        {
+          "name": "[本体][组织]阴影势力",
+          "order": 342,
+          "enabled": true,
+          "contentSha256": "efb387725b6b5bf613b72cf86b70a5a768edf3dc59143d6193561ce220b85eeb",
+          "settingsSha256": "231fc1f04a377fde7819b9edc9386c01f736c151b513ce9e7b2e8e67ebafeeef"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][地块]山麓地带",
+          "order": 343,
+          "enabled": true,
+          "contentSha256": "babdfa350d2f809006927018f29a1e863836092a8cae706f279e823ab932c29a",
+          "settingsSha256": "f17c0cf53954a2cc817fcb600de7b024513885e51a3db907903c4a8f95e25650"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]霜叶之森",
+          "order": 344,
+          "enabled": true,
+          "contentSha256": "4e7fdfc21ba091c65b11c519cd283723e656d90af00282d8a54609bf434dbd8d",
+          "settingsSha256": "3f3a6e97040fde9f9dea43285a666493bbff15e52bd6d6659dafcba0350320c6"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]北部边境带",
+          "order": 345,
+          "enabled": true,
+          "contentSha256": "541123eefebfcc119ba4ef3b3df0e6f9ac54ed70fbfb357d32db8f7001aac169",
+          "settingsSha256": "cd17d7b80733cc1266a3317bffaa9dbf317034dcf4329e9a8034c3ad9173944b"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]月池屿",
+          "order": 346,
+          "enabled": true,
+          "contentSha256": "abcf8b1797474c7cc3b0f6ddd02ce8675457ef3b2a159e26890819a2f7c37c07",
+          "settingsSha256": "9af8263f5c625782ecddd1e04a53dc274cda9a9b1366830538c3ab159e810dce"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][城镇]星辰崖",
+          "order": 347,
+          "enabled": true,
+          "contentSha256": "e598bb6ce8c69b1083659d4be417612f76590e8ed8fe1fb80205171fa4783820",
+          "settingsSha256": "736bdede833fb894c179dc9aa509ac54240d004359ef29f95c1ec5cf54ad1afa"
+        },
+        {
+          "name": "[本体][产业]魔导",
+          "order": 348,
+          "enabled": true,
+          "contentSha256": "4439625dffa878e583cb9f6937c70f5d422174d80b6d5a44df4b45271be3497b",
+          "settingsSha256": "55d00f9592a8f310b28b9e80ee787c2200535afd2ec4b7b7654ad7dc41c9f32a"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]浴羽屿",
+          "order": 349,
+          "enabled": true,
+          "contentSha256": "65b1a5168604792598e498648c94efc1207dbd935546cc4c4f59ef807dbe0379",
+          "settingsSha256": "005845aa4cdbcd9e4d1971235cc2c0e5170034a525c1111cb4d58a743c9ec6b1"
+        },
+        {
+          "name": "[DLC][角色][安娜斯塔西娅]安娜斯塔西娅(索伦蒂斯女王)",
+          "order": 350,
+          "enabled": true,
+          "contentSha256": "f39d533edbfee5086ade0d836c855d97c9e4a34f5b181ff442e022c9c4344e5e",
+          "settingsSha256": "9685c3d673b90751dc04af293f0cbc4d127d13e28f4a4212a7e46c45735b9499"
+        },
+        {
+          "name": "[DLC][扩展][史莱姆扩展]作用",
+          "order": 351,
+          "enabled": false,
+          "contentSha256": "e24e27b0d3bf97dd853eecf0c295548714058e7507feb34276ec585d0fb2ac4d",
+          "settingsSha256": "53dfdae826b16aedd3666ce70914fa8418291eee91665651b74d50181493461f"
+        },
+        {
+          "name": "[DLC][角色][缪尔]缪尔(青砚-翼民,翼民前领袖,千万KD拥有者,资源获取地)",
+          "order": 352,
+          "enabled": true,
+          "contentSha256": "bf4f3125bb0f869950b18213219e4928194a7e2ddc8c135f7ac4ba5d1e4a26ee",
+          "settingsSha256": "e62cb49137558676b1e210bd8309fdc99d5840522d32c580b87df56f6aef916a"
+        },
+        {
+          "name": "[本体][命定系统]➡️系统结束",
+          "order": 353,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "0b2ccc73b7be387426248de9721d630c44336808152dc10068d7803ca830f33d"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展][食尸鬼势力]食尸鬼势力(风见幽冷，Aoo改)",
+          "order": 354,
+          "enabled": false,
+          "contentSha256": "645bc2b8285e4204a0a8510efabbe2d5235858b3944c9d868c427e8bb39744f9",
+          "settingsSha256": "fea05ccb0f0670a98821e632289f518801fea048b526352f955043672874c5e2"
+        },
+        {
+          "name": "[DLC][角色][仲夏夜之梦]诗灵-仲夏夜之梦(Angtuck-诗灵,是仲夏夜之梦，不是仲夏夜之淫梦！！！)",
+          "order": 355,
+          "enabled": false,
+          "contentSha256": "8be0c568762e3a931f35783baf81f9c60552f34cefe8a5530712e6a0a261b9cf",
+          "settingsSha256": "49d162d33241b85028bf6acd1cfdc7f38e48f083c848768bc1a36f8924e3bcc6"
+        },
+        {
+          "name": "[DLC][角色][傲雪][<种族-东方龙裔]龙娘傲雪(Hilo-龙裔,寒潭剑姬,活跃于诺斯加德)",
+          "order": 356,
+          "enabled": false,
+          "contentSha256": "a463bbceeef6e4c82b28a5414e9af854ea12b2debaf6044207516665f39bbe4b",
+          "settingsSha256": "d09b2985897834b5e06130a23dc8d5032f2120a312fd034bd76f4c10310d01d1"
+        },
+        {
+          "name": "[本体][额外设定]随机池",
+          "order": 357,
+          "enabled": true,
+          "contentSha256": "adb4d2b2aec04487d8ccc80696b16eb11ec82432be13197365320850c74e7ffc",
+          "settingsSha256": "2764dbd5e55b628d0af263b8041471241b7a728e91e37fdf451bc19e017e033f"
+        },
+        {
+          "name": "[本体][命定系统]读者核心(Angtuck)",
+          "order": 358,
+          "enabled": false,
+          "contentSha256": "d3027c6319d4bedb03b974776a327f3a2dac23377ce56990decb840456689140",
+          "settingsSha256": "ab3e88b5f33ce534c94ef9c88e03f2087307526d8a92d1260479271f28d87c88"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]地理与文化(快乐柠萌茶)",
+          "order": 359,
+          "enabled": true,
+          "contentSha256": "c6ebabdf0ab1b6284c8a3840512dc9791c59b139be2d5b95f1ab6f2b059ca284",
+          "settingsSha256": "b375e70dcd08deb278b9506d2338af0b4d3d7c4845f520a16b063ce53608e2c3"
+        },
+        {
+          "name": "[本体][命定系统]高文·塞西尔核心(lili)",
+          "order": 360,
+          "enabled": false,
+          "contentSha256": "37311691356fc8a6186771f0f8be188c1ba1e73f9d53325bc7f73243a0edbbab",
+          "settingsSha256": "8d32d1d59ccb70a897a1233a311cc85ca646219c11a20fbf809a95b1d4eead71"
+        },
+        {
+          "name": "[DLC][角色][索尔希艾拉][<种族-羽民]索尔希艾拉(镜梦幻-女妖,带着大镰刀的神秘少女,活跃于奥古斯提姆帝国)",
+          "order": 361,
+          "enabled": false,
+          "contentSha256": "a4eb2e7bcd1eaa089cba8127e73350c64eb548e78cc6eaa0b906dca60c3586e5",
+          "settingsSha256": "cc18de8ed4582c4150f056ee77b0a9e2813c419ec7588be22d7077cb1df20b4a"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]碧霜省(快乐柠萌茶)",
+          "order": 362,
+          "enabled": true,
+          "contentSha256": "0c74a549eb925aa662459cf367e7e9c4ecf78838a31c6485ac652dc83c6e6569",
+          "settingsSha256": "9be8711c197466adcdb63ea9c285337f4f258402b6a2dacdf6031d882c76318c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][琥珀加德]麦市区",
+          "order": 363,
+          "enabled": true,
+          "contentSha256": "2f1e94a49fa3b28be0a631020c14da2ee6492c743a685f7c809068da845503da",
+          "settingsSha256": "4336582c70223d122793f5dbd9a53a170a65cbda78e9e70c5a259cdda66e6a60"
+        },
+        {
+          "name": "[DLC][角色][奥琳科·乌尔芬]奥琳科(elfa-北边 很冷的北边)",
+          "order": 364,
+          "enabled": false,
+          "contentSha256": "71510ac6f598b03cff53929b2025d5e4d838b628d1776e0c4e434516a783657d",
+          "settingsSha256": "6dec853fead8a72b5c35c0bd6c87d33d7d446c0a13724fd520cd2f7a68b839c1"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]无尽树海-无尽地城",
+          "order": 365,
+          "enabled": true,
+          "contentSha256": "2788fc7ccb0ca7383ac5ab050da7bcc6703237f99c070e015aa7f70cfa2e0186",
+          "settingsSha256": "ebb7caf688cf0646271c23dd4cbb01dc625ec14ae446ba9abc49cfff05bd5470"
+        },
+        {
+          "name": "[本体][快捷功能]➡️快捷功能结束",
+          "order": 366,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "7ce03d772cb22fc66525139fe7ff0f5545474832b7dccce7a8e5fbc16ec8b262"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-火花巷(快乐柠萌茶)",
+          "order": 367,
+          "enabled": true,
+          "contentSha256": "934f2826bae572706274397857ff3c3e284f702a3a5a750ef95d3ff8b3a1d10f",
+          "settingsSha256": "6abc0dcaed1bc1445788cea3bdd57069f359fa62696db02c9013ec49cdee171f"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]组织-灰土行会(风见幽冷，Aoo改)",
+          "order": 368,
+          "enabled": false,
+          "contentSha256": "c0d672a359531c8b29994545be2ea0359c50c2ed04af4344662867c419b5a14a",
+          "settingsSha256": "b38244826a9f4e48e8761b3f0870aa5b5ef251151691b3821d62a83449e3e7e2"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇]凛冬大学",
+          "order": 369,
+          "enabled": true,
+          "contentSha256": "38c060c4d1396370beb5b1884773d5bc74aa7cfc84709da9542814afcf8df784",
+          "settingsSha256": "7d24206294efa854d98a01fcde8b9007bc83ef84c4e4030e3ba3cb235a5b0d97"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]瓦伦蒂亚城(快乐柠萌茶)",
+          "order": 370,
+          "enabled": true,
+          "contentSha256": "c73dbb58f9a6968ebe5d04f92849cdcc95de833415f4f05c7dd7a4592610e0d8",
+          "settingsSha256": "4954b023514eece1564da24c0bf3b63b147330719a390b770dcb30f560513335"
+        },
+        {
+          "name": "[DLC][扩展][假小子扮演功能]假小子扮演功能(快乐柠萌茶-提供假小子形象设定：高挑匀称体态、中性外表、穿男装、被误认为男性的扮演规则)",
+          "order": 371,
+          "enabled": false,
+          "contentSha256": "21b299bb5b9b44c0c00e109830982269b40dc685bc10690837b3797cbf0eea40",
+          "settingsSha256": "04f6e4cb762efc237fe0bc935842d474d86e49644fccade2b496a223e1ed816f"
+        },
+        {
+          "name": "[本体][势力][永夜盟约]永夜盟约-政治与社会",
+          "order": 372,
+          "enabled": true,
+          "contentSha256": "9b172fbab01301f1505295d20e84936ce907aa37196aa7f72e0712649fafac59",
+          "settingsSha256": "0037e520f5484e6167f146b7492d5216cf6e69555f52aeca5d7a7a16e3d061ea"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]外苍白海",
+          "order": 373,
+          "enabled": true,
+          "contentSha256": "38a3158f5f0f28910fbb9cefcf808794ce568f8828a62703b4dc853ef8a47533",
+          "settingsSha256": "1d438312e74877b4cba271965ab41556e1a88382882cab7efc36eacc284844ba"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]下城区",
+          "order": 374,
+          "enabled": true,
+          "contentSha256": "09e2f48c85c97f0192c60929e5f7d6aa886dcea625ca64c5fde7ac841ebc9c4b",
+          "settingsSha256": "70230d7a455a75fc095c63db0e39dea78c9bdcb7ddbd9198bcd1daeb17ca3512"
+        },
+        {
+          "name": "[本体][组织]冒险者公会",
+          "order": 375,
+          "enabled": true,
+          "contentSha256": "85c3a1f8c050ecc8f259bef10c7dcc53431996fad4aed68d6adcc5eb1978effc",
+          "settingsSha256": "efa9355b6ac85b1fbf32e896d5fceaa110e4c4a8b5fd33d8aeac247d05e20eab"
+        },
+        {
+          "name": "[DLC][角色][艾璃丝]艾璃丝·赛瑞利亚(△一串-汐海妖精,永不长大的孩子王)",
+          "order": 376,
+          "enabled": true,
+          "contentSha256": "9a9055532282158e12fa8b2efb524e21a944726c5c54632a4c1d2a6b09887d4a",
+          "settingsSha256": "5d422c6d6dd3cbccee8c275d1eaab138143478bd0c6e9bc3941e8cfbcc11692c"
+        },
+        {
+          "name": "[本体][世界设定]登神长阶",
+          "order": 377,
+          "enabled": true,
+          "contentSha256": "a1cf1b0152b0df69de4bf78ebf292eab08347d64322b13a68b351b8908293ec2",
+          "settingsSha256": "4554cdd4e16b9a9bee6618b7b4177fdb7245bf5484d79c5bfe7c1511feeb799f"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][圣都]圣都",
+          "order": 378,
+          "enabled": true,
+          "contentSha256": "0239961ef68a36231fcaa8f8eca2c510b04e3c564335d785b25996be31b2ab20",
+          "settingsSha256": "d21fe298a0bd415a853ad62c53aba68323026071fb9c6fad80555dd814b958d6"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]瓦伦蒂亚(快乐柠萌茶)",
+          "order": 379,
+          "enabled": true,
+          "contentSha256": "cb8ef892357aed283c59a2fb6954790a9521c7a7e03ed569f1100bce756addd4",
+          "settingsSha256": "dd0a3765e5d422cff48d1a607bcd87b6b0e55e47c567f0704e88c166f039515a"
+        },
+        {
+          "name": "[DLC][角色][塞壬]塞壬·赛瑞利亚(△一串,赛瑞利亚领主,大家的妈妈)",
+          "order": 380,
+          "enabled": true,
+          "contentSha256": "e26616c11a17a85cc1cd72285e842fe4a844c55bf505de2567c7869b4aaa17f5",
+          "settingsSha256": "f8ce0ac71dfb07b7ed1df26d9f0a4018e022e382b1a991411b8426c6120b0676"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][伯伦斯枢纽]伯伦斯枢纽",
+          "order": 381,
+          "enabled": true,
+          "contentSha256": "8f236db5c21a2f59a94d2d0f0f3e58437b6fc59eb0e6e00092d021847ea9defe",
+          "settingsSha256": "95cfcee4ef09a2847dff5ca9df9984426d08d74557ee9ecb2277e2fcd5697850"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]文化",
+          "order": 382,
+          "enabled": true,
+          "contentSha256": "069110c6eb90cca3389ba430e2a21e1e9696564fc740ba639f239b6611513895",
+          "settingsSha256": "f253ef8001bf7818778ef57b17b52f34d9a5ab80181d1aa7a394e425ee907089"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]悲叹之城-地下墓穴",
+          "order": 383,
+          "enabled": false,
+          "contentSha256": "e961b6f7fc0b70abf21935d0b6af944379b52e050507e859cc6e7f8b894a3610",
+          "settingsSha256": "ce80258c9377bd897bdbce2accff0135332c6b7b1db42070ce352aaa39add8b7"
+        },
+        {
+          "name": "[本体][额外设定]角色辅助指导",
+          "order": 384,
+          "enabled": true,
+          "contentSha256": "e713b9054bcea69b792d775e1eab22233e773714f8e8c6ceb9fafb3d2db4573b",
+          "settingsSha256": "b9f37e22599bbe8ce9c710513366a8f0edcfb4cbdb4075c29afeab74839f587f"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]驰原省(快乐柠萌茶)",
+          "order": 385,
+          "enabled": true,
+          "contentSha256": "50e097fa506f6bf1de607537031c4f745afc36a1a8416eea459395ddd2dd59f1",
+          "settingsSha256": "5acd9a0736e1b52d299493371d2f9a9d81a3d223f9d1d7dee23471597694ced8"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]真菌洼地",
+          "order": 386,
+          "enabled": true,
+          "contentSha256": "0cae7fdea6c40c89b711d23c21a810c5fff17df8bd2dda74432110d56e2c5589",
+          "settingsSha256": "5d1ee761d709fdd294488d842f0ae3ef6736b01e41a3203af7d3d887deeddd44"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][王庭正朔]凤羽廷臣团",
+          "order": 387,
+          "enabled": true,
+          "contentSha256": "08d0100f9dae45e5ca701342b4a7b8405e91c34deb604d0238fcf7d88f81b9df",
+          "settingsSha256": "f0b917ebdaa25c81b39a741bb4944a0c10b8751ed69d54e6c4becaad4f6c5c57"
+        },
+        {
+          "name": "[DLC][事件][双子星的咏叹调]【双子】双子星的咏叹调-本体(H一串-略)",
+          "order": 388,
+          "enabled": false,
+          "contentSha256": "1c668b69d23016bc2f8bb630db9170d47fdf79ab50238f6ab9f39f5c98af84e7",
+          "settingsSha256": "0336f31f68da95199257dc305aaf73938a44d820987c4e5964d3dd92e2bbc5e8"
+        },
+        {
+          "name": "[本体][控制]➡️DLC结束",
+          "order": 389,
+          "enabled": false,
+          "contentSha256": "36d5d011d7dbc1494b542f9ac142b0a3cc00884453ad15fde613a78b0e0be9bb",
+          "settingsSha256": "130dddb12eb90f14885f13cb2a95d87fa567092951b2af3341ffb67002524893"
+        },
+        {
+          "name": "[本体][种族]魔物",
+          "order": 390,
+          "enabled": true,
+          "contentSha256": "1b51127541a7beff80c4fcd223f0d5de9515be2948e319494bb72640f2dc2ce3",
+          "settingsSha256": "12f6a0a5ab6c6601d11218469b3c920a85430e7f6f30cc1e96416dce37eddd22"
+        },
+        {
+          "name": "[本体][种族][智慧生物]智慧生物",
+          "order": 391,
+          "enabled": true,
+          "contentSha256": "41f276387257e4679375c2b70366073850dba3abd3c2c4deb8164b3eda486678",
+          "settingsSha256": "5cbc79a9b76866b86356b37298a8c8c38194234075fcb84a3603df6e3ba988ed"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][琥珀加德]河港区",
+          "order": 392,
+          "enabled": true,
+          "contentSha256": "00320d3b344778e23ec7b816522af965fe942010c4db5de55c8403d27768d9d9",
+          "settingsSha256": "08a6e0164d07367b3125b3b37d018ea67a3e5aef8d6972b9d331b1f234dbf8ef"
+        },
+        {
+          "name": "[DLC][扩展][史莱姆扩展]雨(风见幽冷-添加史莱姆雨并完善生态)",
+          "order": 393,
+          "enabled": false,
+          "contentSha256": "bfd1976568635a95ebccd68545bfebcd54dba528c152670bb149a57b64a1df7a",
+          "settingsSha256": "6e4a2bda08f82c3b6cb49c331300edb16b570fc7bb26b2297a1326e66530e46a"
+        },
+        {
+          "name": "[DLC][角色][千爻][<种族-东方龙裔]千爻(大白兔泡芙-龙裔，游历大陆、测算吉凶的元气少女，或许可以在索伦蒂斯遇到)",
+          "order": 394,
+          "enabled": false,
+          "contentSha256": "625ace8701a4156c12b9d8c8a29ae87ec9e0001e68c1fae979df46fdbb2b5173",
+          "settingsSha256": "2259c3c52b2824868d13cf630eaf872e80e5f6b67b908bd98ac9eebac4cf755b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][林歌城]河岸木场",
+          "order": 395,
+          "enabled": true,
+          "contentSha256": "35537a8458142e0e70a9bfb9579c8c8eedb1b745acd21a6f52c7181a5e524b3e",
+          "settingsSha256": "274a5941f45335cc8bea975fde3d8ebd6673d9bac332d4c9593b7b36267da102"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白港]白港",
+          "order": 396,
+          "enabled": true,
+          "contentSha256": "c0dd5116be6dd2ba466ec6cc9a65b7af5059c21de3cde3b3d48e086ab592c509",
+          "settingsSha256": "7c263002daa5a105f0e5a03581046229bb963f0628d09a163ea2000a2b3690c9"
+        },
+        {
+          "name": "[本体][种族]不死生物",
+          "order": 397,
+          "enabled": true,
+          "contentSha256": "524bcf03d9b0dc75234991557d2946e7fd7aec202d357c46aae4d6b675ecdd3f",
+          "settingsSha256": "4e542f5112f1e143faa0bef52ce5655b1810e36a1942aae7509348acdf7ae365"
+        },
+        {
+          "name": "[本体][额外设定]战斗生产规则",
+          "order": 398,
+          "enabled": true,
+          "contentSha256": "e6f2942accd09a674372c83842995eba39e7ef3e2692dc6517fa0278ba43f6f8",
+          "settingsSha256": "48c4d4f3332fcfc361aa0bdf185f7a7b5972fb9c519abb9257389360a9e507b0"
+        },
+        {
+          "name": "[本体][命定系统]唐吉坷德核心(十七)",
+          "order": 399,
+          "enabled": false,
+          "contentSha256": "db820cafd86fab9c4f9d3d86a45e57b76afe4363af7cf902790a4c06eba2ab71",
+          "settingsSha256": "46d0e7112ba6409906f924ae372559e9ffb541ee8b54c07617c1ea339c4edbc3"
+        },
+        {
+          "name": "[本体][种族]巨龙(K1nn)",
+          "order": 400,
+          "enabled": true,
+          "contentSha256": "f89e6eb92aa1396acd594857888e7487996841a97abbe0a61fd5177d0216dde0",
+          "settingsSha256": "4c44febed64043e0903931779979e309bf40f4e0a943b31184d972bdbfe4c744"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]王国都城-地牢",
+          "order": 401,
+          "enabled": false,
+          "contentSha256": "f33d41a44e39a9c090bed3933e371e9f288aedcea02761494327ce58975c2512",
+          "settingsSha256": "1bc43cc0e3e34ea7f5f7d9d9f77f2f1cb814915404200465de6a44cad9637a57"
+        },
+        {
+          "name": "[本体][种族][智慧生物]北境龙裔",
+          "order": 402,
+          "enabled": true,
+          "contentSha256": "cb8ff13e726c46dce32dac33c10885c78a1abc29b77377603ce77882320705a4",
+          "settingsSha256": "c4fd9fff752d281ed85d11fab8386e82828597eec9eb21661af75a3ce611849e"
+        },
+        {
+          "name": "[本体][种族][智慧生物]矮人",
+          "order": 403,
+          "enabled": true,
+          "contentSha256": "98b17d2e50c8eeb03e5c42cfac7fe02c4fbb903092865dc49f4dd4b76bf57499",
+          "settingsSha256": "678bb80dec8f818c067cfd29384027f699001309f0aa7d7c0f94b3f20d8e6fcf"
+        },
+        {
+          "name": "[本体][产业]产业概览",
+          "order": 404,
+          "enabled": true,
+          "contentSha256": "b5bea2df6bab63a5a0cb9a48030ef3ac7ee924bbc81dbf9ca164e34feb29631c",
+          "settingsSha256": "501478d829305f39788a382ac01a15f05808d6dcb309c86db35ca77678eb3d81"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]龙吼堡垒",
+          "order": 405,
+          "enabled": true,
+          "contentSha256": "d6cc1ab413ee28d185a40b538cdb95bbc28ab54cb6f9025069c38626b86eaad3",
+          "settingsSha256": "23dc58d9214595aa7414b5c50721e63fbefcf4bfe54f7d618cc20703ca267f8e"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][挽歌堡]热泉坊",
+          "order": 406,
+          "enabled": true,
+          "contentSha256": "ead38a872a859acf04a751354fa0ce87991f5e9baabd0a20d980e990724b256f",
+          "settingsSha256": "f7d717b4b2f3453620a9fee4aaac49b25111c2798131f3b6f5e0d04b61bd01c2"
+        },
+        {
+          "name": "[本体][命定系统]奶龙核心(K1nn)",
+          "order": 407,
+          "enabled": false,
+          "contentSha256": "d042b097b87371c01df562fbf8caf7d85dda12337275a51b2f34957c6f18c029",
+          "settingsSha256": "4b3ebb18578eb46e5cbe1f1b8a12b32680de529c458bdeb045fe249b63d289c1"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白港]炼脂坊",
+          "order": 408,
+          "enabled": true,
+          "contentSha256": "252d5ba0f432a88b24aedf60f2074aed15d39b88986af2c56c4d753d4fd943e0",
+          "settingsSha256": "f005dcc18a2de1afeeed4d851d4e9a51f704f08c68825907cc971ed699672e15"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][凛风渡]浮木区",
+          "order": 409,
+          "enabled": true,
+          "contentSha256": "f3310760f977f88c86307a3fd69c32fca7eb39cd946b8b35913a28408c7ad2b5",
+          "settingsSha256": "ed8d3a714fda0c9d06b1252a7f40d1c676610971ce4fc706401db4f4f89e5811"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][潮汐王座]珊瑚龙庭(下层区)",
+          "order": 410,
+          "enabled": true,
+          "contentSha256": "f82c563fca0241ab5d85ade1841fcc0e197e4d7cd5ecaf2dacc4440b1f1f35a1",
+          "settingsSha256": "ca13bcad3ab31e61304081698295ff01e196edb168726af10962b82001dd95ab"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]照雾台地区",
+          "order": 411,
+          "enabled": true,
+          "contentSha256": "21cf533bf8e4ecc3419443de8483f2c3d151a01dfcb39140e443564a3d7215de",
+          "settingsSha256": "76d2b071d5f8b1f855eb3b8582aa8da692e9245ddedf6b0aeed4084bf7c1583d"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]政治与社会",
+          "order": 412,
+          "enabled": true,
+          "contentSha256": "81884e15569ac0f1c9dac5644d3a8b06a1fa652058115c39664cf34f12c24875",
+          "settingsSha256": "809b178245d0b58fedffdf854771536e15065992dcbe7cf5f53a033d45d86f78"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环]政治与社会",
+          "order": 413,
+          "enabled": true,
+          "contentSha256": "26ee792aa2e5b9d9572c908f3b64fd526ad25a3c9d7319ca5c43e639773914dd",
+          "settingsSha256": "a7ffc8b41fb42106c04f32e9f8e4be53b9c73ff5c3ddf0b1c034695d1cec0ea2"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]霜崖",
+          "order": 414,
+          "enabled": true,
+          "contentSha256": "8dcb9511aec72397178c10166e4b6eff3fb04eeac07325d761b5dc969e2eef23",
+          "settingsSha256": "aa6136fceb9981c9db73f13cc73edba1937c073b2357c9e837fe2379b618a264"
+        },
+        {
+          "name": "[本体][种族][智慧生物]人类",
+          "order": 415,
+          "enabled": true,
+          "contentSha256": "348b5ec07def301161e833cf666da26a9f1e9363e189e9d2cadf105baf1abb4c",
+          "settingsSha256": "ef656895b5ff23a1de4e85dffb59d8d0daa25bdaec0929fbb3ae608f92473859"
+        },
+        {
+          "name": "[DLC][扩展][种族-食人魔]食人魔(K1nn-很强壮的大家伙，会分裂畸变，无法沟通)",
+          "order": 416,
+          "enabled": true,
+          "contentSha256": "b320f318ba3f1eed5ef9659c2901d74f33ca9b326d9b43cebb445aacac2ecfed",
+          "settingsSha256": "8c05db0effcb6fd99b886a99eb19edee5be2f0b603dd12598228aaac20cd07c8"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]艾尔文海姆",
+          "order": 417,
+          "enabled": true,
+          "contentSha256": "e5c012bda3f8b618c106016b64a5f0f20d190d94dc35cedaf28295b30d082137",
+          "settingsSha256": "6dbb3cfd1403ef6f3103db593fdc3744514c80a37edd4f776c760ea7ed31c678"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白港]鲸肋镇",
+          "order": 418,
+          "enabled": true,
+          "contentSha256": "93243b105275e63c79b6c4ac98cd96f9f182ca5af1a2dad2284661a1b7c88500",
+          "settingsSha256": "0be131c6f270de865db14f9c59a40c84034d5ac42b47eb9035504bf0c8f17d00"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]汐潮学园区",
+          "order": 419,
+          "enabled": true,
+          "contentSha256": "840f58f4911ceba7930065067b5a28a9014210118e68b709adbb06abe147d539",
+          "settingsSha256": "5203a252d555d574dd0b982727c31159b0b9deda9b0c32937130d1ec9cf4079e"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][圣都]霄霞区",
+          "order": 420,
+          "enabled": true,
+          "contentSha256": "fe733521fb931bcff7680e76bed0a3c231d21b926706f75b592d9ef0b725562b",
+          "settingsSha256": "029b294213f0772086da09dcd70a3641196f468160e4b43f298bdc2d5822649c"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][潮汐王座]天穹之冠(上层区)",
+          "order": 421,
+          "enabled": true,
+          "contentSha256": "54614ae571eaa1f6616f839b7655a362bbd211f11fc5622c805a22bcec9edc95",
+          "settingsSha256": "7a79778546a06962fd22daa478f592da52c18852abec549ad8b4b69aa947ca81"
+        },
+        {
+          "name": "[本体][势力]势力概览",
+          "order": 422,
+          "enabled": true,
+          "contentSha256": "365f9c2fb6de9060bc8e4bb693df69371d41ed03fa46605d442181b599409208",
+          "settingsSha256": "9fefa8db3b998417c5803d5bb059a940a62443f29e750ffb4b403b7904d7b0e1"
+        },
+        {
+          "name": "[本体][种族][智慧生物]兽族-鼠族(快乐柠萌茶)",
+          "order": 423,
+          "enabled": true,
+          "contentSha256": "63fad6293e99239fe7c3cca4522249d30f7f93f970e944141760892c59d0ff38",
+          "settingsSha256": "d66fa7a39d6e7f8e4a5cc36360bdbfd6989bce56b583764f445f12973e8147fb"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][叛离派系]次席家族同盟",
+          "order": 424,
+          "enabled": true,
+          "contentSha256": "9e37e5622f969cee4d6c5b40e94a5fbb56916aa232a218ac54704399edb57148",
+          "settingsSha256": "68272c31759812e805fb1133fdc2b0889f67494be421821ad25ba4e6ce5722b8"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国][时钟塔城]时钟塔城(快乐柠萌茶)",
+          "order": 425,
+          "enabled": true,
+          "contentSha256": "9a0fca7a81131906bbf39b5baa4d8b80265f70e90c2c933372236c2f333508c7",
+          "settingsSha256": "c72865639bb75c121fbad8e2ec467e2fddebb3e420d845f2a8e69e70e5ba21cb"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]皇家花园(快乐柠萌茶)",
+          "order": 426,
+          "enabled": true,
+          "contentSha256": "19830b6b2da3362671bb2a8e56a9c0c1e2f12dce12d5d734fbb727ccc3b508bf",
+          "settingsSha256": "5b5918ea96c75dd021bc6080be611f674eb1b94f96e2bbbfad496419b0bb48d4"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]永寂雷林",
+          "order": 427,
+          "enabled": true,
+          "contentSha256": "256b6afd5ddfb4fd0e553f22a62ab526b7dcb7d12875201aee879ea1c73ede48",
+          "settingsSha256": "e95f2970a6ff306f8a7298bbad49455e5dc263dab4ed7c466b353d698033f110"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-冒险者公会总部(快乐柠萌茶)",
+          "order": 428,
+          "enabled": true,
+          "contentSha256": "3fbcb6288884d76cafefa96a4033ef68aa334b9dc3cf58ffd7ac1acdff0e11af",
+          "settingsSha256": "b04af7ada8840795596b8bd881982fd0812f6d38371dac4e5a4c7230eebc4d34"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]眠云岭",
+          "order": 429,
+          "enabled": true,
+          "contentSha256": "56421c95d7e943079ccad21756ce1615a037c51b3725bdfce8dfde39d11a2eb9",
+          "settingsSha256": "c709cb25cad831a4620f3b14b1d79eb7928b331cf9282460af7a61da7a168cb0"
+        },
+        {
+          "name": "[DLC][扩展][种族-花灵]花灵(快乐柠萌茶-头上长着花朵的美少女，没有B！)",
+          "order": 430,
+          "enabled": true,
+          "contentSha256": "07d8252be15b55120855d171563fccd37a035fbd57f6678b61d4180f7867aca6",
+          "settingsSha256": "48258ddc224b7b1294f941099fb19324899560fc145e8cddac2cf0ba59e8b102"
+        },
+        {
+          "name": "[本体][种族]种族概览",
+          "order": 431,
+          "enabled": true,
+          "contentSha256": "4a06432c205e9e76307feb4fe0accfdab56b93bcd2f4fe797b528c6155fae188",
+          "settingsSha256": "5dfa35d3361642c22c96bc7daade8dff0f10221f50e0b8741a70b4fc495592a8"
+        },
+        {
+          "name": "[本体][种族]种族繁衍",
+          "order": 432,
+          "enabled": true,
+          "contentSha256": "c98ea5ce8918c4094b195790934e555659ac15ec740832c3c2fb062d74e35500",
+          "settingsSha256": "3565279492c68dd6191ca1193ba182d450c17c3a453e7936724b25276e238f01"
+        },
+        {
+          "name": "[DLC][事件][冰之歌]冰之歌(aoo-长垣崩溃，异神入侵)",
+          "order": 433,
+          "enabled": false,
+          "contentSha256": "f4869bc14b56a9241b050a596a092a39c956a72da6ecbb98e673919f2ad2a7c8",
+          "settingsSha256": "bd194a143705fb31366d0c566c77e65ec8d23b83ec0b09cbb3eda95470256edd"
+        },
+        {
+          "name": "[DLC][扩展][种族-蛇女]蛇女(△一串-上人下蛇，变温喜热，缠绕求偶，母系氏族)",
+          "order": 434,
+          "enabled": true,
+          "contentSha256": "21446c90e65a71181f22669cc0a7e43c2d561a98712105a43f83f51ac300bb9f",
+          "settingsSha256": "00a8d17839a2cd365ed22c60563ae71f0d5c0dfa664357cb87e3873b955d14e7"
+        },
+        {
+          "name": "[本体][种族][智慧生物]兽族-蝾螈(快乐柠萌茶)",
+          "order": 435,
+          "enabled": true,
+          "contentSha256": "2ebd2caaa5c5ffa6a05170ac0e7e74280506e4201527853f8c4cbff78462882a",
+          "settingsSha256": "bb705636ff852cac481988c6aa6bd60f42cb6c7b14267af9099f4bbcd5a5fbc7"
+        },
+        {
+          "name": "[本体][势力][兽族联盟]卡拉什利亚斯",
+          "order": 436,
+          "enabled": true,
+          "contentSha256": "b7bb7e30e641fc123a3fb343a563adb58f5d681b52c3d025babe0ef7247aef18",
+          "settingsSha256": "61ce2907aade28d6807f43aac8bc22f32124f64791a3bf85a5ad6a84b0347901"
+        },
+        {
+          "name": "[本体][变量][mvu_update]变量更新规则",
+          "order": 437,
+          "enabled": true,
+          "contentSha256": "147e43608604f943984601dc3571fb7ea76b1f9d0491d0b093aa9e648cc3864f",
+          "settingsSha256": "5b061a36dfa1d80d69d5d55de735d79d37dee283ca249fbb0ab41807db14fbf1"
+        },
+        {
+          "name": "[本体][角色]➡️角色开始",
+          "order": 438,
+          "enabled": true,
+          "contentSha256": "10704a33613dd025d4b047e0254f903f3b7e1ee0a234b1005ed7686985d107f8",
+          "settingsSha256": "90c2f28a7b705b982d4d1d7e6b135c3ab18c53ef323b8a10e1db068a83061286"
+        },
+        {
+          "name": "[本体][命定系统]➡️系统开始",
+          "order": 439,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "d0becb7fd9e056c74fa4fd1610ea39cc988154d3d9be0caaa7bebc3e7214d90b"
+        },
+        {
+          "name": "[本体][额外设定]好感度",
+          "order": 440,
+          "enabled": true,
+          "contentSha256": "a2bddeab9499dc9d03df4bcdc1083d989a35d8fa913fac7c3f72e263045059a5",
+          "settingsSha256": "588f912974e64f3d30ff8d76abe700b68b104df7c31c8412340b616932376927"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]吱吱市集城区(快乐柠萌茶)",
+          "order": 441,
+          "enabled": true,
+          "contentSha256": "8dec86d3e530937d1d31015bc059c888fb0861d677f4469d326dc995dee23ba0",
+          "settingsSha256": "b9a7e565ecebbd8a76d3d03c805267407211d4a5e40cbd704cf6176e0841e78b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]雾凇海岸",
+          "order": 442,
+          "enabled": true,
+          "contentSha256": "469e06a4f57c416bce2f01c376920c4ea7831234b4645188cac06aba7514cc21",
+          "settingsSha256": "79690b151f556a7a96e6c417df5eae00ed9b984e0d94f1927be0833cf51a1aa9"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]文化",
+          "order": 443,
+          "enabled": true,
+          "contentSha256": "571ba50d0c55745c5a4d11a6546f139983d9e926512e4cc2a5f85dca70e92068",
+          "settingsSha256": "3e4a5bdf83514ad3b3dbffd89c19664eae09971365772340bd9dee9dc7cc93b2"
+        },
+        {
+          "name": "[DLC][角色][瑞丝]瑞丝(rhys-血族,棺材里的少女,可能被埋在了索伦蒂斯或奥古斯提姆)",
+          "order": 444,
+          "enabled": false,
+          "contentSha256": "1709cfed686c74a433f309ba83a229dac56ef142993d86c427325aec616aa0db",
+          "settingsSha256": "71725248676a3cc78a6e01bb02d4e463a1e0d747daead2efe97028eae0a5cf67"
+        },
+        {
+          "name": "[本体][命定系统]艾莉亚核心(by_那什么阿法)",
+          "order": 445,
+          "enabled": false,
+          "contentSha256": "9307cb90ade17e4a508bb1bb814e971599bf5e6a2e3d5affd3263cb83ec28844",
+          "settingsSha256": "1b7228a8697788133169f919c390ad6b80fb0755949686f7dded72454c5ea5ed"
+        },
+        {
+          "name": "[DLC][角色][埃尔薇拉]埃尔薇拉(Ayrault-人偶+炼金灵魂+普通人外表+弱气少女+玩偶师学徒)",
+          "order": 446,
+          "enabled": false,
+          "contentSha256": "7b09c96cfa6c449b97b2fa9568ef064ed72292df18cf298ec38d6196447095f4",
+          "settingsSha256": "134702473b49d584c37ad2e51c519b0317883ffb3c12c6643fa8652204453e05"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]辰钟省(快乐柠萌茶)",
+          "order": 447,
+          "enabled": true,
+          "contentSha256": "7fb1775febfc57dc22e9e61773df7418eafdc08f9e849e55d29292d617cd56c0",
+          "settingsSha256": "9cb525e8708a92a1f17a701a7855cc89434e6a73f6591f10a165de3aa480bb2c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]五馆街",
+          "order": 448,
+          "enabled": true,
+          "contentSha256": "31f9c2cc559ad240dfcf6d784904dce870edea2dd6987e509b57aa49bc8eafee",
+          "settingsSha256": "055f900e1b9b066ff8b7ea4b5d32a45efce13cef9ae1db5ecfafe45dff5ed0a8"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]地理",
+          "order": 449,
+          "enabled": true,
+          "contentSha256": "09cc20e689aef30401bd90c2156dd0f9fbe5ddaeda93c761d143c9ecc2ec643e",
+          "settingsSha256": "9d149b5126b5472659a496cb33833eb2ab3ec4174c9ebf5befa9f36d3e3240b4"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟]节庆总览",
+          "order": 450,
+          "enabled": true,
+          "contentSha256": "14d62d9eb50f79cb270afbe50cfaa1d619ed068b0bb493ba585576e7f07412d7",
+          "settingsSha256": "ef322ce5199ed03ded6126adfa85000a8bd4e2785f88c1d4eb0f92a00cc0eb31"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]黑方舟",
+          "order": 451,
+          "enabled": true,
+          "contentSha256": "329e5c9506ab549249acd8996d1ef9a1d34d25022728e92721d4bbb54898b6fe",
+          "settingsSha256": "df95db23c86f1465855065dc9426bffc88c1d5f077d3088d318f44cb634bc169"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]云巢屿",
+          "order": 452,
+          "enabled": true,
+          "contentSha256": "fd070e6a4e3f6a476a663517bfc1ab0efc9df4e27f2b2bf3090b5e8c7e71af56",
+          "settingsSha256": "82febaff89a38cb49dd640b0c40895a6ed7b46b620baee05bd959d5245a09671"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国][mvu_update]莉莉变量更新规则",
+          "order": 453,
+          "enabled": false,
+          "contentSha256": "b451fcd3ee1fd459ea048f009c8b43179d10970be71d203bcecf75b4a39e1657",
+          "settingsSha256": "e0307a3666badf072cbc1ad14196a4551ffb2497ba5f6f8c2fe60ef1f74b166a"
+        },
+        {
+          "name": "[DLC][角色][羡愚酱]羡愚酱(不知道谁写的-翼民,雾晶港市立图书馆馆长)",
+          "order": 454,
+          "enabled": false,
+          "contentSha256": "14c2aa7382017ecac7c87d1467aa601e0e596a60f43035c3eaacd5ee7f1d98f2",
+          "settingsSha256": "02d4987bcaebd7aabf9cb77d0f58b474986846eb159930873fb331da6503acee"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-彩玉区(快乐柠萌茶)",
+          "order": 455,
+          "enabled": true,
+          "contentSha256": "7adbc0e40a427e4c460ae189ab2f7588782c2aae792a8bcae8a6942d1ebec7ca",
+          "settingsSha256": "a4554e56935fa2eec34dfa1b8f6694e1ca27bf9cbb5a12cef49f8c3c114a5cc5"
+        },
+        {
+          "name": "[本体][种族]亚龙(K1nn)",
+          "order": 456,
+          "enabled": true,
+          "contentSha256": "ac62f6b68111be673f9b7ba9500a118f144f63301dea51a044dcd1f1b46e15aa",
+          "settingsSha256": "de9455fdb313a87a0e405fe70cf6842193da303dc2252c33a3cb7589c9548cab"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]封印区(快乐柠萌茶)",
+          "order": 457,
+          "enabled": true,
+          "contentSha256": "091b3b0cf9ee48ae95d394a855b4a8f900bac71293f5a5a8a49110167c5e92b4",
+          "settingsSha256": "14ff78c5406790603b75c0c8ca61100da2b277aebc01bb6940bf75759ae51279"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][皇城区]大尾苑庄园区(快乐柠萌茶)",
+          "order": 458,
+          "enabled": true,
+          "contentSha256": "34206520a12e860eeba6b5e03c22f9a33bbd0f55a68b3ec2d1a57b898e4d6f11",
+          "settingsSha256": "299d224e1f368bdfeb5b2750c4977ba8c644ef211e1862084c74103414e81ee8"
+        },
+        {
+          "name": "[DLC][事件][双子星的咏叹调]【双子】Serra_info",
+          "order": 459,
+          "enabled": false,
+          "contentSha256": "814c96c00b0ba95a41044ec40ce6441983f91a40995dfb61a7008f978416d7d2",
+          "settingsSha256": "4bf04c1166e9bf1aecea056d3f59e9d884a173a961b77f013188c40a0f507ef6"
+        },
+        {
+          "name": "[DLC][角色][雌小鬼与熟女与龙][雌小鬼与熟女与龙-Spaceperson]艾莉希雅·温德米尔(Spaceperson-新增角色：艾莉希雅和奥希莉雅·骸响龙姬)",
+          "order": 460,
+          "enabled": false,
+          "contentSha256": "fb8c1d31bd7bfb02fa32b24271ecd5fbe432aef841f974c9bc8c588f7068d60d",
+          "settingsSha256": "0b340e3829e7c388c54fe0139379e83fb2a33f5f31e099b72f87147e1514fb7c"
+        },
+        {
+          "name": "[本体][种族]种族血脉",
+          "order": 461,
+          "enabled": true,
+          "contentSha256": "cb47aa9d8df744f66f37962ff8f4bfb9ef117d6f39c2fe020f7b868a86f0dc92",
+          "settingsSha256": "be68fdbe45d30516468b6013d58a62630f9a6a8953ecce31689dcec277540bbe"
+        },
+        {
+          "name": "[DLC][扩展][种族-黑角民]黑角民(那什么阿法-羊族亚种/部分返祖,恶魔特征,极度禁欲)",
+          "order": 462,
+          "enabled": true,
+          "contentSha256": "9f31a47408658764e052ff7fb5f01a8ee922ecf76fac46aae6c17b3e5b8b5756",
+          "settingsSha256": "3dd6753e16e5ec07edcf725e541957e4db0554db4699de904e6f6cd2760a3450"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展][食尸鬼势力]食尸鬼势力-地理与治理(风见幽冷，Aoo改)",
+          "order": 463,
+          "enabled": false,
+          "contentSha256": "5c9de4e863493302d3ab1df62b3fa96e68e9e4267c70d6b05015b7d20d60a95c",
+          "settingsSha256": "1393a45c1b1b09d5813689774ce1218a794df429d994a09a7d1418f54a550d71"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]地理与文化",
+          "order": 464,
+          "enabled": true,
+          "contentSha256": "5ff415e05ca2bfdc7cb31118eb17cf03376bcbe303e949205d62273aa8aa765d",
+          "settingsSha256": "2b2285081b5231803cb16d91320041ba077b1bb87defddc735103a37d5241ba9"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][叛离派系]至高家族",
+          "order": 465,
+          "enabled": true,
+          "contentSha256": "a8f86c5d93eb5cca49b9644b87a11a7dac3af4053d453225ff5197c7af200d49",
+          "settingsSha256": "90d3ea19cd731bf2599c95601c3a15c8685501f44bc168d9a2531e3686518b90"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]凝晶工坊区",
+          "order": 466,
+          "enabled": true,
+          "contentSha256": "f9db5848c6839b55bd8bf7e8ba42a83c162a8a52dcb70c7fabe22ad33794d53e",
+          "settingsSha256": "9c975ca2c3e16c502aa2db971007b3ba0a05504ffeeaa7543b502e73b6e90557"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国]政治与社会",
+          "order": 467,
+          "enabled": true,
+          "contentSha256": "8d300c83c0f3013e35a5d34ad737d4c42b46304a0954fa2204b15eb2a70d8c50",
+          "settingsSha256": "174797def11622f3f16619f0e931735c2b193e972bf984ecafb83bc90fce95dd"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][赛瑞利亚]苍籁剧场",
+          "order": 468,
+          "enabled": true,
+          "contentSha256": "869b9edd509e13721917592ec4d24481806de18e7ea0e2d5504101ad3102b76d",
+          "settingsSha256": "58a6e200d44f49b0dc361766ffd7cfea358023e16e7b925ebe82eed6ba77e348"
+        },
+        {
+          "name": "[DLC][事件][双子星的咏叹调]【双子】双子星的咏叹调-入口",
+          "order": 469,
+          "enabled": false,
+          "contentSha256": "1fdf71923ce8144d190ee0b9c87386eb482fe9da302678a4024f318adfe5148b",
+          "settingsSha256": "4882a8cb61df026b603de11efde9601d491b9446eb7f23c344866d16e2b9918d"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展][深潜者势力]深潜者势力-政治与社会(风见幽冷，Aoo改)",
+          "order": 470,
+          "enabled": false,
+          "contentSha256": "80b429f0a153affa38b41665a2e832335609eab615b501fc806101eaf0807fd4",
+          "settingsSha256": "f771356f9ef735ebce50539a54b920b13a1db18faa813b98dcb2b234c2497f0d"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]阿兹哈尔",
+          "order": 471,
+          "enabled": true,
+          "contentSha256": "a4a11cbde0c988ffabdafe1dc82bdca72a6282775464e74406b0f7c49238b035",
+          "settingsSha256": "47441a9ccd8e45a090717e7278ead84b85aaf6f361cfc2d120e7a72bf49cb33c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]焰穹祭",
+          "order": 472,
+          "enabled": true,
+          "contentSha256": "5e91fd4a2648cd4bf61b48bf1bdc5984a68617b2d439a8d3aee42aa432fb98f9",
+          "settingsSha256": "e3ca8045a3665a1856292566dd2a3822e88cf8830a000927083263f3621c71fc"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]银息河岸区",
+          "order": 473,
+          "enabled": true,
+          "contentSha256": "ee20c68ec259063b7b3ad7805b557ed59d721b7ac63a966cc270408821d9aec7",
+          "settingsSha256": "53317160f5ccc2b851eb5d7dbbb51758cae5b1b51d62284b35744b17b5d15054"
+        },
+        {
+          "name": "[本体][命定系统]茶茶核心(lili)",
+          "order": 474,
+          "enabled": false,
+          "contentSha256": "5823fd23616d1737ca6bf312a517180c9ae1008faf9ccd7b92ca3358c7624803",
+          "settingsSha256": "7aef804ac063cf5913864417b35553824c9e8ccf1a4cd7322870f1657874ae98"
+        },
+        {
+          "name": "[本体][势力][索伦蒂斯王国][潮汐王座]潮汐王座",
+          "order": 475,
+          "enabled": true,
+          "contentSha256": "9c2b9f1611338a25f6ea22a93947fbc1ca40c453ff24368e7665fe7c5e382f03",
+          "settingsSha256": "3497c9147b4d8297df2767316d9ab83ab4d4850bf7c56b6f8f550d4f36eb9dab"
+        },
+        {
+          "name": "[DLC][扩展][种族-诗灵]诗灵(FIshfish-故事凝聚灵体, 优雅善感)",
+          "order": 476,
+          "enabled": true,
+          "contentSha256": "4d1168865da86296f2dc404a4e619cb9f5a257c6d01ec07d0186b3faf2908e6c",
+          "settingsSha256": "79d8ae0ceaa5a54981493d16d417e159e8cfb1e8bd23d350d9b9acfc524281c8"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]外环区-开拓港(快乐柠萌茶)",
+          "order": 477,
+          "enabled": true,
+          "contentSha256": "1966b2ca92e9e91b2a00e83e57bd2995d02d530920ec1a2d1156ca3cd36cf6d9",
+          "settingsSha256": "4b931a703dfa7b397da1d6467f5f0529443732b552142e81a03792cea1249a9d"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]白石修道院(快乐柠萌茶)",
+          "order": 478,
+          "enabled": true,
+          "contentSha256": "52b850654b9f345e4df7f771c7a2ef4120df8f18711e1e87d867c2597e91069d",
+          "settingsSha256": "67d54f72fb4f808baa1eb224bc10c7aa1c980c7862e8c1651678f3b3943ea10e"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]翠庭城(快乐柠萌茶)",
+          "order": 479,
+          "enabled": true,
+          "contentSha256": "524400758be844d58cb2b7c6514a9493f3e7e0936b56780fdaa62b3cdcc4287b",
+          "settingsSha256": "09fe4405da567c2e827a1b9d31b0ad9aec54ec912b59b399f134b2217172f92c"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][凛风渡]上城区",
+          "order": 480,
+          "enabled": true,
+          "contentSha256": "026c5b0bdc118eb8b19016293b337f42325e9a5725b1e3315ca7d613c953f5e4",
+          "settingsSha256": "9cfe29978d5524108a7aba60261c962ba3da8785d65c00d3de7539812d5de6e8"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城][主城区]主城区(快乐柠萌茶)",
+          "order": 481,
+          "enabled": true,
+          "contentSha256": "ec931f87efeb343d24775d971258bbb3b360ab7905b4c27ff1b904b163565ea1",
+          "settingsSha256": "6ffa504441e24a67a4afe31c4357d96811c2d9074c859fc72f4f1174828fc44a"
+        },
+        {
+          "name": "[DLC][扩展][边陲之国]污染核心",
+          "order": 482,
+          "enabled": false,
+          "contentSha256": "7409a865c03784bb11ce93c88077349d8781eda371b7f3f4bfaba0e613582518",
+          "settingsSha256": "2700f3f4420ac187584f935485471e46d70448c48a16745942bf79fc6b23659e"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚][城镇]炽岭",
+          "order": 483,
+          "enabled": true,
+          "contentSha256": "73272f37c7017da0b76102e72c8df723cd7513b7e15bd62e9ee9734162f2b6ab",
+          "settingsSha256": "4c12d4cc6679a9d970d40e5765625f8c29e5ffef49d148f78d28adfbbe7699b3"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]种族-拜亚基(风见幽冷，Aoo改)",
+          "order": 484,
+          "enabled": false,
+          "contentSha256": "05756d09e983abf43fee29f95e7fda0837b07f9ed3dc8e4d7e60f07c63f63533",
+          "settingsSha256": "215edefde67ab326d11cf56418bd51eb0a347a88cf6fa2b0fe940335da92fe77"
+        },
+        {
+          "name": "[本体][怪物生态]➡️怪物生态结束",
+          "order": 485,
+          "enabled": false,
+          "contentSha256": "4603392c98ce7742d5dcff5f898c5aea9263dc02e97963ecd04681be7e168bb0",
+          "settingsSha256": "60684ab119169a9c1d6bea2eb0fdc342fbc2d3a19a8550eae549d0632569fef1"
+        },
+        {
+          "name": "[DLC][角色][诗灵-套中人]诗灵-套中人(Orchis-诗灵,活跃于诺斯加德联盟白曜城某)",
+          "order": 486,
+          "enabled": false,
+          "contentSha256": "28ec399a34a6392db4c2bbb8820ccb56b73e49e249c1e51183632440ebc6b433",
+          "settingsSha256": "03bf5a610b5831cd3b2879fc8ce7e20ab515aaad473baf24cc700bfda3318814"
+        },
+        {
+          "name": "[本体][产业]专业设施建造与租赁",
+          "order": 487,
+          "enabled": true,
+          "contentSha256": "f251c8716537b5fa687e4600ff5531bf2215b3affeca430432c0f0eab2416239",
+          "settingsSha256": "b9dc60c7440bdb0886230cd0a39535de1c47f830d0950cfb90a3c525e4a06292"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][蝾螈王朝]蝾螈王朝(快乐柠萌茶)",
+          "order": 488,
+          "enabled": true,
+          "contentSha256": "536abc6b0097990f75f81ad3f1c73bec30941bffe9c32b40db6e90a72b4ac2e1",
+          "settingsSha256": "ebd9369f52941d1e4fb790e912cc46dc6a60f6aa59b5d0fabd6575b0a4bdaa51"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][派系][叛离派系]黑暗精灵",
+          "order": 489,
+          "enabled": true,
+          "contentSha256": "572e42bba4f22c38fc93f2a8bc99733401acaa29d67c8bcbd76a58dcd56a53b2",
+          "settingsSha256": "bea601c4da0d2ec7c160402f6f2798132e88feda4641b0c7d5e449e07e08da32"
+        },
+        {
+          "name": "[DLC][扩展][克苏鲁扩展]概览(风见幽冷，Aoo改-克系外神扩展添加了一些克系相关设定，包含食尸鬼与深潜者等种族，灰土行会、渊洋王庭等组织势力，星之彩、黑山羊幼崽等怪物生态)",
+          "order": 490,
+          "enabled": false,
+          "contentSha256": "6bf2f0ad0d78bb54a493f23506bc34f69b7e5af5e7850b402f5ad486a23a64d2",
+          "settingsSha256": "82afd612f1dafd1cedc866d4ed62b736f940741e76b28636caaad54d5f898dde"
+        },
+        {
+          "name": "[本体][事件]事件信号变量适配",
+          "order": 491,
+          "enabled": true,
+          "contentSha256": "67a91f4ed4d8375eb89520deeebb05270fc8747e659bf8103f6f87970f763f53",
+          "settingsSha256": "d6b413fd4af070355ee02da5b6ee7aef9865918d37fb7597fda4feeab726efab"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-荆棘军营(快乐柠萌茶)",
+          "order": 492,
+          "enabled": true,
+          "contentSha256": "e8ddededd39fb63245407b218c7a027ff3abd3c58e5b802e6fecc74c3ed025e6",
+          "settingsSha256": "025de8309fd057f989218c549877fa721517d3028567555009097c1bf647eaad"
+        },
+        {
+          "name": "[本体][变量]variables",
+          "order": 493,
+          "enabled": true,
+          "contentSha256": "892c1267fe6c26d9d14dd3199f2d0df2720b62c72ca628f58954a69d3f839b3e",
+          "settingsSha256": "d1c8a41851419f2fe26bb0e466a043bbf284f12e4ab17fbfc61f8a49cf4db1c2"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]万卷灯会",
+          "order": 494,
+          "enabled": true,
+          "contentSha256": "cfcfd6a858e145d1833da3b2c1d969ffa6eaeeec5e9088f58462f30c1fff6f43",
+          "settingsSha256": "b2a860c0daca6858ebd294df19f99bd531f26bf829c7e187154dfdf6ed927b0e"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]达尔·苏克",
+          "order": 495,
+          "enabled": true,
+          "contentSha256": "97bbeb9b81c23b7252ecbd9fcb494eb4047a904cfc93f7b12122058ef8da63ce",
+          "settingsSha256": "afc97ddce8955ea00ade28660f969ff20e56d0d394c899748ab56321bf6521d8"
+        },
+        {
+          "name": "[DLC][角色][莱拉·阿尔-费伊]莱拉·阿尔-费伊(Aoo-人类,成熟御姐,暗影杀手,沙漠上的曼陀罗)",
+          "order": 496,
+          "enabled": false,
+          "contentSha256": "728eb57e1406c6b7ee4cc02e823352e2dac98915bb72bbcd3f4d880b39614129",
+          "settingsSha256": "28c0bc2a30131b54091412dbb31a86e84b8ae1f51374ba6e8d0f30144bf0f753"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]风切半岛",
+          "order": 497,
+          "enabled": true,
+          "contentSha256": "bf3c14324953e1308f6ae02b0b199c554996e10445bd8f43e3cc936340bf4fc2",
+          "settingsSha256": "c3faf61019ee0db09b4ee51f952441ae2f476b86ef99a191ff988d6765e8d3af"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]金谷城(快乐柠萌茶)",
+          "order": 498,
+          "enabled": true,
+          "contentSha256": "2258abdb54a6ded8997e3087efa2fdd422ce8a3ff43c3b823d3308ec41445fb9",
+          "settingsSha256": "3c6b806523c63c16661e7e493d366cb0cac03cb1541a9866a2c94f0ef9bed56c"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]翼民圣国梵尼亚(Aoo)",
+          "order": 499,
+          "enabled": true,
+          "contentSha256": "7ff102e65e4fd0c8b49da70fff07d22fa6ac2c4701d74218bb3c1aee3df10312",
+          "settingsSha256": "be846fd5c298b931b9c60c409821bf398f89115b11efa4ac1ea661b15ecefa93"
+        },
+        {
+          "name": "[本体][冒险区域][泣歌云海]艾琉德雷姆·尼尔",
+          "order": 500,
+          "enabled": true,
+          "contentSha256": "fb14cdbe60c4a58ac8a4ca20198266b511291f08771fff4e0f8f7ef116103f5b",
+          "settingsSha256": "fe371f0f3bb8dddb05ec65dd5270fb0aaed86871402e20f8f0dd6f663a8c968a"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][天霜王国]巨熊城(快乐柠萌茶)",
+          "order": 501,
+          "enabled": true,
+          "contentSha256": "2a8d88b767ab68046265f33e12dba5ebb566e518f03813d1dc23ba0acf960b25",
+          "settingsSha256": "3f849a2939e77921de7bcc1f4fa8bf212cd4888455cd6754ce90302bca045104"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][鼠族王国][风信子城]外城区(快乐柠萌茶)",
+          "order": 502,
+          "enabled": true,
+          "contentSha256": "c2b98656e0baab0df8ada25758af435a6aee301ca540e3cad861ff2a22841d88",
+          "settingsSha256": "03c7e3da28d1b69d062edc2e82854ce1120b7976cc91ea45c1a3fbfea12db7b0"
+        },
+        {
+          "name": "[DLC][扩展][史莱姆扩展]岛",
+          "order": 503,
+          "enabled": false,
+          "contentSha256": "04eb92765da413966df49e13a957009e8c1cc2eb7befce676469c243fa08ed7a",
+          "settingsSha256": "bbf9f161dc1172414575c73f18b785b7ae26ac4263c2572fb570bd8272e96373"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]内城区-瓦伦蒂亚城堡(快乐柠萌茶)",
+          "order": 504,
+          "enabled": true,
+          "contentSha256": "e712e4fdc73ca05a3e8ce61b3a3b03004fbf31fa7d3318bb59f047e8a5fafbe9",
+          "settingsSha256": "654dcd3dcb05945ec820c78f179558ccce918b5fba7cd54d7a28549e56b25baf"
+        },
+        {
+          "name": "[本体][额外设定][非专用预设需开启的条目]➡️非专用预设需开启的条目末",
+          "order": 505,
+          "enabled": false,
+          "contentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "settingsSha256": "cc7919b29acedd88f8ed1073a44d5b81ee4145808ece0a7c91a9c4fd6f5a3e12"
+        },
+        {
+          "name": "[本体][势力][精灵王庭]地理概览",
+          "order": 506,
+          "enabled": true,
+          "contentSha256": "7307b3da9d5c41264087d25f1a32c60a5a8ca20d6599b97c1e0d34b5608e074f",
+          "settingsSha256": "9b191d6e33ada3f5126d55d6ee878bd168dab5f5ae94bce2c74cfdede3e683f5"
+        },
+        {
+          "name": "[本体][组织]圣灵教会(快乐柠萌茶)",
+          "order": 507,
+          "enabled": true,
+          "contentSha256": "17e1e339e99dd1814566769df8a6de2fb9f868bee2ae3e3e76957ad98023b0b5",
+          "settingsSha256": "bf205a1483c2c91cd7eceb194907025cb0f55115ed94ccf79d60c670e354005e"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]中城区-万物集市(快乐柠萌茶)",
+          "order": 508,
+          "enabled": true,
+          "contentSha256": "b8d852f3da9382515c8bf687936d42b6494ceb5b9e40a2cf797933ccce03142c",
+          "settingsSha256": "d9d30c8709b4471c9b4ce81ae445ce1bda5242d4cecdeab38f5a8fb8d6d2949b"
+        },
+        {
+          "name": "[本体][变量]output_format_(随AI输出开，主API)",
+          "order": 509,
+          "enabled": true,
+          "contentSha256": "ba9a7c99c1bbcae5d19d1711cfa18add536d47dc871861050ee1a91f338b30c5",
+          "settingsSha256": "72ad03d37f3142d59f75a564ad5c32997aa3e159e4208c6e9bbeab34719cd8cf"
+        },
+        {
+          "name": "[DLC][事件][神选者]神选者(aoo-阿一串大陆的神为你赐福，选一个你最喜欢的吧。还可以打开自定义神的条目自定义一个可信仰的神)",
+          "order": 510,
+          "enabled": false,
+          "contentSha256": "2adacae81da9ae997ea069ddf55695237a70bcf30f4a375e739b2f8149a37aee",
+          "settingsSha256": "482d1ecf9a9df39d991948237f4f8cbb5c4d3067ed75a4f9bc79e322fdf1ab50"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]长夜之境",
+          "order": 511,
+          "enabled": true,
+          "contentSha256": "1908274e2ab51d891d8022267686e47e11c831f865b21f200e649e9acd2697d8",
+          "settingsSha256": "6824abe06707ac6c8b045ffbd9f49efbabb4991b39f926d4b924062136baed33"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][城镇]沉月城",
+          "order": 512,
+          "enabled": true,
+          "contentSha256": "abafc3cf35d4f5f864543b3d43e1bb4e5dda84d2c6990fb11e9effcd08ef1c85",
+          "settingsSha256": "e3506d974aac8c85473a3e17bf531477fd93425eb28e570d0efeb782c1dc5e9c"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]卢泰西亚-外环-羽环",
+          "order": 513,
+          "enabled": true,
+          "contentSha256": "1476953b774397560f0642088c905dff7fa584417f2edeae019a2f468a1e8ac9",
+          "settingsSha256": "cd1476fc72e186167e84234888cbb7b32e4540969306d181f3c8eb5523a500f8"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][龙吼堡垒]鳞匠工坊带",
+          "order": 514,
+          "enabled": true,
+          "contentSha256": "e16292616473cda635c32a58f803433119d10c8fbfa0bdc17dc709fdbf48c9f3",
+          "settingsSha256": "c6904f9fa4247388fff0e3c2931eea5939dc9f0f144d07f3c49affa611bc903d"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][大型城市]艾尔文海姆-育木之环",
+          "order": 515,
+          "enabled": true,
+          "contentSha256": "fbfbb4207afe90a837ad999bb703eade82039028d9c49c99660d44520f2e6d5e",
+          "settingsSha256": "9a3a9e77230f8485a33d3fb046a239a738b09e9c144094d0a38645342206b22c"
+        },
+        {
+          "name": "[本体][组织]➡️组织结束",
+          "order": 516,
+          "enabled": true,
+          "contentSha256": "8353d943fea4d5bd2aae818ac7ba29cb7ed3e5717d17095fb0b5d11f0003bb76",
+          "settingsSha256": "a02e4327f0a180298588c4659703341b525cc6245fbe981392c8d7074bee8e69"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇]诸王陵寝",
+          "order": 517,
+          "enabled": true,
+          "contentSha256": "2710d11c41589449bcd2fd90dc93ab23e600b9d53e4997631cb3387cee5f11ce",
+          "settingsSha256": "e78c26b0adf83591ba0f026b124685a572a35bf604b72b90d9ce100704d14d12"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][城市][城镇]白焰港",
+          "order": 518,
+          "enabled": true,
+          "contentSha256": "c96ceca81feb3bf570419831abbda560024ac602b87256538f5f51ab834cc4a2",
+          "settingsSha256": "1bc2d0c3349cf88ec3eb27138833597543d6daaafed039352ccf111d6890d9a2"
+        },
+        {
+          "name": "[本体][种族]➡️种族开始",
+          "order": 519,
+          "enabled": true,
+          "contentSha256": "75e6e97185be134f3ff887fb687c91617b0fbf620ce7c207acc82f1266c18d66",
+          "settingsSha256": "a6645d7d72580d0db411e53d6b7a7feab8f06cd687c548e3f8d4dde5399b7ac5"
+        },
+        {
+          "name": "[本体][额外设定]状态规则",
+          "order": 520,
+          "enabled": true,
+          "contentSha256": "65d608ccba02b71da658cd148c1daccfc28b286ca73b4ee45601b5634ddfec24",
+          "settingsSha256": "aff0b280591fbbbade92d5713b6c0654e410c06eb24f3c831a0fdc092773b69b"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇][白曜城]匠坊区",
+          "order": 521,
+          "enabled": true,
+          "contentSha256": "b6c93994660ebb8627e7ee6989a96441fccef2276ad18c3b4abd35e83e666420",
+          "settingsSha256": "b4be0f957b4d66271cff3b043bee2606d550d30fc700ee98c0d3643bd69d5d0e"
+        },
+        {
+          "name": "[本体][冒险区域]➡️冒险区域结束",
+          "order": 522,
+          "enabled": true,
+          "contentSha256": "4603392c98ce7742d5dcff5f898c5aea9263dc02e97963ecd04681be7e168bb0",
+          "settingsSha256": "09f9943a372b3d766f9d61b7ef0cac1cf9a56c2623c1ee57e775fe3dad5240b7"
+        },
+        {
+          "name": "[本体][势力][萨赫拉联邦]萨赫拉联邦",
+          "order": 523,
+          "enabled": true,
+          "contentSha256": "5e77a45bbce96612cc9badf2e029bbc0f3c1dfca87415cd1c5cd9d301d773c49",
+          "settingsSha256": "8e6271cf08029c30c3a5119f5fa248388b9d8a0d85942e3b342d0ea396a0e8d7"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]雾灯节",
+          "order": 524,
+          "enabled": true,
+          "contentSha256": "c04feb7c9bfcf034a2a9768590a013c30744deb140e56adf18ab9ceb835ed485",
+          "settingsSha256": "14b157a6920d2c5375a29a2cff6658cba0b2ccc58a3bcdac38d46e5f39e83249"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇]永夜长垣",
+          "order": 525,
+          "enabled": true,
+          "contentSha256": "7a76cce5c1520197cbadcf0992fc5f43beafceb74258591836f873917db03865",
+          "settingsSha256": "f6562fadc064e6ba4db79bf9a3c70dd35e60852ac1c4a0e0d96885a4f224129b"
+        },
+        {
+          "name": "[本体][势力][伯伦斯法环][雾晶港]巨浪港区",
+          "order": 526,
+          "enabled": true,
+          "contentSha256": "1795ca864ef71d3aab0d8e367c11f0ca6b8d1eb95bba3e8d6186eddfcfd1d52e",
+          "settingsSha256": "429020e58192625576df6daf73ce02080cf1cae2cdfeaf3c7c57fa33aebadbdd"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][城镇]灰岩镇",
+          "order": 527,
+          "enabled": true,
+          "contentSha256": "ae3206f6d38235c679199d05353f5ee66ed5fb0645d796695f0bb9892d4bf4f8",
+          "settingsSha256": "a1cb77bef9361c56565a8b79dd6b8ced36e5598aae2b288b211b868032d2ecac"
+        },
+        {
+          "name": "[本体][势力][精灵王庭][地块]东南山海区",
+          "order": 528,
+          "enabled": true,
+          "contentSha256": "8d9ce03a48d8404ff9f9ebc59bb584fe2b8c109ddaa86f2607020d90fb400eb6",
+          "settingsSha256": "e87ac411d8dee54d86311529d44f3ab874b51a17b801fdcb50a4ed2b20ec27da"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]神迹群山地理概览",
+          "order": 529,
+          "enabled": true,
+          "contentSha256": "8a30c72f77a799b4364a992ca40a7daf31dd1213e97f004e9b1d79e1aba457d4",
+          "settingsSha256": "afe674bdce4eacb12037e42349a0247359d506af4bff554c0a6139a15f41ed83"
+        },
+        {
+          "name": "[本体][势力][兽族联盟][蝾螈王朝]龙渊京(快乐柠萌茶)",
+          "order": 530,
+          "enabled": true,
+          "contentSha256": "c3183c96fa99534799d0a8f069c951e90af2418b3dd2196c5e0a168bcfcf9597",
+          "settingsSha256": "d9555751d8c3cda420410696a4048289a8a64d9febb7c264d4da470a3dd31b8b"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]外环区(快乐柠萌茶)",
+          "order": 531,
+          "enabled": true,
+          "contentSha256": "17c6057957374b64a8e9fa487f1d67b57f4253b84ff68cb0c17f09844446df7d",
+          "settingsSha256": "7e5e39635c219b9fee728e312b7b9c95993f5a1b3b23649f53715c3ae77aec2c"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]政治与社会(快乐柠萌茶)",
+          "order": 532,
+          "enabled": true,
+          "contentSha256": "7c876eba071dd0c607a09c748b71d58eec484d840e94f8b4566622b12ba482b9",
+          "settingsSha256": "3a8ccc99b0140e170626565104188fd736b57cfdf75ec19ae3b5e8574622179a"
+        },
+        {
+          "name": "[本体][势力][瓦伦蒂亚]内城区(快乐柠萌茶)",
+          "order": 533,
+          "enabled": true,
+          "contentSha256": "1c3e8b0d9d7036998402297b3367c11b969d23dca64258d7b68fa2742e124696",
+          "settingsSha256": "20896b04349adcbad2c769d1c8f068f289d349c3d5b2c12199edc22d6f023187"
+        },
+        {
+          "name": "[本体][冒险区域][无尽树海]龙骨丘陵",
+          "order": 534,
+          "enabled": true,
+          "contentSha256": "a6a9865e2239bf0d6782802afebdf23e7c188d24e544ef9eb86a43b3526dde9f",
+          "settingsSha256": "d34c889b57854a9ac78b4b9a09b1c0d1145e8df7438480763e218d9b4b256a5d"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][分割线]雾凇海岸",
+          "order": 535,
+          "enabled": true,
+          "contentSha256": "31fbe31e54bd0b1b99c5ee5462a2b8fcfceb2af333849c7c00d8e2086e3c0a8e",
+          "settingsSha256": "380425079505565aac861003b8fad793d696bb84b96dc1b64487ed4a93b5559e"
+        },
+        {
+          "name": "[本体][势力][翼民圣国梵尼亚]改革线",
+          "order": 536,
+          "enabled": true,
+          "contentSha256": "dc122f5810ea483f057d402d73fef52229bac27be656e81932859708896e5ff7",
+          "settingsSha256": "f0355bc6472644d32bc25897e390fe9af23790e46976b38192f65c1123cc0200"
+        },
+        {
+          "name": "[本体][额外设定]生产制作协议",
+          "order": 537,
+          "enabled": true,
+          "contentSha256": "b7b8cbbfcab474f578adfeab75095545b626adfefd3ce26297e885f35ef87a8d",
+          "settingsSha256": "ec2b0ddf0a312679abb854b203d9b530ebb0b7fc5062bdfaa9b167f1b02e1961"
+        },
+        {
+          "name": "[本体][种族]不定形生物",
+          "order": 538,
+          "enabled": true,
+          "contentSha256": "5b5f696180a7ef01753b3d9d8584a211883b66a2d256d585bdb46bda942d8d4c",
+          "settingsSha256": "75958223b6961c22c76b772f21c4c8db00b3cbb5f357bd14a2f4c1aad6dca9d0"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]铁炉堡(快乐柠萌茶)",
+          "order": 539,
+          "enabled": true,
+          "contentSha256": "e2f6cb203249771880a813896c5a4307f4292eb2acc8cbaaecb3104f9e2a1064",
+          "settingsSha256": "bab36a88eaafb1ff23a54ee142e745104e55687410b8eda802c83d0ee192f5b9"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][地块]云息盆地",
+          "order": 540,
+          "enabled": true,
+          "contentSha256": "003e218f9a38fb31d04397217951d79adba4501c02afafb6e3d92aab8c7ce6f8",
+          "settingsSha256": "f3df361e2583733e4dccac3d1985bbbb3fbae9165c5b7567c0c6a97978ab1650"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]先祖大狩猎",
+          "order": 541,
+          "enabled": true,
+          "contentSha256": "a60b4f1b5f26437d000c9948d15e0c8fec11bd878524e6b1941314e52740a7e1",
+          "settingsSha256": "381508838ab4e28deb6d23ef957387d4c78a13c03ae10426d9e81519c97e1109"
+        },
+        {
+          "name": "[本体][势力][奥古斯提姆帝国]奥古斯提姆帝国",
+          "order": 542,
+          "enabled": true,
+          "contentSha256": "63ff1c3042b0fe53ae392b9c8b989ac4d6610732ac5e37b54e62016fe78f4940",
+          "settingsSha256": "ce41a9da64b10bb25efc8e9494657885aba98c5266459a2cfb282135afd1d393"
+        },
+        {
+          "name": "[DLC][角色][莉利亚・利桑德]莉利亚・利桑德(辻-利桑德家族继承人,活跃于索伦蒂斯)",
+          "order": 543,
+          "enabled": false,
+          "contentSha256": "1558e99b876a3b2e3994eab005f1536c91527a3c185c20ceeee7d82d17f1ef81",
+          "settingsSha256": "cece1686494d481150a78a0331228690ed34c4617834c9531757eea2282606dd"
+        },
+        {
+          "name": "[本体][势力][诺斯加德联盟][节庆]兽灵之夜",
+          "order": 544,
+          "enabled": true,
+          "contentSha256": "5e3283ba6e2afed6b036d7c2b4278ca78e1538aee48fe98056a72ae2ab8d5df1",
+          "settingsSha256": "d7f24403926d8ceab8100cf37659801b17808706a77c4633eb951cbdb9b217b7"
+        }
+      ]
+    }
+  }
+}

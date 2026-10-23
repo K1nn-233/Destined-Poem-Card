@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>地点树编辑器（Place Tree Editor）</title>
+  <script src="/vendor/js-yaml.js"></script>
+  <script>window.jsyaml || document.write('<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.3.2/dist/js-yaml.min.js"><\/script>');</script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #151b23;
+      --panel2: #0f1621;
+      --line: #2d3746;
+      --text: #e6edf3;
+      --muted: #9aa7b8;
+      --accent: #64b5f6;
+      --good: #3fb950;
+      --warn: #d29922;
+      --bad: #f85149;
+      --input: #0b1220;
+      --shadow: rgba(0, 0, 0, .35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input, select, textarea {
+      color: var(--text);
+      background: var(--input);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+    }
+    button { padding: 7px 10px; cursor: pointer; }
+    button:hover { border-color: var(--accent); }
+    button.danger { border-color: rgba(248, 81, 73, .65); color: #ffb4ad; }
+    button.primary { border-color: rgba(100, 181, 246, .7); color: #cdeaff; }
+    input, select { padding: 7px 9px; min-width: 0; }
+    textarea { width: 100%; min-height: 76px; padding: 8px 10px; resize: vertical; }
+    .app { height: 100vh; display: flex; flex-direction: column; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #101720;
+      box-shadow: 0 2px 12px var(--shadow);
+      flex: 0 0 auto;
+    }
+    .brand { font-weight: 800; letter-spacing: .2px; margin-right: 6px; white-space: nowrap; }
+    .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+    .spacer { flex: 1; }
+    .status { color: var(--muted); white-space: nowrap; }
+    .dirty { color: var(--warn); font-weight: 700; }
+    .ok { color: var(--good); }
+    .bad { color: var(--bad); }
+    .layout { flex: 1 1 auto; min-height: 0; display: flex; }
+    .left, .middle, .right {
+      min-height: 0;
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .left { flex: 0 0 390px; display: flex; flex-direction: column; }
+    .middle { flex: 1 1 auto; display: flex; flex-direction: column; background: var(--panel2); }
+    .right { flex: 0 0 500px; display: flex; flex-direction: column; border-right: 0; }
+    .pane-head { padding: 10px; border-bottom: 1px solid var(--line); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pane-head input { flex: 1 1 180px; }
+    .tree, .content, .form { overflow: auto; min-height: 0; padding: 10px; }
+    .tree { flex: 1 1 auto; }
+    .node { margin: 2px 0; }
+    .node-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 30px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 3px 6px;
+      cursor: pointer;
+    }
+    .node-row:hover { background: rgba(100, 181, 246, .08); border-color: rgba(100, 181, 246, .25); }
+    .node-row.active { background: rgba(100, 181, 246, .18); border-color: rgba(100, 181, 246, .65); }
+    .node-row.issue { box-shadow: inset 3px 0 0 var(--warn); }
+    .node-row.bad-issue { box-shadow: inset 3px 0 0 var(--bad); }
+    .twisty { width: 22px; height: 22px; padding: 0; border-radius: 6px; flex: 0 0 auto; }
+    .node-title { min-width: 0; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .node-meta { color: var(--muted); font-size: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .children { margin-left: 20px; border-left: 1px dashed rgba(154, 167, 184, .25); padding-left: 8px; }
+    .empty { color: var(--muted); padding: 18px; border: 1px dashed var(--line); border-radius: 12px; }
+    .card { border: 1px solid var(--line); background: rgba(13, 17, 23, .58); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+    .card h3 { margin: 0 0 10px; font-size: 14px; }
+    .grid { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 8px; align-items: center; }
+    .grid label { color: var(--muted); }
+    .grid input, .grid select { width: 100%; }
+    .full { grid-column: 1 / -1; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pill { display: inline-flex; gap: 6px; align-items: center; padding: 4px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); margin: 2px; }
+    .pill.bad { color: #ffb4ad; border-color: rgba(248, 81, 73, .55); }
+    .pill.warn { color: #ffd88a; border-color: rgba(210, 153, 34, .55); }
+    .list-item { padding: 8px; border: 1px solid var(--line); border-radius: 10px; margin: 6px 0; cursor: pointer; }
+    .list-item:hover { border-color: var(--accent); }
+    pre { max-width: 100%; overflow: auto; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: #0a0f18; color: #d7e3f0; }
+    .file-input { display: none; }
+    @media (max-width: 1160px) {
+      .left { flex-basis: 330px; }
+      .right { flex-basis: 430px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">地点树编辑器（Place Tree Editor）</div>
+      <div class="toolbar">
+        <button id="loadDefault" class="primary">加载地理源码（places.yaml）</button>
+        <button id="importBtn">导入地点文件（YAML）</button>
+        <input id="fileInput" class="file-input" type="file" accept=".yaml,.yml,text/yaml" />
+        <button id="loadMarkersBtn">加载标记（marker）</button>
+        <button id="importMarkersBtn">导入标记（marker）</button>
+        <input id="markerFileInput" class="file-input" type="file" accept=".txt,.json,application/json,text/plain" />
+        <button id="mergeMarkersBtn">合并标记到地点（marker → places）</button>
+        <button id="exportBtn">导出地点文件（places.yaml）</button>
+        <button id="copyBtn">复制地点文件（YAML）</button>
+        <button id="undoBtn">撤销</button>
+        <button id="expandAllBtn">全部展开</button>
+        <button id="collapseAllBtn">全部收起</button>
+      </div>
+      <div class="spacer"></div>
+      <div id="dirtyStatus" class="status">未加载</div>
+      <div id="summaryStatus" class="status"></div>
+    </div>
+
+    <div class="layout">
+      <aside class="left">
+        <div class="pane-head">
+          <input id="searchInput" type="search" placeholder="搜索 标识（id）/ 名称（name）/ 标签（labels）/ 备注（notes）" />
+          <select id="filterInput">
+            <option value="all">全部</option>
+            <option value="issues">有异常</option>
+            <option value="bad">错误</option>
+            <option value="unrooted">未连接大陆</option>
+            <option value="leaf">叶子节点</option>
+            <option value="no-marker">无标记（marker）</option>
+            <option value="geo">地理点（is_geographic）</option>
+            <option value="non-geo">非地理点（non-geographic）</option>
+          </select>
+        </div>
+        <div id="tree" class="tree"><div class="empty">加载或导入地点文件（places.yaml）后开始整理。</div></div>
+      </aside>
+
+      <main class="middle">
+        <div class="pane-head">
+          <button id="addChildBtn" class="primary">新增子节点</button>
+          <button id="addSiblingBtn">新增同级</button>
+          <button id="promoteBtn">提升一级</button>
+          <button id="toContinentBtn">设为大陆子节点</button>
+          <button id="deleteBtn" class="danger">删除</button>
+        </div>
+        <div id="content" class="content"><div class="empty">选择一个地点（place）查看子节点（children）、层级工具和校验结果。</div></div>
+      </main>
+
+      <aside class="right">
+        <div class="pane-head">
+          <div id="editorTitle" class="brand">未选中</div>
+          <div id="editorSub" class="status"></div>
+        </div>
+        <div id="form" class="form"><div class="empty">右侧会显示完整字段（fields）编辑表单。</div></div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      places: [],
+      markers: [],
+      placeById: new Map(),
+      markerById: new Map(),
+      childrenByParent: new Map(),
+      issues: [],
+      issuesByPlace: new Map(),
+      selectedId: null,
+      expanded: new Set(),
+      dirty: false,
+      undoStack: [],
+    };
+
+    const el = id => document.getElementById(id);
+    const html = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    const arr = value => Array.isArray(value) ? value : [];
+    const isGeographicPlace = place => place && place.is_geographic !== false;
+
+    function defaultPlace(parentId) {
+      const base = uniqueId('new_place');
+      return {
+        id: base,
+        marker_id: null,
+        name: '新地点',
+        parent: parentId ?? 'continent',
+        is_geographic: true,
+        is_waypoint: false,
+        keywords: [],
+        description: { brief: '', detail: '' },
+        labels: [],
+        importance: 1,
+        notes: '',
+      };
+    }
+
+    function setup() {
+      el('loadDefault').addEventListener('click', loadDefaultPlaces);
+      el('importBtn').addEventListener('click', () => el('fileInput').click());
+      el('fileInput').addEventListener('change', importFile);
+      el('loadMarkersBtn').addEventListener('click', loadDefaultMarkers);
+      el('importMarkersBtn').addEventListener('click', () => el('markerFileInput').click());
+      el('markerFileInput').addEventListener('change', importMarkerFile);
+      el('mergeMarkersBtn').addEventListener('click', () => mergeMarkersIntoPlaces(true));
+      el('exportBtn').addEventListener('click', downloadYaml);
+      if (inWorkspace()) el('exportBtn').textContent = '保存到工作区';
+      el('copyBtn').addEventListener('click', copyYaml);
+      el('undoBtn').addEventListener('click', undo);
+      el('expandAllBtn').addEventListener('click', () => { state.places.forEach(p => state.expanded.add(p.id)); renderAll(); });
+      el('collapseAllBtn').addEventListener('click', () => { state.expanded.clear(); if (state.selectedId) expandTo(state.selectedId); renderAll(); });
+      el('searchInput').addEventListener('input', renderAll);
+      el('filterInput').addEventListener('change', renderAll);
+      el('addChildBtn').addEventListener('click', () => addPlace(state.selectedId || 'continent'));
+      el('addSiblingBtn').addEventListener('click', addSibling);
+      el('promoteBtn').addEventListener('click', promoteSelected);
+      el('toContinentBtn').addEventListener('click', () => moveSelected('continent'));
+      el('deleteBtn').addEventListener('click', deleteSelected);
+      window.addEventListener('beforeunload', event => {
+        if (!state.dirty) return;
+        event.preventDefault();
+        event.returnValue = '';
+      });
+    }
+
+    async function loadDefaultPlaces() {
+      try {
+        const [placesRes, markerRes] = await Promise.all([
+          fetch('../../../content/geography/places.yaml', { cache: 'no-store' }),
+          fetch('../../../content/geography/marker0502_wsrv.txt', { cache: 'no-store' }).catch(() => null),
+        ]);
+        if (!placesRes.ok) throw new Error(`${placesRes.status} ${placesRes.statusText}`);
+        if (markerRes && markerRes.ok) loadMarkers(await markerRes.text(), false);
+        loadYaml(await placesRes.text(), false);
+        if (state.markers.length) mergeMarkersIntoPlaces(false);
+      } catch (error) {
+        alert(`加载失败：${error.message}\n请用 python3 -m http.server 8000 启动后访问本页面。`);
+      }
+    }
+
+    async function loadDefaultMarkers() {
+      try {
+        const res = await fetch('../../../content/geography/marker0502_wsrv.txt', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        loadMarkers(await res.text(), true);
+      } catch (error) {
+        alert(`加载标记（marker）失败：${error.message}`);
+      }
+    }
+
+    function importFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => loadYaml(String(reader.result || ''), false);
+      reader.onerror = () => alert('读取文件失败。');
+      reader.readAsText(file, 'utf-8');
+      event.target.value = '';
+    }
+
+    function importMarkerFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => loadMarkers(String(reader.result || ''), true);
+      reader.onerror = () => alert('读取标记文件（marker）失败。');
+      reader.readAsText(file, 'utf-8');
+      event.target.value = '';
+    }
+
+    function markerTextToArray(text) {
+      const trimmed = String(text || '').trim().replace(/,\s*$/, '');
+      if (!trimmed) return [];
+      if (trimmed.startsWith('[')) return JSON.parse(trimmed);
+      return JSON.parse(`[${trimmed}]`);
+    }
+
+    function loadMarkers(text, announce) {
+      state.markers = markerTextToArray(text).map(normalizeMarker);
+      rebuildMarkers();
+      if (announce) alert(`已加载 ${state.markers.length} 个标记（markers）。点击“合并标记到地点（marker → places）”可写入地点标记对象（place.marker）。`);
+      renderAll();
+    }
+
+    function normalizeMarker(marker) {
+      const m = marker && typeof marker === 'object' ? structuredClone(marker) : {};
+      if (!Array.isArray(m.imageUrls)) m.imageUrls = arr(m.imageUrls);
+      if (!m.position || typeof m.position !== 'object') m.position = { nx: null, ny: null };
+      return m;
+    }
+
+    function rebuildMarkers() {
+      state.markerById.clear();
+      for (const marker of state.markers) {
+        if (marker && marker.id) state.markerById.set(marker.id, marker);
+      }
+    }
+
+    function loadYaml(text, dirty) {
+      if (!window.jsyaml) throw new Error('js-yaml 未加载。');
+      const doc = jsyaml.load(text) || {};
+      if (!Array.isArray(doc.places)) throw new Error('YAML 顶层需要包含 places 数组。');
+      state.places = doc.places.map(normalizePlace);
+      rebuild();
+      state.selectedId = state.placeById.has('continent') ? 'continent' : state.places[0]?.id || null;
+      state.expanded = new Set(['continent', state.selectedId].filter(Boolean));
+      state.undoStack = [];
+      state.dirty = dirty;
+      renderAll();
+    }
+
+    function normalizePlace(place) {
+      const p = place && typeof place === 'object' ? structuredClone(place) : {};
+      if (!p.description || typeof p.description !== 'object') p.description = { brief: '', detail: '' };
+      if (!Array.isArray(p.keywords)) p.keywords = arr(p.keywords);
+      if (!Array.isArray(p.labels)) p.labels = arr(p.labels);
+      if (p.marker_id === undefined) p.marker_id = null;
+      if (p.marker && typeof p.marker === 'object') p.marker = normalizeMarker(p.marker);
+      if (p.is_geographic === undefined) p.is_geographic = true;
+      if (p.is_waypoint === undefined) p.is_waypoint = false;
+      if (p.notes === undefined) p.notes = '';
+      return p;
+    }
+
+    function mergeMarkersIntoPlaces(fromUser) {
+      if (!state.markers.length) return alert('还没有加载标记文件（marker）。');
+      if (!state.places.length) return alert('还没有加载地点文件（places.yaml）。');
+      if (fromUser) pushUndo();
+      let merged = 0;
+      for (const place of state.places) {
+        if (!place.marker_id) continue;
+        const marker = state.markerById.get(place.marker_id);
+        if (!marker) continue;
+        place.marker = structuredClone(marker);
+        merged += 1;
+      }
+      if (fromUser) {
+        markDirty();
+        alert(`已合并 ${merged} 个标记（marker）到地点标记对象（place.marker）。`);
+      }
+      renderAll();
+    }
+
+    function rebuild() {
+      state.placeById.clear();
+      state.childrenByParent.clear();
+      rebuildMarkers();
+      for (const place of state.places) {
+        if (place.id && !state.placeById.has(place.id)) state.placeById.set(place.id, place);
+      }
+      for (const place of state.places) {
+        const parent = place.parent === undefined ? null : place.parent;
+        if (!state.childrenByParent.has(parent)) state.childrenByParent.set(parent, []);
+        state.childrenByParent.get(parent).push(place);
+      }
+      for (const list of state.childrenByParent.values()) list.sort((a, b) => String(a.name || a.id).localeCompare(String(b.name || b.id), 'zh-Hans-CN'));
+      validate();
+    }
+
+    function validate() {
+      state.issues = [];
+      state.issuesByPlace.clear();
+      const counts = new Map();
+      for (const place of state.places) counts.set(place.id, (counts.get(place.id) || 0) + 1);
+      for (const place of state.places) {
+        const id = place.id || '(missing)';
+        if (!place.id) addIssue('bad', id, 'missing_id', '缺少 id');
+        if (!place.name) addIssue('bad', id, 'missing_name', '缺少 name');
+        if (counts.get(place.id) > 1) addIssue('bad', id, 'duplicate_id', `重复 id：${place.id}`);
+        if (place.parent === place.id) addIssue('bad', id, 'self_parent', 'parent 指向自己');
+        if (place.parent !== null && place.parent !== undefined && !state.placeById.has(place.parent)) addIssue('bad', id, 'parent_missing', `parent 不存在：${place.parent}`);
+        const rooted = rootInfo(place);
+        if (place.id !== 'continent' && !rooted.rooted) addIssue('warn', id, 'unrooted', 'parent 链追踪不到 continent');
+        if (rooted.cycle) addIssue('bad', id, 'parent_cycle', 'parent 链存在循环');
+        if (place.id === 'continent' && place.parent !== null) addIssue('bad', id, 'continent_parent', 'continent 的 parent 应为 null');
+        if (place.parent === null && place.id !== 'continent') addIssue('warn', id, 'extra_root', '非 continent 根节点');
+        if (typeof place.is_geographic !== 'boolean') addIssue('bad', id, 'bad_is_geographic', 'is_geographic 应为布尔值。');
+        if (place.is_geographic === false && place.is_waypoint) addIssue('warn', id, 'non_geo_waypoint', '非地理点不应作为路线中继点。');
+        const importance = Number(place.importance);
+        if (place.importance !== undefined && place.importance !== null && place.importance !== '' && ![1, 2, 3].includes(importance)) addIssue('warn', id, 'bad_importance', 'importance 建议为 1-3');
+        if (!Array.isArray(place.keywords)) addIssue('bad', id, 'bad_keywords', 'keywords 不是数组');
+        if (!Array.isArray(place.labels)) addIssue('bad', id, 'bad_labels', 'labels 不是数组');
+        if (!place.description || typeof place.description !== 'object') addIssue('bad', id, 'bad_description', 'description 不是对象');
+        if (place.marker_id && state.markers.length && !state.markerById.has(place.marker_id)) addIssue('warn', id, 'external_marker_missing', `外部 marker 文件中找不到：${place.marker_id}`);
+        if (place.marker) {
+          if (typeof place.marker !== 'object') addIssue('bad', id, 'bad_marker_object', 'marker 不是对象');
+          else {
+            if (place.marker_id && place.marker.id && place.marker_id !== place.marker.id) addIssue('bad', id, 'marker_id_mismatch', `marker_id 与 marker.id 不一致：${place.marker_id} / ${place.marker.id}`);
+            if (!place.marker.position || typeof place.marker.position !== 'object') addIssue('warn', id, 'marker_position_missing', 'marker.position 缺失');
+            else if (place.marker.position.nx === null || place.marker.position.nx === undefined || place.marker.position.ny === null || place.marker.position.ny === undefined) addIssue('warn', id, 'marker_coord_missing', 'marker.position.nx/ny 缺失');
+            if (place.marker.imageUrls !== undefined && !Array.isArray(place.marker.imageUrls)) addIssue('bad', id, 'bad_marker_imageUrls', 'marker.imageUrls 不是数组');
+          }
+        }
+      }
+    }
+
+    function addIssue(level, id, code, message) {
+      const issue = { level, id, code, message };
+      state.issues.push(issue);
+      if (!state.issuesByPlace.has(id)) state.issuesByPlace.set(id, []);
+      state.issuesByPlace.get(id).push(issue);
+    }
+
+    function issueLevelName(level) {
+      return level === 'bad' ? '错误（bad）' : level === 'warn' ? '警告（warn）' : level;
+    }
+
+    function rootInfo(place) {
+      const seen = new Set([place.id]);
+      let current = place;
+      while (current && current.parent) {
+        if (current.parent === 'continent') return { rooted: true, cycle: false };
+        if (seen.has(current.parent)) return { rooted: false, cycle: true };
+        seen.add(current.parent);
+        current = state.placeById.get(current.parent);
+      }
+      return { rooted: place.id === 'continent', cycle: false };
+    }
+
+    function renderAll() {
+      rebuild();
+      renderTree();
+      renderContent();
+      renderForm();
+      renderStatus();
+    }
+
+    function renderStatus() {
+      el('dirtyStatus').textContent = state.dirty ? '未保存修改' : state.places.length ? '无未保存修改' : '未加载';
+      el('dirtyStatus').className = state.dirty ? 'status dirty' : 'status';
+      const bad = state.issues.filter(i => i.level === 'bad').length;
+      const warn = state.issues.filter(i => i.level === 'warn').length;
+      el('summaryStatus').innerHTML = `${state.places.length} 地点（places） · ${state.markers.length} 标记（markers） · <span class="${bad ? 'bad' : 'ok'}">${bad} 错误（errors）</span> · <span class="${warn ? 'dirty' : 'ok'}">${warn} 警告（warnings）</span>`;
+    }
+
+    function renderTree() {
+      if (!state.places.length) {
+        el('tree').innerHTML = '<div class="empty">加载或导入地点文件（places.yaml）后开始整理。</div>';
+        return;
+      }
+      const roots = [...arr(state.childrenByParent.get(null)), ...arr(state.childrenByParent.get(undefined))];
+      const seen = new Set();
+      let out = roots.map(p => renderNode(p, 0, seen)).join('');
+      const remaining = state.places.filter(p => !seen.has(p.id));
+      if (remaining.length) out += `<div class="card"><h3>未挂到根节点的节点（unrooted nodes）</h3>${remaining.map(p => renderNode(p, 0, seen)).join('')}</div>`;
+      el('tree').innerHTML = out || '<div class="empty">没有可显示的地点（place）。</div>';
+      bindTree();
+    }
+
+    function renderNode(place, depth, seen) {
+      if (!place || seen.has(place.id)) return '';
+      seen.add(place.id);
+      const children = arr(state.childrenByParent.get(place.id));
+      const matches = matchesView(place);
+      const childHtml = children.map(child => renderNode(child, depth + 1, seen)).join('');
+      if (!matches && !childHtml) return '';
+      const expanded = state.expanded.has(place.id);
+      const issues = arr(state.issuesByPlace.get(place.id));
+      const issueClass = issues.some(i => i.level === 'bad') ? ' bad-issue' : issues.length ? ' issue' : '';
+      return `<div class="node" data-id="${html(place.id)}">
+        <div class="node-row${state.selectedId === place.id ? ' active' : ''}${issueClass}" data-select="${html(place.id)}" draggable="true">
+          <button class="twisty" data-toggle="${html(place.id)}">${children.length ? (expanded ? '−' : '+') : '·'}</button>
+          <div class="node-title"><b>${html(place.name || '(未命名)')}</b><div class="node-meta">${html(place.id)} · 子节点（children） ${children.length} · 父级（parent） ${html(place.parent ?? 'null')}</div></div>
+        </div>
+        ${expanded ? `<div class="children">${childHtml}</div>` : ''}
+      </div>`;
+    }
+
+    function bindTree() {
+      el('tree').querySelectorAll('[data-toggle]').forEach(btn => btn.addEventListener('click', event => {
+        event.stopPropagation();
+        const id = btn.dataset.toggle;
+        if (state.expanded.has(id)) state.expanded.delete(id); else state.expanded.add(id);
+        renderAll();
+      }));
+      el('tree').querySelectorAll('[data-select]').forEach(row => {
+        row.addEventListener('click', () => select(row.dataset.select));
+        row.addEventListener('dragstart', event => event.dataTransfer.setData('text/plain', row.dataset.select));
+        row.addEventListener('dragover', event => event.preventDefault());
+        row.addEventListener('drop', event => {
+          event.preventDefault();
+          const dragged = event.dataTransfer.getData('text/plain');
+          const target = row.dataset.select;
+          if (dragged && target && dragged !== target && confirm(`将 ${dragged} 移到 ${target} 下面？`)) movePlace(dragged, target);
+        });
+      });
+    }
+
+    function matchesView(place) {
+      const q = el('searchInput').value.trim().toLowerCase();
+      const f = el('filterInput').value;
+      const markerText = place.marker ? JSON.stringify(place.marker) : '';
+      const geoText = isGeographicPlace(place) ? 'geographic 地理点' : 'non-geographic 非地理点';
+      const text = [place.id, place.name, place.parent, place.marker_id, geoText, place.notes, ...arr(place.keywords), ...arr(place.labels), place.description?.brief, place.description?.detail, markerText].join('\n').toLowerCase();
+      if (q && !text.includes(q)) return false;
+      const issues = arr(state.issuesByPlace.get(place.id));
+      if (f === 'issues' && !issues.length) return false;
+      if (f === 'bad' && !issues.some(i => i.level === 'bad')) return false;
+      if (f === 'unrooted' && rootInfo(place).rooted) return false;
+      if (f === 'leaf' && arr(state.childrenByParent.get(place.id)).length) return false;
+      if (f === 'no-marker' && (place.marker_id || place.marker)) return false;
+      if (f === 'geo' && !isGeographicPlace(place)) return false;
+      if (f === 'non-geo' && isGeographicPlace(place)) return false;
+      return true;
+    }
+
+    function renderContent() {
+      const place = state.placeById.get(state.selectedId);
+      if (!place) {
+        el('content').innerHTML = '<div class="empty">选择一个地点（place）查看子节点（children）、层级工具和校验结果。</div>';
+        return;
+      }
+      const children = arr(state.childrenByParent.get(place.id));
+      const issues = arr(state.issuesByPlace.get(place.id));
+      const descendants = descendantIds(place.id);
+      el('content').innerHTML = `
+        <div class="card"><h3>当前节点</h3>
+          <div class="row"><span class="pill">${html(place.name)}</span><span class="pill">${html(place.id)}</span><span class="pill">${isGeographicPlace(place) ? '地理点（is_geographic）' : '非地理点（non-geographic）'}</span><span class="pill">父级（parent）: ${html(place.parent ?? 'null')}</span><span class="pill">后代（descendants）: ${descendants.length}</span></div>
+        </div>
+        <div class="card"><h3>移动层级</h3>
+          <div class="grid">
+            <label>新父级（parent）</label><select id="moveParentSelect">${parentOptions(place.id, place.parent)}</select>
+            <div class="full row"><button id="moveParentBtn" class="primary">移动到选中父级（parent）</button><button id="expandCurrentBtn">展开到当前节点</button></div>
+          </div>
+        </div>
+        <div class="card"><h3>子节点（children）(${children.length})</h3>${children.map(child => `<div class="list-item" data-jump="${html(child.id)}"><b>${html(child.name)}</b><div class="node-meta">${html(child.id)} · 子节点（children） ${arr(state.childrenByParent.get(child.id)).length}</div></div>`).join('') || '<div class="empty">无子节点（children）。</div>'}</div>
+        <div class="card"><h3>校验（validation）</h3>${issues.map(i => `<span class="pill ${i.level === 'bad' ? 'bad' : 'warn'}">${html(issueLevelName(i.level))} · ${html(i.code)} · ${html(i.message)}</span>`).join('') || '<span class="pill">无异常</span>'}</div>
+      `;
+      el('moveParentBtn').addEventListener('click', () => moveSelected(el('moveParentSelect').value || null));
+      el('expandCurrentBtn').addEventListener('click', () => { expandTo(place.id); renderAll(); });
+      el('content').querySelectorAll('[data-jump]').forEach(x => x.addEventListener('click', () => select(x.dataset.jump)));
+    }
+
+    function renderForm() {
+      const place = state.placeById.get(state.selectedId);
+      if (!place) {
+        el('editorTitle').textContent = '未选中';
+        el('editorSub').textContent = '';
+        el('form').innerHTML = '<div class="empty">右侧会显示完整字段（fields）编辑表单。</div>';
+        return;
+      }
+      el('editorTitle').textContent = place.name || place.id;
+      el('editorSub').textContent = place.id;
+      el('form').innerHTML = `
+        <div class="card"><h3>基本字段（basic fields）</h3><div class="grid">
+          <label>标识（id）</label><input data-field="id" value="${html(place.id)}" />
+          <label>名称（name）</label><input data-field="name" value="${html(place.name)}" />
+          <label>父级（parent）</label><select data-field="parent">${parentOptions(place.id, place.parent, true)}</select>
+          <label>标记标识（marker_id）</label><input data-field="marker_id" value="${html(place.marker_id ?? '')}" placeholder="空值导出为 null" />
+          <label>是否地理点（is_geographic）</label><select data-field="is_geographic"><option value="true" ${isGeographicPlace(place) ? 'selected' : ''}>是（true）</option><option value="false" ${!isGeographicPlace(place) ? 'selected' : ''}>否（false）</option></select>
+          <label>是否路点（is_waypoint）</label><select data-field="is_waypoint"><option value="false" ${!place.is_waypoint ? 'selected' : ''}>否（false）</option><option value="true" ${place.is_waypoint ? 'selected' : ''}>是（true）</option></select>
+          <label>重要性（importance）</label><select data-field="importance"><option value="" ${place.importance === '' || place.importance == null ? 'selected' : ''}>空</option><option value="1" ${Number(place.importance) === 1 ? 'selected' : ''}>1</option><option value="2" ${Number(place.importance) === 2 ? 'selected' : ''}>2</option><option value="3" ${Number(place.importance) === 3 ? 'selected' : ''}>3</option></select>
+        </div></div>
+        <div class="card"><h3>关键词（keywords，一行一个）</h3><textarea data-field="keywords">${html(arr(place.keywords).join('\n'))}</textarea></div>
+        <div class="card"><h3>描述（description）</h3><div class="grid"><label>简述（brief）</label><textarea data-field="description.brief">${html(place.description?.brief || '')}</textarea><label>详述（detail）</label><textarea data-field="description.detail">${html(place.description?.detail || '')}</textarea></div></div>
+        <div class="card"><h3>标签（labels，一行一个）</h3><textarea data-field="labels">${html(arr(place.labels).join('\n'))}</textarea></div>
+        <div class="card"><h3>标记完整对象（marker）</h3>
+          <div class="row"><button id="syncCurrentMarkerBtn">用外部标记覆盖当前标记（marker）</button><button id="createMarkerObjectBtn">创建空标记对象（marker）</button><button id="removeMarkerObjectBtn" class="danger">移除标记对象（marker）</button></div>
+          ${renderMarkerFields(place)}
+        </div>
+        <div class="card"><h3>备注（notes）</h3><textarea data-field="notes">${html(place.notes || '')}</textarea></div>
+        <div class="card"><h3>当前对象（YAML）</h3><pre>${html(jsyaml.dump(place, { lineWidth: 120, noRefs: true }))}</pre></div>
+      `;
+      el('form').querySelectorAll('[data-field]').forEach(input => input.addEventListener('change', () => updateField(input.dataset.field, input.value)));
+      el('syncCurrentMarkerBtn').addEventListener('click', syncCurrentMarker);
+      el('createMarkerObjectBtn').addEventListener('click', createMarkerObject);
+      el('removeMarkerObjectBtn').addEventListener('click', removeMarkerObject);
+    }
+
+    function renderMarkerFields(place) {
+      const marker = place.marker;
+      if (!marker) return '<div class="empty">当前地点（place）没有标记完整对象（marker）。加载标记（marker）后可点击“合并标记到地点（marker → places）”，或创建空标记对象（marker）。</div>';
+      return `<div class="grid" style="margin-top:10px">
+        <label>标记标识（marker.id）</label><input data-field="marker.id" value="${html(marker.id || '')}" />
+        <label>标记名称（marker.name）</label><input data-field="marker.name" value="${html(marker.name || '')}" />
+        <label>标记分组（marker.group）</label><input data-field="marker.group" value="${html(marker.group || '')}" />
+        <label>标记图标（marker.icon）</label><input data-field="marker.icon" value="${html(marker.icon || '')}" />
+        <label>标记颜色（marker.color）</label><input data-field="marker.color" value="${html(marker.color || '')}" />
+        <label>横坐标（marker.position.nx）</label><input data-field="marker.position.nx" value="${html(marker.position?.nx ?? '')}" />
+        <label>纵坐标（marker.position.ny）</label><input data-field="marker.position.ny" value="${html(marker.position?.ny ?? '')}" />
+        <label>标记描述（marker.description）</label><textarea data-field="marker.description">${html(marker.description || '')}</textarea>
+        <label>图片链接（marker.imageUrls）</label><textarea data-field="marker.imageUrls">${html(arr(marker.imageUrls).join('\n'))}</textarea>
+      </div>`;
+    }
+
+    function parentOptions(currentId, selected, includeNull) {
+      const forbidden = new Set([currentId, ...descendantIds(currentId)]);
+      const opts = [];
+      if (includeNull) opts.push(`<option value="__null__" ${selected === null ? 'selected' : ''}>空（null）</option>`);
+      for (const place of state.places) {
+        if (forbidden.has(place.id)) continue;
+        opts.push(`<option value="${html(place.id)}" ${selected === place.id ? 'selected' : ''}>${html(place.name || place.id)} (${html(place.id)})</option>`);
+      }
+      return opts.join('');
+    }
+
+    function updateField(field, value) {
+      const place = state.placeById.get(state.selectedId);
+      if (!place) return;
+      pushUndo();
+      if (field === 'id') {
+        const oldId = place.id;
+        const newId = value.trim();
+        if (!newId) return alert('id 不能为空。');
+        if (oldId !== newId && state.placeById.has(newId)) return alert(`id 已存在：${newId}`);
+        place.id = newId;
+        for (const p of state.places) if (p.parent === oldId) p.parent = newId;
+        if (state.expanded.has(oldId)) { state.expanded.delete(oldId); state.expanded.add(newId); }
+        state.selectedId = newId;
+        alert('已更新其他地点（place）的父级（parent）引用。注意：这个工具不会同步修改边文件（edges.yaml）的 from/to。');
+      } else if (field === 'parent') {
+        place.parent = value === '__null__' ? null : value;
+      } else if (field === 'marker_id') {
+        place.marker_id = value.trim() || null;
+      } else if (field === 'is_geographic') {
+        place.is_geographic = value === 'true';
+      } else if (field === 'is_waypoint') {
+        place.is_waypoint = value === 'true';
+      } else if (field === 'importance') {
+        place.importance = value === '' ? null : Number(value);
+      } else if (field === 'keywords' || field === 'labels') {
+        place[field] = lines(value);
+      } else if (field === 'description.brief') {
+        if (!place.description || typeof place.description !== 'object') place.description = {};
+        place.description.brief = value;
+      } else if (field === 'description.detail') {
+        if (!place.description || typeof place.description !== 'object') place.description = {};
+        place.description.detail = value;
+      } else if (field === 'marker.imageUrls') {
+        ensureMarker(place);
+        place.marker.imageUrls = lines(value);
+      } else if (field === 'marker.position.nx' || field === 'marker.position.ny') {
+        ensureMarker(place);
+        if (!place.marker.position || typeof place.marker.position !== 'object') place.marker.position = {};
+        const key = field.endsWith('.nx') ? 'nx' : 'ny';
+        place.marker.position[key] = value.trim() === '' ? null : Number(value);
+      } else if (field.startsWith('marker.')) {
+        ensureMarker(place);
+        const key = field.slice('marker.'.length);
+        place.marker[key] = value;
+      } else {
+        place[field] = value;
+      }
+      markDirty();
+      expandTo(state.selectedId);
+      renderAll();
+    }
+
+    function ensureMarker(place) {
+      if (!place.marker || typeof place.marker !== 'object') {
+        place.marker = normalizeMarker({
+          id: place.marker_id || '',
+          name: place.name || '',
+          group: arr(place.labels).join('/') || '',
+          description: place.description?.detail || place.description?.brief || '',
+          icon: 'fa-solid fa-location-dot',
+          color: '#78c6ff',
+          position: { nx: null, ny: null },
+          imageUrls: [],
+        });
+      }
+    }
+
+    function syncCurrentMarker() {
+      const place = state.placeById.get(state.selectedId);
+      if (!place || !place.marker_id) return alert('当前地点（place）没有标记标识（marker_id）。');
+      const marker = state.markerById.get(place.marker_id);
+      if (!marker) return alert(`外部标记（marker）中找不到：${place.marker_id}`);
+      pushUndo();
+      place.marker = structuredClone(marker);
+      markDirty();
+      renderAll();
+    }
+
+    function createMarkerObject() {
+      const place = state.placeById.get(state.selectedId);
+      if (!place) return;
+      pushUndo();
+      ensureMarker(place);
+      markDirty();
+      renderAll();
+    }
+
+    function removeMarkerObject() {
+      const place = state.placeById.get(state.selectedId);
+      if (!place || !place.marker) return;
+      if (!confirm('只移除地点标记完整对象（place.marker），不会清空标记标识（marker_id）。确定？')) return;
+      pushUndo();
+      delete place.marker;
+      markDirty();
+      renderAll();
+    }
+
+    function lines(value) {
+      return String(value || '').split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+    }
+
+    function select(id) {
+      state.selectedId = id;
+      expandTo(id);
+      renderAll();
+    }
+
+    function expandTo(id) {
+      let current = state.placeById.get(id);
+      while (current) {
+        state.expanded.add(current.id);
+        current = state.placeById.get(current.parent);
+      }
+    }
+
+    function addSibling() {
+      const place = state.placeById.get(state.selectedId);
+      addPlace(place ? place.parent : 'continent');
+    }
+
+    function addPlace(parentId) {
+      pushUndo();
+      const place = defaultPlace(parentId);
+      state.places.push(place);
+      state.selectedId = place.id;
+      state.expanded.add(parentId);
+      markDirty();
+      renderAll();
+    }
+
+    function promoteSelected() {
+      const place = state.placeById.get(state.selectedId);
+      const parent = place && state.placeById.get(place.parent);
+      if (!place || !parent) return alert('当前节点无法提升。');
+      movePlace(place.id, parent.parent ?? null);
+    }
+
+    function moveSelected(parentId) {
+      if (!state.selectedId) return;
+      movePlace(state.selectedId, parentId);
+    }
+
+    function movePlace(id, parentId) {
+      const place = state.placeById.get(id);
+      if (!place) return;
+      if (parentId === id || descendantIds(id).includes(parentId)) return alert('不能把节点移动到自己或自己的后代下面。');
+      pushUndo();
+      place.parent = parentId;
+      state.expanded.add(parentId);
+      markDirty();
+      renderAll();
+    }
+
+    function deleteSelected() {
+      const place = state.placeById.get(state.selectedId);
+      if (!place) return;
+      if (place.id === 'continent' && !confirm('你正在删除 continent，确定？')) return;
+      const descendants = descendantIds(place.id);
+      let mode = 'leaf';
+      let childTarget = null;
+      if (descendants.length) {
+        mode = prompt(`这个节点有 ${descendants.length} 个后代（descendants）。输入删除方式：\n1 = 只删除当前节点，子节点（children）提升到当前父级（parent）\n2 = 删除整个子树（subtree）\n3 = 只删除当前节点，子节点（children）移到指定父级（parent）\n4 = 取消`, '1');
+        if (mode !== '1' && mode !== '2' && mode !== '3') return;
+        if (mode === '3') {
+          childTarget = prompt('输入子节点（children）要移动到的父级标识（parent id）；留空表示 null 根节点。', place.parent || 'continent');
+          childTarget = childTarget ? childTarget.trim() : null;
+          if (childTarget && (!state.placeById.has(childTarget) || childTarget === place.id || descendants.includes(childTarget))) {
+            return alert('指定父级（parent）不存在，或位于将被删除节点的子树（subtree）内。');
+          }
+        }
+      } else if (!confirm(`删除 ${place.name || place.id}？`)) return;
+      pushUndo();
+      if (mode === '2') {
+        const remove = new Set([place.id, ...descendants]);
+        state.places = state.places.filter(p => !remove.has(p.id));
+      } else {
+        for (const child of arr(state.childrenByParent.get(place.id))) child.parent = mode === '3' ? childTarget : place.parent ?? null;
+        state.places = state.places.filter(p => p.id !== place.id);
+      }
+      state.selectedId = place.parent && state.placeById.has(place.parent) ? place.parent : state.places[0]?.id || null;
+      markDirty();
+      renderAll();
+    }
+
+    function descendantIds(id) {
+      const ids = [];
+      const visit = parent => {
+        for (const child of arr(state.childrenByParent.get(parent))) {
+          if (ids.includes(child.id)) continue;
+          ids.push(child.id);
+          visit(child.id);
+        }
+      };
+      visit(id);
+      return ids;
+    }
+
+    function uniqueId(base) {
+      let id = base;
+      let n = 2;
+      while (state.placeById.has(id)) id = `${base}_${n++}`;
+      return id;
+    }
+
+    function pushUndo() {
+      state.undoStack.push(JSON.stringify(state.places));
+      if (state.undoStack.length > 50) state.undoStack.shift();
+    }
+
+    function undo() {
+      const previous = state.undoStack.pop();
+      if (!previous) return;
+      state.places = JSON.parse(previous);
+      state.dirty = true;
+      rebuild();
+      if (!state.placeById.has(state.selectedId)) state.selectedId = state.places[0]?.id || null;
+      renderAll();
+    }
+
+    function markDirty() {
+      state.dirty = true;
+    }
+
+    function yamlText() {
+      const normalized = state.places.map(normalizePlace);
+      return jsyaml.dump({ places: normalized }, { lineWidth: 120, noRefs: true, sortKeys: false });
+    }
+
+
+    // 在工作台（本机服务）里打开时直接写回工作区；单独打开文件时仍然下载。
+    function inWorkspace() { return location.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(location.hostname); }
+    async function saveToWorkspace(files) {
+      const response = await fetch('/_workbench/geography', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ files }) });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.ok === false) throw new Error(data.error?.message || `保存失败（${response.status}）`);
+      return data;
+    }
+
+    async function downloadYaml() {
+      if (!state.places.length) return;
+      if (inWorkspace()) {
+        try {
+          await saveToWorkspace({ 'places.yaml': yamlText() });
+          state.dirty = false;
+          renderStatus();
+          el('exportBtn').textContent = '已保存到工作区';
+          setTimeout(() => el('exportBtn').textContent = '保存到工作区', 1500);
+          return;
+        } catch (error) {
+          if (!confirm(`保存到工作区失败：${error.message}
+
+要改为下载文件吗？`)) return;
+        }
+      }
+      const blob = new Blob([yamlText()], { type: 'text/yaml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'places.yaml';
+      a.click();
+      URL.revokeObjectURL(url);
+      state.dirty = false;
+      renderStatus();
+    }
+
+    async function copyYaml() {
+      if (!state.places.length) return;
+      await navigator.clipboard.writeText(yamlText());
+      el('copyBtn').textContent = '已复制';
+      setTimeout(() => el('copyBtn').textContent = '复制 YAML', 900);
+    }
+
+    setup();
+  </script>
+</body>
+</html>

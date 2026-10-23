@@ -1,0 +1,98 @@
+name: Review third-party dependencies
+
+on:
+  schedule:
+    - cron: "43 2 * * 1"
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: Refresh fixed third-party dependencies and propose a draft PR
+        type: boolean
+        default: true
+
+concurrency:
+  group: dependency-update
+  cancel-in-progress: false
+
+jobs:
+  dependencies:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      PROPOSAL_BRANCH: bot/dependency-update
+      REPORT: maintenance/dependency-update-report.md
+      REFRESH: ${{ github.event_name == 'schedule' || inputs.refresh }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: npm install --global pnpm@11.17.0
+      - run: python -m pip install -r requirements.txt
+      - run: pnpm setup:workspace
+      - run: node --test tests/dependency-updates.test.mjs
+      - run: pnpm refs restore
+      - name: Inspect distributions and prepare fixed dependency updates
+        id: inspect
+        shell: bash
+        run: |
+          mkdir -p .cache
+          command=outdated
+          if [[ "$REFRESH" == true ]]; then command=refresh; fi
+          node tools/dependencies.mjs "$command" --report "$REPORT" > .cache/dependency-refresh.json
+          cat .cache/dependency-refresh.json
+          cat "$REPORT" >> "$GITHUB_STEP_SUMMARY"
+          changed=$(node -e 'const fs = require("node:fs"); process.stdout.write(String(JSON.parse(fs.readFileSync(".cache/dependency-refresh.json")).changed))')
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+      - name: Validate the complete candidate locally
+        if: env.REFRESH == 'true' && steps.inspect.outputs.changed != '0'
+        run: pnpm verify
+      - name: Create or update the review PR
+        if: env.REFRESH == 'true' && steps.inspect.outputs.changed != '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          previous=$(git ls-remote origin "refs/heads/$PROPOSAL_BRANCH" | cut -f1)
+          git switch -c "$PROPOSAL_BRANCH"
+          git add release.json "$REPORT"
+          if git diff --cached --quiet; then exit 0; fi
+          # Compare the complete proposal to the previous bot proposal to avoid duplicate commits.
+          same_candidate=false
+          if [[ -n "$previous" ]]; then
+            git fetch origin "$PROPOSAL_BRANCH"
+            if git diff --quiet FETCH_HEAD -- release.json; then same_candidate=true; fi
+          fi
+          if [[ "$same_candidate" != true ]]; then
+            git commit -m 'chore: review third-party dependency updates'
+            git push "--force-with-lease=refs/heads/$PROPOSAL_BRANCH:$previous" origin "HEAD:refs/heads/$PROPOSAL_BRANCH"
+          fi
+          number=$(gh pr list --state open --head "$PROPOSAL_BRANCH" --base "$DEFAULT_BRANCH" --json number --jq '.[0].number // empty')
+          if [[ -n "$number" ]]; then
+            gh pr edit "$number" --title 'Review third-party dependency updates' --body-file "$REPORT"
+          else
+            gh pr create --draft --head "$PROPOSAL_BRANCH" --base "$DEFAULT_BRANCH" --title 'Review third-party dependency updates' --body-file "$REPORT"
+          fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: dependency-update-report
+          path: |
+            maintenance/dependency-update-report.md
+            .cache/dependency-refresh.json
+            .cache/verification/
+          include-hidden-files: true
+          if-no-files-found: warn

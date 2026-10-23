@@ -1,0 +1,48 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  background: color-mix(in srgb, var(--theme-card-bg) 92%, rgba(255, 255, 255, 0.02));
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+  box-shadow:
+    0 6px 16px color-mix(in srgb, var(--theme-window-border) 16%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--theme-card-border) 16%, transparent);
+}
+
+.cardHeader {
+  padding: $spacing-md $spacing-md 10px;
+  background: transparent;
+  border-bottom: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--theme-text-primary);
+  letter-spacing: 0.2px;
+  word-break: break-word;
+}
+
+.cardBody {
+  padding: 0 $spacing-md $spacing-md;
+}
+
+.cardBodyStandalone {
+  padding-top: $spacing-md;
+}
+
+@media (max-width: 540px) {
+  .cardHeader {
+    padding: $spacing-sm $spacing-sm 8px;
+  }
+
+  .cardBody {
+    padding: 0 $spacing-sm $spacing-sm;
+  }
+
+  .cardBodyStandalone {
+    padding-top: $spacing-sm;
+  }
+}
+
+// 品质样式
+@include quality-borders('cardQuality');

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "importedAt": "2026-10-23",
+  "sources": {
+    "worldbook": {
+      "repository": "https://github.com/The-poem-of-destiny/Worldbook-for-destined-journey.git",
+      "commit": "2b1104de2c491e7ffc7da6b966602c1be2b20382",
+      "refs": [
+        "2b1104de2c491e7ffc7da6b966602c1be2b20382 refs/heads/main",
+        "18559bce14440b8f02050617d76a77b6a2871cba refs/remotes/origin/2026.7.31存档",
+        "2b1104de2c491e7ffc7da6b966602c1be2b20382 refs/remotes/origin/HEAD",
+        "2b1104de2c491e7ffc7da6b966602c1be2b20382 refs/remotes/origin/main",
+        "0a1c9ea69e01ec8c54db5fbb24c9925219bb3dbf refs/remotes/origin/release/v3.1.5",
+        "eabb1b47d2ad727503e6fcb03beba10b92ef0c9a refs/remotes/origin/统一供能接口"
+      ],
+      "bundle": "imports/legacy/worldbook.bundle",
+      "bundleSha256": "cc1a873eb081a166ea9536e62ae8ae2d3e1c382a13b826e777469f39046c9437",
+      "localArchive": "imports/repositories/worldbook-source"
+    },
+    "frontend": {
+      "repository": "https://github.com/The-poem-of-destiny/FrontEnd-for-destined-journey.git",
+      "commit": "1968d9e5f3de17344f695df184a748dd86c6a636",
+      "refs": [
+        "1968d9e5f3de17344f695df184a748dd86c6a636 refs/heads/main",
+        "1968d9e5f3de17344f695df184a748dd86c6a636 refs/remotes/origin/HEAD",
+        "dee195c97e0e34df209de8d1670504b711ea9574 refs/remotes/origin/assets-dungeon-presets",
+        "7dc05038bc72ce8218618ba6a44a353c9a049221 refs/remotes/origin/feat/unique-quality-color-setting",
+        "ec2b5a269d3c1d5ec0bdc6788ecd377d0cf99a06 refs/remotes/origin/fix/destiny-responsive-breakpoint",
+        "d47f2db8d7716883f3db9b55cde97001cd293095 refs/remotes/origin/fix/items-master-detail-height",
+        "1968d9e5f3de17344f695df184a748dd86c6a636 refs/remotes/origin/main",
+        "7ba71ab7094420181f73fa086dec097f9d119cc3 refs/remotes/origin/release/v3.1.0",
+        "14cd595a2198e57330baaaabe357b4f1282e1dba refs/tags/v1.9.13",
+        "3beb460097525e80e225879957c7f62d23792e94 refs/tags/v1.9.14",
+        "f326fe9e5fd6ebcfdea41fa516145c15f2946159 refs/tags/v1.9.15",
+        "09b5352eb1478b01d5fa842b96bc303ed29c41fd refs/tags/v1.9.16",
+        "653504624a8843f4db76511305af1035ba1691c1 refs/tags/v1.9.17",
+        "e1958bae05ff3666b63c291ada6d6cce5f62c11d refs/tags/v1.9.18",
+        "d90a8be212ca641b032e5617bdfba35b37ec89a6 refs/tags/v1.9.19",
+        "403769f3bef05e8f6461c634877e2a12d9c7cdde refs/tags/v1.9.20",
+        "86c6b04c35150e99dc77e9dbf08437c087fae6b3 refs/tags/v1.9.21",
+        "641b70d2c2c73f2f307760dba668f3593d861ebd refs/tags/v1.9.22",
+        "da378b5218f746b2b306ec14cd1780b21c08a76a refs/tags/v1.9.23",
+        "41b4924277688dee77f44e24881fe82f5cae0d94 refs/tags/v1.9.24",
+        "3e0f897345dfa963dbd5efd20f0a854304ec644b refs/tags/v1.9.25",
+        "9dfaec9cebe09fab05f5a0db2a453a505b521e8c refs/tags/v1.9.26",
+        "dde8149bf014562bdcc7d8e4ebf2ededc0324cca refs/tags/v1.9.27",
+        "0410874ff05af2d7628288731e9f5806e6394a90 refs/tags/v1.9.28",
+        "3c935e70d2692c0208b8410bb8a4003d166767ab refs/tags/v1.9.29",
+        "0c53d71239e3770b2b33eefbb58308555394f362 refs/tags/v1.9.30",
+        "d484557c687a02d7515607e2739d6681871fdaa4 refs/tags/v1.9.31",
+        "a809b20f0000a2ea712998547ee69a052cb18910 refs/tags/v1.9.32"
+      ],
+      "bundle": "imports/legacy/frontend.bundle",
+      "bundleSha256": "81a9b13aa5fc14d2013b4674bcb1f0c5e8f11a3113ca8e68213314e5fe4e53e8",
+      "localArchive": "imports/repositories/frontend-source"
+    },
+    "automation": {
+      "repository": "https://github.com/The-poem-of-destiny/Automated-script-for-destined-journey.git",
+      "commit": "90ade00793bd2d8e0d65de0a86d0c79a6c00ba7c",
+      "refs": [
+        "90ade00793bd2d8e0d65de0a86d0c79a6c00ba7c refs/heads/main",
+        "90ade00793bd2d8e0d65de0a86d0c79a6c00ba7c refs/remotes/origin/HEAD",
+        "90ade00793bd2d8e0d65de0a86d0c79a6c00ba7c refs/remotes/origin/main",
+        "f60cd62292ebb2c8abe5db4f19d9c21a51817982 refs/tags/v3.4.4",
+        "b4cd92ba494505aa48ddd51912c36c74179851d2 refs/tags/v3.4.5",
+        "9d05db5a4ff0958cbea1fc7fee3609ad92a0aa1a refs/tags/v3.4.6"
+      ],
+      "bundle": "imports/legacy/automation.bundle",
+      "bundleSha256": "cfee9697a5b9e59c23e57c0e9f4a5c5d08c9cefda797b6a435af31a81dd704ca",
+      "localArchive": "imports/repositories/automation-source"
+    }
+  }
+}

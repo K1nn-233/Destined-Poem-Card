@@ -1,0 +1,132 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+.tabBar {
+  padding: 0 $spacing-md;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-window-border) 62%, transparent);
+  overflow-x: auto;
+  position: relative;
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+}
+
+.list {
+  display: flex;
+  width: 100%;
+  min-width: 100%;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.item {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 14px 11px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--theme-tab-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color $transition-fast,
+    opacity $transition-fast;
+  white-space: nowrap;
+  letter-spacing: 0.1px;
+
+  i {
+    font-size: 12px;
+    opacity: 0.72;
+    transition: opacity $transition-fast;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 999px;
+    background: transparent;
+    transition:
+      background $transition-fast,
+      opacity $transition-fast;
+    opacity: 0;
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--theme-tab-active-text);
+
+    i {
+      opacity: 0.9;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.itemActive {
+  color: var(--theme-tab-active-text);
+  font-weight: 600;
+
+  i {
+    opacity: 1;
+  }
+
+  &::after {
+    opacity: 1;
+    background: var(--theme-tab-indicator);
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--theme-error-solid-text, #fff);
+  background: var(--theme-error, #c4493d);
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(196, 73, 61, 0.18);
+}
+
+@media (max-width: 540px) {
+  .tabBar {
+    padding: 0 $spacing-sm;
+  }
+
+  .list {
+    display: inline-flex;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .item {
+    flex: 0 0 auto;
+    min-width: 54px;
+    padding: 11px 10px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+}

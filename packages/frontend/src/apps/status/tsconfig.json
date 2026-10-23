@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "../../../../..",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "./**/*",
+    "../../shared/**/*",
+    "../../../@types/**/*",
+    "../../../global.d.ts",
+    "../../../auto-imports.zod.d.ts",
+    "../../../auto-imports.type-fest.d.ts"
+  ]
+}

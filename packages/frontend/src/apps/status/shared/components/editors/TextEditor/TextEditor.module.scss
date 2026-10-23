@@ -1,0 +1,80 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.textEditor {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-xs;
+  font-size: 12px;
+}
+
+.label {
+  @include label-text;
+  white-space: nowrap;
+  padding-top: 4px;
+  word-break: break-word;
+}
+
+// 展示模式
+.displayMode {
+  cursor: pointer;
+  padding: 4px $spacing-sm;
+  border-radius: $border-radius-sm;
+  transition: background $transition-fast;
+
+  &:hover:not(.disabled) {
+    background: var(--theme-tab-hover-bg);
+
+    .editIcon {
+      opacity: 1;
+    }
+  }
+
+  &.disabled {
+    @include disabled-state;
+  }
+}
+
+.displayValue {
+  color: var(--theme-text-primary);
+  word-break: break-word;
+  white-space: pre-line;
+
+  &.placeholder {
+    color: var(--theme-text-muted);
+    font-style: italic;
+  }
+}
+
+.editIcon {
+  margin-left: $spacing-xs;
+  font-size: 10px;
+  color: var(--theme-text-muted);
+  opacity: 0;
+  transition: opacity $transition-fast;
+}
+
+// 编辑模式
+.editMode {
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  width: 100%;
+}
+
+.input {
+  @include input-base;
+  width: 100%;
+  padding: $spacing-sm;
+  font-family: inherit;
+  resize: vertical;
+
+  &:disabled {
+    background: var(--theme-card-bg);
+  }
+}

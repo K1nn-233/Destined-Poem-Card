@@ -1,0 +1,102 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.tagEditor {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-xs;
+  font-size: 12px;
+
+  &.disabled {
+    @include disabled-state;
+  }
+}
+
+.label {
+  @include label-text;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  min-height: 24px;
+}
+
+.tag {
+  @include badge-base(2px 6px, 11px);
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  color: var(--theme-text-primary);
+  word-break: break-word;
+}
+
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--theme-card-border);
+  border-radius: 50%;
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  i {
+    font-size: 8px;
+  }
+
+  &:hover {
+    background: var(--theme-tab-hover-bg);
+    border-color: var(--theme-primary-bg);
+    color: var(--theme-text-primary);
+  }
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: var(--theme-card-bg);
+  border: 1px dashed var(--theme-card-border);
+  border-radius: 4px;
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  i {
+    font-size: 10px;
+  }
+
+  &:hover {
+    background: var(--theme-tab-hover-bg);
+    color: var(--theme-text-primary);
+    border-style: solid;
+  }
+}
+
+.input {
+  min-width: 80px;
+  max-width: 120px;
+  padding: 2px 6px;
+  background: var(--theme-window-bg);
+  border: 1px solid var(--theme-primary-bg);
+  border-radius: 4px;
+  color: var(--theme-text-primary);
+  font-size: 11px;
+  outline: none;
+  word-break: break-word;
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+}

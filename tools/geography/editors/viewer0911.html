@@ -1,0 +1,2899 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>拓扑查看器（Topology Viewer）</title>
+  <script src="/vendor/js-yaml.js"></script>
+  <script>window.jsyaml || document.write('<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.3.2/dist/js-yaml.min.js"><\/script>');</script>
+  <style>
+    :root {
+      --bg: #111318;
+      --panel: #181b22;
+      --panel-2: #20242d;
+      --text: #e8ebf2;
+      --muted: #9aa4b5;
+      --line: #313746;
+      --accent: #78c6ff;
+      --bad: #ff6b6b;
+      --warn: #ffd166;
+      --ok: #63d471;
+      --imp3: #ffcf5a;
+      --imp2: #78c6ff;
+      --imp1: #a78bfa;
+      --none: #6b7280;
+      --level0: #f8fafc;
+      --level1: #22c55e;
+      --level2: #0ea5e9;
+      --level3: #8b5cf6;
+      --level4: #f97316;
+      --level5: #ec4899;
+      --level6: #14b8a6;
+      --unrooted: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      color: inherit;
+      font: inherit;
+    }
+
+    button,
+    select,
+    input[type="text"] {
+      background: #10131a;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button.primary {
+      background: rgba(120, 198, 255, .18);
+      border-color: rgba(120, 198, 255, .65);
+      color: #dff5ff;
+      font-weight: 700;
+    }
+
+    button.danger {
+      background: rgba(255, 107, 107, .13);
+      border-color: rgba(255, 107, 107, .55);
+      color: #ffd2d2;
+    }
+
+    button.mode-active {
+      background: rgba(255, 209, 102, .18);
+      border-color: rgba(255, 209, 102, .7);
+      color: #ffe7a8;
+      box-shadow: 0 0 0 2px rgba(255, 209, 102, .12) inset;
+      font-weight: 750;
+    }
+
+    button:hover,
+    .item:hover {
+      border-color: var(--accent);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+      min-width: 1100px;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .sidebar,
+    .detail {
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+      display: flex;
+      min-height: 0;
+      min-width: 0;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      flex: 0 0 340px;
+      width: 340px;
+    }
+
+    .detail {
+      flex: 0 0 480px;
+      width: 480px;
+      border-right: 0;
+      border-left: 1px solid var(--line);
+    }
+
+    .topbar {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      gap: 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .stat {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+      min-width: 0;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .filters input,
+    .filters select,
+    .filters button {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 10px 12px 0;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      border-radius: 999px;
+      padding: 7px 8px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .tab.active {
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(120, 198, 255, .18) inset;
+    }
+
+    .list {
+      flex: 1 1 auto;
+      padding: 10px 12px 12px;
+      overflow: auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      background: #131720;
+      border-radius: 10px;
+      padding: 9px;
+      cursor: pointer;
+    }
+
+    .item.active {
+      border-color: var(--accent);
+      background: #172335;
+    }
+
+    .item-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 650;
+    }
+
+    .item-sub {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .badge.bad {
+      color: #ffd2d2;
+      border-color: rgba(255, 107, 107, .5);
+      background: rgba(255, 107, 107, .12);
+    }
+
+    .badge.warn {
+      color: #ffe7a8;
+      border-color: rgba(255, 209, 102, .45);
+      background: rgba(255, 209, 102, .1);
+    }
+
+    .badge.info {
+      color: #cfeeff;
+      border-color: rgba(120, 198, 255, .35);
+      background: rgba(120, 198, 255, .08);
+    }
+
+    .badge.ok {
+      color: #c9f6ce;
+      border-color: rgba(99, 212, 113, .45);
+      background: rgba(99, 212, 113, .1);
+    }
+
+    .badge.accent {
+      color: #cfeeff;
+      border-color: rgba(120, 198, 255, .45);
+      background: rgba(120, 198, 255, .1);
+    }
+
+    .main {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #202633 0, #0d1016 70%);
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(17, 19, 24, .92);
+      flex-wrap: wrap;
+      z-index: 5;
+    }
+
+    .map-toolbar label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--muted);
+      user-select: none;
+    }
+
+    .file-btn {
+      background: #10131a;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+    }
+
+    .file-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .file-btn input {
+      display: none;
+    }
+
+    .file-btn.needs-import {
+      border-color: rgba(255, 209, 102, .72);
+      background: rgba(255, 209, 102, .16);
+      color: #ffe7a8;
+      box-shadow: 0 0 0 2px rgba(255, 209, 102, .1) inset;
+      font-weight: 700;
+    }
+
+    .legend {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid #10131a;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .22);
+      vertical-align: -1px;
+    }
+
+    .zoom-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding-left: 4px;
+    }
+
+    .zoom-controls button {
+      min-width: 34px;
+      padding: 6px 8px;
+    }
+
+    #zoomValue {
+      color: var(--muted);
+      min-width: 46px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .map-wrap {
+      flex: 1 1 auto;
+      position: relative;
+      overflow: auto;
+      min-height: 0;
+      padding: 22px;
+    }
+
+    .map-stage {
+      position: relative;
+      width: max-content;
+      margin: auto;
+      transform-origin: 0 0;
+    }
+
+    .map-img {
+      display: block;
+      max-width: none;
+      width: var(--map-width, min(1200px, calc(100vw - 780px)));
+      min-width: 720px;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .5);
+      user-select: none;
+    }
+
+    .edges-layer,
+    .points-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .edges-layer svg {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+    }
+
+    .edge-line {
+      stroke: rgba(38, 116, 184, .72);
+      stroke-width: 2;
+      fill: none;
+      cursor: pointer;
+      pointer-events: stroke;
+    }
+
+    .edge-line.dim {
+      stroke: rgba(38, 116, 184, .38);
+    }
+
+    .edge-line.related {
+      stroke: rgba(82, 184, 255, .95);
+      stroke-width: 3;
+    }
+
+    .edge-line.na {
+      stroke: rgba(255, 209, 102, .55);
+      stroke-dasharray: 7 6;
+    }
+
+    .edge-line.active {
+      stroke: #fff;
+      stroke-width: 4;
+    }
+
+    .point {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      transform: translate(-50%, -50%);
+      border: 2px solid #10131a;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, .25), 0 5px 15px rgba(0, 0, 0, .4);
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .point.active {
+      width: 20px;
+      height: 20px;
+      z-index: 10;
+      box-shadow: 0 0 0 3px #fff, 0 0 0 7px rgba(120, 198, 255, .38), 0 8px 20px rgba(0, 0, 0, .5);
+    }
+
+    .point.related {
+      width: 16px;
+      height: 16px;
+      z-index: 6;
+      border-color: #d8f1ff;
+      box-shadow: 0 0 0 3px rgba(120, 198, 255, .62), 0 0 18px rgba(120, 198, 255, .52), 0 7px 18px rgba(0, 0, 0, .45);
+    }
+
+    .point.hidden {
+      display: none;
+    }
+
+    .edit-mode .point {
+      width: 18px;
+      height: 18px;
+      cursor: grab;
+      box-shadow: 0 0 0 3px rgba(255, 209, 102, .45), 0 8px 20px rgba(0, 0, 0, .45);
+    }
+
+    .edit-mode .point:active {
+      cursor: grabbing;
+    }
+
+    .point-label {
+      position: absolute;
+      left: 14px;
+      top: -8px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(16, 19, 26, .86);
+      border: 1px solid rgba(255, 255, 255, .16);
+      color: #fff;
+      font-size: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .12s ease;
+    }
+
+    .point:hover .point-label,
+    .point.active .point-label,
+    .point.related .point-label,
+    .show-labels .point-label {
+      opacity: 1;
+    }
+
+    .map-click-cursor {
+      cursor: crosshair;
+    }
+
+    .edit-mode .map-img {
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .5), 0 0 0 3px rgba(255, 209, 102, .22);
+    }
+
+    .edit-mode-banner {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      margin: -10px -12px 8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255, 209, 102, .35);
+      background: rgba(255, 209, 102, .12);
+      color: #ffe7a8;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .detail-header {
+      flex: 0 0 auto;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .detail-title {
+      font-size: 18px;
+      font-weight: 750;
+      word-break: break-word;
+    }
+
+    .detail-body {
+      flex: 1 1 auto;
+      padding: 12px;
+      overflow: auto;
+      min-height: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section {
+      flex: 0 0 auto;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #131720;
+      overflow: clip;
+    }
+
+    .section h3 {
+      margin: 0;
+      padding: 9px 10px;
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .section-content {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: 8px;
+    }
+
+    .section.editor-section {
+      border-color: rgba(120, 198, 255, .6);
+      box-shadow: 0 0 0 2px rgba(120, 198, 255, .1), 0 10px 30px rgba(0, 0, 0, .18);
+    }
+
+    .section.editor-section h3 {
+      background: linear-gradient(90deg, rgba(120, 198, 255, .22), var(--panel-2));
+      color: #dff5ff;
+    }
+
+    .detail-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .detail-actions button {
+      min-height: 38px;
+    }
+
+    .kv {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .kv .k {
+      color: var(--muted);
+      flex: 0 0 86px;
+    }
+
+    .kv .v {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .mini-btn {
+      text-align: left;
+      background: #10131a;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px;
+      cursor: pointer;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .mini-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .mini-btn .mini-main {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .mini-btn .mini-meta {
+      display: block;
+      margin-top: 4px;
+      color: #9aa4b2;
+      font-size: 11px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    pre {
+      margin: 0;
+      max-height: 300px;
+      overflow: auto;
+      width: 100%;
+      min-width: 0;
+      padding: 10px;
+      border-radius: 10px;
+      background: #0b0e13;
+      border: 1px solid var(--line);
+      color: #dbeafe;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      min-height: 160px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #0b0e13;
+      color: #dbeafe;
+      padding: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .editor-panel {
+      border: 1px solid rgba(120, 198, 255, .45);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(120, 198, 255, .06);
+      display: grid;
+      gap: 10px;
+    }
+
+    .editor-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #dff5ff;
+      font-weight: 750;
+    }
+
+    .editor-grid label,
+    .editor-full {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .editor-grid input,
+    .editor-grid select,
+    .editor-full input,
+    .editor-full textarea {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dirty-pill {
+      color: #cfeeff;
+      border-color: rgba(120, 198, 255, .45);
+      background: rgba(120, 198, 255, .1);
+    }
+
+    .empty {
+      color: var(--muted);
+      padding: 16px;
+      text-align: center;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+    }
+
+    .notice {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .error-screen {
+      padding: 24px;
+      max-width: 900px;
+      margin: 40px auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .help-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(5, 8, 13, .76);
+    }
+
+    .help-modal.open {
+      display: flex;
+    }
+
+    .help-dialog {
+      display: flex;
+      flex-direction: column;
+      width: min(920px, 100%);
+      max-height: min(88vh, 920px);
+      overflow: hidden;
+      border: 1px solid rgba(120, 198, 255, .45);
+      border-radius: 16px;
+      background: var(--panel);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .65);
+    }
+
+    .help-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(120, 198, 255, .15), var(--panel));
+    }
+
+    .help-header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .help-body {
+      display: grid;
+      gap: 14px;
+      overflow: auto;
+      padding: 16px;
+    }
+
+    .help-body h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: #dff5ff;
+    }
+
+    .help-body p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .help-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #131720;
+    }
+
+    .help-important {
+      border-color: rgba(255, 209, 102, .55);
+      background: rgba(255, 209, 102, .08);
+    }
+
+    .help-important h3 {
+      color: #ffe7a8;
+    }
+
+    .help-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--text);
+    }
+
+    .help-list li {
+      margin: 5px 0;
+    }
+
+    .help-fields {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 7px 12px;
+      font-size: 13px;
+    }
+
+    .help-fields dt {
+      color: #cfeeff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .help-fields dd {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1180px) {
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+      }
+
+      .sidebar,
+      .detail {
+        flex: 0 0 auto;
+        width: auto;
+        height: 55vh;
+      }
+
+      .main {
+        flex: 0 0 auto;
+        height: 70vh;
+      }
+
+      .map-img {
+        width: 1100px;
+      }
+
+      .help-modal {
+        padding: 10px;
+      }
+
+      .help-fields {
+        grid-template-columns: 1fr;
+        gap: 3px;
+      }
+
+      .help-fields dd {
+        margin-bottom: 8px;
+      }
+    }
+
+    @media (max-width: 1380px) {
+      .detail {
+        flex-basis: 430px;
+        width: 430px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="app">
+    <aside class="sidebar">
+      <div class="topbar">
+        <div class="brand">
+          <span>拓扑查看器（Topology Viewer）</span>
+          <span id="loadStatus" class="status">加载中</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="placeCount">0</b><span>地点（places）</span></div>
+          <div class="stat"><b id="edgeCount">0</b><span>边（edges）</span></div>
+          <div class="stat"><b id="issueCount">0</b><span>异常（issues）</span></div>
+        </div>
+        <input id="searchInput" type="text" placeholder="搜索 标识（id）/ 名称（name）/ 关键词（keyword）/ 标签（label）" />
+        <div class="filters">
+          <select id="coordFilter">
+            <option value="all">坐标：全部</option>
+            <option value="with">有坐标</option>
+            <option value="without">无坐标</option>
+            <option value="bad-marker">标记（marker）缺失</option>
+          </select>
+          <select id="importanceFilter">
+            <option value="all">重要性（importance）：全部</option>
+            <option value="3">重要性（importance）3</option>
+            <option value="2">重要性（importance）2</option>
+            <option value="1">重要性（importance）1</option>
+            <option value="0">未填/其他</option>
+          </select>
+          <select id="geoFilter">
+            <option value="geo" selected>地理点：只显示地理点</option>
+            <option value="all">地理点：全部</option>
+            <option value="non-geo">非地理点</option>
+          </select>
+          <select id="parentFilter">
+            <option value="all">父级（parent）子树：全部</option>
+          </select>
+          <select id="transportFilter">
+            <option value="all">交通方式（transport）：全部</option>
+          </select>
+          <button id="clearFilters">清空筛选</button>
+          <button id="fitVisible">显示当前点</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="places">地点（Places）</button>
+        <button class="tab" data-tab="edges">边（Edges）</button>
+        <button class="tab" data-tab="issues">异常（Issues）</button>
+      </div>
+      <div id="list" class="list"></div>
+    </aside>
+
+    <main class="main">
+      <div class="map-toolbar">
+        <label><input id="toggleEdges" type="checkbox" checked /> 连线</label>
+        <label><input id="toggleLabels" type="checkbox" /> 标签</label>
+        <label><input id="toggleDim" type="checkbox" checked /> 弱化非关联</label>
+        <label><input id="toggleOnlyIssues" type="checkbox" /> 只看异常</label>
+        <select id="colorMode" title="地点着色模式">
+          <option value="depth" selected>颜色：层级</option>
+          <option value="importance">颜色：重要性</option>
+          <option value="coord">颜色：坐标状态</option>
+          <option value="issue">颜色：异常状态</option>
+        </select>
+        <span class="zoom-controls">
+          <button id="zoomOut" title="缩小地图">-</button>
+          <span id="zoomValue">100%</span>
+          <button id="zoomIn" title="放大地图">+</button>
+          <button id="zoomReset" title="重置缩放">重置</button>
+        </span>
+        <span id="colorLegend" class="legend" title="地点颜色图例"></span>
+        <button id="editModeToggle" class="primary">编辑模式：关</button>
+        <button id="createPlace">新增地点</button>
+        <button id="addEdgeMode">新建连线</button>
+        <button id="saveDraft">暂存</button>
+        <button id="downloadDraft">导出文件</button>
+        <label id="placesImportBtn" class="file-btn needs-import">导入 places<input id="placesFile" type="file"
+            accept=".yaml,.yml,text/yaml,text/plain" /></label>
+        <label id="edgesImportBtn" class="file-btn needs-import">导入 edges<input id="edgesFile" type="file"
+            accept=".yaml,.yml,text/yaml,text/plain" /></label>
+        <label id="markersImportBtn" class="file-btn needs-import">导入 markers<input id="markersFile" type="file"
+            accept=".txt,.json,application/json,text/plain" /></label>
+        <button id="clearDraft">清空草稿</button>
+        <button id="openHelp" class="mode-active">使用说明</button>
+        <span id="mapHint" class="notice">点击地图点、边或列表查看详情。Alt+滚轮缩放，Ctrl+滚轮左右平移。</span>
+      </div>
+      <div id="mapWrap" class="map-wrap">
+        <div id="mapStage" class="map-stage">
+          <img id="mapImg" class="map-img" src="https://l.urusai.cc/pnP7j.avif" alt="map" draggable="false" />
+          <div id="edgesLayer" class="edges-layer"></div>
+          <div id="pointsLayer" class="points-layer"></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="detail">
+      <div class="detail-header">
+        <div id="detailTitle" class="detail-title">未选中</div>
+        <div id="detailSub" class="status">从左侧列表或地图选择一个地点/边。</div>
+      </div>
+      <div id="detailBody" class="detail-body">
+        <div class="empty">加载完成后，可在这里查看、增加、删除和编辑地点/连线。</div>
+      </div>
+    </aside>
+  </div>
+
+  <div id="helpModal" class="help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="help-dialog">
+      <div class="help-header">
+        <h2 id="helpTitle">使用说明与字段说明</h2>
+        <button id="closeHelp" type="button">关闭</button>
+      </div>
+      <div class="help-body">
+        <div class="help-card">
+          <h3>快速上手</h3>
+          <ol class="help-list">
+            <li>导入 <code>places.yaml</code>、<code>edges.yaml</code>；如有独立坐标文件，再导入 <code>markers</code>。</li>
+            <li>查看模式下点击地点或连线，可在右侧查看详情和异常提示。</li>
+            <li>点击顶部“编辑模式：关”开启编辑。开启后可直接拖动地图点修改位置。</li>
+            <li>点击“新增地点”后在地图上落点。若当前选中了一个地点，新地点会默认归到它下面。</li>
+            <li>点击“新建连线”后依次点击两个地理地点；选中地点或连线后，可在右侧编辑或删除。</li>
+            <li>修改完成后先点“暂存”保存在当前浏览器，或点“导出文件”保存数据文件。</li>
+          </ol>
+        </div>
+        <div class="help-card">
+          <h3>地点字段</h3>
+          <dl class="help-fields">
+            <dt>id</dt>
+            <dd>稳定标识，用于数据引用；建议保持不变，不要使用外部 marker 编号。</dd>
+            <dt>name</dt>
+            <dd>界面和文本中展示的地点名称。</dd>
+            <dt>parent</dt>
+            <dd>地点所属的上级地点。只表达“位于/包含于”，不表达能否通行。</dd>
+            <dt>is_geographic</dt>
+            <dd>是否为地理点。真实地点写“是”；展示标记、事件图标等写“否”。</dd>
+            <dt>is_waypoint</dt>
+            <dd>是否为路线中的中继点，例如关口、驿站或航线转折点。</dd>
+            <dt>keywords</dt>
+            <dd>额外匹配词，帮助识别当前地点，不用于展示。</dd>
+            <dt>labels</dt>
+            <dd>简短标签，例如“港口”“高危区域”“贸易中心”。</dd>
+            <dt>importance</dt>
+            <dd>输出优先级，建议 3 为核心地点，2 为常用地点，1 为补充地点。</dd>
+            <dt>description</dt>
+            <dd>地点简述和详细说明；路线天数不要写在这里。</dd>
+            <dt>marker_id / marker</dt>
+            <dd>地图坐标和展示信息。拖动地图点时会更新这里的数据。</dd>
+          </dl>
+        </div>
+        <div class="help-card">
+          <h3>连线字段</h3>
+          <dl class="help-fields">
+            <dt>from / to</dt>
+            <dd>连线两端的地理地点，只引用地点标识，不是坐标或显示名。</dd>
+            <dt>bidirectional</dt>
+            <dd>是否可以双向通行。单向传送、季风航线等可设为否。</dd>
+            <dt>transport</dt>
+            <dd>交通方式，例如商队、徒步、船只、传送；写“不适用”表示仅描述相邻或阻隔。</dd>
+            <dt>days</dt>
+            <dd>单程耗时天数；未知可留空。</dd>
+            <dt>terrain</dt>
+            <dd>经过的主要地形，例如平原、森林、河流、海洋。</dd>
+            <dt>direction</dt>
+            <dd>方位提示，例如东西、南北、西-东。</dd>
+            <dt>importance</dt>
+            <dd>路线展示优先级，3 为骨干路线，2 为常规路线，1 为局部路线。</dd>
+          </dl>
+        </div>
+        <div class="help-card">
+          <h3>容易混淆的规则</h3>
+          <ul class="help-list">
+            <li>父级关系不是道路关系：地点属于某区域，不代表它与区域内其他地点直接相通。</li>
+            <li>只有连线才表示路线或地理连接。</li>
+            <li>删除地点会同时删除与它直接关联的连线；有子地点的地点不能直接删除。</li>
+            <li>“暂存”只保存到当前浏览器；要带走或提交修改，请使用“导出文件”。</li>
+          </ul>
+        </div>
+        <div class="help-card help-important">
+          <h3>提示说明</h3>
+          <p><strong>什么是地理点：</strong><code>is_geographic: true</code> 表示实际地理地点，例如国家、城市、村落、港口、山口或道路中继点，可以参与连线和路线计算。</p>
+          <p style="margin-top:8px"><code>is_geographic: false</code>
+            表示说明性或展示性对象，例如事件标记、商船、图标说明。它可以有位置和描述，但不应作为连线起点、终点或路线中继点。</p>
+          <p style="margin-top:8px">判断方法：角色能否“从这里出发或抵达这里”？能，通常就是地理点；只是用于说明或展示，就应设为非地理点。</p>
+          <ul class="help-list" style="margin-top:10px">
+            <li>添加地点时，如果是世界书已有内容，确定地点名称即可；如果没有，则需要填写简述和详述。</li>
+            <li>添加边时，请填写默认通行方式和时间，以及会经过的地形，暂时不要用分段通行方式功能。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      places: [],
+      edges: [],
+      markers: [],
+      placeById: new Map(),
+      markerById: new Map(),
+      childrenByParent: new Map(),
+      edgesByPlace: new Map(),
+      issues: [],
+      issueByKey: new Map(),
+      tab: 'places',
+      selectedType: null,
+      selectedId: null,
+      editingType: null,
+      editingId: null,
+      editMode: false,
+      createPlaceMode: false,
+      placePlacementId: null,
+      addEdgeMode: false,
+      pendingEdgeFrom: null,
+      pendingPoint: null,
+      draggingPlaceId: null,
+      dragMoved: false,
+      visiblePlaceIds: new Set(),
+      zoom: 1,
+      dirty: false,
+      draftLoaded: false,
+      loadedFiles: { places: false, edges: false, markers: false },
+    };
+
+    const MIN_ZOOM = 0.6;
+    const DRAFT_KEY = 'topology-viewer-draft-v1';
+
+    const el = id => document.getElementById(id);
+
+    const html = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[ch]));
+
+    function arr(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function firstSegment(edge) {
+      return arr(edge.segments)[0] || {};
+    }
+
+    function segmentTransport(edge) {
+      return arr(edge.segments).map(s => s && s.transport).filter(Boolean);
+    }
+
+    // 交通方式显示文本：去重后以「＋」连接；不同分段天数不同则附加天数，便于快速查看
+    function edgeTransportText(edge) {
+      const segments = arr(edge.segments);
+      const seen = new Set();
+      const parts = [];
+      for (const seg of segments) {
+        const transport = seg && seg.transport ? String(seg.transport).trim() : '';
+        if (!transport || seen.has(transport)) continue;
+        seen.add(transport);
+        const days = seg && seg.days !== null && seg.days !== undefined && seg.days !== '' ? Number(seg.days) : null;
+        parts.push(Number.isFinite(days) ? `${transport} ${days}天` : transport);
+      }
+      return parts.join('＋');
+    }
+
+    function placeName(id) {
+      const place = state.placeById.get(id);
+      return place ? place.name : id;
+    }
+
+    function isGeographicPlace(place) {
+      return place && place.is_geographic !== false;
+    }
+
+    function continentDepth(place) {
+      if (!place || !place.id) return { rooted: false, depth: null };
+      if (place.id === 'continent') return { rooted: true, depth: 0 };
+      const seen = new Set([place.id]);
+      let depth = 0;
+      let current = place;
+      while (current && current.parent) {
+        depth += 1;
+        if (current.parent === 'continent') return { rooted: true, depth };
+        if (seen.has(current.parent)) return { rooted: false, depth: null };
+        seen.add(current.parent);
+        current = state.placeById.get(current.parent);
+      }
+      return { rooted: false, depth: null };
+    }
+
+    function pointColor(place) {
+      const mode = el('colorMode') ? el('colorMode').value : 'depth';
+      if (mode === 'importance') {
+        const n = Number(place.importance || 0);
+        if (n >= 3) return 'var(--imp3)';
+        if (n === 2) return 'var(--imp2)';
+        if (n === 1) return 'var(--imp1)';
+        return 'var(--none)';
+      }
+      if (mode === 'coord') {
+        if (getPlaceCoord(place.id)) return 'var(--ok)';
+        if (place.marker_id) return 'var(--bad)';
+        return 'var(--none)';
+      }
+      if (mode === 'issue') {
+        const issues = state.issues.filter(i => i.targetType === 'place' && i.targetId === place.id);
+        if (issues.some(i => i.level === 'bad')) return 'var(--bad)';
+        if (issues.length) return 'var(--warn)';
+        return 'var(--ok)';
+      }
+      const depthInfo = continentDepth(place);
+      if (!depthInfo.rooted) return 'var(--unrooted)';
+      const colors = ['var(--level0)', 'var(--level1)', 'var(--level2)', 'var(--level3)', 'var(--level4)', 'var(--level5)', 'var(--level6)'];
+      return colors[Math.min(depthInfo.depth, colors.length - 1)];
+    }
+
+    function pointColorTitle(place) {
+      const mode = el('colorMode') ? el('colorMode').value : 'depth';
+      if (mode === 'depth') {
+        const info = continentDepth(place);
+        return info.rooted ? `层级（depth）${info.depth}` : '未连接到大陆（continent）';
+      }
+      if (mode === 'importance') return `重要性（importance）${place.importance ?? '未填'}`;
+      if (mode === 'coord') return getPlaceCoord(place.id) ? '有坐标' : place.marker_id ? '标记（marker）缺失' : '无标记标识（marker_id）';
+      const issues = placeIssueCount(place.id);
+      return issues ? `${issues} 个异常（issues）` : '无异常';
+    }
+
+    function keyForIssue(issue) {
+      return `${issue.targetType}:${issue.targetId}:${issue.code}`;
+    }
+
+    function placeIssueCount(id) {
+      return state.issues.filter(i => i.targetType === 'place' && i.targetId === id).length;
+    }
+
+    function edgeIssueCount(id) {
+      return state.issues.filter(i => i.targetType === 'edge' && i.targetId === id).length;
+    }
+
+    function issueLevelText(level) {
+      return level === 'bad' ? '错误（bad）' : level === 'warn' ? '警告（warn）' : level === 'info' ? '提示（info）' : level;
+    }
+
+    function targetTypeText(type) {
+      return type === 'place' ? '地点（place）' : type === 'edge' ? '边（edge）' : type === 'marker' ? '标记（marker）' : type;
+    }
+
+    function issueTargetText(issue) {
+      if (issue.targetType === 'place') {
+        const place = state.placeById.get(issue.targetId);
+        return place ? `地点：${place.name || place.id}` : `地点：${issue.targetId}`;
+      }
+      if (issue.targetType === 'edge') {
+        const edge = state.edges.find(e => e.id === issue.targetId);
+        return edge ? `边：${placeName(edge.from)} ↔ ${placeName(edge.to)}` : `边：${issue.targetId}`;
+      }
+      if (issue.targetType === 'marker') {
+        const marker = state.markerById.get(issue.targetId);
+        return marker ? `标记：${marker.name || marker.id}` : `标记：${issue.targetId}`;
+      }
+      return `${targetTypeText(issue.targetType)}：${issue.targetId}`;
+    }
+
+    function isLeafPlace(place) {
+      return place && !arr(state.childrenByParent.get(place.id)).length;
+    }
+
+    function markerTextToArray(text) {
+      const trimmed = text.trim().replace(/,\s*$/, '');
+      if (!trimmed) return [];
+      const parsed = JSON.parse(trimmed.startsWith('[') ? trimmed : `[${trimmed}]`);
+      if (!Array.isArray(parsed)) throw new Error('marker 文件必须是 JSON 数组，或多个以逗号分隔的 marker 对象。');
+      return parsed;
+    }
+
+    async function loadText(path) {
+      const res = await fetch(path, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${path}: ${res.status} ${res.statusText}`);
+      return res.text();
+    }
+
+    async function boot() {
+      try {
+        if (!window.jsyaml) throw new Error('js-yaml 未加载。请确认可以访问 CDN，或把 js-yaml 放到本地后修改 script src。');
+        setupControls();
+        loadDraftFromStorage();
+        if (!state.draftLoaded) await loadDefaultFiles();
+        rebuildAndRender();
+        updateDraftStatus();
+      } catch (error) {
+        if (!el('searchInput').dataset.ready) setupControls();
+        rebuildAndRender();
+        el('loadStatus').textContent = '等待导入';
+        el('mapHint').textContent = `未自动加载同目录文件：${error.message}。可直接用“导入 places / edges”选择本地文件。`;
+        console.warn(error);
+      }
+    }
+
+    async function loadDefaultFiles() {
+      const [placesText, edgesText] = await Promise.all([
+        loadText('../../../content/geography/places.yaml'),
+        loadText('../../../content/geography/edges.yaml'),
+      ]);
+      let markerText = null;
+      try {
+        markerText = await loadText('../../../content/geography/marker0502_wsrv.txt');
+      } catch (error) {
+        markerText = null;
+      }
+      applyImportedData({ placesText, edgesText, markerText, markDirty: false, render: false });
+    }
+
+    function applyImportedData({ placesText = null, edgesText = null, markerText = null, markDirty = true, render = true }) {
+      if (placesText !== null) {
+        state.places = arr(jsyaml.load(placesText).places);
+        state.loadedFiles.places = true;
+      }
+      if (edgesText !== null) {
+        state.edges = arr(jsyaml.load(edgesText).edges);
+        state.loadedFiles.edges = true;
+      }
+      if (markerText !== null) {
+        state.markers = markerTextToArray(markerText);
+        state.loadedFiles.markers = true;
+      }
+      normalizePlaceMarkers();
+      resetEditingState();
+      state.draftLoaded = false;
+      if (markDirty) state.dirty = true;
+      updateImportHighlights();
+      if (render) {
+        rebuildAndRender();
+        updateDraftStatus();
+      }
+    }
+
+    function rebuildAndRender() {
+      indexData();
+      validateData();
+      populateFilterOptions(true);
+      renderAll();
+    }
+
+    function normalizePlaceMarkers() {
+      for (const place of state.places) {
+        if (!place || typeof place !== 'object') continue;
+        if (place.marker && typeof place.marker === 'object') {
+          if (!place.marker_id && place.marker.id) place.marker_id = place.marker.id;
+          if (!place.marker.id && place.marker_id) place.marker.id = place.marker_id;
+          if (place.marker_id && place.marker.id && place.marker.id !== place.marker_id) place.marker.id = place.marker_id;
+        }
+      }
+    }
+
+    function indexData() {
+      state.placeById.clear();
+      state.markerById.clear();
+      state.childrenByParent.clear();
+      state.edgesByPlace.clear();
+
+      for (const place of state.places) {
+        if (place && place.id) state.placeById.set(place.id, place);
+        if (place && place.marker && place.marker.id) state.markerById.set(place.marker.id, place.marker);
+      }
+
+      for (const marker of state.markers) {
+        if (marker && marker.id && !state.markerById.has(marker.id)) state.markerById.set(marker.id, marker);
+      }
+
+      for (const place of state.places) {
+        const parent = place.parent === undefined ? null : place.parent;
+        if (!state.childrenByParent.has(parent)) state.childrenByParent.set(parent, []);
+        state.childrenByParent.get(parent).push(place);
+      }
+
+      for (const edge of state.edges) {
+        if (!edge || !edge.id) continue;
+        for (const endpoint of [edge.from, edge.to]) {
+          if (!state.edgesByPlace.has(endpoint)) state.edgesByPlace.set(endpoint, []);
+          state.edgesByPlace.get(endpoint).push(edge);
+        }
+      }
+    }
+
+    function addIssue(level, code, targetType, targetId, message) {
+      state.issues.push({ level, code, targetType, targetId, message });
+    }
+
+    function validateData() {
+      state.issues = [];
+      state.issueByKey.clear();
+      const placeIds = new Map();
+      const edgeIds = new Map();
+      const markerIds = new Map();
+      const markerUse = new Map();
+      const pairKeys = new Map();
+
+      for (const place of state.places) {
+        if (!place.id) {
+          addIssue('bad', 'place_missing_id', 'place', '(missing)', '地点（place）缺少标识（id）。');
+          continue;
+        }
+        placeIds.set(place.id, (placeIds.get(place.id) || 0) + 1);
+        if (place.parent !== null && place.parent !== undefined && !state.placeById.has(place.parent)) {
+          addIssue('bad', 'parent_missing', 'place', place.id, `parent 不存在：${place.parent}`);
+        }
+        if (place.is_geographic !== undefined && typeof place.is_geographic !== 'boolean') {
+          addIssue('bad', 'bad_is_geographic', 'place', place.id, 'is_geographic 应为布尔值。');
+        }
+        if (place.is_geographic === false && place.is_waypoint) {
+          addIssue('warn', 'non_geo_waypoint', 'place', place.id, '非地理点不应作为路线中继点。');
+        }
+        if (place.marker_id) {
+          markerUse.set(place.marker_id, (markerUse.get(place.marker_id) || 0) + 1);
+          if (!state.markerById.has(place.marker_id)) {
+            addIssue('bad', 'marker_missing', 'place', place.id, `标记标识（marker_id）未找到对应 marker 数据：${place.marker_id}`);
+          }
+        } else if (place.id !== 'continent' && isGeographicPlace(place) && isLeafPlace(place)) {
+          addIssue('warn', 'place_without_coord', 'place', place.id, '地点（place）没有标记标识（marker_id），因此没有地图坐标。');
+        } else if (place.id !== 'continent' && isGeographicPlace(place)) {
+          addIssue('info', 'container_without_coord', 'place', place.id, '非叶子地理节点没有坐标，仅作为低优先级提示。');
+        }
+      }
+
+      for (const [id, count] of placeIds) {
+        if (count > 1) addIssue('bad', 'duplicate_place_id', 'place', id, `重复 place.id：${id} × ${count}`);
+      }
+      for (const [id, count] of markerUse) {
+        if (count > 1) addIssue('warn', 'shared_marker_id', 'marker', id, `同一个 marker 被多个地点使用：${id} × ${count}`);
+      }
+
+      for (const edge of state.edges) {
+        if (!edge.id) {
+          addIssue('bad', 'edge_missing_id', 'edge', '(missing)', '边（edge）缺少标识（id）。');
+          continue;
+        }
+        edgeIds.set(edge.id, (edgeIds.get(edge.id) || 0) + 1);
+        const fromPlace = state.placeById.get(edge.from);
+        const toPlace = state.placeById.get(edge.to);
+        if (!fromPlace) addIssue('bad', 'edge_from_missing', 'edge', edge.id, `from 不存在：${edge.from}`);
+        if (!toPlace) addIssue('bad', 'edge_to_missing', 'edge', edge.id, `to 不存在：${edge.to}`);
+        if (fromPlace && !isGeographicPlace(fromPlace)) addIssue('bad', 'edge_from_non_geographic', 'edge', edge.id, `from 指向非地理点：${edge.from}`);
+        if (toPlace && !isGeographicPlace(toPlace)) addIssue('bad', 'edge_to_non_geographic', 'edge', edge.id, `to 指向非地理点：${edge.to}`);
+        if (edge.from === edge.to) addIssue('bad', 'edge_self_loop', 'edge', edge.id, 'from 和 to 相同。');
+        if (!Array.isArray(edge.segments) || edge.segments.length === 0) {
+          addIssue('bad', 'edge_no_segments', 'edge', edge.id, '分段（segments）缺失或为空。');
+        } else {
+          edge.segments.forEach((segment, idx) => {
+            if (!segment || !segment.transport) addIssue('bad', 'segment_no_transport', 'edge', edge.id, `分段（segments）[${idx}] 缺少交通方式（transport）。`);
+            if (segment && ['不适用', 'n/a'].includes(segment.transport) && segment.days !== null) addIssue('bad', 'na_days_not_null', 'edge', edge.id, `分段（segments）[${idx}] 交通方式（transport）为“不适用”时，天数（days）应为 null。`);
+          });
+        }
+        const a = [edge.from, edge.to].sort().join('__');
+        pairKeys.set(a, (pairKeys.get(a) || 0) + 1);
+        const fromCoord = getPlaceCoord(edge.from);
+        const toCoord = getPlaceCoord(edge.to);
+        if (!fromCoord && !toCoord) addIssue('warn', 'edge_no_draw_coords', 'edge', edge.id, '两端都没有坐标，无法在地图上画线。');
+        else if (!fromCoord || !toCoord) addIssue('warn', 'edge_partial_draw_coords', 'edge', edge.id, '只有一端有坐标，无法在地图上画线。');
+      }
+
+      for (const [id, count] of edgeIds) {
+        if (count > 1) addIssue('bad', 'duplicate_edge_id', 'edge', id, `重复 edge.id：${id} × ${count}`);
+      }
+      for (const [pair, count] of pairKeys) {
+        if (count > 1) addIssue('warn', 'duplicate_endpoint_pair', 'edge', pair, `同一端点对存在多条边：${pair} × ${count}`);
+      }
+
+      for (const marker of state.markers) {
+        if (marker && marker.id) markerIds.set(marker.id, (markerIds.get(marker.id) || 0) + 1);
+        if (marker && marker.id && !markerUse.has(marker.id)) {
+          addIssue('warn', 'unused_marker', 'marker', marker.id, `marker 未被任何 place 使用：${marker.name || marker.id}`);
+        }
+      }
+      for (const [id, count] of markerIds) {
+        if (count > 1) addIssue('bad', 'duplicate_marker_id', 'marker', id, `重复 marker.id：${id} × ${count}`);
+      }
+
+      for (const issue of state.issues) {
+        state.issueByKey.set(keyForIssue(issue), issue);
+      }
+    }
+
+    function getMarkerForPlace(place) {
+      if (!place) return null;
+      if (place.marker && typeof place.marker === 'object') return place.marker;
+      return place.marker_id ? state.markerById.get(place.marker_id) : null;
+    }
+
+    function getPlaceCoord(id) {
+      const place = state.placeById.get(id);
+      const marker = getMarkerForPlace(place);
+      const pos = marker && marker.position;
+      if (!pos || typeof pos.nx !== 'number' || typeof pos.ny !== 'number') return null;
+      return { nx: pos.nx, ny: pos.ny, marker };
+    }
+
+    function defaultMapHint() {
+      if (state.placePlacementId) return `放置地点位置：请在地图空白处点击，为“${placeName(state.placePlacementId)}”设置位置。`;
+      if (state.createPlaceMode) return '新增地点：在地图空白处点击，创建地点并放在这里。默认父级为当前选中的地点。';
+      if (state.addEdgeMode) return state.pendingEdgeFrom ? `新建连线：已选择起点“${placeName(state.pendingEdgeFrom)}”，请点击终点。` : '新建连线：依次点击两个地图点。';
+      if (state.editMode) return '编辑模式已开启：拖动地图点可移动位置；点击地点/连线后可在右侧编辑或删除。Alt+滚轮缩放，Ctrl+滚轮左右平移。';
+      return '查看模式：点击地图点、边或列表查看详情。开启“编辑模式”后可拖动、增加、删除。Alt+滚轮缩放，Ctrl+滚轮左右平移。';
+    }
+
+    function updateEditModeUI() {
+      el('editModeToggle').textContent = `编辑模式：${state.editMode ? '开' : '关'}`;
+      el('editModeToggle').classList.toggle('mode-active', state.editMode);
+      el('createPlace').classList.toggle('mode-active', state.createPlaceMode);
+      el('addEdgeMode').classList.toggle('mode-active', state.addEdgeMode);
+      el('createPlace').disabled = !state.editMode;
+      el('addEdgeMode').disabled = !state.editMode;
+      el('mapStage').classList.toggle('edit-mode', state.editMode);
+      el('mapStage').classList.toggle('map-click-cursor', state.createPlaceMode || state.placePlacementId || state.addEdgeMode);
+      el('mapHint').textContent = defaultMapHint();
+    }
+
+    function setHelpOpen(open) {
+      el('helpModal').classList.toggle('open', open);
+      if (open) el('closeHelp').focus();
+      else el('openHelp').focus();
+    }
+
+    function setDirty(value = true) {
+      state.dirty = value;
+      updateDraftStatus();
+    }
+
+    function resetEditingState() {
+      state.selectedType = null;
+      state.selectedId = null;
+      state.editingType = null;
+      state.editingId = null;
+      state.createPlaceMode = false;
+      state.placePlacementId = null;
+      state.addEdgeMode = false;
+      state.pendingEdgeFrom = null;
+      state.pendingPoint = null;
+      state.draggingPlaceId = null;
+      state.dragMoved = false;
+      if (el('editModeToggle')) updateEditModeUI();
+      if (el('detailTitle')) {
+        el('detailTitle').textContent = '未选中';
+        el('detailSub').textContent = '数据已更新，请重新选择地点或连线。';
+        el('detailBody').innerHTML = '<div class="empty">选择一个地点或连线继续查看或编辑。</div>';
+      }
+    }
+
+    function updateImportHighlights() {
+      for (const type of ['places', 'edges', 'markers']) {
+        el(`${type}ImportBtn`).classList.toggle('needs-import', !state.loadedFiles[type]);
+      }
+    }
+
+    function updateDraftStatus() {
+      const parts = [];
+      if (state.draftLoaded) parts.push('草稿（draft）');
+      if (state.dirty) parts.push('已修改（modified）');
+      el('loadStatus').textContent = parts.length ? parts.join(' · ') : '就绪';
+    }
+
+    function afterDataChanged() {
+      indexData();
+      validateData();
+      populateFilterOptions(true);
+      setDirty(true);
+      renderAll();
+    }
+
+    function loadDraftFromStorage() {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return;
+      try {
+        const draft = JSON.parse(raw);
+        if (Array.isArray(draft.places)) {
+          state.places = draft.places;
+          state.loadedFiles.places = true;
+        }
+        if (Array.isArray(draft.edges)) {
+          state.edges = draft.edges;
+          state.loadedFiles.edges = true;
+        }
+        if (Array.isArray(draft.markers)) {
+          state.markers = draft.markers;
+          state.loadedFiles.markers = true;
+        }
+        normalizePlaceMarkers();
+        state.draftLoaded = true;
+        updateImportHighlights();
+      } catch (error) {
+        console.warn('无法读取暂存草稿', error);
+      }
+    }
+
+    function draftPayload() {
+      normalizePlaceMarkers();
+      return {
+        savedAt: new Date().toISOString(),
+        places: state.places,
+        edges: state.edges,
+        markers: state.markers,
+      };
+    }
+
+    function saveDraftToStorage() {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draftPayload()));
+      state.draftLoaded = true;
+      setDirty(false);
+      el('mapHint').textContent = '已暂存到浏览器 localStorage。可用“导出文件”导出当前 places.yaml 和 edges.yaml。';
+    }
+
+
+    // 在工作台（本机服务）里打开时直接写回工作区；单独打开文件时仍然下载。
+    function inWorkspace() { return location.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(location.hostname); }
+    async function saveToWorkspace(files) {
+      const response = await fetch('/_workbench/geography', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ files }) });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.ok === false) throw new Error(data.error?.message || `保存失败（${response.status}）`);
+      return data;
+    }
+
+    async function downloadDraft() {
+      const payload = draftPayload();
+      if (inWorkspace()) {
+        try {
+          await saveToWorkspace({
+            'places.yaml': jsyaml.dump({ places: payload.places }, { lineWidth: 120 }),
+            'edges.yaml': jsyaml.dump({ edges: payload.edges }, { lineWidth: 120 }),
+            'marker0502_wsrv.txt': payload.markers.map(marker => JSON.stringify(marker, null, 2)).join(',\n'),
+          });
+          localStorage.removeItem(DRAFT_KEY);
+          state.draftLoaded = false;
+          setDirty(false);
+          el('mapHint').textContent = '已保存到工作区（places.yaml、edges.yaml、marker0502_wsrv.txt），浏览器暂存已清空。';
+          return;
+        } catch (error) {
+          if (!confirm(`保存到工作区失败：${error.message}
+
+要改为下载文件吗？`)) return;
+        }
+      }
+      downloadText('places.yaml', jsyaml.dump({ places: payload.places }, { lineWidth: 120 }), 'text/yaml;charset=utf-8');
+      downloadText('edges.yaml', jsyaml.dump({ edges: payload.edges }, { lineWidth: 120 }), 'text/yaml;charset=utf-8');
+      downloadText('marker0502_wsrv.txt', payload.markers.map(marker => JSON.stringify(marker, null, 2)).join(',\n'), 'text/plain;charset=utf-8');
+      el('mapHint').textContent = '已导出 places.yaml、edges.yaml、marker0502_wsrv.txt。';
+    }
+
+    function downloadText(filename, text, type) {
+      const blob = new Blob([text], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearStoredDraft() {
+      if (!confirm('清空浏览器暂存草稿？当前页面内未保存修改会保留，刷新后恢复原始文件。')) return;
+      localStorage.removeItem(DRAFT_KEY);
+      state.draftLoaded = false;
+      setDirty(state.dirty);
+      el('mapHint').textContent = '已清空 localStorage 暂存。';
+    }
+
+    function setupControls() {
+      if (el('searchInput').dataset.ready) return;
+      el('searchInput').dataset.ready = 'true';
+      el('searchInput').addEventListener('input', renderAll);
+      el('coordFilter').addEventListener('change', renderAll);
+      el('importanceFilter').addEventListener('change', renderAll);
+      el('geoFilter').addEventListener('change', renderAll);
+      el('parentFilter').addEventListener('change', renderAll);
+      el('transportFilter').addEventListener('change', renderAll);
+      el('toggleEdges').addEventListener('change', renderMap);
+      el('toggleLabels').addEventListener('change', renderMap);
+      el('toggleDim').addEventListener('change', renderMap);
+      el('toggleOnlyIssues').addEventListener('change', renderAll);
+      el('colorMode').addEventListener('change', renderMap);
+      el('zoomOut').addEventListener('click', () => setZoom(state.zoom - 0.15));
+      el('zoomIn').addEventListener('click', () => setZoom(state.zoom + 0.15));
+      el('zoomReset').addEventListener('click', () => setZoom(1));
+      el('clearFilters').addEventListener('click', () => {
+        el('searchInput').value = '';
+        el('coordFilter').value = 'all';
+        el('importanceFilter').value = 'all';
+        el('geoFilter').value = 'geo';
+        el('parentFilter').value = 'all';
+        el('transportFilter').value = 'all';
+        el('toggleOnlyIssues').checked = false;
+        renderAll();
+      });
+      el('fitVisible').addEventListener('click', scrollToSelectedOrFirstVisible);
+      el('editModeToggle').addEventListener('click', () => {
+        state.editMode = !state.editMode;
+        if (!state.editMode) {
+          state.createPlaceMode = false;
+          state.placePlacementId = null;
+          state.addEdgeMode = false;
+          state.pendingEdgeFrom = null;
+          state.draggingPlaceId = null;
+        }
+        state.pendingPoint = null;
+        updateEditModeUI();
+        renderDetail();
+      });
+      el('createPlace').addEventListener('click', () => {
+        if (!state.editMode) return;
+        state.createPlaceMode = !state.createPlaceMode;
+        if (state.createPlaceMode) {
+          state.placePlacementId = null;
+          state.addEdgeMode = false;
+          state.pendingEdgeFrom = null;
+        }
+        updateEditModeUI();
+        renderDetail();
+      });
+      el('addEdgeMode').addEventListener('click', () => {
+        if (!state.editMode) return;
+        state.addEdgeMode = !state.addEdgeMode;
+        if (state.addEdgeMode) {
+          state.createPlaceMode = false;
+          state.placePlacementId = null;
+          state.pendingPoint = null;
+        }
+        state.pendingEdgeFrom = null;
+        updateEditModeUI();
+        renderDetail();
+      });
+      el('saveDraft').addEventListener('click', saveDraftToStorage);
+      el('downloadDraft').addEventListener('click', downloadDraft);
+      if (inWorkspace()) el('downloadDraft').textContent = '保存到工作区';
+      el('clearDraft').addEventListener('click', clearStoredDraft);
+      el('openHelp').addEventListener('click', () => setHelpOpen(true));
+      el('closeHelp').addEventListener('click', () => setHelpOpen(false));
+      el('helpModal').addEventListener('click', event => {
+        if (event.target === el('helpModal')) setHelpOpen(false);
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && el('helpModal').classList.contains('open')) setHelpOpen(false);
+      });
+      el('placesFile').addEventListener('change', event => importFile(event, 'places'));
+      el('edgesFile').addEventListener('change', event => importFile(event, 'edges'));
+      el('markersFile').addEventListener('change', event => importFile(event, 'markers'));
+      el('mapStage').addEventListener('click', onMapClick);
+      window.addEventListener('pointermove', onMapPointerMove);
+      window.addEventListener('pointerup', onMapPointerUp);
+      window.addEventListener('pointercancel', cancelMapDrag);
+      window.addEventListener('blur', cancelMapDrag);
+      el('mapWrap').addEventListener('wheel', onMapWheel, { passive: false });
+      document.querySelectorAll('.tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.tab = btn.dataset.tab;
+          document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === btn));
+          renderList();
+        });
+      });
+      window.addEventListener('resize', renderMap);
+      el('mapImg').addEventListener('load', renderMap);
+      updateEditModeUI();
+    }
+
+    async function importFile(event, type) {
+      const file = event.target.files && event.target.files[0];
+      event.target.value = '';
+      if (!file) return;
+      try {
+        const text = await file.text();
+        if (type === 'places') applyImportedData({ placesText: text });
+        else if (type === 'edges') applyImportedData({ edgesText: text });
+        else applyImportedData({ markerText: text });
+        el('mapHint').textContent = `已导入 ${file.name}。如需刷新后保留，请点击“暂存”；如需落盘，请点击“导出文件”。`;
+      } catch (error) {
+        alert(`导入失败：${error.message}`);
+        console.error(error);
+      }
+    }
+
+    function setZoom(value, anchor = null) {
+      const nextZoom = Math.max(MIN_ZOOM, value);
+      if (!Number.isFinite(nextZoom) || nextZoom === state.zoom) return;
+      const wrap = el('mapWrap');
+      const img = el('mapImg');
+      const wrapRect = anchor ? wrap.getBoundingClientRect() : null;
+      const imageRect = anchor ? img.getBoundingClientRect() : null;
+      const anchorRatioX = anchor && imageRect && img.clientWidth ? Math.max(0, Math.min(1, (anchor.clientX - imageRect.left) / img.clientWidth)) : null;
+      const anchorRatioY = anchor && imageRect && img.clientHeight ? Math.max(0, Math.min(1, (anchor.clientY - imageRect.top) / img.clientHeight)) : null;
+
+      state.zoom = nextZoom;
+      el('zoomValue').textContent = `${Math.round(state.zoom * 100)}%`;
+      renderMap();
+
+      if (anchor && wrapRect && anchorRatioX !== null && anchorRatioY !== null) {
+        wrap.scrollTo({
+          left: Math.max(0, anchorRatioX * img.clientWidth - (anchor.clientX - wrapRect.left)),
+          top: Math.max(0, anchorRatioY * img.clientHeight - (anchor.clientY - wrapRect.top)),
+        });
+      }
+    }
+
+    function onMapWheel(event) {
+      if (event.altKey) {
+        event.preventDefault();
+        const zoomFactor = Math.exp(-event.deltaY * 0.0015);
+        setZoom(state.zoom * zoomFactor, { clientX: event.clientX, clientY: event.clientY });
+        return;
+      }
+
+      if (event.ctrlKey) {
+        event.preventDefault();
+        el('mapWrap').scrollBy({
+          left: event.deltaY + event.deltaX,
+          top: 0,
+          behavior: 'auto',
+        });
+        return;
+      }
+    }
+
+    function renderColorLegend() {
+      const mode = el('colorMode').value;
+      const legends = {
+        depth: [
+          ['var(--level0)', '大陆'],
+          ['var(--level1)', '距大陆 1'],
+          ['var(--level2)', '距大陆 2'],
+          ['var(--level3)', '距大陆 3'],
+          ['var(--level4)', '距大陆 4'],
+          ['var(--level5)', '距大陆 5'],
+          ['var(--level6)', '距大陆 6+'],
+          ['var(--unrooted)', '未连到大陆'],
+        ],
+        importance: [
+          ['var(--imp3)', '重要性 3（imp3）'],
+          ['var(--imp2)', '重要性 2（imp2）'],
+          ['var(--imp1)', '重要性 1（imp1）'],
+          ['var(--none)', '未填'],
+        ],
+        coord: [
+          ['var(--ok)', '有坐标'],
+          ['var(--none)', '无标记标识（marker_id）'],
+          ['var(--bad)', '标记（marker）缺失'],
+        ],
+        issue: [
+          ['var(--ok)', '无异常'],
+          ['var(--warn)', '警告'],
+          ['var(--bad)', '错误'],
+        ],
+      };
+      el('colorLegend').innerHTML = legends[mode].map(([color, label]) => `<span><i class="legend-dot" style="background:${color}"></i> ${html(label)}</span>`).join('');
+    }
+
+    function populateFilterOptions(reset = false) {
+      const parent = el('parentFilter');
+      if (reset) parent.innerHTML = '<option value="all">父级（parent）子树：全部</option>';
+      const sorted = [...state.places].sort((a, b) => String(a.name).localeCompare(String(b.name), 'zh-CN'));
+      parent.insertAdjacentHTML('beforeend', sorted.map(p => `<option value="${html(p.id)}">${html(p.name)} (${html(p.id)})</option>`).join(''));
+
+      const transports = new Set();
+      for (const edge of state.edges) for (const t of segmentTransport(edge)) transports.add(t);
+      if (reset) el('transportFilter').innerHTML = '<option value="all">交通方式（transport）：全部</option>';
+      el('transportFilter').insertAdjacentHTML('beforeend', [...transports].sort().map(t => `<option value="${html(t)}">${html(t)}</option>`).join(''));
+    }
+
+    function renderAll() {
+      state.visiblePlaceIds = new Set(filteredPlaces().map(p => p.id));
+      el('placeCount').textContent = state.places.length;
+      el('edgeCount').textContent = state.edges.length;
+      el('issueCount').textContent = state.issues.length;
+      renderList();
+      renderMap();
+      if (state.selectedType) renderDetail();
+    }
+
+    function searchableTextPlace(place) {
+      return [place.id, place.name, place.parent, place.marker_id, place.is_geographic === false ? 'non-geographic 非地理点' : 'geographic 地理点', ...arr(place.keywords), ...arr(place.labels), place.notes].join('\n').toLowerCase();
+    }
+
+    function searchableTextEdge(edge) {
+      return [edge.id, edge.from, edge.to, placeName(edge.from), placeName(edge.to), ...segmentTransport(edge), ...arr(edge.labels), edge.notes].join('\n').toLowerCase();
+    }
+
+    function matchesSearch(text) {
+      const q = el('searchInput').value.trim().toLowerCase();
+      return !q || text.includes(q);
+    }
+
+    function subtreeIds(rootId) {
+      if (rootId === 'all') return null;
+      const ids = new Set([rootId]);
+      const stack = [rootId];
+      while (stack.length) {
+        const id = stack.pop();
+        for (const child of arr(state.childrenByParent.get(id))) {
+          ids.add(child.id);
+          stack.push(child.id);
+        }
+      }
+      return ids;
+    }
+
+    function placeHasIssue(place) {
+      return state.issues.some(i => i.targetType === 'place' && i.targetId === place.id);
+    }
+
+    function edgeHasIssue(edge) {
+      return state.issues.some(i => i.targetType === 'edge' && i.targetId === edge.id);
+    }
+
+    function issuePriority(issue) {
+      const levelRank = { bad: 0, warn: 100, info: 200 }[issue.level] ?? 300;
+      const codeRank = {
+        place_missing_id: 0,
+        duplicate_place_id: 1,
+        parent_missing: 2,
+        bad_is_geographic: 3,
+        edge_missing_id: 4,
+        duplicate_edge_id: 5,
+        edge_from_missing: 6,
+        edge_to_missing: 7,
+        edge_from_non_geographic: 8,
+        edge_to_non_geographic: 9,
+        edge_self_loop: 10,
+        edge_no_segments: 11,
+        segment_no_transport: 12,
+        na_days_not_null: 13,
+        marker_missing: 14,
+        duplicate_marker_id: 15,
+        non_geo_waypoint: 20,
+        shared_marker_id: 21,
+        edge_no_draw_coords: 30,
+        edge_partial_draw_coords: 31,
+        duplicate_endpoint_pair: 32,
+        place_without_coord: 40,
+        unused_marker: 80,
+        container_without_coord: 99,
+      }[issue.code] ?? 50;
+      const typeRank = { edge: 0, place: 1, marker: 2 }[issue.targetType] ?? 3;
+      return [levelRank + codeRank, typeRank, String(issue.targetId), String(issue.code)];
+    }
+
+    function compareIssues(a, b) {
+      const pa = issuePriority(a);
+      const pb = issuePriority(b);
+      for (let i = 0; i < pa.length; i += 1) {
+        if (pa[i] < pb[i]) return -1;
+        if (pa[i] > pb[i]) return 1;
+      }
+      return 0;
+    }
+
+    function filteredPlaces() {
+      const coord = el('coordFilter').value;
+      const importance = el('importanceFilter').value;
+      const geo = el('geoFilter').value;
+      const tree = subtreeIds(el('parentFilter').value);
+      const onlyIssues = el('toggleOnlyIssues').checked;
+      return state.places.filter(place => {
+        const marker = getMarkerForPlace(place);
+        const hasCoord = !!getPlaceCoord(place.id);
+        if (!matchesSearch(searchableTextPlace(place))) return false;
+        if (tree && !tree.has(place.id)) return false;
+        if (importance !== 'all') {
+          const n = Number(place.importance || 0);
+          if (importance === '0' ? [1, 2, 3].includes(n) : String(n) !== importance) return false;
+        }
+        if (coord === 'with' && !hasCoord) return false;
+        if (coord === 'without' && hasCoord) return false;
+        if (coord === 'bad-marker' && (!place.marker_id || marker)) return false;
+        if (geo === 'geo' && !isGeographicPlace(place)) return false;
+        if (geo === 'non-geo' && isGeographicPlace(place)) return false;
+        if (onlyIssues && !placeHasIssue(place)) return false;
+        return true;
+      });
+    }
+
+    function filteredEdges() {
+      const transport = el('transportFilter').value;
+      const tree = subtreeIds(el('parentFilter').value);
+      const onlyIssues = el('toggleOnlyIssues').checked;
+      return state.edges.filter(edge => {
+        if (!matchesSearch(searchableTextEdge(edge))) return false;
+        if (transport !== 'all' && !segmentTransport(edge).includes(transport)) return false;
+        if (tree && !tree.has(edge.from) && !tree.has(edge.to)) return false;
+        if (onlyIssues && !edgeHasIssue(edge)) return false;
+        return true;
+      });
+    }
+
+    function renderList() {
+      const list = el('list');
+      if (state.tab === 'places') {
+        const places = filteredPlaces();
+        list.innerHTML = places.length ? places.map(renderPlaceItem).join('') : '<div class="empty">没有匹配的地点（place）。</div>';
+      } else if (state.tab === 'edges') {
+        const edges = filteredEdges();
+        list.innerHTML = edges.length ? edges.map(renderEdgeItem).join('') : '<div class="empty">没有匹配的边（edge）。</div>';
+      } else {
+        const issues = filteredIssues();
+        list.innerHTML = issues.length ? issues.map(renderIssueItem).join('') : '<div class="empty">当前筛选下没有异常。</div>';
+      }
+
+      list.querySelectorAll('[data-type][data-id]').forEach(node => {
+        node.addEventListener('click', () => selectItem(node.dataset.type, node.dataset.id));
+      });
+    }
+
+    function filteredIssues() {
+      const q = el('searchInput').value.trim().toLowerCase();
+      return state.issues.filter(issue => {
+        const text = [issue.level, issue.code, issue.targetType, issue.targetId, issue.message].join('\n').toLowerCase();
+        if (q && !text.includes(q)) return false;
+        if (issue.targetType === 'place') {
+          const place = state.placeById.get(issue.targetId);
+          return !place || filteredPlaces().some(p => p.id === place.id);
+        }
+        if (issue.targetType === 'edge') {
+          const edge = state.edges.find(e => e.id === issue.targetId);
+          return !edge || filteredEdges().some(e => e.id === edge.id);
+        }
+        return true;
+      }).sort(compareIssues);
+    }
+
+    function renderPlaceItem(place) {
+      const coord = getPlaceCoord(place.id);
+      const issues = placeIssueCount(place.id);
+      const active = state.selectedType === 'place' && state.selectedId === place.id ? ' active' : '';
+      return `<div class="item${active}" data-type="place" data-id="${html(place.id)}">
+        <div class="item-title"><span>${html(place.name || place.id)}</span><span class="badge ${issues ? 'bad' : coord ? 'ok' : 'warn'}">${issues ? issues + ' 异常' : coord ? '有坐标' : '无坐标'}</span></div>
+        <div class="item-sub">${html(place.id)} · 父级（parent）：${html(place.parent ?? 'null')}</div>
+        <div class="badge-row">
+          <span class="badge accent">重要性（imp）${html(place.importance ?? '-')}</span>
+          ${!isGeographicPlace(place) ? '<span class="badge warn">非地理点</span>' : ''}
+          ${arr(place.labels).slice(0, 4).map(x => `<span class="badge">${html(x)}</span>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    function renderEdgeItem(edge) {
+      const issues = edgeIssueCount(edge.id);
+      const active = state.selectedType === 'edge' && state.selectedId === edge.id ? ' active' : '';
+      const transports = segmentTransport(edge).join('，') || '无交通方式';
+      return `<div class="item${active}" data-type="edge" data-id="${html(edge.id)}">
+        <div class="item-title"><span>${html(edge.id)}</span><span class="badge ${issues ? 'bad' : 'ok'}">${issues ? issues + ' 异常' : '正常'}</span></div>
+        <div class="item-sub">${html(placeName(edge.from))} → ${html(placeName(edge.to))}</div>
+        <div class="badge-row">
+          <span class="badge accent">${html(transports)}</span>
+          <span class="badge">重要性（imp）${html(edge.importance ?? '-')}</span>
+          <span class="badge">${edge.bidirectional ? '双向（bidirectional）' : '单向（one-way）'}</span>
+        </div>
+      </div>`;
+    }
+
+    function renderIssueItem(issue) {
+      const targetId = issue.targetId;
+      const type = issue.targetType === 'marker' ? 'marker' : issue.targetType;
+      const cls = issue.level === 'bad' ? 'bad' : issue.level === 'warn' ? 'warn' : 'info';
+      const active = state.selectedType === type && state.selectedId === targetId ? ' active' : '';
+      return `<div class="item${active}" data-type="${html(type)}" data-id="${html(targetId)}">
+        <div class="item-title"><span>${html(issue.code)}</span><span class="badge ${cls}">${html(issueLevelText(issue.level))}</span></div>
+        <div class="item-sub">${html(issueTargetText(issue))}</div>
+        <div class="badge-row"><span class="badge ${cls}">${html(issue.message)}</span></div>
+      </div>`;
+    }
+
+    function renderMap() {
+      const img = el('mapImg');
+      if (!img.complete) return;
+      renderColorLegend();
+      const baseWidth = Math.min(1200, Math.max(720, el('mapWrap').clientWidth - 44));
+      img.style.setProperty('--map-width', `${Math.round(baseWidth * state.zoom)}px`);
+      el('zoomValue').textContent = `${Math.round(state.zoom * 100)}%`;
+      const width = img.clientWidth;
+      const height = img.clientHeight;
+      const showEdges = el('toggleEdges').checked;
+      const showLabels = el('toggleLabels').checked;
+      const dim = el('toggleDim').checked && state.selectedType;
+      el('mapStage').classList.toggle('show-labels', showLabels);
+
+      const selectedRelated = relatedPlaceIds();
+      const selectedRelatedEdges = relatedEdgeIds();
+      const edgesByEndpointPair = new Map();
+      for (const edge of state.edges) {
+        const key = [edge.from, edge.to].sort().join('__');
+        if (!edgesByEndpointPair.has(key)) edgesByEndpointPair.set(key, []);
+        edgesByEndpointPair.get(key).push(edge);
+      }
+      const points = state.places.map(place => {
+        const coord = getPlaceCoord(place.id);
+        if (!coord) return '';
+        const hidden = !state.visiblePlaceIds.has(place.id) ? ' hidden' : '';
+        const active = state.selectedType === 'place' && state.selectedId === place.id ? ' active' : '';
+        const related = selectedRelated.has(place.id) && !active ? ' related' : '';
+        const weak = dim && !selectedRelated.has(place.id) && !(state.selectedType === 'place' && state.selectedId === place.id) ? ' opacity:.62;' : '';
+        const color = pointColor(place);
+        const colorTitle = pointColorTitle(place);
+        return `<div class="point${active}${related}${hidden}" data-type="place" data-id="${html(place.id)}" title="${html(place.name)} · ${html(colorTitle)}" style="left:${coord.nx * width}px;top:${coord.ny * height}px;background:${color};${weak}"><span class="point-label">${html(place.name)}</span></div>`;
+      }).join('');
+      el('pointsLayer').innerHTML = points;
+      el('pointsLayer').querySelectorAll('.point').forEach(node => node.addEventListener('click', event => {
+        event.stopPropagation();
+        if (state.dragMoved) return;
+        if (state.addEdgeMode) {
+          onPointForEdge(node.dataset.id);
+          return;
+        }
+        selectItem('place', node.dataset.id);
+      }));
+      el('pointsLayer').querySelectorAll('.point').forEach(node => node.addEventListener('pointerdown', event => {
+        if (!state.editMode || state.addEdgeMode || state.createPlaceMode || state.placePlacementId) return;
+        event.preventDefault();
+        event.stopPropagation();
+        state.draggingPlaceId = node.dataset.id;
+        state.dragMoved = false;
+        selectItem('place', node.dataset.id);
+      }));
+
+      if (!showEdges) {
+        el('edgesLayer').innerHTML = '';
+        return;
+      }
+      const edgeLines = filteredEdges().map(edge => {
+        const from = getPlaceCoord(edge.from);
+        const to = getPlaceCoord(edge.to);
+        if (!from || !to) return '';
+        const parallelEdges = edgesByEndpointPair.get([edge.from, edge.to].sort().join('__'));
+        const parallelIndex = parallelEdges.indexOf(edge);
+        const isNa = segmentTransport(edge).some(t => ['不适用', 'n/a'].includes(t));
+        const active = state.selectedType === 'edge' && state.selectedId === edge.id;
+        const related = selectedRelatedEdges.has(edge.id) || active;
+        const dimCls = dim && !related ? ' dim' : '';
+        const relatedCls = related && !active ? ' related' : '';
+        const naCls = isNa ? ' na' : '';
+        const activeCls = active ? ' active' : '';
+        return `<path class="edge-line${dimCls}${relatedCls}${naCls}${activeCls}" data-type="edge" data-id="${html(edge.id)}" d="${edgePath(edge, from, to, width, height, parallelIndex, parallelEdges.length)}"><title>${html(edge.id)}</title></path>`;
+      }).join('');
+      el('edgesLayer').innerHTML = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${edgeLines}</svg>`;
+      el('edgesLayer').querySelectorAll('.edge-line').forEach(node => node.addEventListener('click', event => {
+        event.stopPropagation();
+        selectItem('edge', node.dataset.id);
+      }));
+    }
+
+    function edgePath(edge, from, to, width, height, parallelIndex, parallelCount) {
+      const x1 = from.nx * width;
+      const y1 = from.ny * height;
+      const x2 = to.nx * width;
+      const y2 = to.ny * height;
+      if (parallelCount === 1) return `M ${x1} ${y1} L ${x2} ${y2}`;
+
+      const canonicalForward = edge.from < edge.to;
+      const start = canonicalForward ? { x: x1, y: y1 } : { x: x2, y: y2 };
+      const end = canonicalForward ? { x: x2, y: y2 } : { x: x1, y: y1 };
+      const length = Math.hypot(end.x - start.x, end.y - start.y);
+      if (!length) return `M ${x1} ${y1} L ${x2} ${y2}`;
+      const offset = (parallelIndex - (parallelCount - 1) / 2) * 20;
+      const cx = (x1 + x2) / 2 - (end.y - start.y) / length * offset;
+      const cy = (y1 + y2) / 2 + (end.x - start.x) / length * offset;
+      return `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`;
+    }
+
+    function relatedPlaceIds() {
+      const ids = new Set();
+      if (state.selectedType === 'place') {
+        ids.add(state.selectedId);
+        const selectedPlace = state.placeById.get(state.selectedId);
+        if (isGeographicPlace(selectedPlace)) {
+          for (const edge of arr(state.edgesByPlace.get(state.selectedId))) {
+            const fromPlace = state.placeById.get(edge.from);
+            const toPlace = state.placeById.get(edge.to);
+            if (!isGeographicPlace(fromPlace) || !isGeographicPlace(toPlace)) continue;
+            ids.add(edge.from);
+            ids.add(edge.to);
+          }
+        }
+        for (const child of arr(state.childrenByParent.get(state.selectedId))) ids.add(child.id);
+        const place = state.placeById.get(state.selectedId);
+        if (place && place.parent) ids.add(place.parent);
+      } else if (state.selectedType === 'edge') {
+        const edge = state.edges.find(e => e.id === state.selectedId);
+        if (edge) {
+          ids.add(edge.from);
+          ids.add(edge.to);
+        }
+      }
+      return ids;
+    }
+
+    function relatedEdgeIds() {
+      const ids = new Set();
+      if (state.selectedType === 'place') {
+        for (const edge of arr(state.edgesByPlace.get(state.selectedId))) ids.add(edge.id);
+      } else if (state.selectedType === 'edge') {
+        ids.add(state.selectedId);
+      }
+      return ids;
+    }
+
+    function selectItem(type, id) {
+      if (type === 'marker') {
+        renderMarkerDetail(id);
+        return;
+      }
+      state.selectedType = type;
+      state.selectedId = id;
+      state.editingType = null;
+      state.editingId = null;
+      renderList();
+      renderMap();
+      renderDetail();
+      scrollToSelectedOrFirstVisible(false);
+    }
+
+    function renderDetail() {
+      if (state.selectedType === 'place') renderPlaceDetail(state.selectedId);
+      else if (state.selectedType === 'edge') renderEdgeDetail(state.selectedId);
+    }
+
+    function editModeBanner() {
+      if (!state.editMode) return '';
+      return `<div class="edit-mode-banner">编辑模式已开启：可拖动地点、点击“新增地点”、点击“新建连线”，右侧可编辑或删除。</div>`;
+    }
+
+    function renderPlaceDetail(id) {
+      const place = state.placeById.get(id);
+      if (!place) return;
+      const marker = getMarkerForPlace(place);
+      const coord = getPlaceCoord(id);
+      const children = arr(state.childrenByParent.get(id));
+      const edges = arr(state.edgesByPlace.get(id));
+      const chain = parentChain(id);
+      const editing = state.editingType === 'place' && state.editingId === id;
+      el('detailTitle').textContent = place.name || place.id;
+      el('detailSub').textContent = `地点（place） · ${place.id}`;
+      el('detailBody').innerHTML = `
+        ${editModeBanner()}
+        ${state.editMode ? `<div class="section editor-section"><h3>编辑操作</h3><div class="section-content">${renderPlaceActions(place, marker, coord)}</div></div>` : ''}
+        <div class="section${editing ? ' editor-section' : ''}"><h3>${editing ? '编辑地点字段' : '基本信息'}</h3><div class="section-content">${editing ? renderPlaceEditor(place) : renderPlaceBasicInfo(place, coord)}</div></div>
+        <div class="section"><h3>父级链（Parent）</h3><div class="section-content mini-list">${chain.map(p => miniButton('place', p.id, `${p.name} (${p.id})`)).join('') || '<div class="notice">无</div>'}</div></div>
+        <div class="section"><h3>子节点（Children）(${children.length})</h3><div class="section-content mini-list">${children.map(p => miniButton('place', p.id, `${p.name} (${p.id})`)).join('') || '<div class="notice">无</div>'}</div></div>
+        <div class="section"><h3>直接关联边（Edges）(${edges.length})</h3><div class="section-content mini-list">${edges.map(e => miniButton('edge', e.id, `${e.id}: ${placeName(e.from)} ↔ ${placeName(e.to)}`, `交通方式：${edgeTransportText(e) || '无'}`)).join('') || '<div class="notice">无</div>'}</div></div>
+        ${editing ? '' : `<div class="section"><h3>描述（Description）</h3><div class="section-content">${kv('简述（brief）', place.description && place.description.brief)}${kv('详述（detail）', place.description && place.description.detail)}${kv('关键词（keywords）', arr(place.keywords).join('，'))}${kv('备注（notes）', place.notes)}</div></div>`}
+        <div class="section"><h3>校验项</h3><div class="section-content">${issueBlock('place', id)}</div></div>
+        ${state.editMode ? '' : `<div class="section"><h3>位置说明</h3><div class="section-content">${renderPointTool(place, marker)}</div></div>`}
+        <div class="section"><h3>原始对象</h3><div class="section-content"><pre>${html(jsyaml.dump(place, { lineWidth: 120 }))}</pre></div></div>
+      `;
+      bindDetailButtons();
+      bindInlineEditors();
+      bindCopyButtons();
+    }
+
+    function renderEdgeDetail(id) {
+      const edge = state.edges.find(e => e.id === id);
+      if (!edge) return;
+      const fromCoord = getPlaceCoord(edge.from);
+      const toCoord = getPlaceCoord(edge.to);
+      const editing = state.editingType === 'edge' && state.editingId === id;
+      el('detailTitle').textContent = edge.id;
+      el('detailSub').textContent = `边（edge） · ${placeName(edge.from)} → ${placeName(edge.to)}`;
+      el('detailBody').innerHTML = `
+        ${editModeBanner()}
+        ${state.editMode ? `<div class="section editor-section"><h3>编辑操作</h3><div class="section-content">${renderEdgeActions(edge)}</div></div>` : ''}
+        <div class="section${editing ? ' editor-section' : ''}"><h3>${editing ? '编辑连线字段' : '基本信息'}</h3><div class="section-content">${editing ? renderEdgeEditor(edge) : renderEdgeBasicInfo(edge, fromCoord, toCoord)}</div></div>
+        ${editing ? '' : `<div class="section"><h3>分段（Segments）</h3><div class="section-content">${renderSegments(edge)}</div></div>
+        <div class="section"><h3>描述（Description）</h3><div class="section-content">${kv('简述（brief）', edge.description && edge.description.brief)}${kv('详述（detail）', edge.description && edge.description.detail)}${kv('备注（notes）', edge.notes)}</div></div>`}
+        <div class="section"><h3>校验项</h3><div class="section-content">${issueBlock('edge', id)}</div></div>
+        <div class="section"><h3>原始对象</h3><div class="section-content"><pre>${html(jsyaml.dump(edge, { lineWidth: 120 }))}</pre></div></div>
+      `;
+      bindDetailButtons();
+      bindInlineEditors();
+    }
+
+    function renderMarkerDetail(id) {
+      const marker = state.markerById.get(id);
+      state.selectedType = 'marker';
+      state.selectedId = id;
+      el('detailTitle').textContent = marker ? marker.name || id : id;
+      el('detailSub').textContent = `标记（marker） · ${id}`;
+      el('detailBody').innerHTML = marker ? `
+        <div class="section"><h3>标记（Marker）</h3><div class="section-content">
+          ${kv('标识（id）', marker.id)}${kv('名称（name）', marker.name)}${kv('分组（group）', marker.group)}${kv('坐标', marker.position ? `nx ${marker.position.nx}, ny ${marker.position.ny}` : '无')}
+        </div></div>
+        <div class="section"><h3>校验项</h3><div class="section-content">${issueBlock('marker', id)}</div></div>
+        <div class="section"><h3>原始对象</h3><div class="section-content"><pre>${html(JSON.stringify(marker, null, 2))}</pre></div></div>
+      ` : '<div class="empty">找不到 marker。</div>';
+    }
+
+    function kv(k, v) {
+      return `<div class="kv"><div class="k">${html(k)}</div><div class="v">${html(v === undefined || v === null || v === '' ? '-' : v)}</div></div>`;
+    }
+
+    function renderPlaceBasicInfo(place, coord) {
+      return `
+        ${kv('标识（id）', place.id)}${kv('名称（name）', place.name)}${kv('标记标识（marker_id）', place.marker_id ?? 'null')}${kv('坐标', coord ? `nx ${coord.nx.toFixed(6)}, ny ${coord.ny.toFixed(6)}` : '无')}${kv('父级（parent）', place.parent ?? 'null')}${kv('是否地理点（is_geographic）', isGeographicPlace(place))}${kv('重要性（importance）', place.importance ?? '')}${kv('是否路点（is_waypoint）', place.is_waypoint ?? false)}
+        ${badges(arr(place.labels))}
+        <div class="editor-actions"><button class="primary" data-edit-action="start" data-edit-type="place" data-edit-id="${html(place.id)}">编辑字段</button></div>
+      `;
+    }
+
+    function renderPlaceActions(place, marker, coord) {
+      const children = arr(state.childrenByParent.get(place.id));
+      const deletePlaceDisabled = children.length ? 'disabled' : '';
+      const deleteCoordDisabled = marker ? '' : 'disabled';
+      return `<div class="notice">当前位置：${coord ? `nx ${coord.nx.toFixed(6)}，ny ${coord.ny.toFixed(6)}。可直接拖动地图上的点来移动。` : '这个地点还没有坐标。点击“在地图上放置位置”，再点击地图即可补上位置。'}</div>
+        <div class="detail-actions">
+          <button class="primary" data-edit-action="start" data-edit-type="place" data-edit-id="${html(place.id)}">编辑字段</button>
+          ${coord ? '' : `<button class="primary" data-edit-action="place-location" data-edit-id="${html(place.id)}">在地图上放置位置</button>`}
+          <button data-edit-action="new-child-place" data-edit-id="${html(place.id)}">新增子地点并放置</button>
+          <button data-edit-action="start-edge-from" data-edit-id="${html(place.id)}">从这里新建连线</button>
+          <button class="danger" data-edit-action="delete-place-coord" data-edit-id="${html(place.id)}" ${deleteCoordDisabled}>删除坐标</button>
+          <button class="danger" data-edit-action="delete-place" data-edit-id="${html(place.id)}" ${deletePlaceDisabled}>删除地点</button>
+        </div>
+        ${children.length ? `<div class="notice">这个地点有 ${children.length} 个子节点，不能直接删除地点。请先处理子节点。</div>` : ''}`;
+    }
+
+    function renderEdgeBasicInfo(edge, fromCoord, toCoord) {
+      return `
+        ${kv('标识（id）', edge.id)}${kv('起点（from）', `${placeName(edge.from)} (${edge.from})`)}${kv('终点（to）', `${placeName(edge.to)} (${edge.to})`)}${kv('双向（bidirectional）', edge.bidirectional)}${kv('重要性（importance）', edge.importance ?? '')}${kv('可画线', fromCoord && toCoord ? '是' : '否')}${badges(arr(edge.labels))}
+        <div class="mini-list">${miniButton('place', edge.from, `查看起点（from）：${placeName(edge.from)}`)}${miniButton('place', edge.to, `查看终点（to）：${placeName(edge.to)}`)}</div>
+        <div class="editor-actions"><button class="primary" data-edit-action="start" data-edit-type="edge" data-edit-id="${html(edge.id)}">编辑字段</button></div>
+      `;
+    }
+
+    function renderEdgeActions(edge) {
+      return `<div class="notice">连线：${html(placeName(edge.from))} → ${html(placeName(edge.to))}。可编辑起点、终点、交通方式和天数，也可以直接删除。</div>
+        <div class="detail-actions">
+          <button class="primary" data-edit-action="start" data-edit-type="edge" data-edit-id="${html(edge.id)}">编辑字段</button>
+          <button class="danger" data-edit-action="delete-edge" data-edit-id="${html(edge.id)}">删除连线</button>
+        </div>`;
+    }
+
+    function badges(items) {
+      return `<div class="badge-row">${arr(items).map(x => `<span class="badge">${html(x)}</span>`).join('')}</div>`;
+    }
+
+    function miniButton(type, id, text, meta) {
+      const metaHtml = meta ? `<span class="mini-meta">${html(meta)}</span>` : '';
+      return `<button class="mini-btn" data-detail-type="${html(type)}" data-detail-id="${html(id)}"><span class="mini-main">${html(text)}</span>${metaHtml}</button>`;
+    }
+
+    function bindDetailButtons() {
+      el('detailBody').querySelectorAll('[data-detail-type][data-detail-id]').forEach(btn => {
+        btn.addEventListener('click', () => selectItem(btn.dataset.detailType, btn.dataset.detailId));
+      });
+    }
+
+    function bindCopyButtons() {
+      el('detailBody').querySelectorAll('[data-copy-target]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const target = el(btn.dataset.copyTarget);
+          await navigator.clipboard.writeText(target.value || target.textContent || '');
+          btn.textContent = '已复制';
+          setTimeout(() => btn.textContent = '复制', 900);
+        });
+      });
+    }
+
+    function bindInlineEditors() {
+      el('detailBody').querySelectorAll('[data-edit-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.editAction;
+          const type = btn.dataset.editType;
+          const id = btn.dataset.editId;
+          if (action === 'start') {
+            state.editingType = type;
+            state.editingId = id;
+            renderDetail();
+          } else if (action === 'cancel') {
+            state.editingType = null;
+            state.editingId = null;
+            renderDetail();
+          } else if (action === 'apply-place') {
+            applyPlaceEdit(id);
+          } else if (action === 'new-child-place') {
+            state.createPlaceMode = true;
+            state.placePlacementId = null;
+            state.addEdgeMode = false;
+            state.pendingEdgeFrom = null;
+            updateEditModeUI();
+          } else if (action === 'place-location') {
+            state.placePlacementId = id;
+            state.createPlaceMode = false;
+            state.addEdgeMode = false;
+            state.pendingEdgeFrom = null;
+            updateEditModeUI();
+          } else if (action === 'start-edge-from') {
+            state.addEdgeMode = true;
+            state.createPlaceMode = false;
+            state.placePlacementId = null;
+            state.pendingEdgeFrom = id;
+            updateEditModeUI();
+          } else if (action === 'delete-place-coord') {
+            deletePlaceCoord(id);
+          } else if (action === 'delete-place') {
+            deletePlaceEdit(id);
+          } else if (action === 'apply-edge') {
+            applyEdgeEdit(id);
+          } else if (action === 'delete-edge') {
+            deleteEdgeEdit(id);
+          }
+        });
+      });
+    }
+
+    function issueBlock(type, id) {
+      const issues = state.issues.filter(i => i.targetType === type && i.targetId === id);
+      if (!issues.length) return '<span class="badge ok">无异常</span>';
+      return issues.map(i => {
+        const cls = i.level === 'bad' ? 'bad' : i.level === 'warn' ? 'warn' : 'info';
+        return `<div class="badge-row"><span class="badge ${cls}">${html(issueLevelText(i.level))}</span><span class="badge">${html(i.code)}</span><span class="badge ${cls}">${html(i.message)}</span></div>`;
+      }).join('');
+    }
+
+    function parentChain(id) {
+      const chain = [];
+      const seen = new Set();
+      let current = state.placeById.get(id);
+      while (current && current.parent && !seen.has(current.parent)) {
+        seen.add(current.parent);
+        current = state.placeById.get(current.parent);
+        if (current) chain.push(current);
+      }
+      return chain;
+    }
+
+    function renderSegments(edge) {
+      return arr(edge.segments).map((seg, idx) => `<div class="section"><h3>#${idx + 1}</h3><div class="section-content">${kv('交通方式（transport）', seg && seg.transport)}${kv('天数（days）', seg && seg.days)}${kv('地形（terrain）', arr(seg && seg.terrain).join('，'))}${kv('方向（direction）', seg && seg.direction)}${kv('描述（description）', seg && seg.description)}${kv('备注（notes）', seg && seg.notes)}</div></div>`).join('') || '<div class="notice">无分段（segments）</div>';
+    }
+
+    function renderPointTool(place, marker) {
+      if (marker) {
+        return `<div class="notice">这个地点已有关联坐标标记：${html(marker.id)}。开启“编辑模式”后，可直接拖动地图上的点调整位置。</div>${state.pendingPoint && state.pendingPoint.placeId === place.id ? generatedPointText(place) : ''}`;
+      }
+      return '<div class="notice">这个地点没有地图坐标。开启“编辑模式”后，可通过“新增地点”在地图上放置新的地点。</div>';
+    }
+
+    function generatedPointText(place) {
+      const p = state.pendingPoint;
+      const marker = getMarkerForPlace(place);
+      if (!p || !marker) return '';
+      const markerText = JSON.stringify(marker, null, 2) + ',';
+      const patchText = `当前已在内存中将 ${place.id} 的 marker_id 设为：\nmarker_id: ${marker.id}\n\n坐标：\nnx: ${Number(p.nx.toFixed(12))}\nny: ${Number(p.ny.toFixed(12))}`;
+      return `<textarea id="generatedMarker">${html(markerText)}</textarea><button data-copy-target="generatedMarker">复制</button><textarea id="generatedPlacePatch">${html(patchText)}</textarea><button data-copy-target="generatedPlacePatch">复制</button>`;
+    }
+
+    function onMapClick(event) {
+      if (!state.editMode || (!state.createPlaceMode && !state.placePlacementId) || state.dragMoved) return;
+      const img = el('mapImg');
+      const rect = img.getBoundingClientRect();
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = (event.clientY - rect.top) / rect.height;
+      if (nx < 0 || nx > 1 || ny < 0 || ny > 1) return;
+      if (state.placePlacementId) {
+        const placeId = state.placePlacementId;
+        state.placePlacementId = null;
+        state.pendingPoint = { placeId, nx, ny };
+        applyPointCoord(placeId, nx, ny);
+        updateEditModeUI();
+        selectItem('place', placeId);
+        el('mapHint').textContent = `已为地点“${placeName(placeId)}”设置位置。可继续拖动调整，点击“暂存”保存到浏览器。`;
+        return;
+      }
+      const parentId = state.selectedType === 'place' ? state.selectedId : null;
+      const place = createPlaceAt(nx, ny, parentId);
+      state.createPlaceMode = false;
+      updateEditModeUI();
+      selectItem('place', place.id);
+      state.editingType = 'place';
+      state.editingId = place.id;
+      renderDetail();
+      el('mapHint').textContent = `已新增地点“${place.name}”。右侧可立即修改名称、父级和说明，拖动地图点可调整位置。`;
+    }
+
+    function mapPositionFromEvent(event) {
+      const rect = el('mapImg').getBoundingClientRect();
+      if (!rect.width || !rect.height) return null;
+      const nx = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      const ny = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+      return { nx, ny };
+    }
+
+    function onMapPointerMove(event) {
+      if (!state.draggingPlaceId) return;
+      const pos = mapPositionFromEvent(event);
+      if (!pos) return;
+      state.dragMoved = true;
+      applyPointCoord(state.draggingPlaceId, pos.nx, pos.ny, false);
+      renderMap();
+      if (state.selectedType === 'place' && state.selectedId === state.draggingPlaceId) renderDetail();
+    }
+
+    function onMapPointerUp() {
+      if (!state.draggingPlaceId) return;
+      const placeId = state.draggingPlaceId;
+      state.draggingPlaceId = null;
+      if (!state.dragMoved) return;
+      afterDataChanged();
+      el('mapHint').textContent = `已移动地点“${placeName(placeId)}”。点击“暂存”保存到浏览器，或导出文件落盘。`;
+      setTimeout(() => { state.dragMoved = false; }, 0);
+    }
+
+    function cancelMapDrag() {
+      if (!state.draggingPlaceId) return;
+      const moved = state.dragMoved;
+      state.draggingPlaceId = null;
+      state.dragMoved = false;
+      if (moved) {
+        afterDataChanged();
+        el('mapHint').textContent = '拖动已中断，当前位置修改仍已记录。点击“暂存”保存到浏览器。';
+      }
+    }
+
+    function createPlaceAt(nx, ny, parentId) {
+      const sequence = state.places.length + 1;
+      const baseId = `new-place-${sequence}`;
+      let id = baseId;
+      let i = 2;
+      while (state.placeById.has(id)) id = `${baseId}-${i++}`;
+      const place = {
+        id,
+        name: '新地点',
+        parent: parentId || null,
+        is_geographic: true,
+        is_waypoint: false,
+        importance: null,
+        keywords: [],
+        labels: [],
+        description: { brief: '', detail: '' },
+        notes: '来源：地图编辑新增'
+      };
+      state.places.push(place);
+      applyPointCoord(id, nx, ny, false);
+      state.pendingPoint = { placeId: id, nx, ny };
+      afterDataChanged();
+      return place;
+    }
+
+    function applyPointCoord(placeId, nx, ny, refresh = true) {
+      const place = state.placeById.get(placeId) || state.places.find(item => item.id === placeId);
+      if (!place) return;
+      let marker = getMarkerForPlace(place);
+      if (!marker) {
+        const markerId = `marker-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+        marker = {
+          id: markerId,
+          name: place.name || place.id,
+          group: arr(place.labels).join('/') || '待定',
+          description: (place.description && (place.description.detail || place.description.brief)) || '',
+          icon: 'fa-solid fa-location-dot',
+          color: '#78c6ff',
+          position: { nx: 0, ny: 0 },
+          imageUrls: []
+        };
+        place.marker_id = markerId;
+        place.marker = marker;
+        state.markers.push(marker);
+      }
+      marker.position = { nx: Number(nx.toFixed(12)), ny: Number(ny.toFixed(12)) };
+      if (!place.marker) place.marker = marker;
+      const sourceMarker = state.markers.find(item => item && item.id === marker.id);
+      if (sourceMarker && sourceMarker !== marker) sourceMarker.position = { ...marker.position };
+      if (!sourceMarker) state.markers.push(marker);
+      if (refresh) afterDataChanged();
+    }
+
+    function onPointForEdge(placeId) {
+      const place = state.placeById.get(placeId);
+      if (!place || !isGeographicPlace(place)) {
+        el('mapHint').textContent = '新建连线只能选择地理地点。';
+        return;
+      }
+      if (!state.pendingEdgeFrom) {
+        state.pendingEdgeFrom = placeId;
+        selectItem('place', placeId);
+        el('mapHint').textContent = `已选择起点：${placeName(placeId)}。继续点击终点。`;
+        return;
+      }
+      if (state.pendingEdgeFrom === placeId) {
+        el('mapHint').textContent = '终点不能与起点相同，请点击另一个点。';
+        return;
+      }
+      const edge = createEdge(state.pendingEdgeFrom, placeId);
+      state.pendingEdgeFrom = null;
+      afterDataChanged();
+      selectItem('edge', edge.id);
+      el('mapHint').textContent = `已创建边：${edge.id}。可在右侧编辑后暂存。`;
+    }
+
+    function createEdge(from, to) {
+      const id = uniqueEdgeId(`${from}__${to}`);
+      const edge = {
+        id,
+        from,
+        to,
+        bidirectional: true,
+        segments: [{ transport: '商队', days: null, terrain: [], direction: '', description: '', notes: '' }],
+        importance: 1,
+        notes: '来源：viewer 草稿'
+      };
+      state.edges.push(edge);
+      return edge;
+    }
+
+    function uniqueEdgeId(base) {
+      const ids = new Set(state.edges.map(edge => edge.id));
+      let id = base;
+      let i = 2;
+      while (ids.has(id)) id = `${base}_${i++}`;
+      return id;
+    }
+
+    function placeOptions(selectedId) {
+      return state.places
+        .filter(isGeographicPlace)
+        .sort((a, b) => String(a.name || a.id).localeCompare(String(b.name || b.id), 'zh-CN'))
+        .map(place => `<option value="${html(place.id)}" ${place.id === selectedId ? 'selected' : ''}>${html(place.name || place.id)} (${html(place.id)})</option>`)
+        .join('');
+    }
+
+    function parentOptions(selectedId, currentId) {
+      const forbidden = new Set([currentId, ...descendantIds(currentId)]);
+      const opts = [`<option value="__null__" ${selectedId === null ? 'selected' : ''}>空（null）</option>`];
+      for (const place of [...state.places].sort((a, b) => String(a.name || a.id).localeCompare(String(b.name || b.id), 'zh-CN'))) {
+        if (forbidden.has(place.id)) continue;
+        opts.push(`<option value="${html(place.id)}" ${place.id === selectedId ? 'selected' : ''}>${html(place.name || place.id)} (${html(place.id)})</option>`);
+      }
+      return opts.join('');
+    }
+
+    function descendantIds(id) {
+      const ids = [];
+      const visit = parent => {
+        for (const child of arr(state.childrenByParent.get(parent))) {
+          if (ids.includes(child.id)) continue;
+          ids.push(child.id);
+          visit(child.id);
+        }
+      };
+      visit(id);
+      return ids;
+    }
+
+    function renderPlaceEditor(place) {
+      const children = arr(state.childrenByParent.get(place.id));
+      const edges = arr(state.edgesByPlace.get(place.id));
+      const marker = getMarkerForPlace(place);
+      const deletePlaceDisabled = children.length ? 'disabled' : '';
+      const deleteCoordDisabled = marker ? '' : 'disabled';
+      return `<div class="editor-panel"><div class="editor-title"><span>正在编辑地点</span><span class="badge accent">修改后请保存</span></div><div class="editor-grid">
+        <label>标识（id）<input id="placeEditId" type="text" value="${html(place.id)}" /></label>
+        <label>名称（name）<input id="placeEditName" type="text" value="${html(place.name ?? '')}" /></label>
+        <label>父级（parent）<select id="placeEditParent">${parentOptions(place.parent ?? null, place.id)}</select></label>
+        <label>标记标识（marker_id）<input id="placeEditMarkerId" type="text" value="${html(place.marker_id ?? '')}" placeholder="空值导出为 null" /></label>
+        <label>是否地理点（is_geographic）<select id="placeEditIsGeographic"><option value="true" ${isGeographicPlace(place) ? 'selected' : ''}>是（true）</option><option value="false" ${!isGeographicPlace(place) ? 'selected' : ''}>否（false）</option></select></label>
+        <label>是否路点（is_waypoint）<select id="placeEditIsWaypoint"><option value="false" ${!place.is_waypoint ? 'selected' : ''}>否（false）</option><option value="true" ${place.is_waypoint ? 'selected' : ''}>是（true）</option></select></label>
+        <label>重要性（importance）<input id="placeEditImportance" type="text" value="${html(place.importance ?? '')}" /></label>
+        <label>关键词（keywords）<input id="placeEditKeywords" type="text" value="${html(arr(place.keywords).join('，'))}" placeholder="逗号分隔" /></label>
+        <label>标签（labels）<input id="placeEditLabels" type="text" value="${html(arr(place.labels).join('，'))}" placeholder="逗号分隔" /></label>
+      </div>
+      <label class="editor-full">简述（brief）<input id="placeEditBrief" type="text" value="${html(place.description && place.description.brief || '')}" /></label>
+      <label class="editor-full">详述（detail）<textarea id="placeEditDetail">${html(place.description && place.description.detail || '')}</textarea></label>
+      <label class="editor-full">备注（notes）<textarea id="placeEditNotes">${html(place.notes ?? '')}</textarea></label>
+      <div class="notice">删除点会同时删除 ${edges.length} 条关联边；非叶子点需先处理 ${children.length} 个子节点。</div>
+      <div class="editor-actions"><button class="primary" data-edit-action="apply-place" data-edit-id="${html(place.id)}">保存地点修改</button><button data-edit-action="cancel">取消</button><button class="danger" data-edit-action="delete-place-coord" data-edit-id="${html(place.id)}" ${deleteCoordDisabled}>删除坐标</button><button class="danger" data-edit-action="delete-place" data-edit-id="${html(place.id)}" ${deletePlaceDisabled}>删除地点</button><span class="badge dirty-pill">保存后请点击顶部“暂存”</span></div></div>`;
+    }
+
+    function renderEdgeEditor(edge) {
+      const seg = firstSegment(edge);
+      return `<div class="editor-panel"><div class="editor-title"><span>正在编辑连线</span><span class="badge accent">修改后请保存</span></div><div class="editor-grid">
+        <label>标识（id）<input id="edgeEditId" type="text" value="${html(edge.id)}" /></label>
+        <label>重要性（importance）<input id="edgeEditImportance" type="text" value="${html(edge.importance ?? '')}" /></label>
+        <label>起点（from）<select id="edgeEditFrom">${placeOptions(edge.from)}</select></label>
+        <label>终点（to）<select id="edgeEditTo">${placeOptions(edge.to)}</select></label>
+        <label>双向（bidirectional）<select id="edgeEditBidirectional"><option value="true" ${edge.bidirectional !== false ? 'selected' : ''}>是（true）</option><option value="false" ${edge.bidirectional === false ? 'selected' : ''}>否（false）</option></select></label>
+        <label>交通方式（transport）<input id="edgeEditTransport" type="text" value="${html(seg.transport ?? '')}" /></label>
+        <label>天数（days）<input id="edgeEditDays" type="text" value="${html(seg.days ?? '')}" placeholder="数字或空/null" /></label>
+        <label>地形（terrain）<input id="edgeEditTerrain" type="text" value="${html(arr(seg.terrain).join('，'))}" placeholder="逗号分隔" /></label>
+      </div>
+      <label class="editor-full">方向（direction）<input id="edgeEditDirection" type="text" value="${html(seg.direction ?? '')}" /></label>
+      <label class="editor-full">描述（description）<textarea id="edgeEditDescription">${html(seg.description ?? '')}</textarea></label>
+      <label class="editor-full">边备注（edge notes）<textarea id="edgeEditNotes">${html(edge.notes ?? '')}</textarea></label>
+      <div class="editor-actions"><button class="primary" data-edit-action="apply-edge" data-edit-id="${html(edge.id)}">保存连线修改</button><button data-edit-action="cancel">取消</button><button class="danger" data-edit-action="delete-edge" data-edit-id="${html(edge.id)}">删除连线</button><span class="badge dirty-pill">保存后请点击顶部“暂存”</span></div></div>`;
+    }
+
+    function applyPlaceEdit(id) {
+      const place = state.placeById.get(id);
+      if (!place) return;
+      const newId = el('placeEditId').value.trim();
+      if (!newId) {
+        alert('地点标识（place id）不能为空。');
+        return;
+      }
+      const duplicate = state.places.find(item => item !== place && item.id === newId);
+      if (duplicate) {
+        alert(`地点标识（place id）已存在：${newId}`);
+        return;
+      }
+      const oldId = place.id;
+      const oldMarkerId = place.marker_id;
+      const nextMarkerId = el('placeEditMarkerId').value.trim() || null;
+      const linkedMarker = nextMarkerId && nextMarkerId !== oldMarkerId ? state.markerById.get(nextMarkerId) : null;
+      place.id = newId;
+      place.name = el('placeEditName').value.trim();
+      const parent = el('placeEditParent').value;
+      place.parent = parent === '__null__' ? null : parent;
+      place.marker_id = nextMarkerId;
+      if (linkedMarker) {
+        place.marker = null;
+      } else if (place.marker_id && place.marker && typeof place.marker === 'object') {
+        place.marker.id = place.marker_id;
+        const sourceMarker = state.markers.find(marker => marker.id === oldMarkerId);
+        if (sourceMarker) sourceMarker.id = place.marker_id;
+      }
+      if (!place.marker_id) place.marker = null;
+      place.is_geographic = el('placeEditIsGeographic').value === 'true';
+      place.is_waypoint = el('placeEditIsWaypoint').value === 'true';
+      const imp = el('placeEditImportance').value.trim();
+      place.importance = imp === '' ? null : Number(imp);
+      place.keywords = splitList(el('placeEditKeywords').value);
+      place.labels = splitList(el('placeEditLabels').value);
+      if (!place.description || typeof place.description !== 'object') place.description = {};
+      place.description.brief = el('placeEditBrief').value.trim();
+      place.description.detail = el('placeEditDetail').value.trim();
+      place.notes = el('placeEditNotes').value.trim();
+      if (oldId !== newId) {
+        for (const other of state.places) if (other.parent === oldId) other.parent = newId;
+        for (const edge of state.edges) {
+          if (edge.from === oldId) edge.from = newId;
+          if (edge.to === oldId) edge.to = newId;
+        }
+      }
+      if (oldMarkerId && oldMarkerId !== place.marker_id && !state.places.some(item => item !== place && item.marker_id === oldMarkerId)) {
+        state.markers = state.markers.filter(marker => marker.id !== oldMarkerId);
+      }
+      state.selectedId = newId;
+      state.editingType = null;
+      state.editingId = null;
+      afterDataChanged();
+      selectItem('place', newId);
+      el('mapHint').textContent = `已保存地点（place）编辑：${newId}。点击“暂存”保存到浏览器。`;
+    }
+
+    function splitList(value) {
+      return String(value || '').split(/[,，\n]/).map(x => x.trim()).filter(Boolean);
+    }
+
+    function deletePlaceCoord(id) {
+      const place = state.placeById.get(id);
+      if (!place || !place.marker_id) return;
+      const markerId = place.marker_id;
+      if (!confirm(`删除地点“${place.name || place.id}”的坐标？`)) return;
+      place.marker_id = null;
+      place.marker = null;
+      const stillUsed = state.places.some(item => item !== place && item.marker_id === markerId);
+      if (!stillUsed) state.markers = state.markers.filter(marker => marker.id !== markerId);
+      state.pendingPoint = null;
+      state.editingType = null;
+      state.editingId = null;
+      afterDataChanged();
+      selectItem('place', place.id);
+      el('mapHint').textContent = `已删除地点坐标：${place.name || place.id}。点击“暂存”保存到浏览器。`;
+    }
+
+    function deletePlaceEdit(id) {
+      const place = state.placeById.get(id);
+      if (!place) return;
+      const children = arr(state.childrenByParent.get(id));
+      if (children.length) {
+        alert('不能删除非叶子点：请先处理子节点。');
+        return;
+      }
+      const edges = arr(state.edgesByPlace.get(id));
+      if (!confirm(`删除地点“${place.name || place.id}”？将同时删除 ${edges.length} 条关联边。`)) return;
+      const markerId = place.marker_id;
+      state.places = state.places.filter(item => item !== place);
+      state.edges = state.edges.filter(edge => edge.from !== id && edge.to !== id);
+      if (markerId && !state.places.some(item => item.marker_id === markerId)) {
+        state.markers = state.markers.filter(marker => marker.id !== markerId);
+      }
+      state.selectedType = null;
+      state.selectedId = null;
+      state.editingType = null;
+      state.editingId = null;
+      state.pendingPoint = null;
+      afterDataChanged();
+      el('detailTitle').textContent = '未选中';
+      el('detailSub').textContent = '已删除地点。';
+      el('detailBody').innerHTML = '<div class="empty">选择一个地点或边继续编辑。</div>';
+      el('mapHint').textContent = `已删除地点：${place.name || id}。点击“暂存”保存到浏览器。`;
+    }
+
+    function applyEdgeEdit(id) {
+      const edge = state.edges.find(item => item.id === id);
+      if (!edge) return;
+      const newId = el('edgeEditId').value.trim();
+      const from = el('edgeEditFrom').value;
+      const to = el('edgeEditTo').value;
+      if (!newId) {
+        alert('边标识（edge id）不能为空。');
+        return;
+      }
+      if (from === to) {
+        alert('起点（from）和终点（to）不能相同。');
+        return;
+      }
+      const duplicate = state.edges.find(item => item !== edge && item.id === newId);
+      if (duplicate) {
+        alert(`边标识（edge id）已存在：${newId}`);
+        return;
+      }
+      edge.id = newId;
+      edge.from = from;
+      edge.to = to;
+      edge.bidirectional = el('edgeEditBidirectional').value === 'true';
+      const imp = el('edgeEditImportance').value.trim();
+      edge.importance = imp === '' ? null : Number(imp);
+      const daysText = el('edgeEditDays').value.trim();
+      const first = firstSegment(edge);
+      const editedFirstSegment = {
+        ...first,
+        transport: el('edgeEditTransport').value.trim() || '不适用',
+        days: daysText === '' || daysText === 'null' ? null : Number(daysText),
+        terrain: el('edgeEditTerrain').value.split(/[,，]/).map(x => x.trim()).filter(Boolean),
+        direction: el('edgeEditDirection').value.trim(),
+        description: el('edgeEditDescription').value.trim(),
+      };
+      edge.segments = [editedFirstSegment, ...arr(edge.segments).slice(1)];
+      edge.notes = el('edgeEditNotes').value.trim();
+      state.selectedId = edge.id;
+      state.editingType = null;
+      state.editingId = null;
+      afterDataChanged();
+      selectItem('edge', edge.id);
+      el('mapHint').textContent = `已应用连线编辑：${edge.id}。点击“暂存”保存到浏览器。`;
+    }
+
+    function deleteEdgeEdit(id) {
+      const edge = state.edges.find(item => item.id === id);
+      if (!edge) return;
+      if (!confirm(`删除边（edge）：${edge.id}？`)) return;
+      state.edges = state.edges.filter(item => item !== edge);
+      state.selectedType = null;
+      state.selectedId = null;
+      state.editingType = null;
+      state.editingId = null;
+      afterDataChanged();
+      el('detailTitle').textContent = '未选中';
+      el('detailSub').textContent = '已删除边。';
+      el('detailBody').innerHTML = '<div class="empty">选择一个地点或边继续编辑。</div>';
+      el('mapHint').textContent = `已删除连线：${edge.id}。点击“暂存”保存到浏览器。`;
+    }
+
+    function scrollToSelectedOrFirstVisible(force = true) {
+      const selected = state.selectedType === 'place' ? state.selectedId : null;
+      const targetId = selected && getPlaceCoord(selected) ? selected : [...state.visiblePlaceIds].find(id => getPlaceCoord(id));
+      if (!targetId || !force && selected !== targetId) return;
+      const coord = getPlaceCoord(targetId);
+      if (!coord) return;
+      const img = el('mapImg');
+      const wrap = el('mapWrap');
+      const x = coord.nx * img.clientWidth;
+      const y = coord.ny * img.clientHeight;
+      wrap.scrollTo({ left: Math.max(0, x - wrap.clientWidth / 2), top: Math.max(0, y - wrap.clientHeight / 2), behavior: 'smooth' });
+    }
+
+    boot();
+  </script>
+</body>
+
+</html>

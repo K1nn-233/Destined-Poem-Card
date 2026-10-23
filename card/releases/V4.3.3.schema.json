@@ -1,0 +1,756 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "事件": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {},
+      "additionalProperties": {}
+    },
+    "世界": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "时间": {
+          "default": "",
+          "type": "string"
+        },
+        "地点": {
+          "default": "",
+          "type": "string"
+        }
+      }
+    },
+    "任务列表": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "状态": {
+            "default": "",
+            "type": "string"
+          },
+          "关注度": {
+            "default": "中",
+            "type": "string",
+            "enum": [
+              "低",
+              "中",
+              "高"
+            ]
+          },
+          "进展": {
+            "default": "",
+            "type": "string"
+          },
+          "详情": {
+            "default": "",
+            "type": "string"
+          },
+          "目标": {
+            "default": "",
+            "type": "string"
+          },
+          "奖励": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "主角": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "等级": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "生命层级": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "种族": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "职业": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "属性": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "装备": {
+          "$ref": "#/$defs/__schema5"
+        },
+        "技能": {
+          "$ref": "#/$defs/__schema11"
+        },
+        "登神长阶": {
+          "$ref": "#/$defs/__schema12"
+        },
+        "累计经验值": {
+          "default": 0,
+          "type": "number"
+        },
+        "升级所需经验": {
+          "anyOf": [
+            {
+              "default": 120,
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "MAX"
+            }
+          ]
+        },
+        "生命值": {
+          "$ref": "#/$defs/__schema13"
+        },
+        "法力值": {
+          "$ref": "#/$defs/__schema13"
+        },
+        "体力值": {
+          "$ref": "#/$defs/__schema13"
+        },
+        "属性点": {
+          "default": 0,
+          "type": "number"
+        },
+        "背包": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema14"
+          }
+        },
+        "资产": {
+          "$ref": "#/$defs/__schema15"
+        },
+        "金钱": {
+          "default": 0,
+          "type": "number"
+        },
+        "状态效果": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema16"
+          }
+        }
+      }
+    },
+    "命运点数": {
+      "default": 0,
+      "type": "number"
+    },
+    "关系列表": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "等级": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "生命层级": {
+            "$ref": "#/$defs/__schema1"
+          },
+          "种族": {
+            "$ref": "#/$defs/__schema2"
+          },
+          "身份": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "职业": {
+            "$ref": "#/$defs/__schema3"
+          },
+          "属性": {
+            "$ref": "#/$defs/__schema4"
+          },
+          "装备": {
+            "$ref": "#/$defs/__schema5"
+          },
+          "技能": {
+            "$ref": "#/$defs/__schema11"
+          },
+          "登神长阶": {
+            "$ref": "#/$defs/__schema12"
+          },
+          "在场": {
+            "default": false,
+            "type": "boolean"
+          },
+          "_隐藏": {
+            "default": false,
+            "type": "boolean"
+          },
+          "标签": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "性格": {
+            "default": "",
+            "type": "string"
+          },
+          "喜爱": {
+            "default": "",
+            "type": "string"
+          },
+          "外貌": {
+            "default": "",
+            "type": "string"
+          },
+          "着装": {
+            "default": "",
+            "type": "string"
+          },
+          "生命值": {
+            "$ref": "#/$defs/__schema13"
+          },
+          "法力值": {
+            "$ref": "#/$defs/__schema13"
+          },
+          "体力值": {
+            "$ref": "#/$defs/__schema13"
+          },
+          "命定契约": {
+            "default": false,
+            "type": "boolean"
+          },
+          "好感度": {
+            "default": 0,
+            "type": "number"
+          },
+          "状态效果": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/__schema16"
+            }
+          },
+          "背包": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/__schema14"
+            }
+          },
+          "资产": {
+            "$ref": "#/$defs/__schema15"
+          },
+          "心里话": {
+            "default": "",
+            "type": "string"
+          },
+          "背景故事": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "新闻": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "阿斯塔利亚快讯": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "势力要闻": {
+              "default": "",
+              "type": "string"
+            },
+            "尊位行迹": {
+              "default": "",
+              "type": "string"
+            },
+            "军事行动": {
+              "default": "",
+              "type": "string"
+            },
+            "经济动脉": {
+              "default": "",
+              "type": "string"
+            },
+            "灾害预警": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        },
+        "酒馆留言板": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "高额悬赏": {
+              "default": "",
+              "type": "string"
+            },
+            "冒险发现": {
+              "default": "",
+              "type": "string"
+            },
+            "怪物异动": {
+              "default": "",
+              "type": "string"
+            },
+            "通缉要犯": {
+              "default": "",
+              "type": "string"
+            },
+            "宝物传闻": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        },
+        "午后茶会": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "社交逸闻": {
+              "default": "",
+              "type": "string"
+            },
+            "千里远望": {
+              "default": "",
+              "type": "string"
+            },
+            "命运涟漪": {
+              "default": "",
+              "type": "string"
+            },
+            "邂逅预兆": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "__schema0": {
+      "default": 1,
+      "type": "number"
+    },
+    "__schema1": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema2": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema3": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "__schema4": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "力量": {
+          "default": 0,
+          "type": "number"
+        },
+        "敏捷": {
+          "default": 0,
+          "type": "number"
+        },
+        "体质": {
+          "default": 0,
+          "type": "number"
+        },
+        "智力": {
+          "default": 0,
+          "type": "number"
+        },
+        "精神": {
+          "default": 0,
+          "type": "number"
+        }
+      }
+    },
+    "__schema5": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "品质": {
+            "$ref": "#/$defs/__schema6"
+          },
+          "类型": {
+            "$ref": "#/$defs/__schema7"
+          },
+          "标签": {
+            "$ref": "#/$defs/__schema8"
+          },
+          "效果": {
+            "$ref": "#/$defs/__schema9"
+          },
+          "描述": {
+            "$ref": "#/$defs/__schema10"
+          },
+          "位置": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "__schema6": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema7": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema8": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "__schema9": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "__schema10": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema11": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "品质": {
+            "$ref": "#/$defs/__schema6"
+          },
+          "类型": {
+            "$ref": "#/$defs/__schema7"
+          },
+          "标签": {
+            "$ref": "#/$defs/__schema8"
+          },
+          "效果": {
+            "$ref": "#/$defs/__schema9"
+          },
+          "描述": {
+            "$ref": "#/$defs/__schema10"
+          },
+          "消耗": {
+            "default": "",
+            "type": "string"
+          },
+          "_隐藏": {
+            "default": false,
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "__schema12": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "是否开启": {
+          "default": false,
+          "type": "boolean"
+        },
+        "要素": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "权能": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "法则": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "神位": {
+          "default": "",
+          "type": "string"
+        },
+        "神国": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "名称": {
+              "default": "",
+              "type": "string"
+            },
+            "描述": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "__schema13": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "当前": {
+          "default": 0,
+          "type": "number"
+        },
+        "上限": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "_基础": {
+              "default": 0,
+              "type": "number"
+            },
+            "额外": {
+              "default": 0,
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "__schema14": {
+      "type": "object",
+      "properties": {
+        "品质": {
+          "$ref": "#/$defs/__schema6"
+        },
+        "类型": {
+          "$ref": "#/$defs/__schema7"
+        },
+        "标签": {
+          "$ref": "#/$defs/__schema8"
+        },
+        "效果": {
+          "$ref": "#/$defs/__schema9"
+        },
+        "描述": {
+          "$ref": "#/$defs/__schema10"
+        },
+        "数量": {
+          "default": 1,
+          "type": "number"
+        },
+        "_隐藏": {
+          "default": false,
+          "type": "boolean"
+        }
+      }
+    },
+    "__schema15": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "品质": {
+            "default": "",
+            "type": "string"
+          },
+          "类型": {
+            "default": "",
+            "type": "string"
+          },
+          "标签": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "总空间": {
+            "default": "",
+            "type": "string"
+          },
+          "结算": {
+            "default": "",
+            "type": "string"
+          },
+          "描述": {
+            "default": "",
+            "type": "string"
+          },
+          "位置": {
+            "default": "",
+            "type": "string"
+          },
+          "内部资产": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "品质": {
+                  "default": "",
+                  "type": "string"
+                },
+                "标签": {
+                  "default": [],
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "数量": {
+                  "default": 0,
+                  "type": "number"
+                },
+                "效果": {
+                  "default": {},
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "描述": {
+                  "default": "",
+                  "type": "string"
+                },
+                "总占用空间": {
+                  "default": "",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "_隐藏": {
+            "default": false,
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "__schema16": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "类型": {
+          "default": "增益",
+          "type": "string",
+          "enum": [
+            "增益",
+            "减益",
+            "特殊"
+          ]
+        },
+        "效果": {
+          "default": "",
+          "type": "string"
+        },
+        "层数": {
+          "default": 1,
+          "type": "number"
+        },
+        "剩余时间": {
+          "default": "",
+          "type": "string"
+        },
+        "来源": {
+          "default": "",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

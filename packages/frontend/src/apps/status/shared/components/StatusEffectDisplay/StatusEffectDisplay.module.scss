@@ -1,0 +1,321 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.buffChipGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.buffChipGroupCompact {
+  gap: 6px;
+  margin-top: 0;
+}
+
+.buffChip {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 78%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 4%, transparent);
+}
+
+.buffChipBuff {
+  border-color: color-mix(in srgb, var(--theme-success) 42%, var(--theme-card-border) 58%);
+  background: color-mix(in srgb, var(--theme-success) 12%, var(--theme-card-bg) 88%);
+}
+
+.buffChipDebuff {
+  border-color: color-mix(in srgb, var(--theme-error) 42%, var(--theme-card-border) 58%);
+  background: color-mix(in srgb, var(--theme-error) 12%, var(--theme-card-bg) 88%);
+}
+
+.buffChipSpecial {
+  border-color: color-mix(in srgb, var(--theme-warning) 42%, var(--theme-card-border) 58%);
+  background: color-mix(in srgb, var(--theme-warning) 12%, var(--theme-card-bg) 88%);
+}
+
+.buffChipName {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  line-height: 1.45;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.buffChipMeta {
+  flex: 0 0 auto;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-window-bg) 20%, transparent);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--theme-text-secondary);
+  line-height: 1.4;
+}
+
+.buffChipMore {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px dashed color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: color-mix(in srgb, var(--theme-window-bg) 16%, transparent);
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.buffEmpty {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  font-size: 12px;
+  color: var(--theme-text-muted);
+}
+
+.statusEffects {
+  @include list-container;
+}
+
+.effectItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 84%, transparent);
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-left: 3px solid var(--theme-success);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 4%, transparent);
+}
+
+.effectItemEdit {
+  gap: 10px;
+  background: color-mix(in srgb, var(--theme-card-bg) 80%, transparent);
+}
+
+.effectBuff {
+  border-left-color: var(--theme-success);
+}
+
+.effectDebuff {
+  border-left-color: var(--theme-error);
+}
+
+.effectSpecial {
+  border-left-color: var(--theme-warning);
+}
+
+.effectReadHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.effectHeaderMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.effectName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.effectType {
+  @include badge-bordered;
+  font-size: 10px;
+  color: var(--theme-text-secondary);
+  border-radius: 999px;
+}
+
+.effectMetaInline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.effectStack {
+  @include badge-bordered;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--theme-text-primary);
+  background: color-mix(in srgb, var(--theme-card-bg) 76%, transparent);
+}
+
+.effectTime {
+  font-size: 11px;
+  color: var(--theme-text-muted);
+}
+
+.effectDesc {
+  padding: 8px 10px;
+  border-radius: calc($border-radius-sm - 2px);
+  background: color-mix(in srgb, var(--theme-card-bg) 74%, transparent);
+  font-size: 12px;
+  color: var(--theme-text-secondary);
+  line-height: 1.65;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+.effectSource {
+  font-size: 11px;
+  color: var(--theme-text-muted);
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+.effectEditHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.effectEditHeaderContent {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.effectEditMetaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
+  border-radius: calc($border-radius-sm - 2px);
+  background: color-mix(in srgb, var(--theme-card-bg) 74%, transparent);
+}
+
+.effectMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.effectMetaLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--theme-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.effectEditSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border-radius: calc($border-radius-sm - 2px);
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+}
+
+.effectEditLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--theme-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.effectDeleteBtn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-window-bg) 14%, transparent);
+  color: var(--theme-text-muted);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 4%, transparent);
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 88%, transparent);
+    color: var(--theme-error-text);
+    transform: translateY(-1px);
+  }
+}
+
+.emptyEffects {
+  @include empty-hint;
+}
+
+@media (max-width: 540px) {
+  .buffChipGroup {
+    gap: 6px;
+  }
+
+  .buffChip {
+    gap: 5px;
+    padding: 4px 8px;
+  }
+
+  .buffChipMeta {
+    padding: 2px 4px;
+  }
+
+  .effectItem {
+    padding: 12px;
+  }
+
+  .effectReadHeader {
+    flex-direction: column;
+  }
+
+  .effectEditHeader {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .effectMetaInline {
+    justify-content: flex-start;
+  }
+
+  .effectEditMetaGrid {
+    grid-template-columns: 1fr;
+    padding: 8px;
+  }
+
+  .effectEditSection {
+    padding: 8px;
+  }
+
+  .effectDeleteBtn {
+    align-self: start;
+    margin-top: 2px;
+  }
+}

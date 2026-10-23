@@ -1,0 +1,3 @@
+<customized>
+自定义开局开始
+</customized>

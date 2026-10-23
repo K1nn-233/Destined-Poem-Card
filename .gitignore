@@ -1,0 +1,10 @@
+imports/
+node_modules/
+.cache/
+dist/
+references/upstream/
+references/index.json
+**/node_modules/
+**/dist/
+**/__pycache__/
+**/*.tsbuildinfo

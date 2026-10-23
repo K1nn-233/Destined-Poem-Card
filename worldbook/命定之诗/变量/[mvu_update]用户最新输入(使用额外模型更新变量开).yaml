@@ -1,0 +1,4 @@
+---
+以下为用户最新输入:
+  Participant:
+    <%- lastUserMessage %>

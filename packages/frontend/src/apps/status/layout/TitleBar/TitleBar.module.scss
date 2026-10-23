@@ -1,0 +1,111 @@
+@use '../../shared/styles/variables' as *;
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-md;
+  background: color-mix(in srgb, var(--theme-title-bar-bg) 88%, rgba(255, 255, 255, 0.03));
+  position: relative;
+  gap: $spacing-md;
+  min-width: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-window-border) 68%, transparent);
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 4px;
+  color: var(--theme-title-bar-text);
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.time,
+.location {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  gap: $spacing-xs;
+  min-width: 0;
+  max-width: 100%;
+  word-break: break-word;
+  line-height: 1.2;
+
+  i {
+    color: var(--theme-title-bar-icon);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+}
+
+.worldField {
+  flex: 1;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-xs;
+  flex-shrink: 0;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  color: var(--theme-title-bar-icon);
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast,
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
+  &:hover {
+    background: var(--theme-title-bar-btn-hover);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--theme-title-bar-text);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .titleBar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 10px 12px;
+    gap: $spacing-sm;
+  }
+
+  .info {
+    font-size: 12px;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+
+  .time,
+  .location {
+    width: auto;
+    max-width: 100%;
+  }
+}

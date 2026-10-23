@@ -1,0 +1,363 @@
+<script setup lang="ts">
+import { ref, computed, watch, onMounted } from 'vue';
+import CategorySelectionLayout from '../../components/CategorySelectionLayout.vue';
+import { getAssets } from '../../data/assets';
+import { getRaceCosts } from '../../data/base-info';
+import { getEquipments } from '../../data/equipments';
+import { getInitialItems } from '../../data/Items';
+import { getSkills } from '../../data/skills';
+import { useCharacterStore } from '../../store/character';
+import { useCustomContentStore } from '../../store/customContent';
+import type { Asset, Equipment, Item, Rarity, Skill } from '../../types';
+
+import CategoryTabs, { type CategoryType } from './components/CategoryTabs.vue';
+import CustomItemForm from './components/CustomItemForm.vue';
+import ItemList from './components/ItemList.vue';
+import MoneyExchangeCard from './components/MoneyExchangeCard.vue';
+import RarityFilter from './components/RarityFilter.vue';
+import SelectedPanel from './components/SelectedPanel.vue';
+
+const characterStore = useCharacterStore();
+const customContentStore = useCustomContentStore();
+const customItemFormRef = ref<InstanceType<typeof CustomItemForm> | null>(null);
+
+// 当前选中的大分类
+const currentCategory = ref<CategoryType>('equipment');
+
+// 当前选中的子分类
+const currentSubCategory = ref<string>('');
+
+// 当前选中的品质筛选
+const currentRarity = ref<Rarity | 'all'>('all');
+
+// 获取显示用的分类名称
+const getCategoryDisplayName = (name: string): string => {
+  return name;
+};
+
+const equipments = computed(() => getEquipments());
+const initialItems = computed(() => getInitialItems());
+const assets = computed(() => getAssets());
+const skillGroups = computed(() => getSkills());
+
+const currentRace = computed(() => {
+  return characterStore.character.race === '自定义'
+    ? characterStore.character.customRace
+    : characterStore.character.race;
+});
+
+const raceSpecificSkillCategories = computed(() => {
+  return Object.keys(getRaceCosts.value).filter(race => race !== '自定义');
+});
+
+const getDisabledSkillCategories = () => {
+  if (currentCategory.value !== 'skill') return [];
+
+  return raceSpecificSkillCategories.value.filter(category => category !== currentRace.value);
+};
+
+// 获取当前分类下的子分类列表
+const subCategories = computed(() => {
+  switch (currentCategory.value) {
+    case 'equipment':
+      return Object.keys(equipments.value);
+    case 'item':
+      return Object.keys(initialItems.value);
+    case 'asset':
+      return Object.keys(assets.value);
+    case 'skill':
+      return orderedSkillCategories.value;
+    default:
+      return [];
+  }
+});
+
+// 检查技能分类是否可用（基于种族限制）
+const isSkillCategoryAvailable = (category: string): boolean => {
+  if (currentCategory.value !== 'skill') return true;
+
+  if (raceSpecificSkillCategories.value.includes(category)) {
+    return currentRace.value === category;
+  }
+
+  return true;
+};
+
+const orderedSkillCategories = computed(() => {
+  if (currentCategory.value !== 'skill') return [];
+
+  const categories = Object.keys(skillGroups.value);
+  const [available, unavailable] = _.partition(categories, isSkillCategoryAvailable);
+  return [...available, ...unavailable];
+});
+
+// 当分类改变时，重置子分类和品质筛选
+watch(currentCategory, () => {
+  currentSubCategory.value = subCategories.value[0] || '';
+  currentRarity.value = 'all';
+});
+
+// 初始化子分类
+onMounted(() => {
+  currentSubCategory.value = subCategories.value[0] || '';
+});
+
+// 监听种族变化，确保当前技能分类可用
+watch(
+  () => [characterStore.character.race, characterStore.character.customRace],
+  () => {
+    if (currentCategory.value !== 'skill') return;
+
+    if (!isSkillCategoryAvailable(currentSubCategory.value)) {
+      const nextCategory = _.find(subCategories.value, isSkillCategoryAvailable) || '';
+      currentSubCategory.value = nextCategory;
+    }
+  },
+  { deep: true },
+);
+
+// 获取当前要显示的物品列表（应用品质筛选）
+const currentItems = computed<(Asset | Equipment | Item | Skill)[]>(() => {
+  let sourceItems: (Asset | Equipment | Item | Skill)[] = [];
+
+  switch (currentCategory.value) {
+    case 'equipment':
+      sourceItems = (equipments.value[currentSubCategory.value] || []) as Equipment[];
+      break;
+    case 'item':
+      sourceItems = (initialItems.value[currentSubCategory.value] || []) as Item[];
+      break;
+    case 'asset':
+      sourceItems = (assets.value[currentSubCategory.value] || []) as Asset[];
+      break;
+    case 'skill':
+      sourceItems = skillGroups.value[currentSubCategory.value] || [];
+      break;
+  }
+
+  // 应用品质筛选
+  if (currentRarity.value !== 'all') {
+    return sourceItems.filter(item => item.rarity === currentRarity.value);
+  }
+
+  return sourceItems;
+});
+
+// 获取当前选中的物品列表
+const currentSelectedItems = computed<(Asset | Equipment | Item | Skill)[]>(() => {
+  switch (currentCategory.value) {
+    case 'equipment':
+      return characterStore.selectedEquipments;
+    case 'item':
+      return characterStore.selectedItems;
+    case 'asset':
+      return characterStore.selectedAssets;
+    case 'skill':
+      return characterStore.selectedSkills;
+    default:
+      return [];
+  }
+});
+
+// 选择物品
+const handleSelectItem = (item: Asset | Equipment | Item | Skill) => {
+  switch (currentCategory.value) {
+    case 'equipment':
+      characterStore.addEquipment(item as Equipment);
+      break;
+    case 'item':
+      characterStore.addItem(item as Item);
+      break;
+    case 'asset':
+      characterStore.addAsset(item as Asset);
+      break;
+    case 'skill':
+      characterStore.addSkill(item as Skill);
+      break;
+  }
+};
+
+// 取消选择物品
+const handleDeselectItem = (item: Asset | Equipment | Item | Skill) => {
+  switch (currentCategory.value) {
+    case 'equipment':
+      characterStore.removeEquipment(item as Equipment);
+      break;
+    case 'item':
+      characterStore.removeItem(item as Item);
+      break;
+    case 'asset':
+      characterStore.removeAsset(item as Asset);
+      break;
+    case 'skill':
+      characterStore.removeSkill(item as Skill);
+      break;
+  }
+};
+
+// 从已选面板移除物品
+const handleRemoveFromPanel = (
+  item: Asset | Equipment | Item | Skill,
+  type: 'equipment' | 'item' | 'asset' | 'skill',
+) => {
+  switch (type) {
+    case 'equipment':
+      characterStore.removeEquipment(item as Equipment);
+      break;
+    case 'item':
+      characterStore.removeItem(item as Item);
+      break;
+    case 'asset':
+      characterStore.removeAsset(item as Asset);
+      break;
+    case 'skill':
+      characterStore.removeSkill(item as Skill);
+      break;
+  }
+};
+
+// 清空所有选择
+const handleClearAll = () => {
+  characterStore.clearSelections();
+};
+
+// 添加/更新自定义物品
+const handleAddCustomItem = (
+  item: Asset | Equipment | Item | Skill,
+  type: 'equipment' | 'item' | 'asset' | 'skill',
+  replaceName?: string,
+) => {
+  const targetName = replaceName?.trim();
+
+  switch (type) {
+    case 'equipment':
+      if (targetName) {
+        characterStore.replaceEquipmentByName(item as Equipment, targetName);
+      } else {
+        characterStore.addEquipment(item as Equipment);
+      }
+      break;
+    case 'item':
+      if (targetName) {
+        characterStore.replaceItemByName(item as Item, targetName);
+      } else {
+        characterStore.addItem(item as Item);
+      }
+      break;
+    case 'asset':
+      if (targetName) {
+        characterStore.replaceAssetByName(item as Asset, targetName);
+      } else {
+        characterStore.addAsset(item as Asset);
+      }
+      break;
+    case 'skill':
+      if (targetName) {
+        characterStore.replaceSkillByName(item as Skill, targetName);
+      } else {
+        characterStore.addSkill(item as Skill);
+      }
+      break;
+  }
+
+  customContentStore.updateEditingCustomItemName('');
+};
+
+// 回填自定义物品表单
+const handleEditCustomItem = (
+  item: Asset | Equipment | Item | Skill,
+  type: 'equipment' | 'item' | 'asset' | 'skill',
+) => {
+  customItemFormRef.value?.fillFormByItem(item, type);
+  toastr.info(
+    `已回填自定义${
+      type === 'equipment' ? '装备' : type === 'item' ? '道具' : type === 'asset' ? '资产' : '技能'
+    }「${item.name}」`,
+  );
+};
+</script>
+
+<template>
+  <div class="selections">
+    <div class="selections-container">
+      <!-- 上半部分：选择区域 -->
+      <div class="selection-area">
+        <!-- 大分类标签 -->
+        <CategoryTabs v-model="currentCategory" />
+
+        <!-- 选择主体区域 - 使用通用布局组件 -->
+        <CategorySelectionLayout
+          v-model="currentSubCategory"
+          :categories="subCategories"
+          :disabled-categories="getDisabledSkillCategories()"
+          :category-name-formatter="getCategoryDisplayName"
+          mobile-mode="select"
+        >
+          <!-- 品质筛选 -->
+          <template #filter>
+            <RarityFilter v-model="currentRarity" />
+          </template>
+
+          <!-- 物品列表 -->
+          <template #content>
+            <ItemList
+              :items="currentItems"
+              :selected-items="currentSelectedItems"
+              :player-name="characterStore.character.name"
+              @select="handleSelectItem"
+              @deselect="handleDeselectItem"
+            />
+          </template>
+        </CategorySelectionLayout>
+      </div>
+
+      <!-- 自定义物品区域 -->
+      <div class="custom-area">
+        <MoneyExchangeCard />
+        <CustomItemForm ref="customItemFormRef" @add="handleAddCustomItem" />
+      </div>
+
+      <!-- 下半部分：已选面板 -->
+      <div class="summary-area">
+        <SelectedPanel
+          :equipments="characterStore.selectedEquipments"
+          :items="characterStore.selectedItems"
+          :assets="characterStore.selectedAssets"
+          :skills="characterStore.selectedSkills"
+          @remove="handleRemoveFromPanel"
+          @edit-custom="handleEditCustomItem"
+          @clear="handleClearAll"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.selections-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+// 上半部分：选择区域
+.selection-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .selections-container {
+    gap: var(--spacing-md);
+  }
+}
+</style>

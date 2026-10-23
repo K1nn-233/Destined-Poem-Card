@@ -1,0 +1,111 @@
+<%_ {
+// 这是“神选者”的自定义配置文件，需要修改的部分用数字符号标出了
+
+// 使用方法很简单：
+// 0. 先启用这个条目
+// 1. 决定要不要保留原版神明1️⃣
+// 2. 填写内容添加自定义神2️⃣（如果想添加多个神，则复制那一部分粘贴就行）
+
+// 自定义神列表
+const customGods = [];
+const signals = getMessageVar('stat_data.事件.信号', { defaults: [] });
+const hasGodChosen = Array.isArray(signals) && signals.some((sig) => typeof sig === 'string' && sig.startsWith('神选支线_'));
+
+// 1️⃣是否保留原版神明
+// true = 原版神明照常加入候选列表。
+// false = 只保留你下面自己写的神。
+const enableOriginalGods = true;
+
+// 每个神要完整写 5 项：
+// key：这位神的简称，建议简短，不要和别的神重复。
+// name：神选时展示给<user>看的完整名字。
+// dreamHint：梦里见到这位神时的气氛描述。
+// skillTheme：这位神赐予的神术偏向。
+// finalPrompt：最终阶段里，这位神对<user>说的话。
+
+// 现有神名(key)，不要重名：
+// 索拉莉娅、维里迪丝、卡拉什、弥菈、娜迦莎、金铎、艾希莉娅、泰珂、艾瑟拉、珂莱娅
+
+// 2️⃣参考示例在 // 前的引号内填写内容来添加一个神
+customGods.push({
+  key: "", // 例如 "霜烬"
+  name: "",  // 例如 "灰霜终主・伊瑟安"
+  dreamHint: "",  // 例如 "冰雪与余烬在静夜里一同坠落"
+  skillTheme: "",  // 例如 "寒霜、灰烬、终结与重燃"
+  finalPrompt: ""  // 例如 "祂将法阵刻入<user>脑海，要求<user>启动仪式，迎接祂降临阿斯塔利亚大陆"
+});
+
+
+// 想添加第二个、第三个神，就把上面部分复制粘贴一遍再写
+
+
+
+
+
+
+// 以下部分不要修改。
+if (!hasGodChosen) {
+  const extensionRegistry = getvar('事件.神选者.扩展神来源', { noCache: true, scope: 'local' });
+  const extensionSources = _.isObjectLike(extensionRegistry) ? extensionRegistry : {};
+  const extensionGods = [];
+
+  for (const sourceKey of Object.keys(extensionSources)) {
+    if (!sourceKey.startsWith('dlc_')) {
+      continue;
+    }
+
+    const sourceGods = extensionSources[sourceKey];
+    if (!Array.isArray(sourceGods)) {
+      continue;
+    }
+
+    extensionGods.push(...sourceGods);
+  }
+
+  const normalizeGod = (customGod) => {
+    if (!_.isObjectLike(customGod)) {
+      return null;
+    }
+
+    const normalizedCustomGod = {
+      key: _.trim(customGod.key || ''),
+      name: _.trim(customGod.name || ''),
+      dreamHint: _.trim(customGod.dreamHint || ''),
+      skillTheme: _.trim(customGod.skillTheme || ''),
+      finalPrompt: _.trim(customGod.finalPrompt || '')
+    };
+
+    if (!normalizedCustomGod.key || !normalizedCustomGod.name || !normalizedCustomGod.dreamHint || !normalizedCustomGod.skillTheme || !normalizedCustomGod.finalPrompt) {
+      return null;
+    }
+
+    return normalizedCustomGod;
+  };
+
+  const normalizedCustomGodMap = new Map();
+
+  for (const extensionGod of extensionGods) {
+    const normalizedExtensionGod = normalizeGod(extensionGod);
+    if (!normalizedExtensionGod) {
+      continue;
+    }
+
+    normalizedCustomGodMap.set(normalizedExtensionGod.key, normalizedExtensionGod);
+  }
+
+  for (const customGod of customGods) {
+    const normalizedCustomGod = normalizeGod(customGod);
+    if (!normalizedCustomGod) {
+      continue;
+    }
+
+    normalizedCustomGodMap.set(normalizedCustomGod.key, normalizedCustomGod);
+  }
+
+  const normalizedCustomGods = Array.from(normalizedCustomGodMap.values());
+
+  setvar('事件.神选者.启用原版神明', enableOriginalGods, { scope: 'local' });
+  setvar('事件.神选者.自定义神列表', normalizedCustomGods, { scope: 'local' });
+}
+
+} _%>

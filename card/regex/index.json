@@ -1,0 +1,174 @@
+[
+  {
+    "id": "1f619452-dea9-4361-afdc-852faf5ec6e2",
+    "scriptName": "[折叠]变量更新中",
+    "disabled": false,
+    "runOnEdit": false,
+    "findRegex": "/<update(?:variable)?>(?!.*<\\/update(?:variable)?>)\\s*(.*)\\s*$/gsi",
+    "trimStrings": [],
+    "replaceString": "<details>\n<summary>变量更新中{{random::.::..::...}}</summary>\n$1\n</details>",
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false
+  },
+  {
+    "id": "0245e58c-135f-476a-8b93-d6e0de8237c4",
+    "scriptName": "[折叠]完整变量更新",
+    "disabled": false,
+    "runOnEdit": false,
+    "findRegex": "/<update(?:variable)?>\\s*(.*)\\s*<\\/update(?:variable)?>/gsi",
+    "trimStrings": [],
+    "replaceString": "<details>\n<summary>变量更新情况</summary>\n$1\n</details>",
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false
+  },
+  {
+    "id": "7a26d129-d24f-41dc-bf1a-2b85c5459cae",
+    "scriptName": "[不发送]去除变量更新",
+    "disabled": false,
+    "runOnEdit": false,
+    "findRegex": "/<update(?:variable)?>(?:(?!.*<\\/update(?:variable)?>).*$|.*<\\/update(?:variable)?>)/gsi",
+    "trimStrings": [],
+    "replaceString": "",
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": false,
+    "promptOnly": true
+  },
+  {
+    "id": "43a3ebdb-20c4-47f8-8fc2-85c3510fa0bb",
+    "scriptName": "对 AI 隐藏状态栏",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "<StatusPlaceHolderImpl/>",
+    "trimStrings": [],
+    "replaceString": "",
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": false,
+    "promptOnly": true
+  },
+  {
+    "id": "09a2c244-435a-45c8-82d3-c4dc67648abc",
+    "scriptName": "防隐藏爆代码",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "<StatusPlaceHolderImpl/>",
+    "trimStrings": [],
+    "replaceString": "",
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": 3,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false
+  },
+  {
+    "id": "f84dd111-3c26-4f02-a365-aa6b92b6da13",
+    "scriptName": "状态栏",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "<StatusPlaceHolderImpl/>",
+    "trimStrings": [],
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": 2,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "frontendView": "status"
+  },
+  {
+    "id": "73844570-ac84-46d1-815a-d2c883a02f67",
+    "scriptName": "首页",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "【首页】",
+    "trimStrings": [],
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "frontendView": "home"
+  },
+  {
+    "id": "02af59f9-2429-4b56-ad17-e731cecdd3b3",
+    "scriptName": "自定义开局",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "<customized>\\s*(.*?)\\s*</customized>",
+    "trimStrings": [],
+    "placement": [
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": 1,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "frontendView": "custom_start"
+  },
+  {
+    "id": "c9472880-7a0a-4920-953c-d259de77ff8a",
+    "scriptName": "命运抽卡",
+    "disabled": false,
+    "runOnEdit": false,
+    "findRegex": "<state_bar>([\\s\\S]+?)</state_bar>",
+    "trimStrings": [],
+    "placement": [
+      1,
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "replacementFile": "card/regex/views/fate-gacha.html"
+  },
+  {
+    "id": "2756fc60-2856-4448-aede-21bd6090e7e6",
+    "scriptName": "战斗&生产制作美化",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "/<action_info>((?:(?!<\\/?action_info>)[\\s\\S])*?)<\\/action_info>/gs",
+    "trimStrings": [],
+    "placement": [
+      1,
+      2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": 10,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "replacementFile": "card/regex/views/battle-production.html"
+  }
+]

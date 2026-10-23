@@ -1,0 +1,216 @@
+@use '../../styles/variables' as *;
+
+.modal {
+  width: min(560px, calc(100vw - 32px));
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.subtitle {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--theme-text-secondary);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 84%, transparent);
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--theme-text-primary);
+}
+
+.presetTabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.presetTab {
+  display: inline-flex;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: transparent;
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible,
+  &.presetTabActive {
+    border-color: color-mix(in srgb, var(--theme-tab-indicator) 48%, var(--theme-card-border));
+    background: color-mix(in srgb, var(--theme-tab-indicator) 10%, transparent);
+    color: var(--theme-text-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-tab-indicator);
+    outline-offset: 1px;
+  }
+}
+
+.presetContent {
+  padding-top: $spacing-sm;
+  border-top: 1px solid color-mix(in srgb, var(--theme-card-border) 70%, transparent);
+}
+
+.presetList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.presetButton {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 64px;
+  min-height: 82px;
+  padding: 5px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: transparent;
+  color: var(--theme-text-primary);
+  font-size: 11px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--theme-tab-indicator);
+    background: color-mix(in srgb, var(--theme-tab-indicator) 10%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-tab-indicator);
+    outline-offset: 2px;
+  }
+
+  img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    object-fit: cover;
+  }
+}
+
+.linkRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: $spacing-sm;
+  align-items: center;
+}
+
+.linkInput {
+  width: 100%;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 76%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-window-bg) 22%, transparent);
+  color: var(--theme-text-primary);
+  font-size: 13px;
+  line-height: 1.4;
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: color-mix(in srgb, var(--theme-tab-indicator) 72%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-tab-indicator) 14%, transparent);
+  }
+}
+
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 88%, transparent);
+  color: var(--theme-text-primary);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    transform $transition-fast,
+    opacity $transition-fast;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in srgb, var(--theme-card-bg) 84%, var(--theme-text-primary) 4%);
+    border-color: color-mix(in srgb, var(--theme-card-border) 90%, transparent);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+  }
+}
+
+.actionButtonDanger {
+  color: var(--theme-error-text);
+}
+
+.fileInput {
+  display: none;
+}
+
+@media (max-width: 540px) {
+  .modal {
+    width: min(100vw - 20px, 520px);
+  }
+
+  .linkRow {
+    grid-template-columns: 1fr;
+  }
+
+  .actionButton {
+    width: 100%;
+  }
+
+  .footerActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

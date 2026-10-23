@@ -1,0 +1,1250 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "tavern-helper": {
+      "repository": "N0VI028/JS-Slash-Runner",
+      "ref": "main",
+      "commit": "1292dbfa0f16943f70d55cfdf3bb5a0ce690ef8b",
+      "fetchedAt": "2026-10-23T12:29:39.865Z",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "酒馆助手 4.11.3 完整函数与 iframe API 声明；运行接口以此固定提交为准。",
+      "files": {
+        "@types/function/audio.d.ts": {
+          "sha256": "02c7ace1acbb1949037aca6f2156e4f109212dd6b9642a63d06934316b24c908",
+          "local": "references/upstream/tavern-helper/@types/function/audio.d.ts",
+          "bytes": 4072
+        },
+        "@types/function/builtin.d.ts": {
+          "sha256": "cc2d1006b92c6ab07266ea38271f5355a07195cb68417243446a30194aa73a8d",
+          "local": "references/upstream/tavern-helper/@types/function/builtin.d.ts",
+          "bytes": 2766
+        },
+        "@types/function/character.d.ts": {
+          "sha256": "5ce1ab959d6b77e084f3b3c39aba412e1d1209adc9286a13dd2bc86ab7eb3654",
+          "local": "references/upstream/tavern-helper/@types/function/character.d.ts",
+          "bytes": 7234
+        },
+        "@types/function/chat_message.d.ts": {
+          "sha256": "302930d6cc697321d0e1514d096dcd272a465fbc418f2190b41ddcffafc19327",
+          "local": "references/upstream/tavern-helper/@types/function/chat_message.d.ts",
+          "bytes": 9679
+        },
+        "@types/function/displayed_message.d.ts": {
+          "sha256": "fec1e5463e931e788c787d2a7263e24570ae42429ba04f4648779afe9a161bb1",
+          "local": "references/upstream/tavern-helper/@types/function/displayed_message.d.ts",
+          "bytes": 3026
+        },
+        "@types/function/extension.d.ts": {
+          "sha256": "8f465ba49481eec9786526e90c58321d7e4ae813b9732a77b64e51e64274593c",
+          "local": "references/upstream/tavern-helper/@types/function/extension.d.ts",
+          "bytes": 3513
+        },
+        "@types/function/generate.d.ts": {
+          "sha256": "cdc46ae5ee4aafc37c97382bcbdcc867cb6db52a080fa99fa10e8400e1480a09",
+          "local": "references/upstream/tavern-helper/@types/function/generate.d.ts",
+          "bytes": 19775
+        },
+        "@types/function/global.d.ts": {
+          "sha256": "d80f189038ab1aba7385764f629760fe7c7c8f0436024f06cbb52c39c2daabdd",
+          "local": "references/upstream/tavern-helper/@types/function/global.d.ts",
+          "bytes": 1169
+        },
+        "@types/function/import_raw.d.ts": {
+          "sha256": "436bd0f69cc9f1633389172fed30258eb402c9a9af45eef12411a2aa4cbffaa9",
+          "local": "references/upstream/tavern-helper/@types/function/import_raw.d.ts",
+          "bytes": 2252
+        },
+        "@types/function/index.d.ts": {
+          "sha256": "efc360240795db754b068d803ddd65a2f99f66dd78516d6de0bdf819496b9d36",
+          "local": "references/upstream/tavern-helper/@types/function/index.d.ts",
+          "bytes": 8542
+        },
+        "@types/function/inject.d.ts": {
+          "sha256": "315bbd3329cea8fe269e1d396948bd98f5c916787d9bd8c4f8cd0359015d71b0",
+          "local": "references/upstream/tavern-helper/@types/function/inject.d.ts",
+          "bytes": 1464
+        },
+        "@types/function/lorebook.d.ts": {
+          "sha256": "da35836080d2d95a63b7217f9c2550d29e843ec33012953a0fc3b296799c7883",
+          "local": "references/upstream/tavern-helper/@types/function/lorebook.d.ts",
+          "bytes": 2204
+        },
+        "@types/function/lorebook_entry.d.ts": {
+          "sha256": "e47a25ec0daa12124ef6304ee49f93ab23353673295c5da046a9aa1c0538555d",
+          "local": "references/upstream/tavern-helper/@types/function/lorebook_entry.d.ts",
+          "bytes": 2545
+        },
+        "@types/function/macro_like.d.ts": {
+          "sha256": "0b9bd09646f2e2692f51dbfdd9eade9c0efbb10f092d86de5ed681a1972eda0b",
+          "local": "references/upstream/tavern-helper/@types/function/macro_like.d.ts",
+          "bytes": 863
+        },
+        "@types/function/persona.d.ts": {
+          "sha256": "edcc00eff62629c2029a2d618ef5b3550939d3aad4fd16a231e51951304dfa26",
+          "local": "references/upstream/tavern-helper/@types/function/persona.d.ts",
+          "bytes": 5341
+        },
+        "@types/function/preset.d.ts": {
+          "sha256": "442ee5198e2135ad4fb3e689fbeeac1458f6c813dfc8a60e3d1e00157e0a5ea5",
+          "local": "references/upstream/tavern-helper/@types/function/preset.d.ts",
+          "bytes": 13672
+        },
+        "@types/function/raw_character.d.ts": {
+          "sha256": "0a0d9923bf01a52f57475588d5d50ac3a8343ef23bb39ab05b0416b7313ca1b0",
+          "local": "references/upstream/tavern-helper/@types/function/raw_character.d.ts",
+          "bytes": 3604
+        },
+        "@types/function/script.d.ts": {
+          "sha256": "85212926bc42224ae82ffca2dd86063cdc351863b3ae2e18ef407026e9b263d9",
+          "local": "references/upstream/tavern-helper/@types/function/script.d.ts",
+          "bytes": 2446
+        },
+        "@types/function/slash.d.ts": {
+          "sha256": "773543ca4ac5e231e7ba8dc1d22c779f980755bf57601b946369b63a718c4285",
+          "local": "references/upstream/tavern-helper/@types/function/slash.d.ts",
+          "bytes": 1208
+        },
+        "@types/function/tavern_regex.d.ts": {
+          "sha256": "dbc165d9ff73feb12abd5868f7dc7b42be9b865267be3014b429b97e3ed84673",
+          "local": "references/upstream/tavern-helper/@types/function/tavern_regex.d.ts",
+          "bytes": 4572
+        },
+        "@types/function/util.d.ts": {
+          "sha256": "12ad465ff717f86b259bb49cf32cc915fa938b3f632a980192edbea19419fd2b",
+          "local": "references/upstream/tavern-helper/@types/function/util.d.ts",
+          "bytes": 1233
+        },
+        "@types/function/variables.d.ts": {
+          "sha256": "45bc282ef55a070edcd6d659313f609fe38dae0650897c2fcf9243b00041ce1b",
+          "local": "references/upstream/tavern-helper/@types/function/variables.d.ts",
+          "bytes": 7404
+        },
+        "@types/function/version.d.ts": {
+          "sha256": "f512d3d436b96ccd1b17a4c67e6ac2912cd4b1121d8a9ce02315b9593667e0b7",
+          "local": "references/upstream/tavern-helper/@types/function/version.d.ts",
+          "bytes": 169
+        },
+        "@types/function/worldbook.d.ts": {
+          "sha256": "81f4ffd6127c82e70d4694896f0fd31c59ff49a084bfe41e76ac649dcaf27cd9",
+          "local": "references/upstream/tavern-helper/@types/function/worldbook.d.ts",
+          "bytes": 12231
+        },
+        "@types/iframe/event.d.ts": {
+          "sha256": "33deb24c14916ff0958898b7890ab69bd584d33261297dc0a57448011760cd8e",
+          "local": "references/upstream/tavern-helper/@types/iframe/event.d.ts",
+          "bytes": 21830
+        },
+        "@types/iframe/exported.ejstemplate.d.ts": {
+          "sha256": "55dc38589c2a01a01e162411af321c536d6cd142a18ce3ffb207d699d14fabe8",
+          "local": "references/upstream/tavern-helper/@types/iframe/exported.ejstemplate.d.ts",
+          "bytes": 4448
+        },
+        "@types/iframe/exported.mvu.d.ts": {
+          "sha256": "3590b3a1d74b1e021a1bc54953b66284c4c860918ec98c8418a54cac8069ef16",
+          "local": "references/upstream/tavern-helper/@types/iframe/exported.mvu.d.ts",
+          "bytes": 8070
+        },
+        "@types/iframe/exported.sillytavern.d.ts": {
+          "sha256": "eae4ed517b5ff493afca4581e191b212020088ad12577d699297efd0eb5ab0bb",
+          "local": "references/upstream/tavern-helper/@types/iframe/exported.sillytavern.d.ts",
+          "bytes": 26567
+        },
+        "@types/iframe/exported.tavernhelper.d.ts": {
+          "sha256": "3ce05ebcbedee09da964156f506ac1191fa1477b7e07b876b705aa58891e69a3",
+          "local": "references/upstream/tavern-helper/@types/iframe/exported.tavernhelper.d.ts",
+          "bytes": 296
+        },
+        "@types/iframe/script.d.ts": {
+          "sha256": "b3eefce598b3eefe03aa598e2d76b97922b058a3551a8fdd37265743fc8e9f11",
+          "local": "references/upstream/tavern-helper/@types/iframe/script.d.ts",
+          "bytes": 2719
+        },
+        "@types/iframe/util.d.ts": {
+          "sha256": "57939734be3b0728bf502f0c6713727920391dfa3c3f7ad834dc8ee8a2523ab0",
+          "local": "references/upstream/tavern-helper/@types/iframe/util.d.ts",
+          "bytes": 1621
+        },
+        "@types/iframe/variables.d.ts": {
+          "sha256": "b85166d18310f84d6fcd68ff5a9957170a53d655a507e97587a15f79d720c902",
+          "local": "references/upstream/tavern-helper/@types/iframe/variables.d.ts",
+          "bytes": 510
+        },
+        "LICENSE": {
+          "sha256": "ffcca38841adb694b6f380647e15f17c446a4d1656fed51a1e2041d064c94cc8",
+          "local": "references/upstream/tavern-helper/LICENSE",
+          "bytes": 4563
+        },
+        "README.md": {
+          "sha256": "29bda66923fe1f63ef50e32d181d066c7f44aa85b17fa50271052d60cc0f582b",
+          "local": "references/upstream/tavern-helper/README.md",
+          "bytes": 3033
+        },
+        "package.json": {
+          "sha256": "e0a09adbf05d76254f5749f265d460f330f96a49a1ad43f7f846c460cf48b5a2",
+          "local": "references/upstream/tavern-helper/package.json",
+          "bytes": 2764
+        }
+      }
+    },
+    "tavern-helper-docs": {
+      "repository": "N0VI028/JS-Slash-Runner-Doc",
+      "ref": "main",
+      "commit": "08c81a21147498ce0de6f18cbfffc28a364ca27c",
+      "fetchedAt": "2026-10-23T12:29:40.804Z",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "N0VI028/JS-Slash-Runner-Doc 在该提交没有 LICENSE 文件（GitHub license API 返回 404），许可证按上游实际情况记为 NOASSERTION"
+      },
+      "licenseFile": null,
+      "note": "酒馆助手中文文档。",
+      "files": {
+        "README.md": {
+          "sha256": "a441e1b67d818a55b4dbbadffc9db2441a13cf201cac1ef2320c699e6e30cc15",
+          "local": "references/upstream/tavern-helper-docs/README.md",
+          "bytes": 25
+        },
+        "src/guide/功能详情/世界书/修改世界书.md": {
+          "sha256": "76effceb11f297c020b1526021596b6f0d7ec23711eaa61c9e28698c4ff1d696",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/世界书/修改世界书.md",
+          "bytes": 7468
+        },
+        "src/guide/功能详情/世界书/创建世界书.md": {
+          "sha256": "596c8caa821d680ee747c1a269787ae8d1316f1fddf98affaad0a43bb6283ca3",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/世界书/创建世界书.md",
+          "bytes": 1804
+        },
+        "src/guide/功能详情/世界书/删除世界书.md": {
+          "sha256": "b8b1dc99017011a49040b7ec2be809f1079ee5adcec7530c74ac1a9e7d591e1f",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/世界书/删除世界书.md",
+          "bytes": 693
+        },
+        "src/guide/功能详情/世界书/导入或更新世界书.md": {
+          "sha256": "2517796108eb60cabb4100c9ece5282349915d74db450d352478c1aec706d084",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/世界书/导入或更新世界书.md",
+          "bytes": 946
+        },
+        "src/guide/功能详情/世界书/获取世界书.md": {
+          "sha256": "a5515fe56fd48c7cf9bfe4a69a8cb7d784b96a4a7ec5249af86108de5da0f52a",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/世界书/获取世界书.md",
+          "bytes": 5873
+        },
+        "src/guide/功能详情/变量/变量类型.md": {
+          "sha256": "5c30fc64a60b866fdf4d017a578fbb28137338879e73b9d8d7cf40a956d62291",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/变量/变量类型.md",
+          "bytes": 4529
+        },
+        "src/guide/功能详情/变量/替换或修改变量.md": {
+          "sha256": "f3ee80cf1f8f652fe1b4f7bc7abcb801250132bfa95b2d90421f1a8c8aee8db2",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/变量/替换或修改变量.md",
+          "bytes": 4900
+        },
+        "src/guide/功能详情/变量/注册变量结构.md": {
+          "sha256": "d8609225088b3c56c414d552480e895307d565f4764839ae2610fff1ae002ece",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/变量/注册变量结构.md",
+          "bytes": 1582
+        },
+        "src/guide/功能详情/变量/获取变量.md": {
+          "sha256": "93dd03723c8b52a6f9c4c3c44b9995e204d6e81dfad7ab597ccf54e918a1c692",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/变量/获取变量.md",
+          "bytes": 3260
+        },
+        "src/guide/功能详情/楼层消息/修改消息.md": {
+          "sha256": "36b63fe92b543bf725c33dcffd0ea423b9ef837839bfc5605dcff338bcc405fe",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/楼层消息/修改消息.md",
+          "bytes": 4002
+        },
+        "src/guide/功能详情/楼层消息/创建消息.md": {
+          "sha256": "a69a2d6b2e4e3439ff2a8a74ffa45a24cf99fe31a94065c3f74d6ba376cb77ab",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/楼层消息/创建消息.md",
+          "bytes": 2612
+        },
+        "src/guide/功能详情/楼层消息/删除消息.md": {
+          "sha256": "b408b8dd6664002e389377e856b94afa8e7b1ce0606b78cde39d27796fa688cd",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/楼层消息/删除消息.md",
+          "bytes": 1555
+        },
+        "src/guide/功能详情/楼层消息/渲染消息.md": {
+          "sha256": "c5b48da419f153081f78b3d74633011d781a9316307b967b3f6f69fc482a0ebe",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/楼层消息/渲染消息.md",
+          "bytes": 5788
+        },
+        "src/guide/功能详情/楼层消息/获取消息.md": {
+          "sha256": "4d72c554b9245f4301685eb5c47e8930b73793a0ad270a23bf63a174f350119a",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/楼层消息/获取消息.md",
+          "bytes": 3625
+        },
+        "src/guide/功能详情/注入提示词.md": {
+          "sha256": "f899c335a4b1ccd5e45043fa133224dd79d8f63cdd917b071e99dbcf784a0358",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/注入提示词.md",
+          "bytes": 2077
+        },
+        "src/guide/功能详情/监听和发送事件.md": {
+          "sha256": "de45af959643eeb01f6021aff066dff2836c9eac9749645447a1958aed0a0327",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/监听和发送事件.md",
+          "bytes": 8823
+        },
+        "src/guide/功能详情/访问酒馆接口或其他插件.md": {
+          "sha256": "67a5ec0b78ba1bfdaac668b0e788741a9e55eef070e8f89d308c9cc2a61e2f99",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/访问酒馆接口或其他插件.md",
+          "bytes": 3852
+        },
+        "src/guide/功能详情/请求生成.md": {
+          "sha256": "ce429273a75ad2b2b18ff49ba92449d89d2a0525cb5654d3569962012d87ba07",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/请求生成.md",
+          "bytes": 23093
+        },
+        "src/guide/功能详情/酒馆助手宏.md": {
+          "sha256": "f782dec644911299ee718928622e07153ee5b156c44f697a6588b0685e0c2266",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/酒馆助手宏.md",
+          "bytes": 4108
+        },
+        "src/guide/功能详情/酒馆助手脚本/创建和修改脚本.md": {
+          "sha256": "dc076efdeb4a481979a15716cbd82f6b58fa7198d9a335a136e461cb8ee3d4bb",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/酒馆助手脚本/创建和修改脚本.md",
+          "bytes": 9901
+        },
+        "src/guide/功能详情/酒馆助手脚本/获取脚本.md": {
+          "sha256": "2bbf1efab0d58c82bb24e30b7819fe9be682dd1e353857cacd1592ed7a30a9d3",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/酒馆助手脚本/获取脚本.md",
+          "bytes": 5925
+        },
+        "src/guide/功能详情/酒馆正则/创建和修改正则.md": {
+          "sha256": "14e3ed735dfce427e171a358dae6f0c261898dbb51a4556c5b2965e64dd8ace2",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/酒馆正则/创建和修改正则.md",
+          "bytes": 7665
+        },
+        "src/guide/功能详情/酒馆正则/获取正则.md": {
+          "sha256": "cd14e77218bd6a53248cf3f81089206459eef717883456dfa25f992e0c39300e",
+          "local": "references/upstream/tavern-helper-docs/src/guide/功能详情/酒馆正则/获取正则.md",
+          "bytes": 6609
+        },
+        "src/guide/基本用法/渲染器.md": {
+          "sha256": "a685e604f7159a34df84a8b3552e6108d3a3e0589a0801f69505af54b4fb051e",
+          "local": "references/upstream/tavern-helper-docs/src/guide/基本用法/渲染器.md",
+          "bytes": 4112
+        },
+        "src/guide/基本用法/脚本库.md": {
+          "sha256": "ff386c6aea0f5f0fcecf7bb963dca5ea377ce393faf8684720b0a922c700ebf0",
+          "local": "references/upstream/tavern-helper-docs/src/guide/基本用法/脚本库.md",
+          "bytes": 2764
+        }
+      }
+    },
+    "sillytavern": {
+      "repository": "SillyTavern/SillyTavern",
+      "ref": "1.19.0",
+      "commit": "7e8663cd9c184a550b37238218bdd32c6efc68e9",
+      "fetchedAt": "2026-10-23T12:29:42.069Z",
+      "license": {
+        "spdx": "AGPL-3.0",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "项目锁定的 SillyTavern 1.19.0 官方源码；宏、世界书、正则及角色卡解析实现。",
+      "files": {
+        "LICENSE": {
+          "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+          "local": "references/upstream/sillytavern/LICENSE",
+          "bytes": 34523
+        },
+        "package.json": {
+          "sha256": "5b6e0634a63872c33603bf803217613a388f2e5dbd5990f7b30d254bfbf027c2",
+          "local": "references/upstream/sillytavern/package.json",
+          "bytes": 5941
+        },
+        "public/script.js": {
+          "sha256": "955c603d0bad84bac5a716f0818d85c2543e44d4c43878e0d63ef1e55ca91855",
+          "local": "references/upstream/sillytavern/public/script.js",
+          "bytes": 497669
+        },
+        "public/scripts/PromptManager.js": {
+          "sha256": "b0054793b763d92b265f5f487645b68b4eca0867cb5ad6b5deb1034004b2c1cc",
+          "local": "references/upstream/sillytavern/public/scripts/PromptManager.js",
+          "bytes": 90717
+        },
+        "public/scripts/extensions/regex/engine.js": {
+          "sha256": "091bb3402a12552cf1754d6e4d2b44df38d3553aa374539896c716e78905d350",
+          "local": "references/upstream/sillytavern/public/scripts/extensions/regex/engine.js",
+          "bytes": 16189
+        },
+        "public/scripts/extensions/regex/index.js": {
+          "sha256": "7a43b7d6e40a1b6f38a8a7c53a4d552e1aa56c4a13e893224fddf79b663ecb7f",
+          "local": "references/upstream/sillytavern/public/scripts/extensions/regex/index.js",
+          "bytes": 85485
+        },
+        "public/scripts/macros.js": {
+          "sha256": "1926c394e22a35827f594a4c4bfb044ed4c80dcc911680875991a880f8e53f11",
+          "local": "references/upstream/sillytavern/public/scripts/macros.js",
+          "bytes": 27109
+        },
+        "public/scripts/macros/definitions/chat-macros.js": {
+          "sha256": "0e5c005533b64e8a93bc0cff4e58bc33a9710db49b5cb279b2e1451e9d31f4e0",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/chat-macros.js",
+          "bytes": 5207
+        },
+        "public/scripts/macros/definitions/core-macros.js": {
+          "sha256": "a45ced11240d0174b75f1cc31a17c4670236e96be92a7d2264cf9a0802c37a7f",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/core-macros.js",
+          "bytes": 21290
+        },
+        "public/scripts/macros/definitions/env-macros.js": {
+          "sha256": "14ff92d8ee9fe12d3ded8914b714cea239342d458dbe6f5be32f00c6d2f1da58",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/env-macros.js",
+          "bytes": 8485
+        },
+        "public/scripts/macros/definitions/instruct-macros.js": {
+          "sha256": "2c2bce3ec27ca24469ee2eb6ea09077e79e98037e3dc42940951f5a81743b75f",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/instruct-macros.js",
+          "bytes": 4957
+        },
+        "public/scripts/macros/definitions/state-macros.js": {
+          "sha256": "6e21a98c580e4c79e95aafa2ffec048f3296f2a7a5c0ff3a60bcae3a7e5073b8",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/state-macros.js",
+          "bytes": 2180
+        },
+        "public/scripts/macros/definitions/time-macros.js": {
+          "sha256": "cee858a3549285f2b4239c8941b54eb02863bea0dbc8ccfc07aec40ba83f3e06",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/time-macros.js",
+          "bytes": 5534
+        },
+        "public/scripts/macros/definitions/variable-macros.js": {
+          "sha256": "ea6ce2cc4595440c55e7921147cff1a17004236241ad5add4a84d82372ed179c",
+          "local": "references/upstream/sillytavern/public/scripts/macros/definitions/variable-macros.js",
+          "bytes": 16951
+        },
+        "public/scripts/macros/engine/MacroBrowser.js": {
+          "sha256": "ba5e6be53b52641e878bca8204d69e866d85c8ca8890f87db018f3a84ebd960f",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroBrowser.js",
+          "bytes": 25595
+        },
+        "public/scripts/macros/engine/MacroCstWalker.js": {
+          "sha256": "52e9fd2af42d6b54dfbd7ce9e8dc12390e210d4a4921fed55c8a589292cdb766",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroCstWalker.js",
+          "bytes": 58231
+        },
+        "public/scripts/macros/engine/MacroDiagnostics.js": {
+          "sha256": "35db082a5f8b44b599118b641088d068de6fc456c477703ea10f28a9396a6c72",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroDiagnostics.js",
+          "bytes": 9079
+        },
+        "public/scripts/macros/engine/MacroEngine.js": {
+          "sha256": "267a4f8dea81854b825aaf0423d90a0a9d48d3a123ea118bbac11c9ca5121c4b",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroEngine.js",
+          "bytes": 16723
+        },
+        "public/scripts/macros/engine/MacroEnv.types.js": {
+          "sha256": "143d10868052c8d773a1d244d5ee6ec4393665022396cae959b0b28a58051738",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroEnv.types.js",
+          "bytes": 2365
+        },
+        "public/scripts/macros/engine/MacroEnvBuilder.js": {
+          "sha256": "95a3cfef74e2987120dfe124ae876339d99d75c950293106c9a671ef77498506",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroEnvBuilder.js",
+          "bytes": 8479
+        },
+        "public/scripts/macros/engine/MacroFlags.js": {
+          "sha256": "dfa56918fdc78648baad8343fba77d98d7bf80aec244d4ac97d4a77952cb767c",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroFlags.js",
+          "bytes": 7348
+        },
+        "public/scripts/macros/engine/MacroLexer.js": {
+          "sha256": "b213046d93b21a4a024b97145628f1f7c25d759578e64fbbf1605f30fc636d08",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroLexer.js",
+          "bytes": 19916
+        },
+        "public/scripts/macros/engine/MacroParser.js": {
+          "sha256": "e0f94a641c4fd7ec41e75c363303e56f34f297959413f419f9328058c4221f11",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroParser.js",
+          "bytes": 10003
+        },
+        "public/scripts/macros/engine/MacroRegistry.js": {
+          "sha256": "d02328f1886e896d328a5603b9a135ebaf68fd0746070e2634b697857de283f2",
+          "local": "references/upstream/sillytavern/public/scripts/macros/engine/MacroRegistry.js",
+          "bytes": 39325
+        },
+        "public/scripts/openai.js": {
+          "sha256": "0b77c30282825540265d5a09e681e5ccacf6760b05111ec880ffe237a9250604",
+          "local": "references/upstream/sillytavern/public/scripts/openai.js",
+          "bytes": 307267
+        },
+        "public/scripts/slash-commands.js": {
+          "sha256": "3da6aa888a52d09fd5d54eadee1724b7c3b7dbc208a3d56fe98c7d23d86fcde3",
+          "local": "references/upstream/sillytavern/public/scripts/slash-commands.js",
+          "bytes": 295254
+        },
+        "public/scripts/world-info.js": {
+          "sha256": "111c7f47945839e75b021e09bdbb112a54f0a9b7857d2b95435f573efc7cd9a5",
+          "local": "references/upstream/sillytavern/public/scripts/world-info.js",
+          "bytes": 265081
+        },
+        "src/character-card-parser.js": {
+          "sha256": "b74541cd54bb3fe3ab39b3e040f6dba824b263ed9344e4dcf98363e4e148e07c",
+          "local": "references/upstream/sillytavern/src/character-card-parser.js",
+          "bytes": 3284
+        },
+        "src/charx.js": {
+          "sha256": "92e0045ff69691057cca55b7514f2bdd3615cf5ab35bf11be3231709669e6680",
+          "local": "references/upstream/sillytavern/src/charx.js",
+          "bytes": 14377
+        },
+        "src/endpoints/characters.js": {
+          "sha256": "3235555529e9ff17ecc2ebe9168b0af77fe6ef5947f3d1f7de3df6d5f2567d89",
+          "local": "references/upstream/sillytavern/src/endpoints/characters.js",
+          "bytes": 68637
+        },
+        "src/endpoints/worldinfo.js": {
+          "sha256": "1c7bcf4fc54b41beaaa69a88f0398978be048d735a15891e93691930d31991d2",
+          "local": "references/upstream/sillytavern/src/endpoints/worldinfo.js",
+          "bytes": 5336
+        },
+        "src/types/spec-v2.d.ts": {
+          "sha256": "149af5da97e756be1623fa2ff008e83ab37384b17df4d94b4e9b37ffa2a1de23",
+          "local": "references/upstream/sillytavern/src/types/spec-v2.d.ts",
+          "bytes": 1220
+        },
+        "src/validator/TavernCardValidator.js": {
+          "sha256": "a0eba17805b004f5ab6927393e1f16fc1b4b6cd128d905046ece72f66673e1d4",
+          "local": "references/upstream/sillytavern/src/validator/TavernCardValidator.js",
+          "bytes": 4561
+        },
+        "tests/tavern-card-validator.test.js": {
+          "sha256": "74cb00078f2ab7bb4f2a27712edf50bf071395015442f96503fb6d895cb962e7",
+          "local": "references/upstream/sillytavern/tests/tavern-card-validator.test.js",
+          "bytes": 8835
+        }
+      }
+    },
+    "sillytavern-docs": {
+      "repository": "SillyTavern/SillyTavern-Docs",
+      "ref": "main",
+      "commit": "ed5423d809c6b10b8c1e9ef4a0c8ddc7f2ef7f3d",
+      "fetchedAt": "2026-10-23T12:29:42.424Z",
+      "license": {
+        "spdx": "AGPL-3.0",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "SillyTavern 官方文档：宏、世界书、角色、聊天、正则。",
+      "files": {
+        "LICENSE": {
+          "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+          "local": "references/upstream/sillytavern-docs/LICENSE",
+          "bytes": 34523
+        },
+        "LicenseCredits.md": {
+          "sha256": "00e301fd89b498fe628ce3e2d3ed041c0b110ddc599856104e3ad885881b57ce",
+          "local": "references/upstream/sillytavern-docs/LicenseCredits.md",
+          "bytes": 1002
+        },
+        "Usage/Characters/Author's-Note.md": {
+          "sha256": "f0579fb343d39d920246513d5241fc744246edca1318c96939f4324639255b6c",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/Author's-Note.md",
+          "bytes": 2687
+        },
+        "Usage/Characters/characterdesign.md": {
+          "sha256": "20ff6cdbb2f405cdc62fa1406ff955ac5c1f47ddcabc32e7ceb6b2f22d41b3ed",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/characterdesign.md",
+          "bytes": 10860
+        },
+        "Usage/Characters/chatfilemanagement.md": {
+          "sha256": "3a747be3ad998fe260b0a99d3857dbe3149de4deca2d398c85f45fd3a14e2bdc",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/chatfilemanagement.md",
+          "bytes": 2897
+        },
+        "Usage/Characters/data-bank.md": {
+          "sha256": "e6125eb63ac3183a73fcad53b2d525d6660f36c819f9f513f5107ae3295c309d",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/data-bank.md",
+          "bytes": 14803
+        },
+        "Usage/Characters/groupchats.md": {
+          "sha256": "a727f87a112d79ba0972bcdebe94e713dae18f525e1bd2e493e21e1a150c8c0b",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/groupchats.md",
+          "bytes": 5931
+        },
+        "Usage/Characters/index.md": {
+          "sha256": "918dac3f3044e0f13131995604c0746723e3fed39d46cc0123c3185e084dc437",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/index.md",
+          "bytes": 4918
+        },
+        "Usage/Characters/tags.md": {
+          "sha256": "ed925234120fd82be429802095459881a352050caaff59155b28f3b33ac33d51",
+          "local": "references/upstream/sillytavern-docs/Usage/Characters/tags.md",
+          "bytes": 4419
+        },
+        "Usage/Chatting/hotkeys.md": {
+          "sha256": "52538a7e20679790f0027edeb5e7c603b0de8fc48df6b61b699549e271a47f81",
+          "local": "references/upstream/sillytavern-docs/Usage/Chatting/hotkeys.md",
+          "bytes": 1084
+        },
+        "Usage/Chatting/index.md": {
+          "sha256": "364341923fdc5bec860edc6ec2c25bc660c5d07aad22ab8e247a98d24288a2d0",
+          "local": "references/upstream/sillytavern-docs/Usage/Chatting/index.md",
+          "bytes": 9927
+        },
+        "Usage/Chatting/slashcommands.md": {
+          "sha256": "6d118635ad1a0a76ce62d8fb324784333d875f712c445be103cf443c8b566c14",
+          "local": "references/upstream/sillytavern-docs/Usage/Chatting/slashcommands.md",
+          "bytes": 829
+        },
+        "Usage/Prompts/prompt-manager.md": {
+          "sha256": "c78738b914215b16795d410b3f96bc6294450486b52be3c84da0605dcc355697",
+          "local": "references/upstream/sillytavern-docs/Usage/Prompts/prompt-manager.md",
+          "bytes": 10504
+        },
+        "Usage/macros.md": {
+          "sha256": "866dee2ec613f56e9c1c8d3008f93e936f2ee5c79fdf48a89537b71a326c6fc3",
+          "local": "references/upstream/sillytavern-docs/Usage/macros.md",
+          "bytes": 28372
+        },
+        "Usage/worldinfo.md": {
+          "sha256": "edbecf10ae920985d759f996af9f5ea9df720770ce5ebbb1c10ecd06a5396282",
+          "local": "references/upstream/sillytavern-docs/Usage/worldinfo.md",
+          "bytes": 30199
+        },
+        "extensions/Regex.md": {
+          "sha256": "a27a38bf0cb6bca5aefd8a5e655aa22cc9d3b99a177c5d844e631f994fe8f0bd",
+          "local": "references/upstream/sillytavern-docs/extensions/Regex.md",
+          "bytes": 11049
+        },
+        "readme.md": {
+          "sha256": "61fb86de39b266f29bf6a03d132ce13e4f905579c754c9c0c7e42aba82ecc198",
+          "local": "references/upstream/sillytavern-docs/readme.md",
+          "bytes": 6362
+        }
+      }
+    },
+    "prompt-template": {
+      "repository": "zonde306/ST-Prompt-Template",
+      "ref": "main",
+      "commit": "d6f520d149aba146305b0b781ddd691d449c28d2",
+      "fetchedAt": "2026-10-23T12:29:43.444Z",
+      "license": {
+        "spdx": "AGPL-3.0",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "EJS ST-Prompt-Template 1.17.9 固定提交：接口文档、函数实现与模板引擎；只读不执行。",
+      "files": {
+        "LICENSE": {
+          "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+          "local": "references/upstream/prompt-template/LICENSE",
+          "bytes": 34523
+        },
+        "README_CN.md": {
+          "sha256": "31b59a7dad77d0ba38999ec367bf8e96c6de04a7efa6f771361378238904ddcd",
+          "local": "references/upstream/prompt-template/README_CN.md",
+          "bytes": 3626
+        },
+        "docs/features_cn.md": {
+          "sha256": "600c7465e03e3b3f75361b95fbe7bbbeb4225fdf8055045711fd178f3044ed98",
+          "local": "references/upstream/prompt-template/docs/features_cn.md",
+          "bytes": 37929
+        },
+        "docs/reference_cn.md": {
+          "sha256": "aedb3310b107111372e8de7fed5eaac13df7f6f9a8bbc6291b567d4082b98e65",
+          "local": "references/upstream/prompt-template/docs/reference_cn.md",
+          "bytes": 40360
+        },
+        "include/reference_cn.js": {
+          "sha256": "37707077bb6cd00273a59a4de9d61a87c47e7de5df1a48342e370aec458ccc57",
+          "local": "references/upstream/prompt-template/include/reference_cn.js",
+          "bytes": 25145
+        },
+        "package.json": {
+          "sha256": "8c859650ab3d22a8e31af557c9a12c3196ab4413e6632c26133aa6548e0c3d00",
+          "local": "references/upstream/prompt-template/package.json",
+          "bytes": 1262
+        },
+        "src/3rdparty/ejs.js": {
+          "sha256": "66b3c84f33adbf154950e18cb55704062e3fa5e2f4e69001f6df296d11548d54",
+          "local": "references/upstream/prompt-template/src/3rdparty/ejs.js",
+          "bytes": 63459
+        },
+        "src/function/characters.ts": {
+          "sha256": "409b462a34873947c5b9f26fec078abd42c18b16c4b98491d014878b2359f0f7",
+          "local": "references/upstream/prompt-template/src/function/characters.ts",
+          "bytes": 4855
+        },
+        "src/function/chat.ts": {
+          "sha256": "60878de4f427e1f0fa84691a852a10896e10691ae47d866541b3de09b82000ad",
+          "local": "references/upstream/prompt-template/src/function/chat.ts",
+          "bytes": 5738
+        },
+        "src/function/ejs.ts": {
+          "sha256": "a5b1e8e45687fb53d128cdf817fe098d73e40b1a3d20d60f4fdc2c08f1aee69f",
+          "local": "references/upstream/prompt-template/src/function/ejs.ts",
+          "bytes": 26960
+        },
+        "src/function/faker.ts": {
+          "sha256": "bf6af5a8aa53f3ecaa0a8b6b2f17826ed867b2f68a2f3fe3b1e3fcc5fca93bb3",
+          "local": "references/upstream/prompt-template/src/function/faker.ts",
+          "bytes": 469
+        },
+        "src/function/hasher.ts": {
+          "sha256": "90f4ad3419eb3156a3d3a4260b3d66556401190b994b64a2e09af73b5359cea5",
+          "local": "references/upstream/prompt-template/src/function/hasher.ts",
+          "bytes": 1448
+        },
+        "src/function/inject.ts": {
+          "sha256": "04dca525b16ce33c393b9e349aee3c37e0ded48206a8eecc069ab93e819cb9de",
+          "local": "references/upstream/prompt-template/src/function/inject.ts",
+          "bytes": 4006
+        },
+        "src/function/json-patch.ts": {
+          "sha256": "bad188c6e8b62869155c3eadb48a4eb05110c5b258766a2bf5e5c6a1f45a96d9",
+          "local": "references/upstream/prompt-template/src/function/json-patch.ts",
+          "bytes": 6614
+        },
+        "src/function/presets.ts": {
+          "sha256": "7361c778624d804828149917ded49c74908dba32e9bbb4c9fe5a214499b71ca2",
+          "local": "references/upstream/prompt-template/src/function/presets.ts",
+          "bytes": 1598
+        },
+        "src/function/quickreply.ts": {
+          "sha256": "de43a137bb44457719960e90cc356b22027c83b63a742dc77103a0df283c05f0",
+          "local": "references/upstream/prompt-template/src/function/quickreply.ts",
+          "bytes": 1260
+        },
+        "src/function/regex.ts": {
+          "sha256": "1737ae865488dd20194a6e061e738d1d71e64cb6c777dd8d13af97bcb3bd3e42",
+          "local": "references/upstream/prompt-template/src/function/regex.ts",
+          "bytes": 9591
+        },
+        "src/function/variables.ts": {
+          "sha256": "0c0f671975195fefee6dcebce19fd59a2c36528fd7ab52419490b2c259d0db1c",
+          "local": "references/upstream/prompt-template/src/function/variables.ts",
+          "bytes": 33215
+        },
+        "src/function/worldinfo.ts": {
+          "sha256": "7681354d011b16c5bfaab01bba212651dfd42edcf1fd85b3aea089d03f8ea02f",
+          "local": "references/upstream/prompt-template/src/function/worldinfo.ts",
+          "bytes": 32817
+        }
+      }
+    },
+    "mvu": {
+      "repository": "MagicalAstrogy/MagVarUpdate",
+      "ref": "v0.196.0",
+      "commit": "d03b7dc8a6ebf9bd611c7e2dc91f3b35462deebc",
+      "fetchedAt": "2026-10-23T12:29:44.503Z",
+      "license": {
+        "spdx": "MIT",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "MVU beta v0.196.0 固定提交；变量初始化、JsonPatch/结构更新、请求、协议与类型；旧教程仅供对照，以实现为准。",
+      "files": {
+        "CHANGELOG.md": {
+          "sha256": "66de103182e28d961d2a8003f510a46f6792b3999635ae0b055487820f6300ff",
+          "local": "references/upstream/mvu/CHANGELOG.md",
+          "bytes": 23808
+        },
+        "LICENSE": {
+          "sha256": "47f7767a9980ac6664216671b531088a796df557a6bdffd23f4d8bac6af73c55",
+          "local": "references/upstream/mvu/LICENSE",
+          "bytes": 1070
+        },
+        "README.md": {
+          "sha256": "57e42b0d728020170b6aa33a9e0dd0bd450457bd33a1f935c20fb326981dbe5d",
+          "local": "references/upstream/mvu/README.md",
+          "bytes": 1283
+        },
+        "auto-imports.zod.d.ts": {
+          "sha256": "be8f95e71f0a917fd959ddc9b8666625312186aaaa2a24f0cf45cda9e0daf8cf",
+          "local": "references/upstream/mvu/auto-imports.zod.d.ts",
+          "bytes": 272
+        },
+        "doc/generate.md": {
+          "sha256": "baae9e4c32f06af9d598d83a08f9b9aeb5347a6bcdd1831c2ee0620017e6b600",
+          "local": "references/upstream/mvu/doc/generate.md",
+          "bytes": 28822
+        },
+        "doc/pi_multiprovider_integration.md": {
+          "sha256": "81ffef14003d874547ec6f29b3d70c38813c848557d1185732c4f57b5dbf6f45",
+          "local": "references/upstream/mvu/doc/pi_multiprovider_integration.md",
+          "bytes": 51122
+        },
+        "doc/request_scoped_worldinfo_filter.md": {
+          "sha256": "5491c9f250d0e0e7c85cdbc2325ca4f9f75b093149b8604f7f104a99276a1e8b",
+          "local": "references/upstream/mvu/doc/request_scoped_worldinfo_filter.md",
+          "bytes": 6046
+        },
+        "doc/stat_var.md": {
+          "sha256": "63d5956a4376e2ff90aad12cca24e57fd675af9a103bfc7e8498680e8e3564ad",
+          "local": "references/upstream/mvu/doc/stat_var.md",
+          "bytes": 8246
+        },
+        "doc/supplementary-tutorial.md": {
+          "sha256": "1b78038b8e481f46443dd9f6d88ba9ffae4bf7ed2006f29f7d56580e61a78f43",
+          "local": "references/upstream/mvu/doc/supplementary-tutorial.md",
+          "bytes": 35194
+        },
+        "doc/template.md": {
+          "sha256": "30b366c6c9c868d9793ce141b35bbef5ab4b2bbeac1d112bf7923b5f6784da2d",
+          "local": "references/upstream/mvu/doc/template.md",
+          "bytes": 11850
+        },
+        "doc/tutorial.md": {
+          "sha256": "3de93567236627e7750d02a1a8674571cc3eb7f9d8485b50c8515ffedf7fad54",
+          "local": "references/upstream/mvu/doc/tutorial.md",
+          "bytes": 17130
+        },
+        "global.d.ts": {
+          "sha256": "4bb2470b847a7a9174770f4d556ea2e5001a87027a2d34fbedd24b78d0291575",
+          "local": "references/upstream/mvu/global.d.ts",
+          "bytes": 1152
+        },
+        "package.json": {
+          "sha256": "3f3f2b2b0e05570ded30c6fe8452a5553e9ad428aa31f4d8e881655fc9c0d68c",
+          "local": "references/upstream/mvu/package.json",
+          "bytes": 5066
+        },
+        "src/function/character_override/index.ts": {
+          "sha256": "71cbe6ba27650937497484197dd56c3045e02af107bc72114407e0d19016be89",
+          "local": "references/upstream/mvu/src/function/character_override/index.ts",
+          "bytes": 22491
+        },
+        "src/function/character_override/schema.ts": {
+          "sha256": "14f292337d87d0f310f11273c6e52f6b3d0339d3681abdc54cb4f332449f7ec5",
+          "local": "references/upstream/mvu/src/function/character_override/schema.ts",
+          "bytes": 7389
+        },
+        "src/function/exported_events.ts": {
+          "sha256": "b7fa2a2a92643b894476c5ca8153a1a1178185fa505511a7b0a62f2c86023d9f",
+          "local": "references/upstream/mvu/src/function/exported_events.ts",
+          "bytes": 993
+        },
+        "src/function/function_call.ts": {
+          "sha256": "76625391f30bb8940969dfddb2199111f4e97ff17d626c5ccb0f955fdbcedab3",
+          "local": "references/upstream/mvu/src/function/function_call.ts",
+          "bytes": 20639
+        },
+        "src/function/global/index.ts": {
+          "sha256": "536308d4fb2297cd5c949a4acbd7a8af5088e8e409710e9450b707efaefde8db",
+          "local": "references/upstream/mvu/src/function/global/index.ts",
+          "bytes": 7805
+        },
+        "src/function/initvar/index.ts": {
+          "sha256": "23028baa3707f3c4e22147d84081f398969fefbdf138081e3bff14cd3292c727",
+          "local": "references/upstream/mvu/src/function/initvar/index.ts",
+          "bytes": 590
+        },
+        "src/function/initvar/variable_init.ts": {
+          "sha256": "d2b730788fc74723f9df29ebd02085cd142e1f7289c3b25fb85cbebab51470bf",
+          "local": "references/upstream/mvu/src/function/initvar/variable_init.ts",
+          "bytes": 15882
+        },
+        "src/function/is_extra_model_supported.ts": {
+          "sha256": "b54bf58da10220cd2ca36bd3350a899eb83a6932f6b06ab87eb3d72cdd099efa",
+          "local": "references/upstream/mvu/src/function/is_extra_model_supported.ts",
+          "bytes": 632
+        },
+        "src/function/is_function_calling_supported.ts": {
+          "sha256": "2d108deef88b5334917c04aac8dda3c33cac881b8348427e20180563bc924e1c",
+          "local": "references/upstream/mvu/src/function/is_function_calling_supported.ts",
+          "bytes": 970
+        },
+        "src/function/request/filter_entries.ts": {
+          "sha256": "51fe3a45477771380fa4aa592bac485869373c83615eb8e1d8014e8940fb3d23",
+          "local": "references/upstream/mvu/src/function/request/filter_entries.ts",
+          "bytes": 11403
+        },
+        "src/function/request/index.ts": {
+          "sha256": "d72f36fc74d6a100091279cb2f766e7ac90ab60124f810bc43f5979231a0c690",
+          "local": "references/upstream/mvu/src/function/request/index.ts",
+          "bytes": 1754
+        },
+        "src/function/request/worldinfo_request.ts": {
+          "sha256": "fad0d5d6a8a3da616a734422a7bd1ad2e619cb2fc553d4cb38588b7da9171b61",
+          "local": "references/upstream/mvu/src/function/request/worldinfo_request.ts",
+          "bytes": 6975
+        },
+        "src/function/request/worldinfo_scan.ts": {
+          "sha256": "d3e1d6c14701b99e9b622a024ca108b0f9745db716fe1603fa0b3955162f5110",
+          "local": "references/upstream/mvu/src/function/request/worldinfo_scan.ts",
+          "bytes": 9384
+        },
+        "src/function/schema.ts": {
+          "sha256": "e4b17f6f3f682fdc0e6f996706fbe39eb75875471215dd1ea48e56f422d1ae84",
+          "local": "references/upstream/mvu/src/function/schema.ts",
+          "bytes": 12755
+        },
+        "src/function/update/index.ts": {
+          "sha256": "b961cc743b39cbb04bf7d5c10470ee47e2753b1e14fb698c9cd0f1dc8263d1ad",
+          "local": "references/upstream/mvu/src/function/update/index.ts",
+          "bytes": 1787
+        },
+        "src/function/update/structured_update.ts": {
+          "sha256": "b1f5cfb53174fee0cf2ab4678fc8a7d9f430b6b9636c413ab8e498a368ac36f0",
+          "local": "references/upstream/mvu/src/function/update/structured_update.ts",
+          "bytes": 15026
+        },
+        "src/function/update_variables.ts": {
+          "sha256": "4e2e9a51ba33ea6e19a6f604466da67130a9b9d16ac0515b46df6849940395a3",
+          "local": "references/upstream/mvu/src/function/update_variables.ts",
+          "bytes": 76429
+        },
+        "src/prompts/README.md": {
+          "sha256": "c5308d59c879726d69a3cea5d1af56322fcb2747dabe5d2449a9a92b5f5b22cc",
+          "local": "references/upstream/mvu/src/prompts/README.md",
+          "bytes": 117
+        },
+        "src/prompts/claude_head.txt": {
+          "sha256": "f603fe2ee75cf84c1c284bb6571e986e3c8173cbf24296cb31df33c337c5c88f",
+          "local": "references/upstream/mvu/src/prompts/claude_head.txt",
+          "bytes": 2965
+        },
+        "src/prompts/claude_tail.txt": {
+          "sha256": "d5759f9978af90dce2e124794f758d8052c44050b583391841d41ccdff10178f",
+          "local": "references/upstream/mvu/src/prompts/claude_tail.txt",
+          "bytes": 777
+        },
+        "src/prompts/extra_model_task.txt": {
+          "sha256": "29196eea4834f3f9f719736650a1362d8ab9078d69270d6c41bd9f530c74a8df",
+          "local": "references/upstream/mvu/src/prompts/extra_model_task.txt",
+          "bytes": 1089
+        },
+        "src/prompts/gemini_head.txt": {
+          "sha256": "c99e4060a99cd4a00a16c78bd2216aa61dd7a323b9ecf4bb970d6c7a798291f4",
+          "local": "references/upstream/mvu/src/prompts/gemini_head.txt",
+          "bytes": 3185
+        },
+        "src/prompts/gemini_tail.txt": {
+          "sha256": "b004c484eb10e8b364bab1029e49e3661da9cf8ecf35472199cefd1e2b8bc634",
+          "local": "references/upstream/mvu/src/prompts/gemini_tail.txt",
+          "bytes": 493
+        },
+        "src/store.ts": {
+          "sha256": "74b8286b702b59a6bbf9d715e2836e3c1b016034b156339ad5f7213ea26b6189",
+          "local": "references/upstream/mvu/src/store.ts",
+          "bytes": 21064
+        },
+        "src/util.ts": {
+          "sha256": "35689f41f401478455eff417fa62fe4439aa1c6a6326b4fa3533a3633d8ade4b",
+          "local": "references/upstream/mvu/src/util.ts",
+          "bytes": 2177
+        },
+        "src/variable_def.ts": {
+          "sha256": "8ba03ce3d02a2b21ff5af214f01823bbec88e6f2cc33cf831c34a53ecbf3b21e",
+          "local": "references/upstream/mvu/src/variable_def.ts",
+          "bytes": 10415
+        },
+        "tests/helpers/json_patch_suite.ts": {
+          "sha256": "c73265c67af1f96fe1f670826163fb7a9f3d4c23e433997c8230783a019c6e07",
+          "local": "references/upstream/mvu/tests/helpers/json_patch_suite.ts",
+          "bytes": 11610
+        },
+        "tests/helpers/schema_suite.ts": {
+          "sha256": "5a0e853ca5898d7ed7cf8ded9c2b5ac4cc03534297a45cd48fe39b964fe6d549",
+          "local": "references/upstream/mvu/tests/helpers/schema_suite.ts",
+          "bytes": 36167
+        },
+        "tests/json_patch.test.ts": {
+          "sha256": "4c095a60276bd872bc84a65ed15cc9398e27eab9855b45135d4a89f6e25e3822",
+          "local": "references/upstream/mvu/tests/json_patch.test.ts",
+          "bytes": 165
+        },
+        "tests/variable_init.test.ts": {
+          "sha256": "f53a75ef55d1a7d3d1bc6c0d720119b466929d6d38334e3432b08c907b5c81ba",
+          "local": "references/upstream/mvu/tests/variable_init.test.ts",
+          "bytes": 7931
+        },
+        "util/README.md": {
+          "sha256": "1a495545cff3a41d0c00714ea1f62d96e57d534d85e168fe3f375a71fe89f0ca",
+          "local": "references/upstream/mvu/util/README.md",
+          "bytes": 131
+        }
+      }
+    },
+    "character-card-spec": {
+      "repository": "malfoyslastname/character-card-spec-v2",
+      "ref": "main",
+      "commit": "8083fb388615ccbce768e97cbbd49d2b3214632c",
+      "fetchedAt": "2026-10-23T12:29:44.860Z",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "malfoyslastname/character-card-spec-v2 在该提交没有 LICENSE 文件（GitHub license API 返回 404），许可证按上游实际情况记为 NOASSERTION"
+      },
+      "licenseFile": null,
+      "note": "社区角色卡规范 v2（chara_card_v2 字段）；该上游仓库没有 LICENSE 文件，许可证记为 NOASSERTION。v3 规范见独立来源 character-card-spec-v3。",
+      "files": {
+        "README.md": {
+          "sha256": "72121594c79626680ffcb0410a6c54273db2a01e05ffd64d855821b30afc7285",
+          "local": "references/upstream/character-card-spec/README.md",
+          "bytes": 17568
+        },
+        "keyword_definitions.md": {
+          "sha256": "6834ac5bc26f79d4a7001c28f6b4ba7d142bd34e1066f448c540196c672ae0a5",
+          "local": "references/upstream/character-card-spec/keyword_definitions.md",
+          "bytes": 335
+        },
+        "spec_v1.md": {
+          "sha256": "65a11460e8733f1529f87cacc47a27301dfe0392ea8a99f2a97099348a98e759",
+          "local": "references/upstream/character-card-spec/spec_v1.md",
+          "bytes": 3038
+        },
+        "spec_v2.md": {
+          "sha256": "e39e1da4f7a912c965af373846f4ac5c6cfb6207ea3fd5d542060905631acb46",
+          "local": "references/upstream/character-card-spec/spec_v2.md",
+          "bytes": 7446
+        }
+      }
+    },
+    "character-card-spec-v3": {
+      "repository": "kwaroran/character-card-spec-v3",
+      "ref": "main",
+      "commit": "f3a86af019fbd99f788f7a1155f399655b34ab35",
+      "fetchedAt": "2026-10-23T12:29:45.276Z",
+      "license": {
+        "spdx": "MIT",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "角色卡规范 v3（chara_card_v3）权威文本；上游 LICENSE 为 MIT 风格文本，由工具按原文识别。",
+      "files": {
+        ".gitignore": {
+          "sha256": "9a57a6b644c9603f48704e7a9b34e4d34fd07234c36715d75be2e203d9f43013",
+          "local": "references/upstream/character-card-spec-v3/.gitignore",
+          "bytes": 23
+        },
+        "LICENSE": {
+          "sha256": "9805dc6bf59dcf8d9eaedc8987f2798dc434bc3c8e6dafbbf23eb2147d74db95",
+          "local": "references/upstream/character-card-spec-v3/LICENSE",
+          "bytes": 1051
+        },
+        "README.md": {
+          "sha256": "6341479450f9095c39ee8b013bb38480e28d300a4beb3ea419e6424e912b4ff5",
+          "local": "references/upstream/character-card-spec-v3/README.md",
+          "bytes": 955
+        },
+        "SPEC_V3.md": {
+          "sha256": "3c472a16eeda5d018837e90d30fce2816b0982f07f4dba14c8fcc89aa11fe76c",
+          "local": "references/upstream/character-card-spec-v3/SPEC_V3.md",
+          "bytes": 48247
+        },
+        "concepts.md": {
+          "sha256": "1eee6af98f4ec4c8115bed3f23587373d5bceb927fe47930d9028d1b6a0dd7b3",
+          "local": "references/upstream/character-card-spec-v3/concepts.md",
+          "bytes": 9851
+        }
+      }
+    },
+    "tavern-resource": {
+      "repository": "StageDog/tavern_resource",
+      "ref": "v0.3.459",
+      "commit": "cc37b3b472ca5f7e7f7c7779298b59e2c078003b",
+      "fetchedAt": "2026-10-23T12:29:45.996Z",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "StageDog tavern_resource v0.3.459：mvu_zod 注册适配器源码与同提交产物，仅供查阅。",
+      "files": {
+        "LICENSE": {
+          "sha256": "ffcca38841adb694b6f380647e15f17c446a4d1656fed51a1e2041d064c94cc8",
+          "local": "references/upstream/tavern-resource/LICENSE",
+          "bytes": 4563
+        },
+        "dist/util/mvu_zod.js": {
+          "sha256": "e540ab99589ad83de1495056a84693bda00af92f8848926bcb9a53b9263a0302",
+          "local": "references/upstream/tavern-resource/dist/util/mvu_zod.js",
+          "bytes": 4607
+        },
+        "package.json": {
+          "sha256": "ac3a94597a369cc3f137454a94e4539ffbcf2b315d4d8e4ffd666b1a87e2bcfc",
+          "local": "references/upstream/tavern-resource/package.json",
+          "bytes": 3763
+        },
+        "util/common.ts": {
+          "sha256": "22f33f9501c3317d593b8aad4a8784fd67c62e7394042e5f04c6d78ce3b0e5ea",
+          "local": "references/upstream/tavern-resource/util/common.ts",
+          "bytes": 4544
+        },
+        "util/mvu_zod.ts": {
+          "sha256": "fbf796b744c13c2596a6d4856dbcf40319bef05704d6d7653a2f1e411141c696",
+          "local": "references/upstream/tavern-resource/util/mvu_zod.ts",
+          "bytes": 10911
+        }
+      }
+    },
+    "tavern-sync": {
+      "repository": "StageDog/tavern_sync",
+      "ref": "main",
+      "commit": "96c4eac86b68f372940e9dea98e1e33a8649a501",
+      "fetchedAt": "2026-10-23T12:29:48.901Z",
+      "license": {
+        "spdx": "NOASSERTION",
+        "source": "LICENSE"
+      },
+      "licenseFile": "LICENSE",
+      "note": "tavern_sync schema/type; only read as reference.",
+      "files": {
+        "LICENSE": {
+          "sha256": "ffcca38841adb694b6f380647e15f17c446a4d1656fed51a1e2041d064c94cc8",
+          "local": "references/upstream/tavern-sync/LICENSE",
+          "bytes": 4563
+        },
+        "README.md": {
+          "sha256": "5f91cb5700327f10438a9412ecb37ad6de7ea3be53ca01866b1204e539eaeee1",
+          "local": "references/upstream/tavern-sync/README.md",
+          "bytes": 871
+        },
+        "dist/schema/character.en.json": {
+          "sha256": "f52d866e4ac78722eb4d6e5aa121e834f316e487ee514468929b85411d5cc72a",
+          "local": "references/upstream/tavern-sync/dist/schema/character.en.json",
+          "bytes": 20084
+        },
+        "dist/schema/character.zh.json": {
+          "sha256": "f78d4086633ac72bfec0cd046e5e08f0308364da76702c95c82746f0714b22c9",
+          "local": "references/upstream/tavern-sync/dist/schema/character.zh.json",
+          "bytes": 19940
+        },
+        "dist/schema/preset.en.json": {
+          "sha256": "f82d54ea7f82e4efbf422439e3fc694179818adec3c0d61480d7a47ecc86dc07",
+          "local": "references/upstream/tavern-sync/dist/schema/preset.en.json",
+          "bytes": 20905
+        },
+        "dist/schema/preset.zh.json": {
+          "sha256": "6112339f26330e38cce8b091deaf7f5f91fbe3015b2f5833be6a60c415f72dff",
+          "local": "references/upstream/tavern-sync/dist/schema/preset.zh.json",
+          "bytes": 21059
+        },
+        "dist/schema/settings.en.json": {
+          "sha256": "aa10589cbfdf3c4c906454c5ca821986192ebe20d0b10f09182a5fcca3990bfd",
+          "local": "references/upstream/tavern-sync/dist/schema/settings.en.json",
+          "bytes": 1567
+        },
+        "dist/schema/settings.zh.json": {
+          "sha256": "dd2477049f9fa38026be510133b32b8f9c9bf4ff51f4609721e7c646074fbbe7",
+          "local": "references/upstream/tavern-sync/dist/schema/settings.zh.json",
+          "bytes": 1719
+        },
+        "dist/schema/worldbook.en.json": {
+          "sha256": "12c4fb54ae051d65988ce20b06d3f3b93554f241f4dba0eec80421e9ec8cd639",
+          "local": "references/upstream/tavern-sync/dist/schema/worldbook.en.json",
+          "bytes": 10710
+        },
+        "dist/schema/worldbook.zh.json": {
+          "sha256": "ee5ee6fa829ba91d1093cb51a99eb059eba227d17961d92930a5838253cc8f43",
+          "local": "references/upstream/tavern-sync/dist/schema/worldbook.zh.json",
+          "bytes": 10496
+        },
+        "dist/type/character.en.ts": {
+          "sha256": "a1e907abd3d74e06394131c827deb7257429c26ed6c4685b37cbaaf355cd697a",
+          "local": "references/upstream/tavern-sync/dist/type/character.en.ts",
+          "bytes": 1895
+        },
+        "dist/type/character.zh.ts": {
+          "sha256": "6d424a1a0de80a10d9b2af1a287553c3a718a5561482ff2a6f8b8535468c1798",
+          "local": "references/upstream/tavern-sync/dist/type/character.zh.ts",
+          "bytes": 2385
+        },
+        "dist/type/extensions.en.ts": {
+          "sha256": "0fe7cb1abbc914efe23374efe4c8d6f177cd4f01cda2a091b73cda3cc17ababe",
+          "local": "references/upstream/tavern-sync/dist/type/extensions.en.ts",
+          "bytes": 4286
+        },
+        "dist/type/extensions.zh.ts": {
+          "sha256": "80b8779bea15dd11bcc179284f0afdb4dfc8d67d56d42dce4749fb4723b6c994",
+          "local": "references/upstream/tavern-sync/dist/type/extensions.zh.ts",
+          "bytes": 5233
+        },
+        "dist/type/preset.en.ts": {
+          "sha256": "c3b6ff6409c7cd1ca87e18d848cd7cc9324d3e3d5ea847c733765f04609059d3",
+          "local": "references/upstream/tavern-sync/dist/type/preset.en.ts",
+          "bytes": 11063
+        },
+        "dist/type/preset.zh.ts": {
+          "sha256": "984ba53c21bcf945a1adedcd302be3dbef05b796572825f3c0cce9bcb69363be",
+          "local": "references/upstream/tavern-sync/dist/type/preset.zh.ts",
+          "bytes": 12812
+        },
+        "dist/type/settings.en.ts": {
+          "sha256": "c064dcf944c492589f9c5e5b4f57214e5da6f25b0e414f9ac6f6061f3fd68e38",
+          "local": "references/upstream/tavern-sync/dist/type/settings.en.ts",
+          "bytes": 2055
+        },
+        "dist/type/settings.zh.ts": {
+          "sha256": "5cd5bab3ecbf8108431c66c27e7f372daa1c0e226372b5e5993005af65fa61ab",
+          "local": "references/upstream/tavern-sync/dist/type/settings.zh.ts",
+          "bytes": 2803
+        },
+        "dist/type/worldbook.en.ts": {
+          "sha256": "6b978fdb81c5054f84a56310bc3d38e62bb98aa73995c12460582b7c2c715033",
+          "local": "references/upstream/tavern-sync/dist/type/worldbook.en.ts",
+          "bytes": 8780
+        },
+        "dist/type/worldbook.zh.ts": {
+          "sha256": "8855244177af1e950768be852def696ed934af5768b4191403742a357c24add8",
+          "local": "references/upstream/tavern-sync/dist/type/worldbook.zh.ts",
+          "bytes": 9870
+        },
+        "package.json": {
+          "sha256": "f5d8d34554210f9596fc090b474a367dc7441ecbc34f5ed51f3a69186ee8192e",
+          "local": "references/upstream/tavern-sync/package.json",
+          "bytes": 1396
+        },
+        "src/type/character.en.ts": {
+          "sha256": "a1e907abd3d74e06394131c827deb7257429c26ed6c4685b37cbaaf355cd697a",
+          "local": "references/upstream/tavern-sync/src/type/character.en.ts",
+          "bytes": 1895
+        },
+        "src/type/character.zh.ts": {
+          "sha256": "6d424a1a0de80a10d9b2af1a287553c3a718a5561482ff2a6f8b8535468c1798",
+          "local": "references/upstream/tavern-sync/src/type/character.zh.ts",
+          "bytes": 2385
+        },
+        "src/type/extensions.en.ts": {
+          "sha256": "0fe7cb1abbc914efe23374efe4c8d6f177cd4f01cda2a091b73cda3cc17ababe",
+          "local": "references/upstream/tavern-sync/src/type/extensions.en.ts",
+          "bytes": 4286
+        },
+        "src/type/extensions.zh.ts": {
+          "sha256": "80b8779bea15dd11bcc179284f0afdb4dfc8d67d56d42dce4749fb4723b6c994",
+          "local": "references/upstream/tavern-sync/src/type/extensions.zh.ts",
+          "bytes": 5233
+        },
+        "src/type/index.ts": {
+          "sha256": "5b5565c06406fee9b9806486a02833b41d3614fa86f4acb06412b8c75669c820",
+          "local": "references/upstream/tavern-sync/src/type/index.ts",
+          "bytes": 1256
+        },
+        "src/type/preset.en.ts": {
+          "sha256": "c3b6ff6409c7cd1ca87e18d848cd7cc9324d3e3d5ea847c733765f04609059d3",
+          "local": "references/upstream/tavern-sync/src/type/preset.en.ts",
+          "bytes": 11063
+        },
+        "src/type/preset.zh.ts": {
+          "sha256": "984ba53c21bcf945a1adedcd302be3dbef05b796572825f3c0cce9bcb69363be",
+          "local": "references/upstream/tavern-sync/src/type/preset.zh.ts",
+          "bytes": 12812
+        },
+        "src/type/settings.en.ts": {
+          "sha256": "c064dcf944c492589f9c5e5b4f57214e5da6f25b0e414f9ac6f6061f3fd68e38",
+          "local": "references/upstream/tavern-sync/src/type/settings.en.ts",
+          "bytes": 2055
+        },
+        "src/type/settings.zh.ts": {
+          "sha256": "5cd5bab3ecbf8108431c66c27e7f372daa1c0e226372b5e5993005af65fa61ab",
+          "local": "references/upstream/tavern-sync/src/type/settings.zh.ts",
+          "bytes": 2803
+        },
+        "src/type/worldbook.en.ts": {
+          "sha256": "6b978fdb81c5054f84a56310bc3d38e62bb98aa73995c12460582b7c2c715033",
+          "local": "references/upstream/tavern-sync/src/type/worldbook.en.ts",
+          "bytes": 8780
+        },
+        "src/type/worldbook.zh.ts": {
+          "sha256": "8855244177af1e950768be852def696ed934af5768b4191403742a357c24add8",
+          "local": "references/upstream/tavern-sync/src/type/worldbook.zh.ts",
+          "bytes": 9870
+        }
+      }
+    }
+  }
+}

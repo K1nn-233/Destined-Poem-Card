@@ -1,0 +1,334 @@
+<runtime_geo>
+<%_ {
+  const geoData = getLocalVar('runtime_geo_compact_data', { defaults: {} }) || {};
+  const places = Array.isArray(geoData.places) ? geoData.places : [];
+  const edges = Array.isArray(geoData.edges) ? geoData.edges : [];
+  const locationValue = getMessageVar('stat_data.世界.地点', { defaults: '' });
+  const query = Array.isArray(locationValue) ? locationValue.join(' ') : String(locationValue || '');
+
+  const normalizeText = value => String(value || '').trim().toLowerCase().replace(/\s+/g, '');
+  const splitLocationPath = value => String(value || '').split(/[-－—>＞/／,，、;；\n]+/).map(normalizeText).filter(Boolean);
+  const placeTextCandidates = place => [place.name || '', ...(place.keywords || [])].filter(v => String(v || '').trim()).map(String);
+  const reverseDirection = direction => {
+    const parts = String(direction || '').split('-').map(part => part.trim());
+    return parts.length === 2 && parts.every(Boolean) ? `${parts[1]}-${parts[0]}` : direction;
+  };
+  const shortSummary = place => String(_.get(place, 'description.brief') || _.get(place, 'description.detail') || '').trim();
+  const nodeLabel = (place, includeSummary = false) => {
+    if (includeSummary) {
+      const summary = shortSummary(place);
+      if (summary) return `${place.name}<br/>${summary}`;
+    }
+    return place.name;
+  };
+  const mermaidText = value => String(value || '').replace(/"/g, "'").replace(/\n+/g, '<br/>');
+  const edgeLabel = (segment, reversedOrder = false) => {
+    const parts = [];
+    if (segment.transport) parts.push(String(segment.transport));
+    if (Number.isFinite(segment.days)) parts.push(`${segment.days}d`);
+    else if (segment.days === null) parts.push('?d');
+    const terrain = (segment.terrain || []).filter(v => String(v || '').trim()).join('/');
+    if (terrain) parts.push(terrain);
+    let direction = String(segment.direction || '').trim();
+    if (direction) {
+      if (reversedOrder) direction = reverseDirection(direction);
+      parts.push(direction);
+    }
+    return parts.join(' ');
+  };
+
+  const placeById = _.keyBy(places.filter(place => place && place.id), 'id');
+  const parentChain = place => {
+    const chain = [];
+    const seen = new Set();
+    let current = place;
+    while (current && current.parent && !seen.has(current.parent) && placeById[current.parent]) {
+      seen.add(current.parent);
+      current = placeById[current.parent];
+      chain.push(current);
+    }
+    return chain;
+  };
+  const depth = place => parentChain(place).length;
+  const topScope = place => {
+    let current = place;
+    const seen = new Set();
+    while (current && current.parent && !seen.has(current.id)) {
+      seen.add(current.id);
+      const parent = placeById[current.parent];
+      if (!parent) break;
+      if (parent.id === 'continent') return current;
+      current = parent;
+    }
+    return current;
+  };
+  const matchPlace = text => {
+    const normalizedQuery = normalizeText(text);
+    if (!normalizedQuery) return null;
+    const segments = splitLocationPath(text);
+    const candidates = [];
+    for (const place of places) {
+      let best = null;
+      const placeDepth = depth(place);
+      const importance = Number(place.importance || 0);
+      for (const token of placeTextCandidates(place)) {
+        const normalizedToken = normalizeText(token);
+        if (!normalizedToken) continue;
+        const tokenLength = normalizedToken.length;
+        let score = null;
+        if (normalizedQuery === normalizedToken) {
+          score = [2, placeDepth, 4, segments.length, importance, tokenLength];
+        }
+
+        for (let index = 0; index < segments.length; index += 1) {
+          const segment = segments[index];
+          let segmentScore = null;
+          if (segment === normalizedToken) {
+            segmentScore = [2, placeDepth, 3, index, importance, tokenLength];
+          } else if (segment.includes(normalizedToken)) {
+            segmentScore = [2, placeDepth, 2, index, importance, tokenLength];
+          }
+          if (segmentScore && (!score || compareKey(segmentScore, score) > 0)) score = segmentScore;
+        }
+
+        if (!score && normalizedQuery.includes(normalizedToken)) {
+          score = [2, placeDepth, 1, -1, importance, tokenLength];
+        }
+
+        if (!score) {
+          for (let index = 0; index < segments.length; index += 1) {
+            const segment = segments[index];
+            if (segment.length >= 2 && normalizedToken.includes(segment)) {
+              const abbreviationScore = [1, placeDepth, 1, index, importance, tokenLength];
+              if (!score || compareKey(abbreviationScore, score) > 0) score = abbreviationScore;
+            }
+          }
+        }
+        if (score && (!best || compareKey(score, best) > 0)) best = score;
+      }
+      if (best) candidates.push({ score: best, place });
+    }
+    candidates.sort((a, b) => {
+      for (let i = 0; i < a.score.length; i += 1) {
+        if (a.score[i] !== b.score[i]) return b.score[i] - a.score[i];
+      }
+      return 0;
+    });
+    return candidates[0]?.place || null;
+  };
+  const routeSortKey = item => {
+    const days = item.segment.days;
+    const knownDays = Number.isFinite(days) ? 0 : 1;
+    const dayValue = Number.isFinite(days) ? days : 9999;
+    const target = item.target || item.anchor || item.example_target || {};
+    return [-Number(item.edge.importance || 0), knownDays, dayValue, String(target.name || '')];
+  };
+  const topEdgeSortKey = item => {
+    const days = item.segment.days;
+    const knownDays = Number.isFinite(days) ? 0 : 1;
+    const dayValue = Number.isFinite(days) ? days : 9999;
+    return [-Number(item.edge.importance || 0), knownDays, dayValue, String(item.to_top.name || '')];
+  };
+  const compareKey = (a, b) => {
+    for (let i = 0; i < a.length; i += 1) {
+      if (a[i] < b[i]) return -1;
+      if (a[i] > b[i]) return 1;
+    }
+    return 0;
+  };
+
+  const buildRegionFallback = () => {
+    const regionPlaces = {};
+    for (const place of places) {
+      if (place.parent === 'continent' && Number(place.importance || 0) >= 3) regionPlaces[place.id] = place;
+    }
+    if (_.isEmpty(regionPlaces)) return 'flowchart LR\n  n0["unmatched"]';
+
+    const nodeIds = {};
+    const nid = key => {
+      if (!nodeIds[key]) nodeIds[key] = `n${Object.keys(nodeIds).length}`;
+      return nodeIds[key];
+    };
+    const lines = ['flowchart LR', '  %% 路线标签：默认交通方式 所需天数 地形 左端方位-右端方位；区域边按标签中的地点顺序读方位；路线本身双向。'];
+    const emittedNodes = new Set();
+    const emittedEdges = new Set();
+    const addNode = (key, label, shape = '{}') => {
+      const nodeId = nid(key);
+      if (emittedNodes.has(nodeId)) return nodeId;
+      emittedNodes.add(nodeId);
+      const text = mermaidText(label);
+      if (shape === '{}') lines.push(`  ${nodeId}{"${text}"}`);
+      else lines.push(`  ${nodeId}["${text}"]`);
+      return nodeId;
+    };
+    const addEdge = (src, dst, label, arrow = '---') => {
+      const key = `${src}\u0000${dst}\u0000${label}\u0000${arrow}`;
+      if (emittedEdges.has(key)) return;
+      emittedEdges.add(key);
+      lines.push(`  ${src} ${arrow}|${mermaidText(label)}| ${dst}`);
+    };
+
+    lines.push('  subgraph R[REGIONS]');
+    for (const region of Object.values(regionPlaces).sort((a, b) => Number(b.importance || 0) - Number(a.importance || 0) || a.name.localeCompare(b.name, 'zh-Hans-CN'))) {
+      addNode(`region:${region.id}`, nodeLabel(region, true), '{}');
+    }
+
+    const regionEdges = {};
+    for (const edge of edges) {
+      if (!placeById[edge.from] || !placeById[edge.to]) continue;
+      const fromTop = topScope(placeById[edge.from]);
+      const toTop = topScope(placeById[edge.to]);
+      if (fromTop.id === toTop.id || !regionPlaces[fromTop.id] || !regionPlaces[toTop.id]) continue;
+      for (const segment of edge.segments || []) {
+        const key = `${fromTop.id}\u0000${toTop.id}`;
+        const candidate = { edge, segment, from_top: fromTop, to_top: toTop, from_place: placeById[edge.from], to_place: placeById[edge.to] };
+        if (!regionEdges[key] || compareKey(topEdgeSortKey(candidate), topEdgeSortKey(regionEdges[key])) < 0) regionEdges[key] = candidate;
+      }
+    }
+    const sortedRegionEdges = Object.values(regionEdges).sort((a, b) => compareKey(topEdgeSortKey(a), topEdgeSortKey(b))).slice(0, 16);
+    for (const item of sortedRegionEdges) {
+      const src = addNode(`region:${item.from_top.id}`, item.from_top.name, '{}');
+      const dst = addNode(`region:${item.to_top.id}`, item.to_top.name, '{}');
+      addEdge(src, dst, `${item.from_place.name}→${item.to_place.name} ${edgeLabel(item.segment)}`, '---');
+    }
+    lines.push('  end');
+    return lines.join('\n');
+  };
+
+  const buildOutput = () => {
+    const current = matchPlace(query);
+    if (!current) return buildRegionFallback();
+
+    const adjacency = {};
+    const addAdj = (id, item) => {
+      if (!adjacency[id]) adjacency[id] = [];
+      adjacency[id].push(item);
+    };
+    for (const edge of edges) {
+      if (!placeById[edge.from] || !placeById[edge.to]) continue;
+      for (const segment of edge.segments || []) {
+        addAdj(edge.from, { edge, segment, from: edge.from, to: edge.to, reversed: false });
+        addAdj(edge.to, { edge, segment, from: edge.to, to: edge.from, reversed: true });
+      }
+    }
+
+    const nodeIds = {};
+    const nid = key => {
+      if (!nodeIds[key]) nodeIds[key] = `n${Object.keys(nodeIds).length}`;
+      return nodeIds[key];
+    };
+    const lines = ['flowchart LR', '  %% 路线标签：交通 天数 地形 左端方位-右端方位；区域边按标签中的地点顺序读方位；路线本身双向。'];
+    const emittedNodes = new Set();
+    const emittedEdges = new Set();
+    const addNode = (key, label, shape = '[]') => {
+      const nodeId = nid(key);
+      if (emittedNodes.has(nodeId)) return nodeId;
+      emittedNodes.add(nodeId);
+      const text = mermaidText(label);
+      if (shape === '()') lines.push(`  ${nodeId}("${text}")`);
+      else if (shape === '{}') lines.push(`  ${nodeId}{"${text}"}`);
+      else lines.push(`  ${nodeId}["${text}"]`);
+      return nodeId;
+    };
+    const addEdge = (src, dst, label, arrow = '-->') => {
+      const key = `${src}\u0000${dst}\u0000${label}\u0000${arrow}`;
+      if (emittedEdges.has(key)) return;
+      emittedEdges.add(key);
+      lines.push(`  ${src} ${arrow}|${mermaidText(label)}| ${dst}`);
+    };
+
+    const ancestors = parentChain(current).slice(0, 3);
+    const oneHop = {};
+    const oneEdges = [];
+    for (const item of adjacency[current.id] || []) {
+      oneHop[item.to] = placeById[item.to];
+      oneEdges.push(item);
+    }
+    const twoHop = {};
+    const twoEdges = [];
+    for (const neighborId of Object.keys(oneHop).sort()) {
+      const candidates = [];
+      for (const item of adjacency[neighborId] || []) {
+        if (item.to === current.id || oneHop[item.to]) continue;
+        candidates.push(item);
+      }
+      candidates.sort((a, b) => compareKey(routeSortKey({ edge: a.edge, segment: a.segment, target: placeById[a.to] }), routeSortKey({ edge: b.edge, segment: b.segment, target: placeById[b.to] })));
+      for (const item of candidates.slice(0, 4)) {
+        twoHop[item.to] = placeById[item.to];
+        twoEdges.push(item);
+      }
+    }
+
+    const visiblePlaces = { [current.id]: current, ...oneHop, ...twoHop };
+    for (const ancestor of ancestors) visiblePlaces[ancestor.id] = ancestor;
+    const regionPlaces = {};
+    for (const place of Object.values(visiblePlaces)) {
+      const top = topScope(place);
+      if (top.id !== 'continent') regionPlaces[top.id] = top;
+    }
+    for (const place of places) {
+      if (place.parent === 'continent' && Number(place.importance || 0) >= 3) regionPlaces[place.id] = place;
+    }
+
+    lines.push('  subgraph C[CURRENT]');
+    const currentNode = addNode(current.id, nodeLabel(current, true), '()');
+    lines.push('  end');
+    lines.push('  subgraph H[HIERARCHY]');
+    let previous = currentNode;
+    for (const ancestor of ancestors) {
+      const ancestorNode = addNode(ancestor.id, ancestor.name);
+      addEdge(previous, ancestorNode, 'parent');
+      previous = ancestorNode;
+    }
+    lines.push('  end');
+
+    lines.push('  subgraph N1[1-HOP]');
+    for (const place of Object.values(oneHop).sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'))) addNode(place.id, place.name);
+    oneEdges.sort((a, b) => compareKey(routeSortKey({ edge: a.edge, segment: a.segment, target: placeById[a.to] }), routeSortKey({ edge: b.edge, segment: b.segment, target: placeById[b.to] })));
+    for (const item of oneEdges) addEdge(currentNode, addNode(item.to, placeById[item.to].name), edgeLabel(item.segment, item.reversed), '---');
+    lines.push('  end');
+
+    lines.push('  subgraph N2[2-HOP]');
+    for (const place of Object.values(twoHop).sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'))) addNode(place.id, place.name);
+    twoEdges.sort((a, b) => compareKey(routeSortKey({ edge: a.edge, segment: a.segment, target: placeById[a.to] }), routeSortKey({ edge: b.edge, segment: b.segment, target: placeById[b.to] })));
+    for (const item of twoEdges.slice(0, 30)) addEdge(addNode(item.from, placeById[item.from].name), addNode(item.to, placeById[item.to].name), edgeLabel(item.segment, item.reversed), '---');
+    lines.push('  end');
+
+    lines.push('  subgraph R[REGIONS]');
+    for (const region of Object.values(regionPlaces).sort((a, b) => Number(b.importance || 0) - Number(a.importance || 0) || a.name.localeCompare(b.name, 'zh-Hans-CN'))) {
+      addNode(`region:${region.id}`, nodeLabel(region, true), '{}');
+    }
+    // current、全部一跳与全部二跳可见地点各自直连其 topScope；祖先仅保留在 HIERARCHY，不输出 belongs_to。
+    const ancestorIds = new Set(ancestors.map(ancestor => ancestor.id));
+    for (const place of Object.values(visiblePlaces)) {
+      if (ancestorIds.has(place.id)) continue;
+      const top = topScope(place);
+      if (top.id === 'continent' || !regionPlaces[top.id]) continue;
+      addEdge(addNode(place.id, place.name), addNode(`region:${top.id}`, regionPlaces[top.id].name, '{}'), 'belongs_to', '-.-');
+    }
+
+    const regionEdges = {};
+    for (const edge of edges) {
+      if (!placeById[edge.from] || !placeById[edge.to]) continue;
+      const fromTop = topScope(placeById[edge.from]);
+      const toTop = topScope(placeById[edge.to]);
+      if (fromTop.id === toTop.id || !regionPlaces[fromTop.id] || !regionPlaces[toTop.id]) continue;
+      for (const segment of edge.segments || []) {
+        const key = `${fromTop.id}\u0000${toTop.id}`;
+        const candidate = { edge, segment, from_top: fromTop, to_top: toTop, from_place: placeById[edge.from], to_place: placeById[edge.to] };
+        if (!regionEdges[key] || compareKey(topEdgeSortKey(candidate), topEdgeSortKey(regionEdges[key])) < 0) regionEdges[key] = candidate;
+      }
+    }
+    const sortedRegionEdges = Object.values(regionEdges).sort((a, b) => compareKey(topEdgeSortKey(a), topEdgeSortKey(b))).slice(0, 16);
+    for (const item of sortedRegionEdges) {
+      const src = addNode(`region:${item.from_top.id}`, item.from_top.name, '{}');
+      const dst = addNode(`region:${item.to_top.id}`, item.to_top.name, '{}');
+      addEdge(src, dst, `${item.from_place.name}→${item.to_place.name} ${edgeLabel(item.segment)}`, '---');
+    }
+    lines.push('  end');
+    return lines.join('\n');
+  };
+_%>
+<%= buildOutput() _%>
+<%_ } _%>
+</runtime_geo>

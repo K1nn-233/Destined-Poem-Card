@@ -1,0 +1,951 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useCharacterStore, useCustomContentStore } from '../../store';
+import type { CustomInjectionSettings, Partner } from '../../types';
+import { resolvePlayerPlaceholders } from '../../utils/asset';
+import { getRarityColor } from '../../utils/form-options';
+
+const characterStore = useCharacterStore();
+const customContentStore = useCustomContentStore();
+
+const displayAssets = computed(() =>
+  characterStore.selectedAssets.map(asset =>
+    resolvePlayerPlaceholders(asset, characterStore.character.name),
+  ),
+);
+
+const injectionOptions: Array<{
+  key: keyof CustomInjectionSettings;
+  label: string;
+}> = [
+  { key: 'item', label: '已选道具' },
+  { key: 'equipment', label: '已选装备' },
+  { key: 'asset', label: '已选资产' },
+  { key: 'skill', label: '已选技能' },
+  { key: 'partner', label: '伙伴列表' },
+];
+
+const toggleInjection = (category: keyof CustomInjectionSettings) => {
+  const currentValue = customContentStore.customInjectionSettings[category];
+  customContentStore.updateCustomInjectionSetting(category, !currentValue);
+};
+
+// 计算总消耗点数
+const totalConsumed = computed(() => characterStore.consumedPoints);
+
+// 计算剩余点数
+const remainingPoints = computed(() => {
+  return characterStore.character.reincarnationPoints - totalConsumed.value;
+});
+
+// 获取显示的性别
+const displayGender = computed(() => {
+  return characterStore.character.gender === '自定义'
+    ? characterStore.character.customGender || '自定义'
+    : characterStore.character.gender;
+});
+
+// 获取显示的种族
+const displayRace = computed(() => {
+  return characterStore.character.race === '自定义'
+    ? characterStore.character.customRace || '自定义'
+    : characterStore.character.race;
+});
+
+// 获取显示的身份
+const displayIdentity = computed(() => {
+  return characterStore.character.identity === '自定义'
+    ? characterStore.character.customIdentity || '自定义'
+    : characterStore.character.identity;
+});
+
+// 获取显示的出生地
+const displayLocation = computed(() => {
+  return characterStore.character.startLocation === '自定义'
+    ? characterStore.character.customStartLocation || '自定义'
+    : characterStore.character.startLocation;
+});
+
+const formatStairwayMap = (map?: Record<string, Record<string, string>>) => {
+  return Object.entries(map || {}).map(([name, effects]) => ({
+    name,
+    effects: Object.entries(effects || {}).map(([key, value]) => ({ key, value })),
+  }));
+};
+
+const getStairwayView = (partner: Partner) => {
+  const stairway = partner.stairway;
+  if (!stairway?.isOpen) {
+    return {
+      isOpen: false,
+      isSimple: false,
+      text: '',
+      elements: [],
+      powers: [],
+      laws: [],
+      godlyRank: '',
+      godKingdom: undefined,
+    };
+  }
+
+  const elements = formatStairwayMap(stairway.elements);
+  const powers = formatStairwayMap(stairway.powers);
+  const laws = formatStairwayMap(stairway.laws);
+  const isSimple = partner.isCustom;
+
+  return {
+    isOpen: true,
+    isSimple,
+    text: isSimple ? stairway.elements?.custom?.desc || '' : '',
+    elements,
+    powers,
+    laws,
+    godlyRank: stairway.godlyRank || '',
+    godKingdom: stairway.godKingdom,
+  };
+};
+</script>
+
+<template>
+  <div class="confirm-page">
+    <div class="confirm-panel">
+      <!-- 标题 -->
+      <div class="panel-header">
+        <h2 class="panel-title">信息确认</h2>
+        <p class="panel-subtitle">可结构化的数据会写入 MVU 变量；AI 只接收少量剧情上下文</p>
+      </div>
+
+      <!-- 文档内容 -->
+      <div class="panel-content">
+        <!-- 点数统计 -->
+        <section class="doc-section points-section">
+          <div class="points-grid">
+            <div class="point-item">
+              <span class="point-label">转生点数</span>
+              <span class="point-value gold">{{
+                characterStore.character.reincarnationPoints
+              }}</span>
+            </div>
+            <div class="point-item">
+              <span class="point-label">已消耗</span>
+              <span class="point-value">{{ totalConsumed }}</span>
+            </div>
+            <div class="point-item">
+              <span class="point-label">剩余</span>
+              <span
+                class="point-value"
+                :class="{ negative: remainingPoints < 0, positive: remainingPoints >= 0 }"
+              >
+                {{ remainingPoints }}
+              </span>
+            </div>
+            <div class="point-item destiny">
+              <span class="point-label">命运点数</span>
+              <span class="point-value purple">{{ characterStore.character.destinyPoints }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 基本信息 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-clipboard-list" aria-hidden="true"></i>
+            <span>基本信息</span>
+          </h3>
+          <div class="doc-text">
+            <p><strong>姓名：</strong>{{ characterStore.character.name || '（未设置）' }}</p>
+            <p><strong>性别：</strong>{{ displayGender }}</p>
+            <p><strong>年龄：</strong>{{ characterStore.character.age }} 岁</p>
+            <p><strong>种族：</strong>{{ displayRace }}</p>
+            <p><strong>身份：</strong>{{ displayIdentity }}</p>
+            <p><strong>起始地点：</strong>{{ displayLocation }}</p>
+            <p><strong>等级：</strong>Lv.{{ characterStore.character.level }}</p>
+            <p>
+              <strong>天赋水平：</strong>{{ characterStore.selectedTalent?.name || '（未选择）' }}
+              <span v-if="characterStore.selectedTalent">
+                （{{ characterStore.maxBP }} 属性点，消耗
+                {{ characterStore.selectedTalent.cost }} 转生点）
+              </span>
+            </p>
+            <p><strong>金钱：</strong>{{ characterStore.character.money }} Z</p>
+          </div>
+        </section>
+
+        <!-- 属性 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <span>角色属性</span>
+          </h3>
+          <div class="doc-text attributes">
+            <p v-for="(value, attr) in characterStore.finalAttributes" :key="attr">
+              <strong>{{ attr }}：</strong>
+              <span class="attr-detail">
+                {{ value }}
+              </span>
+            </p>
+          </div>
+        </section>
+
+        <!-- 装备 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <span>装备 ({{ characterStore.selectedEquipments.length }})</span>
+          </h3>
+          <div v-if="characterStore.selectedEquipments.length > 0" class="doc-text">
+            <div
+              v-for="(item, index) in characterStore.selectedEquipments"
+              :key="item.name"
+              class="item-entry"
+            >
+              <p class="item-title">
+                <strong>{{ index + 1 }}. </strong>
+                <span :style="{ color: getRarityColor(item.rarity) }">{{ item.name }}</span>
+                <span class="item-cost">[{{ item.cost }} 点]</span>
+              </p>
+              <p class="item-meta">
+                类型：{{ item.type }}
+                <span v-if="item.tag && item.tag.length > 0">
+                  | 标签：{{ item.tag.join('、') }}</span
+                >
+              </p>
+              <p v-if="Object.keys(item.effect || {}).length > 0" class="item-desc">
+                效果：
+                <span v-for="(value, key) in item.effect" :key="key" class="effect-inline">
+                  {{ key }}：{{ value }}
+                </span>
+              </p>
+              <p v-else class="item-desc">效果：无</p>
+              <p v-if="item.description" class="item-flavor">{{ item.description }}</p>
+            </div>
+          </div>
+          <p v-else class="empty-text">未选择装备</p>
+        </section>
+
+        <!-- 道具 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+            <span>道具 ({{ characterStore.selectedItems.length }})</span>
+          </h3>
+          <div v-if="characterStore.selectedItems.length > 0" class="doc-text">
+            <div
+              v-for="(item, index) in characterStore.selectedItems"
+              :key="item.name"
+              class="item-entry"
+            >
+              <p class="item-title">
+                <strong>{{ index + 1 }}. </strong>
+                <span :style="{ color: getRarityColor(item.rarity) }">{{ item.name }}</span>
+                <span v-if="item.quantity" class="item-quantity">× {{ item.quantity }}</span>
+                <span class="item-cost">[{{ item.cost }} 点]</span>
+              </p>
+              <p class="item-meta">
+                类型：{{ item.type }}
+                <span v-if="item.tag && item.tag.length > 0">
+                  | 标签：{{ item.tag.join('、') }}</span
+                >
+              </p>
+              <p v-if="Object.keys(item.effect || {}).length > 0" class="item-desc">
+                效果：
+                <span v-for="(value, key) in item.effect" :key="key" class="effect-inline">
+                  {{ key }}：{{ value }}
+                </span>
+              </p>
+              <p v-else class="item-desc">效果：无</p>
+              <p v-if="item.description" class="item-flavor">{{ item.description }}</p>
+            </div>
+          </div>
+          <p v-else class="empty-text">未选择道具</p>
+        </section>
+
+        <!-- 资产 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+            <span>资产 ({{ displayAssets.length }})</span>
+          </h3>
+          <div v-if="displayAssets.length > 0" class="doc-text">
+            <div v-for="(asset, index) in displayAssets" :key="asset.name" class="item-entry">
+              <p class="item-title">
+                <strong>{{ index + 1 }}. </strong>
+                <span :style="{ color: getRarityColor(asset.rarity) }">{{ asset.name }}</span>
+                <span class="item-cost">[{{ asset.cost }} 点]</span>
+              </p>
+              <p class="item-meta">
+                类型：{{ asset.类型 }}
+                <span v-if="asset.结算"> | 结算：{{ asset.结算 }}</span>
+                <span v-if="asset.标签 && asset.标签.length > 0">
+                  | 标签：{{ asset.标签.join('、') }}</span
+                >
+                <span v-if="asset.位置"> | 位置：{{ asset.位置 }}</span>
+                <span v-if="asset.总空间"> | 总空间：{{ asset.总空间 }}</span>
+              </p>
+              <div v-if="Object.keys(asset.内部资产 || {}).length > 0" class="item-desc">
+                <div v-for="(internal, name) in asset.内部资产" :key="name">
+                  <strong>{{ name }}</strong>
+                  <span v-if="internal.品质"> | 品质：{{ internal.品质 }}</span>
+                  <span v-if="internal.标签 && internal.标签.length > 0">
+                    | 标签：{{ internal.标签.join('、') }}</span
+                  >
+                  <span v-if="internal.数量 !== undefined"> | 数量：{{ internal.数量 }}</span>
+                  <span v-if="internal.总占用空间"> | 占用：{{ internal.总占用空间 }}</span>
+                  <span v-if="internal.描述"> | {{ internal.描述 }}</span>
+                  <span v-for="(value, key) in internal.效果" :key="key" class="effect-inline">
+                    | {{ key }}：{{ value }}
+                  </span>
+                </div>
+              </div>
+              <p v-else class="item-desc">无内部资产</p>
+              <p v-if="asset.描述" class="item-flavor">{{ asset.描述 }}</p>
+            </div>
+          </div>
+          <p v-else class="empty-text">未选择资产</p>
+        </section>
+
+        <!-- 技能 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-wand-magic" aria-hidden="true"></i>
+            <span>技能 ({{ characterStore.selectedSkills.length }})</span>
+          </h3>
+          <div v-if="characterStore.selectedSkills.length > 0" class="doc-text">
+            <div
+              v-for="(skill, index) in characterStore.selectedSkills"
+              :key="skill.name"
+              class="item-entry"
+            >
+              <p class="item-title">
+                <strong>{{ index + 1 }}. </strong>
+                <span :style="{ color: getRarityColor(skill.rarity) }">{{ skill.name }}</span>
+                <span class="item-cost">[{{ skill.cost }} 点]</span>
+              </p>
+              <p class="item-meta">
+                类型：{{ skill.type }}
+                <span v-if="skill.tag && skill.tag.length > 0">
+                  | 标签：{{ skill.tag.join('、') }}</span
+                >
+                <span v-if="skill.consume"> | 消耗：{{ skill.consume }}</span>
+              </p>
+              <p v-if="Object.keys(skill.effect || {}).length > 0" class="item-desc">
+                效果：
+                <span v-for="(value, key) in skill.effect" :key="key" class="effect-inline">
+                  {{ key }}：{{ value }}
+                </span>
+              </p>
+              <p v-else class="item-desc">效果：无</p>
+              <p v-if="skill.description" class="item-flavor">{{ skill.description }}</p>
+            </div>
+          </div>
+          <p v-else class="empty-text">未选择技能</p>
+        </section>
+
+        <!-- 伙伴列表 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-user-astronaut" aria-hidden="true"></i>
+            <span>伙伴列表 ({{ characterStore.selectedPartners.length }})</span>
+          </h3>
+          <div v-if="characterStore.selectedPartners.length > 0" class="doc-text">
+            <div
+              v-for="(partner, index) in characterStore.selectedPartners"
+              :key="partner.name"
+              class="destined-entry"
+            >
+              <p class="item-title">
+                <strong>{{ index + 1 }}. {{ partner.name }}</strong>
+                <span class="item-cost">[{{ partner.cost }} 点]</span>
+              </p>
+              <p class="item-meta">
+                {{ partner.race }} | {{ partner.identity.join('、') }} | Lv.{{ partner.level }} |
+                {{ partner.lifeLevel }}
+              </p>
+              <p v-if="partner.backgroundInfo">{{ partner.backgroundInfo }}</p>
+              <div v-if="getStairwayView(partner).isOpen" class="sub-list">
+                <p><strong>登神长阶：</strong></p>
+                <p v-if="getStairwayView(partner).isSimple" class="sub-item">
+                  • {{ getStairwayView(partner).text }}
+                </p>
+                <template v-else>
+                  <div v-if="getStairwayView(partner).elements.length > 0" class="sub-item">
+                    <p><strong>要素：</strong></p>
+                    <div
+                      v-for="element in getStairwayView(partner).elements"
+                      :key="`element-${element.name}`"
+                      class="sub-item"
+                    >
+                      <p class="sub-item">• {{ element.name }}</p>
+                      <p
+                        v-for="effect in element.effects"
+                        :key="`element-${element.name}-${effect.key}`"
+                        class="sub-item"
+                      >
+                        • {{ effect.key }}：{{ effect.value }}
+                      </p>
+                    </div>
+                  </div>
+                  <div v-if="getStairwayView(partner).powers.length > 0" class="sub-item">
+                    <p><strong>权能：</strong></p>
+                    <div
+                      v-for="power in getStairwayView(partner).powers"
+                      :key="`power-${power.name}`"
+                      class="sub-item"
+                    >
+                      <p class="sub-item">• {{ power.name }}</p>
+                      <p
+                        v-for="effect in power.effects"
+                        :key="`power-${power.name}-${effect.key}`"
+                        class="sub-item"
+                      >
+                        • {{ effect.key }}：{{ effect.value }}
+                      </p>
+                    </div>
+                  </div>
+                  <div v-if="getStairwayView(partner).laws.length > 0" class="sub-item">
+                    <p><strong>法则：</strong></p>
+                    <div
+                      v-for="law in getStairwayView(partner).laws"
+                      :key="`law-${law.name}`"
+                      class="sub-item"
+                    >
+                      <p class="sub-item">• {{ law.name }}</p>
+                      <p
+                        v-for="effect in law.effects"
+                        :key="`law-${law.name}-${effect.key}`"
+                        class="sub-item"
+                      >
+                        • {{ effect.key }}：{{ effect.value }}
+                      </p>
+                    </div>
+                  </div>
+                  <p v-if="getStairwayView(partner).godlyRank" class="sub-item">
+                    • 神位：{{ getStairwayView(partner).godlyRank }}
+                  </p>
+                  <div
+                    v-if="
+                      getStairwayView(partner).godKingdom?.name ||
+                      getStairwayView(partner).godKingdom?.description
+                    "
+                    class="sub-item"
+                  >
+                    <p><strong>神国：</strong></p>
+                    <p v-if="getStairwayView(partner).godKingdom?.name" class="sub-item">
+                      • 名称：{{ getStairwayView(partner).godKingdom?.name }}
+                    </p>
+                    <p v-if="getStairwayView(partner).godKingdom?.description" class="sub-item">
+                      • 描述：{{ getStairwayView(partner).godKingdom?.description }}
+                    </p>
+                  </div>
+                </template>
+              </div>
+              <p v-if="partner.comment" class="item-flavor">{{ partner.comment }}</p>
+
+              <div v-if="partner.equip && partner.equip.length > 0" class="sub-list">
+                <p><strong>装备：</strong></p>
+                <p v-for="(eq, idx) in partner.equip" :key="idx" class="sub-item">
+                  • {{ eq.name || eq }}
+                </p>
+              </div>
+
+              <div v-if="partner.skills && partner.skills.length > 0" class="sub-list">
+                <p><strong>技能：</strong></p>
+                <p v-for="(sk, idx) in partner.skills" :key="idx" class="sub-item">
+                  • {{ sk.name }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <p v-else class="empty-text">未选择伙伴</p>
+        </section>
+
+        <!-- 初始开局 -->
+        <section class="doc-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+            <span>初始开局剧情</span>
+          </h3>
+          <div v-if="characterStore.selectedBackground" class="doc-text">
+            <p class="item-title">
+              <strong>{{ characterStore.selectedBackground.name }}</strong>
+            </p>
+            <p
+              v-if="
+                characterStore.selectedBackground.race || characterStore.selectedBackground.location
+              "
+              class="item-meta"
+            >
+              <span v-if="characterStore.selectedBackground.race"
+                >种族：{{ characterStore.selectedBackground.race }}</span
+              >
+              <span
+                v-if="
+                  characterStore.selectedBackground.race &&
+                  characterStore.selectedBackground.location
+                "
+              >
+                |
+              </span>
+              <span v-if="characterStore.selectedBackground.location"
+                >地点：{{ characterStore.selectedBackground.location }}</span
+              >
+            </p>
+            <!-- 自定义开局显示用户输入的内容，否则显示预设描述 -->
+            <p
+              v-if="
+                characterStore.selectedBackground.name === '【自定义开局】' &&
+                customContentStore.customBackgroundDescription
+              "
+              class="background-desc"
+            >
+              {{ customContentStore.customBackgroundDescription }}
+            </p>
+            <p v-else class="background-desc">
+              {{ characterStore.selectedBackground.description }}
+            </p>
+          </div>
+          <p v-else class="empty-text">未选择初始开局剧情</p>
+        </section>
+
+        <!-- 自定义内容写入方式 -->
+        <section class="doc-section injection-section">
+          <h3 class="section-title">
+            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+            <span>自定义内容写入方式</span>
+          </h3>
+          <div class="injection-buttons">
+            <button
+              v-for="option in injectionOptions"
+              :key="option.key"
+              type="button"
+              class="injection-button"
+              :class="{ active: customContentStore.customInjectionSettings[option.key] }"
+              :aria-pressed="customContentStore.customInjectionSettings[option.key]"
+              @click="toggleInjection(option.key)"
+            >
+              <span>{{ option.label }}</span>
+              <span class="injection-state">
+                {{
+                  customContentStore.customInjectionSettings[option.key]
+                    ? '直接注入'
+                    : '交给 AI 生成'
+                }}
+              </span>
+            </button>
+          </div>
+          <p class="injection-hint">
+            关闭直接注入后，对应类别的全部已选内容不会预写变量，而会随开局文本发送给 AI 生成并更新。
+          </p>
+        </section>
+
+        <!-- 提示信息 -->
+        <div v-if="remainingPoints !== 0" class="final-notice">
+          <div v-if="remainingPoints < 0" class="notice warning">
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span>警告：转生点数不足 {{ Math.abs(remainingPoints) }} 点，请返回调整</span>
+          </div>
+          <div v-else class="notice info">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span>提示：还有 {{ remainingPoints }} 点转生点数未使用</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.confirm-page {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.confirm-panel {
+  overflow: hidden;
+}
+
+.panel-header {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border-bottom: 2px solid var(--border-color);
+
+  .panel-title {
+    font-size: 1.6rem;
+    color: var(--title-color);
+    margin: 0 0 var(--spacing-xs) 0;
+    font-weight: 700;
+  }
+
+  .panel-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin: 0;
+  }
+}
+
+.panel-content {
+  padding: var(--spacing-lg);
+}
+
+// 点数统计区域
+.points-section {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.02) 100%);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) !important;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-md);
+
+  .point-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+
+    &.destiny {
+      background: linear-gradient(
+        135deg,
+        rgba(156, 39, 176, 0.1) 0%,
+        rgba(156, 39, 176, 0.05) 100%
+      );
+    }
+
+    .point-label {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .point-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-color);
+
+      &.gold {
+        color: var(--accent-color);
+      }
+
+      &.purple {
+        color: #9c27b0;
+      }
+
+      &.positive {
+        color: var(--success-color);
+      }
+
+      &.negative {
+        color: var(--error-color);
+      }
+    }
+  }
+}
+
+// 文档区块
+.doc-section {
+  padding: var(--spacing-lg) 0;
+  border-bottom: 1px solid var(--border-color-light);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 1.2rem;
+  color: var(--title-color);
+  margin: 0 0 var(--spacing-md) 0;
+  font-weight: 700;
+
+  i {
+    color: var(--accent-color);
+  }
+}
+
+.doc-text {
+  line-height: 1.8;
+  color: var(--text-color);
+  overflow-wrap: anywhere;
+
+  p {
+    margin: 0 0 var(--spacing-sm) 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: var(--text-light);
+      font-weight: 600;
+    }
+  }
+
+  &.attributes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm) var(--spacing-lg);
+
+    .attr-detail {
+      font-family: var(--font-mono);
+      color: var(--accent-color);
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+  }
+}
+
+// 物品条目
+.item-entry,
+.destined-entry {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px dashed var(--border-color-light);
+
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .item-title {
+    font-size: 1.05rem;
+    margin-bottom: var(--spacing-xs) !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-xs);
+
+    .item-quantity {
+      font-size: 0.9rem;
+      color: var(--success-color);
+      font-weight: 600;
+      margin-left: var(--spacing-xs);
+    }
+
+    .item-cost {
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      font-family: var(--font-mono);
+      margin-left: var(--spacing-xs);
+    }
+  }
+
+  .item-meta {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-xs) !important;
+  }
+
+  .item-desc {
+    margin-bottom: var(--spacing-xs) !important;
+  }
+
+  .effect-inline {
+    display: block;
+    margin-left: 12px;
+    margin-top: 4px;
+    padding: 2px 6px;
+    background: rgba(212, 175, 55, 0.12);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+  }
+
+  .item-flavor {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  .sub-list {
+    margin-top: var(--spacing-sm);
+    padding-left: var(--spacing-md);
+
+    p {
+      margin-bottom: 4px !important;
+
+      strong {
+        color: var(--text-color);
+      }
+    }
+
+    .sub-item {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+  }
+}
+
+.background-story,
+.background-desc {
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.empty-text {
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.injection-section {
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.injection-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.injection-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-sm);
+  color: var(--text-color);
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+
+  &:hover {
+    border-color: var(--accent-color);
+  }
+
+  &.active {
+    color: var(--title-color);
+    background: rgba(212, 175, 55, 0.12);
+    border-color: var(--accent-color);
+    box-shadow: inset 0 0 0 1px var(--accent-color);
+  }
+}
+
+.injection-state {
+  color: var(--text-light);
+  font-size: 0.78rem;
+}
+
+.injection-hint {
+  margin: var(--spacing-sm) 0 0;
+  color: var(--text-light);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+// 最终提示
+.final-notice {
+  margin-top: var(--spacing-lg);
+
+  .notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+
+    &.warning {
+      background: rgba(244, 67, 54, 0.1);
+      color: var(--error-color);
+      border: 2px solid var(--error-color);
+    }
+
+    &.info {
+      background: rgba(33, 150, 243, 0.1);
+      color: #2196f3;
+      border: 2px solid #2196f3;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .confirm-page {
+    max-width: 100%;
+  }
+
+  .panel-header {
+    padding: var(--spacing-md);
+
+    .panel-title {
+      font-size: 1.3rem;
+    }
+  }
+
+  .panel-content {
+    padding: var(--spacing-md);
+  }
+
+  .points-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .doc-text.attributes {
+    grid-template-columns: 1fr;
+  }
+
+  .item-entry,
+  .destined-entry {
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  .injection-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .final-notice {
+    .notice {
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .panel-content {
+    padding: var(--spacing-sm);
+  }
+
+  .points-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .points-section {
+    padding: var(--spacing-sm) !important;
+  }
+}
+</style>

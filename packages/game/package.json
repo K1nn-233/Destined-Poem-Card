@@ -1,0 +1,21 @@
+{
+  "name": "@destiny/game",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./schema": "./src/schema/index.ts",
+    "./rules": "./src/rules/index.ts",
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.17.24",
+    "@types/node": "^25.9.3",
+    "typescript": "6.0.2",
+    "zod": "4.4.3"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "repository": "The-poem-of-destiny/Destined-Poem-Card",
+  "cardName": "命定之诗与黄昏之歌",
+  "version": "4.3.3",
+  "releasedAt": "2026-09-12T14:55:00+08:00",
+  "localOrigin": "http://127.0.0.1:5173",
+  "published": false,
+  "dependencies": {
+    "mvu": {
+      "version": "default-branch",
+      "url": "https://testingcf.jsdelivr.net/gh/MagicalAstrogy/MagVarUpdate/artifact/bundle.js"
+    },
+    "mvuZod": {
+      "version": "v0.3.459",
+      "url": "https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource@v0.3.459/dist/util/mvu_zod.js"
+    },
+    "workshop": {
+      "version": "2.3.1",
+      "url": "https://testingcf.jsdelivr.net/gh/Akabanesaki/myrepo@2.3.1/dist/CreativeWorkshop/index.js"
+    },
+    "autoRegex": {
+      "version": "2.3.1",
+      "url": "https://testingcf.jsdelivr.net/gh/Akabanesaki/myrepo@2.3.1/dist/AutoDialogueBeautifier/index.js"
+    },
+    "characterManager": {
+      "version": "v0.3.7",
+      "url": "https://testingcf.jsdelivr.net/gh/uikawinwing/CharInfo-Manager@v0.3.7/dist/char_info_viewer_runtime/index.js"
+    }
+  }
+}

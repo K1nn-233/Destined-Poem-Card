@@ -1,0 +1,48 @@
+{
+  "name": "命定之诗与黄昏之歌v4.3",
+  "description": "",
+  "personality": "",
+  "scenario": "",
+  "mes_example": "",
+  "creatorcomment": "{{版本}}",
+  "avatar": "none",
+  "chat": "命定之诗与黄昏之歌v4.3 - 2026-10-23@19h59m42s702ms",
+  "talkativeness": "0.5",
+  "fav": false,
+  "tags": [],
+  "spec": "chara_card_v3",
+  "spec_version": "3.0",
+  "data": {
+    "name": "命定之诗与黄昏之歌v4.3",
+    "description": "",
+    "personality": "",
+    "scenario": "",
+    "mes_example": "",
+    "creator_notes": "{{版本}}",
+    "system_prompt": "",
+    "post_history_instructions": "",
+    "tags": [],
+    "creator": "",
+    "character_version": "{{版本}}",
+    "extensions": {
+      "talkativeness": "0.5",
+      "fav": false,
+      "world": "命定之诗与黄昏之歌v4.3",
+      "depth_prompt": {
+        "prompt": "",
+        "depth": 4,
+        "role": "system"
+      },
+      "xiaobaix-template": {
+        "enabled": true,
+        "template": "",
+        "customRegex": "\\[([^\\]]+)\\]([\\s\\S]*?)\\[\\/\\1\\]",
+        "disableParsers": false,
+        "limitToRecentMessages": false,
+        "recentMessageCount": 5,
+        "skipFirstMessage": false
+      }
+    }
+  },
+  "create_date": "2026-08-15T12:49:39.650Z"
+}

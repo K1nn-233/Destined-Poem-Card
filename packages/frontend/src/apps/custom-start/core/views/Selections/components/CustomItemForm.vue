@@ -1,0 +1,915 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+import ConfirmModal from '../../../components/ConfirmModal.vue';
+import {
+  FormArrayInput,
+  FormInput,
+  FormKeyValueInput,
+  FormLabel,
+  FormNumber,
+  FormTextarea,
+} from '../../../components/Form';
+import { useCustomContentStore } from '../../../store/customContent';
+import type { Asset, CustomInternalAsset, Equipment, Item, Rarity, Skill } from '../../../types';
+import {
+  calculateAssetCostByPosition,
+  calculateCostByPosition,
+  getAssetCostRange,
+  getCostRange,
+} from '../../../utils/cost-calculator';
+import { CATEGORY_OPTIONS, RARITY_OPTIONS } from '../../../utils/form-options';
+
+interface Emits {
+  (
+    e: 'add',
+    item: Asset | Equipment | Item | Skill,
+    type: 'equipment' | 'item' | 'asset' | 'skill',
+    replaceName?: string,
+  ): void;
+}
+
+const emit = defineEmits<Emits>();
+
+// 使用自定义内容 store
+const customContentStore = useCustomContentStore();
+
+// 折叠状态
+const isExpanded = ref(false);
+
+// 确认弹窗状态
+const showResetConfirm = ref(false);
+const showAddConfirm = ref(false);
+
+// 编辑状态
+const editingItemName = computed(() => customContentStore.editingCustomItemName);
+const isEditing = computed(() => editingItemName.value.trim() !== '');
+
+const cancelEdit = () => {
+  customContentStore.updateEditingCustomItemName('');
+  customContentStore.resetCustomItemForm();
+};
+
+// 表单数据
+const categoryType = computed({
+  get: () => customContentStore.customItemForm.categoryType,
+  set: (value: 'equipment' | 'item' | 'asset' | 'skill') =>
+    customContentStore.updateCustomItemForm('categoryType', value),
+});
+
+const customItemType = computed({
+  get: () => customContentStore.customItemForm.customItemType,
+  set: (value: string) => customContentStore.updateCustomItemForm('customItemType', value),
+});
+
+const itemName = computed({
+  get: () => customContentStore.customItemForm.itemName,
+  set: (value: string) => customContentStore.updateCustomItemForm('itemName', value),
+});
+
+const itemRarity = computed({
+  get: () => customContentStore.customItemForm.itemRarity,
+  set: (value: Rarity) => customContentStore.updateCustomItemForm('itemRarity', value),
+});
+
+const itemTag = computed({
+  get: () => customContentStore.customItemForm.itemTag,
+  set: (value: string[]) => customContentStore.updateCustomItemForm('itemTag', value),
+});
+
+const itemEffect = computed({
+  get: () => customContentStore.customItemForm.itemEffect,
+  set: (value: Record<string, string>) =>
+    customContentStore.updateCustomItemForm('itemEffect', value),
+});
+
+const itemDescription = computed({
+  get: () => customContentStore.customItemForm.itemDescription,
+  set: (value: string) => customContentStore.updateCustomItemForm('itemDescription', value),
+});
+
+const itemConsume = computed({
+  get: () => customContentStore.customItemForm.itemConsume,
+  set: (value: string) => customContentStore.updateCustomItemForm('itemConsume', value),
+});
+
+const itemSettlement = computed({
+  get: () => customContentStore.customItemForm.itemSettlement,
+  set: (value: string) => customContentStore.updateCustomItemForm('itemSettlement', value),
+});
+
+const itemSpace = computed({
+  get: () => customContentStore.customItemForm.itemSpace,
+  set: (value: string) => customContentStore.updateCustomItemForm('itemSpace', value),
+});
+
+const itemLocation = computed({
+  get: () => customContentStore.customItemForm.itemLocation,
+  set: (value: string) => customContentStore.updateCustomItemForm('itemLocation', value),
+});
+
+const internalAssets = computed({
+  get: () => customContentStore.customItemForm.internalAssets,
+  set: (value: Array<CustomInternalAsset & { name: string }>) =>
+    customContentStore.updateCustomItemForm('internalAssets', value),
+});
+
+const addInternalAsset = () => {
+  internalAssets.value = [
+    ...internalAssets.value,
+    {
+      name: '',
+      品质: itemRarity.value,
+      标签: [],
+      数量: 1,
+      效果: {},
+      描述: '',
+      总占用空间: '',
+    },
+  ];
+};
+
+const removeInternalAsset = (index: number) => {
+  internalAssets.value = internalAssets.value.filter((_, i) => i !== index);
+};
+
+const itemQuantity = computed({
+  get: () => customContentStore.customItemForm.itemQuantity,
+  set: (value: number) => customContentStore.updateCustomItemForm('itemQuantity', value),
+});
+
+// 使用 form-options 中的配置
+const rarityOptions = RARITY_OPTIONS;
+const categoryOptions = CATEGORY_OPTIONS;
+
+// 根据品质计算点数（使用 0.5-1 之间的随机位置）
+const calculatedCost = computed(() => {
+  const randomPosition = 0.5 + Math.random() * 0.5;
+  return categoryType.value === 'asset'
+    ? calculateAssetCostByPosition(itemRarity.value, randomPosition)
+    : calculateCostByPosition(itemRarity.value, randomPosition);
+});
+
+// 点数范围提示
+const costRangeText = computed(() => {
+  return categoryType.value === 'asset'
+    ? getAssetCostRange(itemRarity.value)
+    : getCostRange(itemRarity.value);
+});
+
+// 表单验证
+const isValid = computed(() => {
+  if (categoryType.value === 'asset') {
+    const internalNames = internalAssets.value
+      .map(internal => internal.name.trim())
+      .filter(Boolean);
+
+    return (
+      itemName.value.trim() !== '' &&
+      customItemType.value.trim() !== '' &&
+      internalNames.length > 0 &&
+      new Set(internalNames).size === internalNames.length
+    );
+  }
+
+  return (
+    itemName.value.trim() !== '' &&
+    customItemType.value.trim() !== '' &&
+    Object.keys(itemEffect.value || {}).length > 0
+  );
+});
+
+// 重置表单
+const resetForm = () => {
+  customContentStore.resetCustomItemForm();
+};
+
+// 回填表单
+const fillFormByItem = (
+  item: Asset | Equipment | Item | Skill,
+  type: 'equipment' | 'item' | 'asset' | 'skill',
+) => {
+  const isAsset = '内部资产' in item;
+  const asset = isAsset ? item : null;
+  const ordinaryItem = !isAsset ? item : null;
+  customContentStore.setCustomItemForm({
+    categoryType: type,
+    customItemType: asset?.类型 || ordinaryItem?.type || '',
+    itemName: asset?.name || item.name || '',
+    itemRarity: item.rarity as Rarity,
+    itemTag: asset ? [...asset.标签] : ordinaryItem?.tag ? [...ordinaryItem.tag] : [],
+    itemEffect: asset ? {} : ordinaryItem?.effect ? { ...ordinaryItem.effect } : {},
+    itemDescription: asset?.描述 || ordinaryItem?.description || '',
+    itemConsume: type === 'skill' ? (item as Skill).consume || '' : '',
+    itemSettlement: asset?.结算 || '',
+    itemSpace: asset?.总空间 || '',
+    itemLocation: asset?.位置 || '',
+    internalAssets: asset
+      ? Object.entries(asset.内部资产 || {}).map(([name, internal]) => ({
+          name,
+          品质: internal.品质 || '',
+          标签: internal.标签 ? [...internal.标签] : [],
+          数量: internal.数量 || 1,
+          效果: internal.效果 ? { ...internal.效果 } : {},
+          描述: internal.描述 || '',
+          总占用空间: internal.总占用空间 || '',
+        }))
+      : [],
+    itemQuantity: type === 'item' ? (item as Item).quantity || 1 : 1,
+  });
+  customContentStore.updateEditingCustomItemName(asset?.name || item.name || '');
+  isExpanded.value = true;
+};
+
+// 暴露给父组件的回填方法
+defineExpose({
+  fillFormByItem,
+});
+
+// 请求清空确认
+const requestReset = () => {
+  showResetConfirm.value = true;
+};
+
+// 确认清空
+const confirmReset = () => {
+  showResetConfirm.value = false;
+  resetForm();
+};
+
+// 取消清空
+const cancelReset = () => {
+  showResetConfirm.value = false;
+};
+
+// 请求添加确认
+const requestAdd = () => {
+  if (!isValid.value) return;
+  showAddConfirm.value = true;
+};
+
+// 取消添加
+const cancelAdd = () => {
+  showAddConfirm.value = false;
+};
+
+// 添加/更新自定义物品（确认后执行）
+const confirmAdd = () => {
+  showAddConfirm.value = false;
+
+  const baseItem = {
+    name: itemName.value.trim(),
+    cost: calculatedCost.value,
+    type: customItemType.value.trim(),
+    tag: itemTag.value,
+    rarity: itemRarity.value,
+    effect: categoryType.value === 'asset' ? {} : itemEffect.value,
+    description: itemDescription.value.trim() || '自定义物品',
+    isCustom: true, // 标记为自定义数据
+  };
+
+  let newItem: Asset | Equipment | Item | Skill;
+
+  if (categoryType.value === 'skill') {
+    newItem = {
+      ...baseItem,
+      consume: itemConsume.value.trim() || '',
+      isCustom: true, // 标记为自定义数据
+    } as Skill;
+  } else if (categoryType.value === 'item') {
+    newItem = {
+      ...baseItem,
+      quantity: itemQuantity.value,
+      isCustom: true,
+    } as Item;
+  } else if (categoryType.value === 'asset') {
+    newItem = {
+      name: baseItem.name,
+      cost: baseItem.cost,
+      rarity: itemRarity.value,
+      类型: baseItem.type,
+      标签: baseItem.tag,
+      总空间: itemSpace.value.trim(),
+      结算: itemSettlement.value.trim() || '',
+      描述: baseItem.description,
+      位置: itemLocation.value.trim(),
+      内部资产: Object.fromEntries(
+        internalAssets.value
+          .filter(internal => internal.name.trim())
+          .map(internal => [
+            internal.name.trim(),
+            {
+              品质: internal.品质,
+              标签: [...internal.标签],
+              数量: Math.max(1, Math.round(internal.数量)),
+              效果: { ...internal.效果 },
+              描述: internal.描述.trim(),
+              总占用空间: internal.总占用空间.trim(),
+            },
+          ]),
+      ),
+      _隐藏: false,
+      isCustom: true,
+    } as Asset;
+  } else {
+    newItem = baseItem as Equipment;
+  }
+
+  emit('add', newItem, categoryType.value, editingItemName.value.trim());
+  resetForm();
+};
+</script>
+
+<template>
+  <div class="custom-item-form" :class="{ expanded: isExpanded }">
+    <div class="form-header" @click="isExpanded = !isExpanded">
+      <div class="header-left">
+        <h3 class="form-title">✨ 自定义</h3>
+        <div class="form-desc">创建您的专属物品、资产、装备或技能</div>
+      </div>
+      <div class="toggle-icon" :class="{ rotated: isExpanded }">▼</div>
+    </div>
+
+    <div v-show="isExpanded" class="form-body">
+      <!-- 大分类选择 -->
+      <div class="form-row">
+        <label class="form-label">添加到分类</label>
+        <div class="category-buttons">
+          <button
+            v-for="option in categoryOptions"
+            :key="option.value"
+            class="category-btn"
+            :class="{ active: categoryType === option.value, disabled: isEditing }"
+            :disabled="isEditing"
+            @click="categoryType = option.value as 'equipment' | 'item' | 'asset' | 'skill'"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+      </div>
+
+      <!-- 名称 -->
+      <div class="form-row">
+        <FormLabel label="名称" required />
+        <FormInput v-model="itemName" placeholder="请输入物品名称" :maxlength="50" />
+      </div>
+
+      <!-- 类型 -->
+      <div class="form-row">
+        <FormLabel label="类型" required />
+        <FormInput
+          v-model="customItemType"
+          placeholder="例如：武器、防具、消耗品、主动、被动等"
+          :maxlength="20"
+        />
+      </div>
+
+      <!-- 品质 -->
+      <div class="form-row">
+        <FormLabel label="品质" required />
+        <div class="rarity-buttons">
+          <button
+            v-for="option in rarityOptions"
+            :key="option.value"
+            class="rarity-btn"
+            :class="{ active: itemRarity === option.value }"
+            :style="{ '--rarity-color': option.color }"
+            @click="itemRarity = option.value"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+        <div class="cost-info">
+          <span class="cost-label">消耗点数：</span>
+          <span class="cost-value">{{ calculatedCost }}</span>
+          <span class="cost-range">（范围：{{ costRangeText }}）</span>
+        </div>
+      </div>
+
+      <!-- 标签 -->
+      <div class="form-row">
+        <FormLabel label="标签" />
+        <FormArrayInput
+          v-model="itemTag"
+          placeholder="输入标签后按回车添加或保存"
+          add-button-text="添加标签"
+          empty-text="暂无标签，点击下方按钮添加"
+        />
+      </div>
+
+      <!-- 数量（仅道具分类） -->
+      <div v-if="categoryType === 'item'" class="form-row">
+        <FormLabel label="数量" />
+        <FormNumber v-model="itemQuantity" :min="1" :max="99" placeholder="请输入物品数量" />
+      </div>
+
+      <!-- 消耗（仅技能分类） -->
+      <div v-if="categoryType === 'skill'" class="form-row">
+        <FormLabel label="消耗" />
+        <FormInput v-model="itemConsume" placeholder="例如：[动作: 50 SP]" />
+      </div>
+
+      <!-- 结算（仅资产分类） -->
+      <div v-if="categoryType === 'asset'" class="form-row">
+        <FormLabel label="结算" />
+        <FormInput v-model="itemSettlement" placeholder="例如：每月收取 100 Z" />
+      </div>
+
+      <div v-if="categoryType === 'asset'" class="form-row">
+        <FormLabel label="总空间" />
+        <FormInput v-model="itemSpace" placeholder="例如：1层: 客厅、厨房;面积:80m²" />
+      </div>
+
+      <div v-if="categoryType === 'asset'" class="form-row">
+        <FormLabel label="位置" />
+        <FormInput v-model="itemLocation" placeholder="例如：诺瓦·瓦伦蒂亚城-中城区" />
+      </div>
+
+      <template v-if="categoryType === 'asset'">
+        <div class="internal-assets-editor">
+          <div class="internal-assets-header">
+            <span class="internal-assets-title">内部资产</span>
+            <button type="button" class="btn-add-internal" @click="addInternalAsset">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              添加内部资产
+            </button>
+          </div>
+
+          <div v-for="(internal, index) in internalAssets" :key="index" class="internal-asset-card">
+            <div class="internal-card-header">
+              <span class="internal-card-index">内部资产 {{ index + 1 }}</span>
+              <button type="button" class="internal-remove-btn" @click="removeInternalAsset(index)">
+                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                删除
+              </button>
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="名称" required />
+              <FormInput
+                v-model="internal.name"
+                placeholder="例如：主楼、动力核心、营业区域"
+                :maxlength="50"
+              />
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="品质" />
+              <FormSelect v-model="internal.品质" :options="RARITY_OPTIONS" />
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="标签" />
+              <FormArrayInput
+                v-model="internal.标签"
+                placeholder="例如：类型:住宅、位置:1层、状态:可用"
+                add-button-text="添加标签"
+                empty-text="暂无内部资产标签"
+              />
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="数量" />
+              <FormNumber v-model="internal.数量" :min="1" :max="99" placeholder="请输入数量" />
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="效果" />
+              <FormKeyValueInput
+                v-model="internal.效果"
+                placeholder-key="效果名"
+                placeholder-value="效果内容"
+                add-button-text="添加效果"
+                empty-text="暂无效果条目，点击下方按钮添加"
+              />
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="占用空间" />
+              <FormInput v-model="internal.总占用空间" placeholder="例如：约120m²" />
+            </div>
+
+            <div class="form-row">
+              <FormLabel label="描述" />
+              <FormTextarea
+                v-model="internal.描述"
+                placeholder="描述内部资产的环境、用途或协议内容..."
+                :rows="2"
+              />
+            </div>
+          </div>
+
+          <div v-if="internalAssets.length === 0" class="internal-assets-empty">
+            尚未添加内部资产，点击上方按钮添加
+          </div>
+        </div>
+      </template>
+
+      <!-- 效果（非资产分类） -->
+      <div v-if="categoryType !== 'asset'" class="form-row">
+        <FormLabel label="效果" required />
+        <FormKeyValueInput
+          v-model="itemEffect"
+          placeholder-key="效果名"
+          placeholder-value="效果内容"
+          add-button-text="添加效果"
+          empty-text="暂无效果条目，点击下方按钮添加"
+        />
+      </div>
+
+      <!-- 描述 -->
+      <div class="form-row">
+        <FormLabel label="描述" />
+        <FormTextarea v-model="itemDescription" placeholder="请描述物品的背景故事..." :rows="2" />
+      </div>
+
+      <!-- 操作按钮 -->
+      <div class="form-actions">
+        <button class="btn-reset" @click="requestReset">清空</button>
+        <button v-if="isEditing" class="btn-cancel" @click="cancelEdit">取消编辑</button>
+        <button class="btn-submit" :disabled="!isValid" @click="requestAdd">
+          {{ isEditing ? '确认修改' : '添加到已选项目' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- 清空确认弹窗 -->
+    <ConfirmModal
+      :visible="showResetConfirm"
+      title="确认清空"
+      message="确定要清空所有已填写的内容吗？此操作不可撤销。"
+      confirm-text="确认清空"
+      cancel-text="取消"
+      type="danger"
+      @confirm="confirmReset"
+      @cancel="cancelReset"
+    />
+
+    <!-- 添加/修改确认弹窗 -->
+    <ConfirmModal
+      :visible="showAddConfirm"
+      :title="isEditing ? '确认修改' : '确认添加'"
+      :message="
+        isEditing
+          ? `确定要将「${editingItemName}」更新为「${itemName}」吗？`
+          : `确定要将「${itemName}」添加到已选项目吗？`
+      "
+      :confirm-text="isEditing ? '确认修改' : '确认添加'"
+      cancel-text="取消"
+      type="info"
+      @confirm="confirmAdd"
+      @cancel="cancelAdd"
+    />
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.custom-item-form {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+
+  &:not(.expanded) {
+    .form-header {
+      border-bottom: none;
+    }
+  }
+
+  .form-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-bottom: 2px solid var(--border-color);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.15) 0%,
+        rgba(212, 175, 55, 0.08) 100%
+      );
+    }
+
+    .header-left {
+      flex: 1;
+    }
+
+    .form-title {
+      font-size: 1.1rem;
+      margin: 0 0 var(--spacing-xs) 0;
+      color: var(--title-color);
+      font-weight: 700;
+    }
+
+    .form-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .toggle-icon {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      transition: transform var(--transition-fast);
+      margin-left: var(--spacing-md);
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .form-body {
+    padding: var(--spacing-lg);
+  }
+
+  .form-row {
+    margin-bottom: var(--spacing-md);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .category-buttons,
+  .rarity-buttons {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+  }
+
+  .category-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.9rem;
+    color: var(--text-color);
+
+    &:hover {
+      border-color: var(--accent-color);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    &.active {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      color: var(--primary-bg);
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-style: dashed;
+      background: var(--input-bg);
+    }
+  }
+
+  .rarity-btn {
+    padding: 4px var(--spacing-sm);
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.85rem;
+    color: var(--text-color);
+
+    &:hover {
+      border-color: var(--rarity-color);
+      color: var(--rarity-color);
+    }
+
+    &.active {
+      background: var(--rarity-color);
+      border-color: var(--rarity-color);
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .cost-info {
+    margin-top: var(--spacing-xs);
+    font-size: 0.85rem;
+    color: var(--text-light);
+
+    .cost-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      font-family: var(--font-mono);
+      margin: 0 var(--spacing-xs);
+    }
+
+    .cost-range {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+  }
+
+  .btn-reset,
+  .btn-submit,
+  .btn-cancel {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-reset {
+    background: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+
+    &:hover {
+      background: var(--card-bg);
+      border-color: var(--border-color-strong);
+    }
+  }
+
+  .btn-cancel {
+    background: var(--border-color);
+    color: var(--text-color);
+
+    &:hover {
+      background: var(--border-color-strong);
+    }
+  }
+
+  .btn-submit {
+    background: var(--accent-color);
+    color: var(--primary-bg);
+
+    &:hover:not(:disabled) {
+      background: #c9a842;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .internal-assets-editor {
+    margin-bottom: var(--spacing-md);
+
+    .internal-assets-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .internal-assets-title {
+      font-weight: 600;
+      color: var(--title-color);
+    }
+
+    .btn-add-internal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text-color);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+
+      &:hover:not(:disabled) {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+    }
+
+    .internal-asset-card {
+      padding: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: rgba(0, 0, 0, 0.04);
+
+      .internal-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--spacing-sm);
+        padding-bottom: var(--spacing-xs);
+        border-bottom: 1px dashed var(--border-color-light);
+      }
+
+      .internal-card-index {
+        font-weight: 600;
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      .internal-remove-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--card-bg);
+        color: var(--text-light);
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+
+        &:hover:not(:disabled) {
+          border-color: var(--error-color);
+          color: var(--error-color);
+          background: rgba(211, 47, 47, 0.05);
+        }
+      }
+    }
+
+    .internal-assets-empty {
+      padding: var(--spacing-md);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .custom-item-form {
+    .form-header {
+      padding: var(--spacing-sm) var(--spacing-md);
+
+      .header-left {
+        .form-title {
+          font-size: 1rem;
+        }
+
+        .form-desc {
+          font-size: 0.8rem;
+        }
+      }
+
+      .toggle-icon {
+        font-size: 0.85rem;
+      }
+    }
+
+    .form-body {
+      padding: var(--spacing-md);
+    }
+
+    .form-row {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .category-buttons,
+    .rarity-buttons {
+      gap: 4px;
+    }
+
+    .category-btn {
+      padding: 6px var(--spacing-sm);
+      font-size: 0.85rem;
+    }
+
+    .rarity-btn {
+      padding: 3px var(--spacing-xs);
+      font-size: 0.8rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+  }
+}
+</style>

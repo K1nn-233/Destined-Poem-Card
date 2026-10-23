@@ -1,0 +1,242 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.keyValueEditor {
+  @include list-container($spacing-xs);
+  font-size: 12px;
+
+  &.disabled {
+    @include disabled-state;
+  }
+}
+
+.label {
+  @include label-text;
+  font-weight: 500;
+}
+
+.content {
+  @include list-container($spacing-xs);
+}
+
+.entries {
+  @include list-container(4px);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(96px, 0.33fr) minmax(0, 1fr) auto;
+  align-items: start;
+  gap: $spacing-xs;
+  padding: 4px $spacing-sm;
+  background: var(--theme-card-bg);
+  border-radius: $border-radius-sm;
+}
+
+.entryKey {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.entryValue {
+  min-width: 0;
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 2px;
+  transition: background $transition-fast;
+  word-break: break-word;
+  white-space: pre-line;
+
+  &:hover {
+    background: var(--theme-tab-hover-bg);
+  }
+}
+
+.editWrapper {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / -1;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.editInput {
+  @include input-base;
+  @include hide-number-arrows;
+  flex: 1;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-color: var(--theme-primary-bg);
+}
+
+.editTextarea {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--theme-window-bg);
+  border: 1px solid var(--theme-primary-bg);
+  border-radius: $border-radius-sm;
+  color: var(--theme-text-primary);
+  font-size: 11px;
+  line-height: 1.5;
+  outline: none;
+  resize: vertical;
+  min-height: 60px;
+  font-family: inherit;
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.actionBtn {
+  @include button-icon(18px);
+
+  i {
+    font-size: 9px;
+  }
+}
+
+.confirmBtn {
+  background: var(--theme-success, #22c55e);
+  color: white;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.cancelBtn {
+  background: var(--theme-card-bg);
+  color: var(--theme-text-secondary);
+  border: 1px solid var(--theme-card-border);
+
+  &:hover {
+    background: var(--theme-tab-hover-bg);
+  }
+}
+
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all $transition-fast;
+
+  i {
+    font-size: 10px;
+  }
+
+  &:hover {
+    opacity: 1;
+    color: var(--theme-error-text, #ef4444);
+  }
+}
+
+// 添加行
+.addRow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) auto;
+  align-items: start;
+  gap: 4px;
+  padding-top: $spacing-xs;
+  @include dashed-border-top;
+}
+
+.addInput {
+  @include input-base;
+  @include hide-number-arrows;
+  flex: 1;
+  padding: 4px 6px;
+  font-size: 11px;
+  border: none;
+}
+
+.addTextarea {
+  width: 100%;
+  padding: 4px 6px;
+  background: var(--theme-window-bg);
+  border: none;
+  border-radius: $border-radius-sm;
+  color: var(--theme-text-primary);
+  font-size: 11px;
+  line-height: 1.4;
+  outline: none;
+  resize: vertical;
+  min-height: 40px;
+  font-family: inherit;
+
+  &:focus {
+    border: 1px solid var(--theme-primary-bg);
+  }
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: var(--theme-primary-bg);
+  border: none;
+  border-radius: $border-radius-sm;
+  color: var(--theme-primary-text);
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  i {
+    font-size: 10px;
+  }
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 540px) {
+  .entry {
+    grid-template-columns: 1fr;
+  }
+
+  .removeBtn {
+    justify-self: flex-end;
+  }
+
+  .addRow {
+    grid-template-columns: 1fr;
+  }
+
+  .addBtn {
+    width: 100%;
+  }
+}
+
+.empty {
+  color: var(--theme-text-muted);
+  font-style: italic;
+}

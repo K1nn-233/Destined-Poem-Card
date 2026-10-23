@@ -1,0 +1,169 @@
+[
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】mvu zod",
+    "id": "f8926eff-b77c-45aa-8e75-344f3b1409c9",
+    "info": "",
+    "button": {
+      "enabled": true,
+      "buttons": []
+    },
+    "data": {},
+    "export_with": {
+      "data": true,
+      "button": true
+    },
+    "role": "schema",
+    "contentFile": "card/scripts/schema.js"
+  },
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】MVU beta",
+    "id": "6006373c-0d53-4723-a747-582e38a4f490",
+    "info": "",
+    "button": {
+      "enabled": true,
+      "buttons": [
+        {
+          "name": "重新读取初始变量",
+          "visible": true
+        },
+        {
+          "name": "清除旧楼层变量",
+          "visible": false
+        },
+        {
+          "name": "重新处理变量",
+          "visible": true
+        },
+        {
+          "name": "快照楼层",
+          "visible": false
+        },
+        {
+          "name": "重演楼层",
+          "visible": false
+        },
+        {
+          "name": "重试额外模型解析",
+          "visible": false
+        },
+        {
+          "name": "增量校正额外模型解析",
+          "visible": false
+        }
+      ]
+    },
+    "data": {
+      "是否显示变量更新错误": "是"
+    },
+    "export_with": {
+      "data": false,
+      "button": true
+    },
+    "role": "mvu",
+    "contentFile": "card/scripts/mvu.js"
+  },
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】自动化脚本",
+    "id": "fa861702-3d99-4b0a-933c-57c8354f8b0e",
+    "info": "",
+    "button": {
+      "enabled": true,
+      "buttons": []
+    },
+    "data": {},
+    "export_with": {
+      "data": true,
+      "button": true
+    },
+    "role": "automation",
+    "contentFile": "card/scripts/automation.js"
+  },
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】创意工坊",
+    "id": "39a69b21-b9c0-48d7-8eee-91dcb130427d",
+    "info": "工坊脚本须知\n使用前请仔细阅读完本楼\n欢迎各位二创投过来，只要能跑的，我这里都收，无审查机制\n投稿方式\n①直接在你的命一串频道二创区帖子里艾特窝\n②私信联系窝\n我：在频道里搜索withwind\n注：不要催，如果不是忙的没边的话，我每天晚上都会更新一次仓库\n因为仓库是由能工智人维护的，所以更新不是实时的\n\n投稿规范\n核心：\n1.投稿时请以txt格式投稿本体同时附带上核心简介与出处（如果是原创的请说明原创）\n2.美化正则请使用酒馆原生的导出正则的json文件\n角色：\n1.投稿时请以txt格式投稿本体同时附带上人物简介与出处（如果是原创的请说明原创）\n2.请记得附上角色的主要关键词和次要关键词\n种族：\n1.投稿时请以txt格式**投稿本体同时附带上种族简介\n2.请记得附上角色的主要关键词和种族概览（参考世界书条目种族概览)\n\n声明\n1.请确保你做好了玩命一串的所有前置准备再使用此脚本\n2.若对核心存在有意见或者有反馈的bug，请联系标注的作者，这里概不负责\n3.请注意不要在开局填数据时部署内容，不然可能因为刷新而导致还没保存好的数据被清空。因此而损失的数据概不负责\n4.使用脚本视为已完整阅读本楼的所有内容",
+    "button": {
+      "enabled": true,
+      "buttons": [
+        {
+          "name": "命定创意工坊",
+          "visible": true
+        }
+      ]
+    },
+    "data": {},
+    "export_with": {
+      "data": true,
+      "button": true
+    },
+    "role": "workshop",
+    "contentFile": "card/scripts/workshop.js"
+  },
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】自动正则",
+    "id": "d7d7d08c-b7cd-46b7-a1ef-6f7b6310a528",
+    "info": "",
+    "button": {
+      "enabled": false,
+      "buttons": [
+        {
+          "name": "强制更新美化",
+          "visible": true
+        }
+      ]
+    },
+    "data": {},
+    "export_with": {
+      "data": true,
+      "button": true
+    },
+    "role": "autoRegex",
+    "contentFile": "card/scripts/autoRegex.js"
+  },
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】地理数据加载脚本",
+    "id": "206fbe15-423e-417b-b415-ed2cfaa36f08",
+    "info": "作者: Aoo",
+    "button": {
+      "enabled": true,
+      "buttons": []
+    },
+    "data": {},
+    "export_with": {
+      "data": true,
+      "button": true
+    },
+    "role": "geography",
+    "contentFile": "card/scripts/geography.js"
+  },
+  {
+    "type": "script",
+    "enabled": true,
+    "name": "【命定之诗】角色管理库",
+    "id": "55644d5c-d99a-43a7-bf31-c64b0afd4efb",
+    "info": "",
+    "button": {
+      "enabled": true,
+      "buttons": []
+    },
+    "data": {},
+    "export_with": {
+      "data": false,
+      "button": true
+    },
+    "role": "characterManager",
+    "contentFile": "card/scripts/characterManager.js"
+  }
+]

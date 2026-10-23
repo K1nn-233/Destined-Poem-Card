@@ -1,0 +1,13 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.editableField {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-xs;
+}
+
+.editorWrapper {
+  flex: 1;
+  min-width: 0;
+}

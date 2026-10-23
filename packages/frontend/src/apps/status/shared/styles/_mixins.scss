@@ -1,0 +1,466 @@
+// 共享 Mixins - 抽象重复样式模式
+@use 'variables' as *;
+
+// 1. 布局 Mixins
+
+/// 页面容器布局 - 垂直 flex 布局带间距
+/// 用于: statusTab, destinyTab, itemsTab, questsTab, newsTab, settingsTab
+@mixin page-container($gap: $spacing-md) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+/// 列表容器布局
+/// 用于: partnerList, questList, itemList, newsItems, equipmentList, skillList
+@mixin list-container($gap: $spacing-sm) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+/// 居中 flex 容器
+/// 用于: loading, error, empty 状态
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// 两列网格布局 - 标签值对
+/// 用于: basicInfoRow, infoRow, appearanceRow, traitRow, effectRow, detailRow
+@mixin label-value-grid($label-width: minmax(96px, 0.33fr)) {
+  display: grid;
+  grid-template-columns: $label-width minmax(0, 1fr);
+  gap: $spacing-xs;
+  align-items: start;
+}
+
+/// 响应式两列网格 (窄屏变单列)
+@mixin responsive-label-value-grid($label-width: minmax(96px, 0.33fr), $breakpoint: 540px) {
+  @include label-value-grid($label-width);
+
+  @media (max-width: $breakpoint) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 2. 状态样式 Mixins
+
+/// 加载/错误/空状态容器
+/// 用于: statusTabLoading, destinyTabLoading, itemsTabLoading 等
+@mixin state-container($min-height: 150px) {
+  @include flex-center;
+  min-height: $min-height;
+  color: var(--theme-text-muted);
+}
+
+/// 空提示样式
+/// 用于: emptyHint, emptyEffects 等
+@mixin empty-hint($padding: $spacing-md) {
+  text-align: center;
+  padding: $padding;
+  color: var(--theme-text-muted);
+  font-size: 12px;
+}
+
+// 3. 背景透明度 Mixins
+
+/// 半透明背景 - 5 级透明度
+/// 用于: 各种背景效果
+@mixin bg-overlay-light {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+@mixin bg-overlay-medium-light {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+@mixin bg-overlay-medium {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+@mixin bg-overlay-medium-dark {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+@mixin bg-overlay-dark {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+// 4. 组件样式 Mixins
+
+/// 标签/徽章基础样式
+/// 用于: tag, affectionBadge, effectType 等
+@mixin badge-base($padding: 2px 6px, $font-size: 10px) {
+  display: inline-flex;
+  align-items: center;
+  padding: $padding;
+  font-size: $font-size;
+  border-radius: 4px;
+}
+
+/// 暗色背景标签
+@mixin badge-dark {
+  @include badge-base;
+  @include bg-overlay-dark;
+  color: var(--theme-text-primary);
+}
+
+/// 带边框标签
+@mixin badge-bordered {
+  @include badge-base;
+  @include bg-overlay-dark;
+  color: var(--theme-text-primary);
+  border: 1px solid var(--theme-card-border);
+}
+
+/// 删除按钮基础样式
+/// 用于: deleteButton, deletePartnerBtn, effectDeleteBtn
+@mixin delete-button-base($size: 24px) {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: $border-radius-sm;
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  transition: all $transition-fast;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    color: var(--theme-error-text);
+    background: rgba(196, 73, 61, 0.12);
+    border-color: rgba(196, 73, 61, 0.25);
+  }
+
+  i {
+    font-size: 11px;
+  }
+}
+
+/// 危险删除按钮（带背景）
+/// 用于: QuestsTab, ItemDetail 的删除按钮
+@mixin delete-button-danger($size: 24px) {
+  flex-shrink: 0;
+  width: $size;
+  height: $size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(196, 73, 61, 0.15);
+  border: 1px solid rgba(196, 73, 61, 0.3);
+  border-radius: 4px;
+  color: var(--theme-error-text);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 11px;
+
+  &:hover {
+    background: rgba(196, 73, 61, 0.25);
+    border-color: rgba(196, 73, 61, 0.5);
+  }
+}
+
+/// 隐藏/恢复按钮（状态色：未隐藏=红，已隐藏=绿）
+/// 用于: ItemDetail, ItemsTab, DestinyTab 的隐藏键
+@mixin hide-button($size: 26px) {
+  @include delete-button-base($size);
+  width: $size;
+  min-width: $size;
+  height: $size;
+  min-height: $size;
+  margin-left: 0;
+  font-size: 11px;
+  opacity: 1;
+  color: var(--theme-error);
+
+  &:hover {
+    color: var(--theme-error);
+    background: var(--theme-tab-hover-bg);
+    border-color: color-mix(in srgb, var(--theme-error) 40%, transparent);
+  }
+
+  &.isHidden {
+    color: var(--theme-success);
+
+    &:hover {
+      color: var(--theme-success);
+      border-color: color-mix(in srgb, var(--theme-success) 40%, transparent);
+    }
+  }
+}
+
+/// 带背景的项目条
+/// 用于: effectItem, newsItem, attributesItem, filterBar
+@mixin item-bar($padding: $spacing-xs $spacing-sm) {
+  padding: $padding;
+  @include bg-overlay-medium;
+  border-radius: $border-radius-sm;
+}
+
+/// 卡片项目基础样式
+@mixin card-item {
+  @include item-bar;
+  border: 1px solid var(--theme-card-border);
+}
+
+// 5. 表单/输入 Mixins
+
+/// 输入框基础样式
+/// 用于: 各种 input, select, textarea
+@mixin input-base {
+  background: var(--theme-window-bg);
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+  color: var(--theme-text-primary);
+  font-size: 12px;
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: var(--theme-primary-bg);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-primary-bg) 24%, transparent);
+  }
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/// 隐藏数字输入框箭头
+@mixin hide-number-arrows {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
+}
+
+// 6. 按钮 Mixins
+
+/// 按钮基础样式
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+  font-size: 12px;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+  letter-spacing: 0.4px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/// 主要按钮
+@mixin button-primary {
+  @include button-base;
+  background: var(--theme-primary-bg);
+  color: var(--theme-primary-text);
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+/// 次要按钮
+@mixin button-secondary {
+  @include button-base;
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  color: var(--theme-text-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--theme-tab-hover-bg);
+    color: var(--theme-text-primary);
+  }
+}
+
+/// 危险按钮
+@mixin button-danger {
+  @include button-base;
+  background: var(--theme-error);
+  color: var(--theme-error-solid-text, white);
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+}
+
+/// 小型操作按钮
+@mixin button-icon($size: 24px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 0;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  i {
+    font-size: 10px;
+  }
+}
+
+// 7. 文本样式 Mixins
+
+/// 标签文字样式
+@mixin label-text {
+  font-size: 12px;
+  color: var(--theme-text-secondary);
+}
+
+/// 值文字样式
+@mixin value-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--theme-text-primary);
+}
+
+/// 大写字母间距文字
+@mixin uppercase-text($spacing: 0.4px) {
+  text-transform: uppercase;
+  letter-spacing: $spacing;
+}
+
+/// 文字截断
+@mixin text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/// 自动换行
+@mixin text-wrap {
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+// 8. 品质颜色 Mixins
+
+/// 生成品质颜色类
+/// 用于: Card, Collapse, ItemDetail, ItemsTab
+@mixin quality-colors($prefix: 'quality') {
+  .#{$prefix}Common {
+    color: var(--theme-quality-common);
+  }
+
+  .#{$prefix}Unique {
+    color: var(--theme-quality-unique);
+  }
+
+  .#{$prefix}Mythic {
+    color: var(--theme-quality-mythic);
+  }
+
+  .#{$prefix}Legendary {
+    color: var(--theme-quality-legendary);
+  }
+
+  .#{$prefix}Epic {
+    color: var(--theme-quality-epic);
+  }
+
+  .#{$prefix}Rare {
+    color: var(--theme-quality-rare);
+  }
+
+  .#{$prefix}Uncommon {
+    color: var(--theme-quality-uncommon);
+  }
+}
+
+/// 生成品质边框类
+@mixin quality-borders($prefix: 'quality') {
+  .#{$prefix}Unique {
+    border-color: var(--theme-quality-unique);
+  }
+
+  .#{$prefix}Mythic {
+    border-color: var(--theme-quality-mythic);
+  }
+
+  .#{$prefix}Legendary {
+    border-color: var(--theme-quality-legendary);
+  }
+
+  .#{$prefix}Epic {
+    border-color: var(--theme-quality-epic);
+  }
+
+  .#{$prefix}Rare {
+    border-color: var(--theme-quality-rare);
+  }
+
+  .#{$prefix}Uncommon {
+    border-color: var(--theme-quality-uncommon);
+  }
+}
+
+// 9. 滚动条 Mixins
+
+/// 自定义滚动条
+@mixin custom-scrollbar($thumb-color: var(--theme-window-border), $width: 6px) {
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color transparent;
+
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: 3px;
+  }
+}
+
+// 10. 分隔线 Mixins
+
+/// 虚线分隔上边框
+@mixin dashed-border-top {
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+/// 实线分隔上边框
+@mixin solid-border-top {
+  border-top: 1px solid var(--theme-card-border);
+}
+
+// 11. 禁用状态 Mixins
+
+/// 禁用状态样式
+@mixin disabled-state($opacity: 0.6) {
+  opacity: $opacity;
+  pointer-events: none;
+  cursor: not-allowed;
+}

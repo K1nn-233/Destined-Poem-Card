@@ -1,0 +1,215 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+.settingsTab {
+  @include page-container;
+}
+
+// 编辑设置 - 紧凑行样式（不使用卡片包裹）
+.editSettingBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-md;
+  @include bg-overlay-medium-dark;
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+}
+
+.editSettingLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--theme-text-secondary);
+  letter-spacing: 0.3px;
+}
+
+.settingsTabTheme {
+  border: 1px solid var(--theme-card-border);
+}
+
+// 主题选择器
+.themeSelector {
+  @include list-container;
+}
+
+.uniqueColorSetting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  margin-top: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  @include bg-overlay-medium;
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+}
+
+.uniqueColorDescription {
+  margin-top: $spacing-xs;
+  color: var(--theme-text-muted);
+  font-size: 11px;
+}
+
+.uniqueColorControl {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+}
+
+.uniqueColorMode,
+.gradientAngleInput {
+  min-height: 28px;
+  padding: 2px 6px;
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+  background: var(--theme-card-bg);
+  color: var(--theme-text-primary);
+  font-size: 11px;
+}
+
+.gradientAngleInput {
+  width: 56px;
+}
+
+.uniqueColorPreview {
+  width: 72px;
+  height: 24px;
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+}
+
+.uniqueColorInput {
+  width: 36px;
+  height: 28px;
+  padding: 2px;
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+  background: var(--theme-card-bg);
+  cursor: pointer;
+}
+
+.uniqueColorValue {
+  min-width: 70px;
+  color: var(--theme-text-primary);
+  font-size: 11px;
+}
+
+.resetColorButton {
+  @include button-secondary;
+  padding: $spacing-xs $spacing-sm;
+  font-size: 10px;
+}
+
+.themeSelectorLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--theme-text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.themeOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: $spacing-sm;
+}
+
+.themeOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm;
+  @include bg-overlay-medium;
+  border: 2px solid transparent;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    @include bg-overlay-dark;
+    border-color: var(--theme-card-border);
+  }
+}
+
+.themeOptionActive {
+  border-color: var(--theme-tab-indicator);
+  @include bg-overlay-dark;
+
+  .themeName {
+    color: var(--theme-text-primary);
+  }
+}
+
+.themePreview {
+  width: 48px;
+  height: 32px;
+  border-radius: $border-radius-sm;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+  // 主题预览颜色
+  &[data-theme='parchment'] {
+    background: linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #5a3f2b 100%);
+  }
+
+  &[data-theme='crimson'] {
+    background: linear-gradient(135deg, #1a0f0f 0%, #2b1515 50%, #5a2a2a 100%);
+  }
+
+  &[data-theme='indigo'] {
+    background: linear-gradient(135deg, #0f1420 0%, #151d30 50%, #2a3a5a 100%);
+  }
+
+  &[data-theme='bronze'] {
+    background: linear-gradient(135deg, #181510 0%, #282010 50%, #6a5530 100%);
+  }
+
+  &[data-theme='sakura'] {
+    background: linear-gradient(135deg, #1a1018 0%, #281828 50%, #5a3050 100%);
+  }
+
+  &[data-theme='obsidian'] {
+    background: linear-gradient(135deg, #0a0a0c 0%, #101015 50%, #2a2a30 100%);
+  }
+
+  &[data-theme='ivory'] {
+    background: linear-gradient(135deg, #f5efe5 0%, #e8dcc8 50%, #c5a880 100%);
+  }
+
+  &[data-theme='misty-lilac'] {
+    background: linear-gradient(135deg, #f7f5fa 0%, #e6deef 50%, #8c7bab 100%);
+  }
+}
+
+.themeName {
+  font-size: 11px;
+  color: var(--theme-text-secondary);
+  letter-spacing: 0.3px;
+  transition: color $transition-fast;
+}
+
+// 操作按钮
+.themeActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 1px solid var(--theme-card-border);
+}
+
+.btn {
+  @include button-base;
+  @include uppercase-text;
+}
+
+.btnPrimary {
+  @include button-primary;
+}
+
+.btnSecondary {
+  @include button-secondary;
+}

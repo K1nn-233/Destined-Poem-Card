@@ -1,0 +1,159 @@
+<script setup lang="ts">
+import { watch } from 'vue';
+import { useMediaQuery } from '@vueuse/core';
+import AssetCard from '../../../components/AssetCard.vue';
+import ItemCard from '../../../components/ItemCard.vue';
+import { useActiveCard, useSelectableList } from '../../../composables';
+import { useStorePoints } from '../../../composables/use-store-points';
+import type { Asset, Equipment, Item, Skill } from '../../../types';
+
+interface Props {
+  items: (Asset | Equipment | Item | Skill)[];
+  selectedItems: (Asset | Equipment | Item | Skill)[];
+  playerName?: string;
+}
+
+interface Emits {
+  (e: 'select', item: Asset | Equipment | Item | Skill): void;
+  (e: 'deselect', item: Asset | Equipment | Item | Skill): void;
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
+
+const { availablePoints } = useStorePoints();
+const { toggleActive, isActive, clearIfMissing } = useActiveCard();
+const detailsAlwaysOpen = useMediaQuery('(min-width: 769px)');
+
+// 使用通用可选列表逻辑
+const { isSelected, isDisabled } = useSelectableList(
+  () => props.selectedItems,
+  () => availablePoints.value,
+);
+
+const handleSelect = (item: Asset | Equipment | Item | Skill) => {
+  emit('select', item);
+};
+
+const handleDeselect = (item: Asset | Equipment | Item | Skill) => {
+  emit('deselect', item);
+};
+
+const handleToggleDetails = (item: Asset | Equipment | Item | Skill) => {
+  if (detailsAlwaysOpen.value) return;
+  toggleActive(item.name);
+};
+
+const isDetailsOpen = (name: string) => detailsAlwaysOpen.value || isActive(name);
+
+watch(
+  () => props.items.map(item => item.name).join('|'),
+  () => {
+    clearIfMissing(props.items.map(item => item.name));
+  },
+);
+</script>
+
+<template>
+  <div class="item-list">
+    <div v-if="items.length === 0" class="empty-state">
+      <div class="empty-icon"><i class="fa-solid fa-box-open" aria-hidden="true"></i></div>
+      <div class="empty-text">该分类下暂无物品</div>
+    </div>
+    <div v-else class="item-grid">
+      <template v-for="item in items" :key="item.name">
+        <AssetCard
+          v-if="'内部资产' in item"
+          :asset="item"
+          :selected="isSelected(item)"
+          :disabled="isDisabled(item)"
+          :details-open="isDetailsOpen(item.name)"
+          :details-toggleable="!detailsAlwaysOpen"
+          :player-name="playerName"
+          @select="handleSelect"
+          @deselect="handleDeselect"
+          @toggle-details="handleToggleDetails"
+        />
+        <ItemCard
+          v-else
+          :item="item"
+          :selected="isSelected(item)"
+          :disabled="isDisabled(item)"
+          :details-open="isDetailsOpen(item.name)"
+          :details-toggleable="!detailsAlwaysOpen"
+          @select="handleSelect"
+          @deselect="handleDeselect"
+          @toggle-details="handleToggleDetails"
+        />
+      </template>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.item-list {
+  min-height: 360px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  min-height: 400px;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.5;
+  }
+
+  .empty-text {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    font-style: italic;
+  }
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md);
+}
+
+// 响应式设计
+@media (max-width: 1200px) {
+  .item-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .item-list {
+    min-height: 0;
+  }
+
+  .item-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--spacing-xs);
+  }
+
+  .empty-state {
+    padding: var(--spacing-xl);
+    min-height: 240px;
+
+    .empty-icon {
+      font-size: 3rem;
+    }
+
+    .empty-text {
+      font-size: 1rem;
+    }
+  }
+}
+</style>

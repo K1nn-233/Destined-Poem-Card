@@ -1,0 +1,2676 @@
+edges:
+  - id: white_stone_town__crownbreak_ridge
+    from: white_stone_town
+    to: crownbreak_ridge
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 白石镇通往碎冕冰脊东部山麓的北向通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: aesgard__red_leaf_town
+    from: aesgard
+    to: red_leaf_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 6
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国中西部主干商路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: red_leaf_town__ironforge_fortress
+    from: red_leaf_town
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国西线主干路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: aesgard__golden_valley_city
+    from: aesgard
+    to: golden_valley_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 帝国东向通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: golden_valley_city__windmill_town
+    from: golden_valley_city
+    to: windmill_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 东部平原城镇通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: windmill_town__silver_creek_town
+    from: windmill_town
+    to: silver_creek_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 帝国东部内陆道路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: silver_creek_town__raven_port
+    from: silver_creek_town
+    to: raven_port
+    bidirectional: true
+    segments:
+      - transport: 船只
+        days: 5
+        terrain:
+          - 河流
+        direction: 西-东
+        description: 由河道进入东部港口
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: duskwood_city__fogcrystal_port
+    from: duskwood_city
+    to: fogcrystal_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 东北方向长距离陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: mist_village__nova_valentia_city
+    from: mist_village
+    to: nova_valentia_city
+    bidirectional: true
+    segments:
+      - transport: 船只
+        days: 2
+        terrain:
+          - 河流
+        direction: 南-北
+        description: 沿诺瓦尔河支流通行
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: nova_valentia_city__clocktower_city
+    from: nova_valentia_city
+    to: clocktower_city
+    bidirectional: true
+    segments:
+      - transport: 船只
+        days: 1
+        terrain:
+          - 河流
+        direction: 南-北
+        description: 诺瓦尔河中段水路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: mist_village__wailing_swamp
+    from: mist_village
+    to: wailing_swamp
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 沼泽
+        direction: 北-南
+        description: 南向沼泽高风险路线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: mist_village__endless_tree_sea
+    from: mist_village
+    to: endless_tree_sea
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 南向密林长程路线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: ironforge_fortress__kalash_hengfeng_grassland
+    from: ironforge_fortress
+    to: kalash_hengfeng_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 12
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国西出兽族联盟门户
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: kalash_hengfeng_grassland__kalash_fengyu_grassland
+    from: kalash_hengfeng_grassland
+    to: kalash_fengyu_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 19
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 兽族联盟内部草原通道
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: kalash_fengyu_grassland__kalash_tianjing_wetland
+    from: kalash_fengyu_grassland
+    to: kalash_tianjing_wetland
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 沼泽
+        direction: 东-西
+        description: 草原至湿地通道
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: kalash_tianjing_wetland__kalash_dragon_spine
+    from: kalash_tianjing_wetland
+    to: kalash_dragon_spine
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 沼泽
+          - 山脉
+        direction: 南-北
+        description: 湿地北上龙脊通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: kalash_hengfeng_grassland__great_whirlpool
+    from: kalash_hengfeng_grassland
+    to: great_whirlpool
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 平原
+          - 海岸
+        direction: 南-北
+        description: 通往北部冻海旋涡海岸
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: raven_port__pearl_bay
+    from: raven_port
+    to: pearl_bay
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 2
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 帝国至索伦蒂斯近海航线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: raven_port__canglai_theatre
+    from: raven_port
+    to: canglai_theatre
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 2
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 东海跨势力航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: raven_port__silversail_city
+    from: raven_port
+    to: silversail_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 港口与银帆城间陆路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: raven_port__starshard_archipelago
+    from: raven_port
+    to: starshard_archipelago
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 7
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 远海岛链航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: fogcrystal_port__grayrock_town
+    from: fogcrystal_port
+    to: grayrock_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 东北边境陆路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: fogcrystal_port__ambergard
+    from: fogcrystal_port
+    to: ambergard
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 通往诺斯加德边境据点
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: grayrock_town__baiyao_city
+    from: grayrock_town
+    to: baiyao_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 诺斯加德南北主路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: ironforge_fortress__vania_holy_capital
+    from: ironforge_fortress
+    to: vania_holy_capital
+    bidirectional: true
+    segments:
+      - transport: 飞空艇
+        days: 1
+        terrain:
+          - 高空
+        direction: 地面-天空
+        description: 飞艇航线通往圣都
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考（梵尼亚）
+  - id: fogcrystal_port__bernes_nexus
+    from: fogcrystal_port
+    to: bernes_nexus
+    bidirectional: true
+    segments:
+      - transport: 传送
+        days: 0
+        terrain:
+          - 传送
+        direction: 地面-天空
+        description: 雾晶港通往伯伦斯法环传送枢纽
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考（伯伦斯法环）
+  - id: azhar_city__bayt_nar
+    from: azhar_city
+    to: bayt_nar
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 沙漠
+        direction: 南-北
+        description: 萨赫拉绿洲城邦间商路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: azhar_city__dar_suq
+    from: azhar_city
+    to: dar_suq
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 沙漠
+        direction: 东-西
+        description: 绿洲城邦横向路网
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: azhar_city__amulet_city
+    from: azhar_city
+    to: amulet_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 沙漠
+        direction: 北-南
+        description: 阿兹哈尔通往鹰之山脉据点
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: amulet_city__wailing_swamp
+    from: amulet_city
+    to: wailing_swamp
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 沼泽
+        direction: 北-南
+        description: 山脉南缘进入悲鸣沼泽
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: amulet_city__endless_tree_sea
+    from: amulet_city
+    to: endless_tree_sea
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 沼泽
+          - 森林
+        direction: 东-西
+        description: 山脉外缘连入南境林沼地带
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: azhar_city__glazed_town
+    from: azhar_city
+    to: glazed_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 沙漠
+        direction: 西-东
+        description: 萨赫拉至索伦蒂斯陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: azhar_city__silversail_city
+    from: azhar_city
+    to: silversail_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 沙漠
+        direction: 南-北
+        description: 萨赫拉至银帆城长距离陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: tide_throne__aroma_port
+    from: tide_throne
+    to: aroma_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 银月湾核心区内陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: tide_throne__pearl_bay
+    from: tide_throne
+    to: pearl_bay
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 3
+        terrain:
+          - 海洋
+        direction: 南-北
+        description: 潮汐王座近海航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: pearl_bay__canglai_theatre
+    from: pearl_bay
+    to: canglai_theatre
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 3
+        terrain:
+          - 海洋
+        direction: 南-北
+        description: 外海岛链短程航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: canglai_theatre__starshard_archipelago
+    from: canglai_theatre
+    to: starshard_archipelago
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 5
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 剧场航线通往碎星群岛
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: tide_throne__stormkeep
+    from: tide_throne
+    to: stormkeep
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 怒涛海峡防线陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: aroma_port__sea_taming_dam
+    from: aroma_port
+    to: sea_taming_dam
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 王国内部沿海工程通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: aroma_port__glazed_town
+    from: aroma_port
+    to: glazed_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 冲积平原城镇道路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: aroma_port__silversail_city
+    from: aroma_port
+    to: silversail_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 香氛港至银帆城通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: glazed_town__silversail_city
+    from: glazed_town
+    to: silversail_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 1
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 平原短程通道
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: sea_taming_dam__wailing_swamp
+    from: sea_taming_dam
+    to: wailing_swamp
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 14
+        terrain:
+          - 沼泽
+        direction: 东-西
+        description: 由东部工程线进入悲鸣沼泽
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: baiyao_city__elegy_fort
+    from: baiyao_city
+    to: elegy_fort
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 云息盆地通往长夜防线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: elegy_fort__longnight_wall
+    from: elegy_fort
+    to: longnight_wall
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 1
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 长夜防御体系内部线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: longnight_wall__whisper_conifer_belt
+    from: longnight_wall
+    to: whisper_conifer_belt
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 11
+        terrain:
+          - 森林
+        direction: 东-西
+        description: 永夜长垣外缘林带线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: whisper_conifer_belt__frozen_south_icefield
+    from: whisper_conifer_belt
+    to: frozen_south_icefield
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 14
+        terrain:
+          - 冻原
+        direction: 南-北
+        description: 北境林带进入永冻冰原
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考（永冻冰原）
+  - id: baiyao_city__rimeferry_city
+    from: baiyao_city
+    to: rimeferry_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 云息盆地至海岸交通线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: baiyao_city__forestsong_city
+    from: baiyao_city
+    to: forestsong_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 盆地至霜叶之森城市通道
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: forestsong_city__rimeferry_city
+    from: forestsong_city
+    to: rimeferry_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 林歌城与凛风渡之间道路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: forestsong_city__grayrock_town
+    from: forestsong_city
+    to: grayrock_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 西向灰岩镇通道
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: rimeferry_city__frostmirror_port
+    from: rimeferry_city
+    to: frostmirror_port
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 1
+        terrain:
+          - 海洋
+        direction: 南-北
+        description: 凛风渡近海航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: rimeferry_city__white_port
+    from: rimeferry_city
+    to: white_port
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 2
+        terrain:
+          - 海洋
+        direction: 南-北
+        description: 凛风渡至白港航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: rimeferry_city__grayrock_town
+    from: rimeferry_city
+    to: grayrock_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 海岸与内陆城镇联络道
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: frostmirror_port__white_port
+    from: frostmirror_port
+    to: white_port
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 1
+        terrain:
+          - 海洋
+        direction: 南-北
+        description: 北境港口短程航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: frostmirror_port__dragonroar_fortress
+    from: frostmirror_port
+    to: dragonroar_fortress
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 1
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 港口至半岛堡垒通路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: dragonroar_fortress__windcut_fort
+    from: dragonroar_fortress
+    to: windcut_fort
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 风切半岛内部军路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: windcut_fort__ambergard
+    from: windcut_fort
+    to: ambergard
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 半岛向南接入沃土区
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: grayrock_town__ambergard
+    from: grayrock_town
+    to: ambergard
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 1
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 沃土区核心短途联络
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: sky_patrol_beast_court__beast_claw_lake
+    from: sky_patrol_beast_court
+    to: beast_claw_lake
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 13
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 草原腹地至湖区路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考
+  - id: sky_patrol_beast_court__kalash_fengyu_grassland
+    from: sky_patrol_beast_court
+    to: kalash_fengyu_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 巡天王庭进入风语草原
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: yinfeng_pass__exile_land
+    from: yinfeng_pass
+    to: exile_land
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 4
+        terrain:
+          - 平原
+          - 冰原
+        direction: 南-北
+        description: 隐风关通往放逐之地的北部边境路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（旧称：蛮荒之地）
+  - id: exile_land__frozen_north_icefield
+    from: exile_land
+    to: frozen_north_icefield
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 20
+        terrain:
+          - 冰原
+        direction: 西-东
+        description: 放逐之地通往永冻冰原北部的冰原路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（旧称：蛮荒之地）
+  - id: kalash_fengyu_grassland__Nordre_grensesone
+    from: kalash_fengyu_grassland
+    to: Nordre_grensesone
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 20
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 兽族联盟南下精灵边境路径
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: kalash_tianjing_wetland__Nordre_grensesone
+    from: kalash_tianjing_wetland
+    to: Nordre_grensesone
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 16
+        terrain:
+          - 沼泽
+        direction: 北-南
+        description: 湿地南向精灵北部边境带路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考
+  - id: kalash_fengyu_grassland__elven_luminous_grove
+    from: kalash_fengyu_grassland
+    to: elven_luminous_grove
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 风语草原南侧进入烁露林间
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: elven_luminous_grove__endless_tree_sea
+    from: elven_luminous_grove
+    to: endless_tree_sea
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 森林
+        direction: 西-东
+        description: 精灵边境连入无尽树海
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: endless_tree_sea__wailing_swamp
+    from: endless_tree_sea
+    to: wailing_swamp
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 森林
+          - 沼泽
+        direction: 东-西
+        description: 南境林沼横向通路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: Central_Plain_area__Eastern_Forested_Mountain_Region
+    from: Central_Plain_area
+    to: Eastern_Forested_Mountain_Region
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 9
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 从中央平原沿着商路进入世界树区域
+        notes: ''
+    importance: 1
+    notes: ''
+  - id: Central_Plain_area__Nordre_grensesone
+    from: Central_Plain_area
+    to: Nordre_grensesone
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 从卢泰西亚前往北部边境
+        notes: ''
+    importance: 1
+    notes: 来源：精灵王庭地理
+  - id: Central_Plain_area__Western_Strait
+    from: Central_Plain_area
+    to: Western_Strait
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 丘陵
+          - 森林
+        direction: 南-北
+        description: 从中央平原来到西部海峡
+        notes: ''
+    importance: 1
+    notes: ''
+  - id: Eastern_Forested_Mountain_Region__elven_luminous_grove
+    from: Eastern_Forested_Mountain_Region
+    to: elven_luminous_grove
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 10
+        terrain:
+          - 山脉
+        direction: 西-东
+        description: 世界树森林与烁露林间森个小径
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: mist_village__black_outpost
+    from: mist_village
+    to: black_outpost
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 迷雾村进入树海前线据点
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: mist_village__first_outpost
+    from: mist_village
+    to: first_outpost
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 迷雾村通往第一前哨站
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: black_outpost__white_outpost
+    from: black_outpost
+    to: white_outpost
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 两据点间林地纵向通道
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: first_outpost__blackmarsh_town
+    from: first_outpost
+    to: blackmarsh_town
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 前哨站到黑沼镇路线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: white_outpost__blackmarsh_town
+    from: white_outpost
+    to: blackmarsh_town
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 森林
+        direction: 西-东
+        description: 白色据点至黑沼镇短途路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: ecosystem_bottle__eternal_silent_forest
+    from: ecosystem_bottle
+    to: eternal_silent_forest
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 生态瓶通往永寂密林
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: eternal_silent_forest__borderland_country
+    from: eternal_silent_forest
+    to: borderland_country
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 永寂密林连接边陲之国
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: blackmarsh_town__wailing_swamp
+    from: blackmarsh_town
+    to: wailing_swamp
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 沼泽
+        direction: 西-东
+        description: 黑沼镇通往悲鸣沼泽边缘
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考（诺瓦尔河流域）
+  - id: wailing_swamp__bern_resonance
+    from: wailing_swamp
+    to: bern_resonance
+    bidirectional: true
+    segments:
+      - transport: 特殊
+        days: null
+        terrain:
+          - 沼泽
+        direction: 北-南
+        description: 悲鸣沼泽可通向骸响之都相关隐秘地点，耗时不稳定
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考（?天）
+  - id: pale_sea_inner__pale_sea_outer
+    from: pale_sea_inner
+    to: pale_sea_outer
+    bidirectional: true
+    segments:
+      - transport: 不适用
+        days: null
+        terrain:
+          - 海洋
+        direction: 内-外
+        description: 苍白海内外海域的地理分区边界关系
+        notes: ''
+    importance: 1
+    notes: 来源：places-tree 分区关系（地理说明边）
+  - id: mist_village__elven_luminous_grove
+    from: mist_village
+    to: elven_luminous_grove
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 22
+        terrain:
+          - 山脉
+        direction: 东-西
+        description: 迷雾村西向进入烁露林间的崎岖长线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: silversail_city__starshard_archipelago
+    from: silversail_city
+    to: starshard_archipelago
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 7
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 银帆城通往碎星群岛的远海航线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: azhar_city__aesgard
+    from: azhar_city
+    to: aesgard
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 萨赫拉联邦明面首都通往帝国首都的长距离陆路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: aesgard__ironforge_fortress
+    from: aesgard
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国首都通往西境军工要塞的主干长线
+        notes: 旧图存在 7天/14天冲突；此处取与艾瑟嘉德-红叶镇-铁炉堡合计一致的 14天
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: cuiting_city__azhar_city
+    from: cuiting_city
+    to: azhar_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 12
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 帝国南部与萨赫拉联邦的商路
+        notes: ''
+    importance: 2
+    notes: 帝国商路
+  - id: azhar_city__fogcrystal_port
+    from: azhar_city
+    to: fogcrystal_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 18
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 阿兹哈尔通往雾晶港的跨势力长距离陆路
+        notes: ''
+    importance: 2
+    notes: 萨赫拉联邦与伯伦斯法环的跨势力商路
+  - id: azhar_city__raven_port
+    from: azhar_city
+    to: raven_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 12
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 阿兹哈尔通往帝国东南港口的长距离陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: azhar_city__clocktower_city
+    from: azhar_city
+    to: clocktower_city
+    bidirectional: true
+    segments:
+      - transport: 船只
+        days: 4
+        terrain:
+          - 河流
+        direction: 东-西
+        description: 阿兹哈尔通往帝国西南时钟塔城的水路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: aesgard__raven_port
+    from: aesgard
+    to: raven_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 帝国首都通往东南渡鸦港的长距离陆路
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: raven_port__fogcrystal_port
+    from: raven_port
+    to: fogcrystal_port
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 3
+        terrain:
+          - 海洋
+        direction: 北-南
+        description: 渡鸦港与雾晶港之间的沿海航线
+        notes: ''
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 渡鸦港与雾晶港之间的陆路替代路线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: aesgard__clocktower_city
+    from: aesgard
+    to: clocktower_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 帝国首都通往西南时钟塔城的陆路
+        notes: 旧图存在 5天/10天冲突；此处取与艾瑟嘉德-红叶镇-时钟塔城合计一致的 10天
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: nova_valentia_city__wailing_swamp
+    from: nova_valentia_city
+    to: wailing_swamp
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 沼泽
+        direction: 北-南
+        description: 诺瓦·瓦伦蒂亚城南下进入悲鸣沼泽的高风险路线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: nova_valentia_city__endless_tree_sea
+    from: nova_valentia_city
+    to: endless_tree_sea
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 15
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 诺瓦·瓦伦蒂亚城南下进入无尽树海的森林路线
+        notes: ''
+    importance: 3
+    notes: 来源：长途移动与地理参考
+  - id: kalash_fengyu_grassland__longyuan_capital
+    from: kalash_fengyu_grassland
+    to: longyuan_capital
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 14
+        terrain:
+          - 沼泽
+        direction: 东-西
+        description: 风语草原通往天境湖湿地龙渊京的沼泽路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考
+  - id: kalash_fengyu_grassland__kalash_dragon_spine
+    from: kalash_fengyu_grassland
+    to: kalash_dragon_spine
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 风语草原通往龙脊山脉的横向路线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: longyuan_capital__kalash_dragon_spine
+    from: longyuan_capital
+    to: kalash_dragon_spine
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 7
+        terrain:
+          - 沼泽
+          - 山脉
+        direction: 南-北
+        description: 龙渊京北上龙脊山脉的湿地山路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考
+  - id: longyuan_capital__Nordre_grensesone
+    from: longyuan_capital
+    to: Nordre_grensesone
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 沼泽
+        direction: 北-南
+        description: 龙渊京南向北部边境的湿地路线
+        notes: ''
+    importance: 1
+    notes: 来源：长途移动与地理参考
+  - id: hyacinth_city__ironforge_fortress
+    from: hyacinth_city
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 9
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 风信子城通往帝国西境铁炉堡的跨境路线
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: sea_taming_dam__tide_throne
+    from: sea_taming_dam
+    to: tide_throne
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 镇海坝通往潮汐王座的王国内部陆路
+        notes: ''
+    importance: 2
+    notes: 来源：长途移动与地理参考
+  - id: first_outpost__black_outpost
+    from: first_outpost
+    to: black_outpost
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 1
+        terrain:
+          - 森林
+        direction: 东-西
+        description: 第一前哨站与黑色据点之间的近邻通路
+        notes: days 为按坐标距离估算
+    importance: 1
+    notes: 来源：坐标近邻自动补边（distance=0.0176）
+  - id: stormkeep__sea_taming_dam
+    from: stormkeep
+    to: sea_taming_dam
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 海岸
+          - 防线
+        direction: 东-西
+        description: 风暴堡与镇海坝之间的近邻通路
+        notes: days 为按坐标距离估算
+    importance: 1
+    notes: 来源：坐标近邻自动补边（distance=0.0315）
+  - id: bahar_port__sahra_endless_desert
+    from: bahar_port
+    to: sahra_endless_desert
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 沙漠
+          - 海岸
+        direction: 东-西
+        description: 巴哈尔港与赤金沙海之间的近邻通路
+        notes: days 为按坐标距离估算；赤金沙海为高危区域
+    importance: 1
+    notes: 来源：孤立点最近邻自动补边（distance=0.0357）
+  - id: frostfall_city__silver_creek_town
+    from: frostfall_city
+    to: silver_creek_town
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 2
+        terrain:
+          - 平原
+          - 山地
+        direction: 北-南
+        description: 霜临城与银溪镇之间的近邻通路
+        notes: days 为按坐标距离估算
+    importance: 1
+    notes: 来源：孤立点最近邻自动补边（distance=0.0362）
+  - id: holy_sun_town__ironforge_fortress
+    from: holy_sun_town
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 3
+        terrain:
+          - 平原
+          - 山地
+        direction: 北-南
+        description: 圣日镇与铁炉堡之间的近邻通路
+        notes: days 为按坐标距离估算
+    importance: 1
+    notes: 来源：孤立点最近邻自动补边（distance=0.0504）
+  - id: stone_amaryllis_city__ironforge_fortress
+    from: stone_amaryllis_city
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 草原
+          - 山地
+        direction: 西-东
+        description: 石蒜城通往帝国西境铁炉堡的跨境通路
+        notes: 由原占位边补全；天数按邻近路线与坐标距离人工估算
+    importance: 1
+    notes: 清洗补全：兽族联盟与帝国西境之间的补充路线
+  - id: kalash_fengyu_grassland__wind_weeping_snowfield
+    from: kalash_fengyu_grassland
+    to: wind_weeping_snowfield
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 雪原
+          - 草原
+        direction: 南-北
+        description: 兽族联盟内部地区通道
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: snowy_forest_ocean__kalash_fengyu_grassland
+    from: snowy_forest_ocean
+    to: kalash_fengyu_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 21
+        terrain:
+          - 平原
+          - 森林
+        direction: 东-西
+        description: 兽族联盟内部地区通道
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: kalash_storm_desert__kalash_hengfeng_grassland
+    from: kalash_storm_desert
+    to: kalash_hengfeng_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 沙漠
+          - 草原
+        direction: 东-西
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: kalash_fengyu_grassland__kalash_storm_desert
+    from: kalash_fengyu_grassland
+    to: kalash_storm_desert
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 8
+        terrain:
+          - 草原
+          - 沙漠
+        direction: 南-北
+        description: 风语草原通往暴风沙漠的联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: hyacinth_city__stone_amaryllis_city
+    from: hyacinth_city
+    to: stone_amaryllis_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 草原
+          - 山地
+        direction: 南-北
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: hyacinth_city__kalash_hengfeng_grassland
+    from: hyacinth_city
+    to: kalash_hengfeng_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 草原
+        direction: 东-西
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: kalash_hengfeng_grassland__stone_amaryllis_city
+    from: kalash_hengfeng_grassland
+    to: stone_amaryllis_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 6
+        terrain:
+          - 草原
+          - 山地
+        direction: 东-西
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: kalash_hengfeng_grassland__deer_cry_fjord
+    from: kalash_hengfeng_grassland
+    to: deer_cry_fjord
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 12
+        terrain:
+          - 草原
+          - 河流
+          - 平原
+        direction: 南-北
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: deer_cry_fjord__wind_weeping_snowfield
+    from: deer_cry_fjord
+    to: wind_weeping_snowfield
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 山地
+        direction: 东-西
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: wind_weeping_snowfield__snowy_forest_ocean
+    from: wind_weeping_snowfield
+    to: snowy_forest_ocean
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 17
+        terrain:
+          - 平原
+          - 森林
+        direction: 东-西
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: kalash_tianjing_wetland__snowy_forest_ocean
+    from: kalash_tianjing_wetland
+    to: snowy_forest_ocean
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 森林
+          - 湿地
+        direction: 北-南
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: hidden_moon_valley__kalash_fengyu_grassland
+    from: hidden_moon_valley
+    to: kalash_fengyu_grassland
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 16
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 兽族联盟内部商道
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商道
+  - id: ironforge_fortress__hidden_moon_valley
+    from: ironforge_fortress
+    to: hidden_moon_valley
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 铁炉堡进入兽族东南部商路
+        notes: ''
+    importance: 1
+    notes: 铁炉堡进入兽族东南部商路
+  - id: snowy_forest_ocean__dragon_rest_land
+    from: snowy_forest_ocean
+    to: dragon_rest_land
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 森林
+          - 山地
+        direction: 南-北
+        description: 前往龙眠之地的通路
+        notes: ''
+    importance: 1
+    notes: 前往龙眠之地的通路
+  - id: wind_weeping_snowfield__yinfeng_pass
+    from: wind_weeping_snowfield
+    to: yinfeng_pass
+    bidirectional: true
+    segments:
+      - transport: 船只
+        days: 10
+        terrain:
+          - 平原
+          - 海洋
+        direction: 南-北
+        description: 从风泣雪原进入放逐之地的路线
+        notes: ''
+    importance: 1
+    notes: 从风泣雪原进入放逐之地的路线
+  - id: aesnia_province__bishuang_province
+    from: aesnia_province
+    to: bishuang_province
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+          - 森林
+        direction: 南-北
+        description: 帝国内部路线
+        notes: ''
+    importance: 1
+    notes: 帝国内部路线
+  - id: aesnia_province__chiyuan_province
+    from: aesnia_province
+    to: chiyuan_province
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 14
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国内部路线
+        notes: ''
+    importance: 1
+    notes: 帝国内部路线
+  - id: aesnia_province__chenzhong_province
+    from: aesnia_province
+    to: chenzhong_province
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 森林
+        direction: 南-北
+        description: 帝国内部路线
+        notes: ''
+    importance: 1
+    notes: 帝国内部路线
+  - id: aesnia_province__viridis_province
+    from: aesnia_province
+    to: viridis_province
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国内部官道
+        notes: ''
+    importance: 1
+    notes: 帝国内部官道
+  - id: aesgard__silver_creek_town
+    from: aesgard
+    to: silver_creek_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 8
+        terrain:
+          - 平原
+          - 森林
+        direction: 东-西
+        description: 帝国内部路线
+        notes: ''
+    importance: 1
+    notes: 帝国内部路线
+  - id: aesgard__frostfall_city
+    from: aesgard
+    to: frostfall_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 9
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 帝国内部路线
+        notes: ''
+    importance: 1
+    notes: 帝国内部路线
+  - id: endless_dungeon__nova_valentia_city
+    from: endless_dungeon
+    to: nova_valentia_city
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 1
+        terrain:
+          - 平原
+        direction: 城市内部
+        description: 从瓦伦蒂亚前往无尽地城
+        notes: ''
+    importance: 1
+    notes: 从瓦伦蒂亚前往无尽地城
+  - id: frostfall_city__binger_town
+    from: frostfall_city
+    to: binger_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 森林
+          - 山地
+        direction: 南-北
+        description: 帝国内部商路
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: silver_creek_town__holy_sun_town
+    from: silver_creek_town
+    to: holy_sun_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 湖泊
+          - 平原
+        direction: 北-南
+        description: 帝国内部路线
+        notes: ''
+    importance: 1
+    notes: 帝国内部路线
+  - id: aesgard__white_stone_town
+    from: aesgard
+    to: white_stone_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 帝国内部商路
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: windmill_town__duskwood_city
+    from: windmill_town
+    to: duskwood_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 4
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国内部商路
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: golden_valley_city__duskwood_city
+    from: golden_valley_city
+    to: duskwood_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+        direction: 东-西
+        description: 帝国内部商路
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: duskwood_city__grayrock_town
+    from: duskwood_city
+    to: grayrock_town
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 6
+        terrain:
+          - 平原
+        direction: 南-北
+        description: 去往北境的商路
+        notes: ''
+    importance: 1
+    notes: 去往北境的商路
+  - id: cuiting_city__raven_port
+    from: cuiting_city
+    to: raven_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 6
+        terrain:
+          - 平原
+          - 河流
+        direction: 东-西
+        description: 帝国内部商路
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: aesgard__cuiting_city
+    from: aesgard
+    to: cuiting_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 16
+        terrain:
+          - 平原
+          - 河流
+        direction: 东-西
+        description: 帝国内部商路
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: cuiting_city__bahar_port
+    from: cuiting_city
+    to: bahar_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+        direction: 北-南
+        description: 帝国商路
+        notes: ''
+    importance: 1
+    notes: 帝国商路
+  - id: aroma_port__bahar_port
+    from: aroma_port
+    to: bahar_port
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 2
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 萨赫拉联邦与索伦蒂斯王国的海运路线
+        notes: ''
+    importance: 1
+    notes: 萨赫拉联邦与索伦蒂斯王国的海运路线
+  - id: azhar_city__bahar_port
+    from: azhar_city
+    to: bahar_port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 6
+        terrain:
+          - 沙漠
+        direction: 东-西
+        description: 萨赫拉联邦内部商路
+        notes: ''
+    importance: 1
+    notes: 萨赫拉联邦内部商路
+  - id: kalash_hengfeng_grassland__sky_patrol_beast_court
+    from: kalash_hengfeng_grassland
+    to: sky_patrol_beast_court
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 11
+        terrain:
+          - 平原
+        direction: 西-东
+        description: 兽族联盟内部商路
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商路
+  - id: wind_weeping_snowfield__giantbear_city
+    from: wind_weeping_snowfield
+    to: giantbear_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 雪原
+        direction: 西-东
+        description: 前往巨熊城的路线
+        notes: ''
+    importance: 1
+    notes: 前往巨熊城的路线
+  - id: sky_patrol_beast_court__giantbear_city
+    from: sky_patrol_beast_court
+    to: giantbear_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 6
+        terrain:
+          - 沙漠
+          - 平原
+        direction: 南-北
+        description: 兽族联盟内部商路
+        notes: ''
+    importance: 1
+    notes: 兽族联盟内部商路
+  - id: tide_throne__canglai_theatre
+    from: tide_throne
+    to: canglai_theatre
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 4
+        terrain:
+          - 海洋
+        direction: 东-西
+        description: 前往赛瑞利亚的海路
+        notes: ''
+    importance: 1
+    notes: 前往赛瑞利亚的海路
+  - id: vania_holy_capital__vania_foothill_settlement
+    from: vania_holy_capital
+    to: vania_foothill_settlement
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 2
+        terrain:
+          - 山脉
+        direction: 北-南
+        description: 梵尼亚的下山之路
+        notes: ''
+    importance: 1
+    notes: 梵尼亚的下山之路
+  - id: holy_sun_town__vania_holy_capital
+    from: holy_sun_town
+    to: vania_holy_capital
+    bidirectional: true
+    segments:
+      - transport: 飞空艇
+        days: 2
+        terrain:
+          - 山脉
+        direction: 东-西
+        description: 圣日镇前往圣都的特许路线
+        notes: ''
+    importance: 1
+    notes: 圣日镇前往圣都的特许路线
+  - id: frozen_north_icefield__frozen_south_icefield
+    from: frozen_north_icefield
+    to: frozen_south_icefield
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 14
+        terrain:
+          - 冰盖
+        direction: 北-南
+        description: 永冻冰原南北两段之间的冰原通路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: vania_foothill_settlement__ironforge_fortress
+    from: vania_foothill_settlement
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 3
+        terrain:
+          - 山地
+          - 平原
+        direction: 东-西
+        description: 梵尼亚山脚聚集地通往铁炉堡的边境陆路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: aesnia_province__solair_province
+    from: aesnia_province
+    to: solair_province
+    bidirectional: true
+    segments:
+      - transport: 商队，河运
+        days: 16
+        terrain:
+          - 平原
+          - 河流
+        direction: 西-东
+        description: ''
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: aesnia_province__redhill_province
+    from: aesnia_province
+    to: redhill_province
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 15
+        terrain:
+          - 平原
+          - 森林
+        direction: 西-东
+        description: ''
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: clocktower_city__mist_village
+    from: clocktower_city
+    to: mist_village
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 森林
+        direction: 北-南
+        description: ''
+        notes: ''
+    importance: 1
+    notes: 从时钟塔城直接进入迷雾村的商路
+  - id: deer_cry_fjord__great_whirlpool
+    from: deer_cry_fjord
+    to: great_whirlpool
+    bidirectional: true
+    segments:
+      - transport: 徒步，河运
+        days: 3
+        terrain: []
+        direction: 南-北
+        description: ''
+        notes: ''
+    importance: 1
+    notes: 从鹿鸣峡湾进入巨大漩涡的路线
+  - id: aesgard__duskwood_city
+    from: aesgard
+    to: duskwood_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 10
+        terrain:
+          - 平原
+          - 河运
+        direction: 西-东
+        description: ''
+        notes: ''
+    importance: 1
+    notes: 帝国内部商路
+  - id: pearl_bay__starshard_archipelago
+    from: pearl_bay
+    to: starshard_archipelago
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 6
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: ''
+        notes: ''
+    importance: 1
+    notes: 前往破星群岛的路线
+  - id: Dawn_Watch__Lutetia
+    from: Dawn_Watch
+    to: Lutetia
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 森林
+        direction: 北-南
+        description: 从曙光瞭望哨站前往首都卢泰西亚的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: salamander_dynasty__Dawn_Watch
+    from: salamander_dynasty
+    to: Dawn_Watch
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 8
+        terrain:
+          - 沼泽
+          - 商路
+        direction: 北-南
+        description: 从蝾螈王朝沿着商路来到精灵边境的路线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Lutetia__Corona_Port
+    from: Lutetia
+    to: Corona_Port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain: []
+        direction: 东-西
+        description: 从首都卢泰西亚到星冕港的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Central_Plain_area__southern_coast
+    from: Central_Plain_area
+    to: southern_coast
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+          - 丘陵
+        direction: 北-南
+        description: 从中央平原到南部沿海地区的路线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Lutetia__White_Flame_Port
+    from: Lutetia
+    to: White_Flame_Port
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+          - 森林
+        direction: 北-南
+        description: 首都卢泰西亚前往南部港口白焰港的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Lutetia__Elvenheim
+    from: Lutetia
+    to: Elvenheim
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 9
+        terrain:
+          - 森林
+          - 原始森林
+        direction: 西-东
+        description: 首都卢泰西亚前往世界树城艾尔文海姆的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Elvenheim__Sleeping_Root_Valley
+    from: Elvenheim
+    to: Sleeping_Root_Valley
+    bidirectional: true
+    segments:
+      - transport: 徒步
+        days: 3
+        terrain:
+          - 林地
+        direction: 北-南
+        description: 从世界树中心的艾尔文海姆前往世界树南部最远端的眠根谷的路线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Central_Plain_area__Southeastern_Mountains
+    from: Central_Plain_area
+    to: Southeastern_Mountains
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 8
+        terrain:
+          - 平原
+          - 山地
+        direction: 北-南
+        description: 从中部平原来到东南山区的路线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Lutetia__Star_Cliff
+    from: Lutetia
+    to: Star_Cliff
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 8
+        terrain:
+          - 平原
+          - 山地
+        direction: 北-南
+        description: 从首都卢泰西亚到东南山城星辰岸的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Nordre_grensesone__Eastern_Forested_Mountain_Region
+    from: Nordre_grensesone
+    to: Eastern_Forested_Mountain_Region
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 5
+        terrain:
+          - 丘陵
+          - 森林
+        direction: 西-东
+        description: 从北部边境到世界树区域的森林
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Southeastern_Mountains__Shadowwave_Archipelago
+    from: Southeastern_Mountains
+    to: Shadowwave_Archipelago
+    bidirectional: true
+    segments:
+      - transport: 游泳
+        days: 8
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 从精灵王庭西南沿海游过去的路线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Star_Cliff__Lunarfall_City
+    from: Star_Cliff
+    to: Lunarfall_City
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 3
+        terrain:
+          - 海洋
+        direction: 西-东
+        description: 从星辰崖坐船来到沉月城
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: Lunarfall_City__Shadow_Ark
+    from: Lunarfall_City
+    to: Shadow_Ark
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 1
+        terrain:
+          - 还有
+        direction: 城市海岛周边
+        description: 从沉月城被邀请进入黑方舟的路线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: kalash_fengyu_grassland__Dawn_Watch
+    from: kalash_fengyu_grassland
+    to: Dawn_Watch
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 12
+        terrain: []
+        direction: 北-南
+        description: 从风语草原进入精灵地界的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: White_Flame_Port__stormkeep
+    from: White_Flame_Port
+    to: stormkeep
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 35
+        terrain:
+          - 海洋
+          - 海礁
+        direction: 西-东
+        description: 精灵王庭白焰港直达索伦蒂斯风暴港的高危商业航线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: white_port__ambergard
+    from: white_port
+    to: ambergard
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 7
+        terrain:
+          - 海洋
+        direction: 北-南
+        description: 从白港出发，沿着风切半岛东部沿海一路直达琥珀加德
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: White_Flame_Port__Corona_Port
+    from: White_Flame_Port
+    to: Corona_Port
+    bidirectional: true
+    segments:
+      - transport: 海船
+        days: 2
+        terrain:
+          - 海洋
+        direction: 东-西
+        description: 白焰港直达星冕港的南方商业海路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: aesgard__red_leaf_town_lc
+    from: aesgard
+    to: red_leaf_town
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1.2
+        terrain:
+          - 平原
+          - 铁路
+        direction: 东-西
+        description: 从艾瑟嘉德前往红叶镇的列车线路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: red_leaf_town__ironforge_fortress_lc
+    from: red_leaf_town
+    to: ironforge_fortress
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1.8
+        terrain:
+          - 平原
+          - 铁路
+        direction: 东-西
+        description: 从红叶镇去往西境铁炉堡的列车线，这是西境的终点站
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: red_leaf_town__clocktower_city
+    from: red_leaf_town
+    to: clocktower_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+          - 森林
+          - 雨林
+        direction: 北-南
+        description: 从红叶镇去往时钟塔的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: red_leaf_town__clocktower_city_lc
+    from: red_leaf_town
+    to: clocktower_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1.2
+        terrain:
+          - 平原
+          - 森林
+          - 铁路
+        direction: 北-南
+        description: 从红叶镇前往时钟塔城的列车线路，这里是南方终点站，再往南的铁路在战争中损毁
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: aesgard__frostfall_city_lc
+    from: aesgard
+    to: frostfall_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 2
+        terrain:
+          - 平原
+          - 丘陵
+          - 铁路
+        direction: 南-北
+        description: 从艾瑟嘉德去往霜临城的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: aesgard__golden_valley_city_lc
+    from: aesgard
+    to: golden_valley_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 0.6
+        terrain:
+          - 平原
+          - 铁路
+        direction: 西-东
+        description: 艾瑟嘉德去往金谷城的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: golden_valley_city__azhar_city_lc
+    from: golden_valley_city
+    to: azhar_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 2.8
+        terrain:
+          - 平原
+          - 大河
+          - 沙漠
+          - 铁路
+        direction: 北-南
+        description: 金谷城前往阿兹哈尔的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: golden_valley_city__duskwood_city_lc
+    from: golden_valley_city
+    to: duskwood_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1.1
+        terrain:
+          - 平原
+          - 大河
+          - 森林
+          - 铁路
+        direction: 西-东
+        description: 金谷城去往暮林城的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: golden_valley_city__cuiting_city_lc
+    from: golden_valley_city
+    to: cuiting_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1.6
+        terrain:
+          - 平原
+          - 大河
+          - 铁路
+        direction: 北-南
+        description: 从金谷城前往翠庭城的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: golden_valley_city__cuiting_city
+    from: golden_valley_city
+    to: cuiting_city
+    bidirectional: true
+    segments:
+      - transport: 商队
+        days: 7
+        terrain:
+          - 平原
+          - 河流
+        direction: 西北-东南
+        description: 金谷城到翠庭城的商路
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: duskwood_city__grayrock_town_lc
+    from: duskwood_city
+    to: grayrock_town
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 0.6
+        terrain:
+          - 平原
+          - 铁路
+        direction: 西南-东北
+        description: 从暮林城前往琥珀加德，途径灰石镇的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: grayrock_town__ambergard_lc
+    from: grayrock_town
+    to: ambergard
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1
+        terrain:
+          - 平原
+          - 铁路
+        direction: 西-东
+        description: 暮林城前往琥珀加德的列车线后段
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: duskwood_city__fogcrystal_port_lc
+    from: duskwood_city
+    to: fogcrystal_port
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 1.1
+        terrain:
+          - 平原
+          - 河流
+          - 铁路
+        direction: 西-东
+        description: 由雾晶港商会、伯伦斯法环、帝国三方合作修复古帝国的列车线，从暮林城前往雾晶港
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: cuiting_city__raven_port_lc
+    from: cuiting_city
+    to: raven_port
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 0.7
+        terrain:
+          - 平原
+          - 河流
+          - 铁路
+        direction: 西北-东南
+        description: 从翠庭城前往渡鸦港的列车线
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿
+  - id: raven_port__silversail_city_lc
+    from: raven_port
+    to: silversail_city
+    bidirectional: true
+    segments:
+      - transport: 列车
+        days: 0.7
+        terrain:
+          - 海洋
+        direction: 北-南
+        description: 渡鸦港前往银帆城的列车线，使用的是古帝国时代的大型魔法阵驱动的海上列车，全大陆仅现存3辆，制造工艺已遗失
+        notes: ''
+    importance: 1
+    notes: 来源：viewer 草稿

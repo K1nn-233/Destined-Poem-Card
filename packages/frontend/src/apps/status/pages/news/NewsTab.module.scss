@@ -1,0 +1,173 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+.newsTab {
+  @include page-container;
+}
+
+.newsTabLoading,
+.newsTabError,
+.newsTabEmpty {
+  @include state-container;
+}
+
+.newsFeed {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.newsFeedCard {
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 78%, transparent);
+  border-radius: $border-radius-md;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--theme-card-bg) 94%, transparent),
+      transparent 58%
+    ),
+    color-mix(in srgb, var(--theme-card-bg) 88%, transparent);
+  transition:
+    border-color $transition-fast,
+    background-color $transition-fast,
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--theme-primary-bg) 34%, var(--theme-card-border) 66%);
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--theme-card-bg) 88%, var(--theme-surface-muted) 12%),
+        transparent 58%
+      ),
+      color-mix(in srgb, var(--theme-card-bg) 80%, var(--theme-surface-muted) 20%);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--theme-window-border) 12%, transparent);
+    transform: translateY(-1px);
+  }
+}
+
+.newsFeedCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.newsFeedMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-xs;
+}
+
+.newsCategoryBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  @include uppercase-text(0.4px);
+
+  i {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.categoryAccentNews {
+  color: #6cb4ff;
+}
+
+.categoryAccentBoard {
+  color: #c99bff;
+}
+
+.categoryAccentTea {
+  color: #ff9fcf;
+}
+
+.newsFeedTitleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-xs;
+}
+
+.newsFeedTitle {
+  min-width: 0;
+  color: var(--theme-text-primary);
+  font-size: 15px;
+  line-height: 1.4;
+
+  span {
+    min-width: 0;
+    word-break: break-word;
+  }
+}
+
+.newsFeedContent {
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.newsFeedText {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.editableContent {
+  width: 100%;
+}
+
+.emptyCardBody {
+  padding: $spacing-lg;
+}
+
+.emptyHint {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-sm;
+  color: var(--theme-text-muted);
+
+  i {
+    font-size: 32px;
+    opacity: 0.5;
+  }
+}
+
+@media (min-width: 600px) {
+  .newsFeed {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: stretch;
+  }
+
+  .newsFeedCard {
+    height: 100%;
+  }
+}
+
+@media (max-width: 540px) {
+  .newsFeedCardBody {
+    gap: $spacing-xs;
+  }
+
+  .newsFeedMeta {
+    justify-content: flex-start;
+  }
+}

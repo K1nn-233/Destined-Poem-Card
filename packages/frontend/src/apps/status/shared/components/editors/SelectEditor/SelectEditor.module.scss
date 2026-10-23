@@ -1,0 +1,41 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.selectEditor {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: 12px;
+}
+
+.label {
+  @include label-text;
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+.selectWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  @include input-base;
+  appearance: none;
+  padding: 4px 28px 4px $spacing-sm;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.icon {
+  position: absolute;
+  right: 8px;
+  color: var(--theme-text-muted);
+  pointer-events: none;
+  font-size: 10px;
+}
+
+.disabled {
+  @include disabled-state;
+}

@@ -1,0 +1,421 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.itemTitle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: $spacing-xs $spacing-sm;
+  width: 100%;
+  min-width: 0;
+}
+
+.itemTitleMain {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: $spacing-sm;
+  row-gap: $spacing-xs;
+  min-width: 0;
+}
+
+.itemName {
+  min-width: 0;
+  font-weight: 600;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.itemTitleSuffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: max-content;
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.itemSummaryEffectMore {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  border: 1px dashed color-mix(in srgb, var(--theme-card-border) 76%, transparent);
+  border-radius: 999px;
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.itemTitleActions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacing-xs;
+  flex: 0 0 auto;
+}
+
+.deleteButton {
+  @include delete-button-danger;
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
+  margin-left: 0;
+  font-size: 11px;
+}
+
+.hideButton {
+  @include hide-button;
+}
+
+.itemMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.itemMetaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  padding: 3px 8px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-window-bg) 18%, transparent);
+}
+
+.itemMetaLabel {
+  color: var(--theme-text-muted);
+  font-size: 10px;
+  @include uppercase-text(0.5px);
+}
+
+.itemMetaValue {
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.itemTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 82%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, var(--theme-surface-muted) 28%);
+  color: var(--theme-text-primary);
+  font-size: 11px;
+  line-height: 1.3;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 4%, transparent);
+}
+
+.itemPanelCard,
+.itemCompactCard,
+.itemModalDetail {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 80%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 88%, transparent);
+}
+
+.itemPanelCard {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color $transition-fast,
+    background-color $transition-fast,
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--theme-primary-bg) 36%, var(--theme-card-border) 64%);
+    background: color-mix(in srgb, var(--theme-card-bg) 78%, var(--theme-surface-muted) 22%);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--theme-window-border) 12%, transparent);
+    transform: translateY(-1px);
+  }
+}
+
+.itemPanelBody,
+.itemCompactBody {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.itemSummaryDesc {
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.itemSummaryEffects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.itemSummaryEffectChip,
+.effectChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 76%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-surface-muted) 68%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.itemCompactCard {
+  padding: $spacing-sm $spacing-md;
+}
+
+.itemCompactBody {
+  margin-top: $spacing-xs;
+}
+
+.itemModalDetail {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--theme-text-primary);
+}
+
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  font-size: 12px;
+  color: var(--theme-text-primary);
+}
+
+.itemFieldRow {
+  @include label-value-grid(56px);
+  align-items: start;
+
+  > :last-child {
+    color: var(--theme-text-primary);
+    min-width: 0;
+    word-break: break-word;
+  }
+}
+
+.fieldLabel {
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  @include uppercase-text(0.4px);
+}
+
+.itemBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding-top: $spacing-sm;
+  border-top: 1px dashed color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: transparent;
+}
+
+.itemBlockTitle {
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  @include uppercase-text(0.4px);
+}
+
+.itemDesc {
+  color: var(--theme-text-primary);
+  line-height: 1.65;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.itemEffects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.internalAssets {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.internalAssetEntry {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-surface-muted) 45%, transparent);
+}
+
+.internalAssetHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
+  padding: 7px 8px 5px;
+}
+
+.internalAssetTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0 8px 6px;
+}
+
+.internalAssetTag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 2px 6px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, var(--theme-surface-muted) 28%);
+  color: var(--theme-text-primary);
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.internalAssetName {
+  color: var(--theme-text-primary);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.internalAssetQty {
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  flex: 0 0 auto;
+}
+
+.internalAssetQuality {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.internalAssetSpace {
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.internalAssetDesc {
+  padding: 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-card-border) 62%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.internalAssetEffects {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px 8px;
+}
+
+.effectRow {
+  @include label-value-grid(96px);
+  width: 100%;
+  padding: 2px 0;
+}
+
+.effectKey {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.effectValue {
+  color: var(--theme-text-primary);
+  min-width: 0;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+@media (max-width: 540px) {
+  .itemTitle {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: $spacing-sm;
+  }
+
+  .itemTitleMain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 10px;
+    row-gap: 4px;
+    min-width: 0;
+  }
+
+  .itemName {
+    flex: 1 1 50%;
+    min-width: 50%;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .itemTitleSuffix {
+    flex: 0 1 auto;
+    max-width: 100%;
+    justify-content: flex-end;
+    text-align: right;
+    white-space: normal;
+    word-break: break-word;
+    padding-right: 2px;
+  }
+
+  .itemTitleActions {
+    justify-content: flex-end;
+    align-self: center;
+    margin-left: 2px;
+  }
+
+  .itemFieldRow,
+  .effectRow {
+    grid-template-columns: 1fr;
+  }
+
+  .itemPanelCard {
+    padding: $spacing-sm;
+  }
+}
+
+@include quality-colors;

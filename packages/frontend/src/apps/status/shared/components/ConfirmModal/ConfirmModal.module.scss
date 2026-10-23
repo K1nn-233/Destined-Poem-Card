@@ -1,0 +1,113 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// 遮罩层
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  @include flex-center;
+  z-index: 1200;
+}
+
+// 弹窗容器
+.modal {
+  width: min(90vw, 360px);
+  max-height: min(82vh, 640px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  padding: $spacing-md;
+}
+
+// 标题
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  margin-bottom: $spacing-sm;
+}
+
+// 内容区域
+.body {
+  @include list-container($spacing-xs);
+}
+
+.body,
+.content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: $spacing-base;
+}
+
+// 信息行
+.row {
+  @include label-value-grid(48px);
+  font-size: 12px;
+}
+
+// 行标签
+.label {
+  @include label-text;
+  word-break: break-word;
+  min-width: 0;
+  flex-shrink: 0;
+
+  // 确保空内容时也显示
+  &:empty::before {
+    content: '\00a0'; // 非断空格
+  }
+}
+
+// 行值
+.value {
+  color: var(--theme-text-primary);
+  @include text-wrap;
+  white-space: pre-line;
+}
+
+// 操作按钮区域
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-xs;
+  margin-top: $spacing-sm;
+}
+
+// 主要按钮（确认）
+.btnPrimary {
+  @include button-primary;
+  min-width: 56px;
+  padding: 4px 8px;
+  font-size: 11px;
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+}
+
+// 危险按钮（删除确认等）
+.btnDanger {
+  @include button-danger;
+  min-width: 56px;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+// 次要按钮（取消）
+.btnSecondary {
+  @include button-secondary;
+  min-width: 56px;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+// 自定义内容区域
+.content {
+  margin-bottom: $spacing-sm;
+}

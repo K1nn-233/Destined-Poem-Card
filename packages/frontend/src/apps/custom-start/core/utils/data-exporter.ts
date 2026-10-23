@@ -1,0 +1,416 @@
+import { calculateBaseResources } from '@destiny/game/rules';
+import {
+  ATTRIBUTES,
+  calculateAPByLevel,
+  getLevelTierName,
+  getTierAttributeBonus,
+} from '../data/base-info';
+import { RARITY_MAP } from '../data/constants';
+import type {
+  Asset,
+  Attributes,
+  Background,
+  CharacterConfig,
+  Equipment,
+  Item,
+  Partner,
+  Skill,
+} from '../types';
+import { resolvePlayerPlaceholders } from './asset';
+
+type MvuItemSource = {
+  name?: string;
+  rarity?: string;
+  type?: string;
+  tag?: string[];
+  effect?: Record<string, string>;
+  description?: string;
+};
+
+type MvuEquipmentSource = MvuItemSource & {
+  position?: string;
+};
+
+type MvuSkillSource = MvuItemSource & {
+  consume?: string;
+};
+
+export interface DeferredCustomContent {
+  equipments?: Equipment[];
+  items?: Item[];
+  assets?: Asset[];
+  skills?: Skill[];
+  partners?: Partner[];
+}
+
+const getRarityName = (rarity?: string) => _.get(RARITY_MAP, rarity || '', rarity || '普通');
+
+const cleanRecord = (record?: Record<string, string>) => _.pickBy(record || {}, value => !!value);
+
+const toBaseItemVariable = (item: MvuItemSource) => ({
+  品质: getRarityName(item.rarity),
+  类型: item.type || '',
+  标签: _.uniq(item.tag || []),
+  效果: cleanRecord(item.effect),
+  描述: item.description || '',
+});
+
+const toEquipmentVariable = (item: MvuEquipmentSource) => ({
+  ...toBaseItemVariable(item),
+  位置: item.position || '',
+});
+
+const toInventoryVariable = (item: Item) => ({
+  ...toBaseItemVariable(item),
+  数量: Math.max(1, Math.round(item.quantity || 1)),
+});
+
+const toAssetVariable = (source: Asset, playerName = '') => {
+  const asset = resolvePlayerPlaceholders(source, playerName);
+  return {
+    品质: getRarityName(asset.rarity),
+    类型: asset.类型,
+    标签: _.uniq(asset.标签),
+    总空间: asset.总空间,
+    结算: asset.结算,
+    描述: asset.描述,
+    位置: asset.位置,
+    内部资产: _.mapValues(asset.内部资产, internal => ({
+      ...internal,
+      品质: getRarityName(internal.品质),
+      标签: _.uniq(internal.标签),
+      效果: cleanRecord(internal.效果),
+    })),
+    _隐藏: asset._隐藏,
+  };
+};
+
+const toSkillVariable = (skill: MvuSkillSource) => ({
+  ...toBaseItemVariable(skill),
+  消耗: skill.consume || '',
+});
+
+const toNamedRecord = <T extends { name?: string }, V>(
+  list: T[],
+  mapper: (item: T) => V,
+): Record<string, V> =>
+  _.fromPairs(
+    _.chain(list)
+      .filter(item => !!item.name)
+      .map(item => [item.name as string, mapper(item)])
+      .value(),
+  );
+
+const toNamedAssetRecord = (assets: Asset[], playerName = '') =>
+  _.fromPairs(
+    assets
+      .filter(asset => !!asset.name)
+      .map(asset => [asset.name, toAssetVariable(asset, playerName)]),
+  );
+
+const formatEffect = (effect?: Record<string, string>) => {
+  const entries = Object.entries(cleanRecord(effect));
+  return entries.length > 0
+    ? entries.map(([name, description]) => `${name}：${description}`).join('；')
+    : '由 AI 根据描述生成';
+};
+
+const appendDeferredItems = (
+  lines: string[],
+  title: string,
+  targetPath: string,
+  items: Array<Equipment | Item>,
+) => {
+  if (items.length === 0) return;
+
+  lines.push(`【${title}】`);
+  items.forEach((item, index) => {
+    lines.push(`${index + 1}. ${item.name}`);
+    lines.push(`- 写入路径: 主角.${targetPath}.${item.name}`);
+    lines.push(`- 类型: ${item.type || '由 AI 根据描述确定'}`);
+    lines.push(`- 品质: ${getRarityName(item.rarity)}`);
+    lines.push(`- 标签: ${item.tag?.join('、') || '无'}`);
+    if ('quantity' in item) {
+      lines.push(`- 数量: ${Math.max(1, Math.round(item.quantity || 1))}`);
+    }
+    lines.push(`- 效果: ${formatEffect(item.effect)}`);
+    lines.push(`- 描述: ${item.description || '无'}`);
+  });
+  lines.push('');
+};
+
+const appendDeferredAssets = (lines: string[], assets: Asset[], playerName = '') => {
+  if (assets.length === 0) return;
+
+  lines.push('【待生成资产】');
+  assets.forEach((source, index) => {
+    const asset = toAssetVariable(source, playerName);
+    const internalAssets = Object.entries(asset.内部资产);
+
+    lines.push(`${index + 1}. ${source.name}`);
+    lines.push(`- 写入路径: 主角.资产.${source.name}`);
+    lines.push(`- 类型: ${asset.类型 || '由 AI 根据描述确定'}`);
+    lines.push(`- 品质: ${asset.品质}`);
+    lines.push(`- 标签: ${asset.标签.join('、') || '无'}`);
+    lines.push(`- 总空间: ${asset.总空间 || '无'}`);
+    lines.push(`- 结算: ${asset.结算 || '无'}`);
+    lines.push(`- 位置: ${asset.位置 || '由 AI 根据描述确定'}`);
+    if (typeof asset._隐藏 === 'boolean') {
+      lines.push(`- _隐藏: ${asset._隐藏 ? '是' : '否'}`);
+    }
+
+    if (internalAssets.length === 0) {
+      lines.push('- 内部资产: 无');
+    } else {
+      lines.push('- 内部资产:');
+      internalAssets.forEach(([name, internal]) => {
+        lines.push(`  - ${name}`);
+        lines.push(`    - 品质: ${internal.品质}`);
+        lines.push(`    - 标签: ${internal.标签.join('、') || '无'}`);
+        lines.push(`    - 数量: ${internal.数量}`);
+        lines.push(`    - 总占用空间: ${internal.总占用空间 || '无'}`);
+        lines.push(`    - 效果: ${formatEffect(internal.效果)}`);
+        lines.push(`    - 描述: ${internal.描述 || '无'}`);
+      });
+    }
+    lines.push(`- 描述: ${asset.描述 || '无'}`);
+  });
+  lines.push('');
+};
+
+const appendDeferredSkills = (lines: string[], skills: Skill[]) => {
+  if (skills.length === 0) return;
+
+  lines.push('【待生成技能】');
+  skills.forEach((skill, index) => {
+    lines.push(`${index + 1}. ${skill.name}`);
+    lines.push(`- 写入路径: 主角.技能.${skill.name}`);
+    lines.push(`- 类型: ${skill.type || '由 AI 根据描述确定'}`);
+    lines.push(`- 品质: ${getRarityName(skill.rarity)}`);
+    lines.push(`- 标签: ${skill.tag?.join('、') || '无'}`);
+    lines.push(`- 消耗: ${skill.consume || '无'}`);
+    lines.push(`- 效果: ${formatEffect(skill.effect)}`);
+    lines.push(`- 描述: ${skill.description || '无'}`);
+  });
+  lines.push('');
+};
+
+const getCharacterDisplayValues = (character: CharacterConfig) => ({
+  race: character.race === '自定义' ? character.customRace : character.race,
+  identity: character.identity === '自定义' ? character.customIdentity : character.identity,
+});
+
+const calculateFinalAttributes = (character: CharacterConfig): Attributes => {
+  const tierBonus = getTierAttributeBonus(character.level);
+  return _.fromPairs(
+    _.map(ATTRIBUTES, attr => [
+      attr,
+      character.basePoints[attr] + tierBonus + character.attributePoints[attr],
+    ]),
+  ) as unknown as Attributes;
+};
+
+const calculateInitialResources = (level: number, attributes: Attributes) => {
+  const { hp, mp, sp } = calculateBaseResources(level, attributes);
+
+  return {
+    生命值: { 当前: hp, 上限: { _基础: hp, 额外: 0 } },
+    法力值: { 当前: mp, 上限: { _基础: mp, 额外: 0 } },
+    体力值: { 当前: sp, 上限: { _基础: sp, 额外: 0 } },
+  };
+};
+
+const toAscensionVariable = (stairway?: Partner['stairway']) => ({
+  是否开启: Boolean(stairway?.isOpen),
+  要素: stairway?.elements ?? {},
+  权能: stairway?.powers ?? {},
+  法则: stairway?.laws ?? {},
+  神位: stairway?.godlyRank ?? '',
+  神国: stairway?.godKingdom
+    ? {
+        名称: stairway.godKingdom.name || '',
+        描述: stairway.godKingdom.description || '',
+      }
+    : {
+        名称: '',
+        描述: '',
+      },
+});
+
+const toPartnerVariable = (partner: Partner) => ({
+  在场: true,
+  生命层级: partner.lifeLevel,
+  等级: partner.level,
+  种族: partner.race,
+  身份: [...partner.identity],
+  职业: [...partner.career],
+  性格: partner.personality,
+  喜爱: partner.like,
+  外貌: partner.app,
+  着装: partner.cloth,
+  属性: {
+    力量: partner.attributes.strength,
+    敏捷: partner.attributes.dexterity,
+    体质: partner.attributes.constitution,
+    智力: partner.attributes.intelligence,
+    精神: partner.attributes.mind,
+  },
+  状态效果: {},
+  背包: {},
+  装备: toNamedRecord(partner.equip, toEquipmentVariable),
+  技能: toNamedRecord(partner.skills, toSkillVariable),
+  登神长阶: toAscensionVariable(partner.stairway),
+  命定契约: partner.isContract,
+  好感度: partner.affinity,
+  心里话: partner.comment || '',
+  背景故事: partner.backgroundInfo || '',
+});
+
+const appendDeferredPartners = (lines: string[], partners: Partner[]) => {
+  if (partners.length === 0) return;
+
+  lines.push('【待生成伙伴列表】');
+  partners.forEach((partner, index) => {
+    lines.push(`${index + 1}. ${partner.name}`);
+    lines.push(`- 写入路径: 关系列表.${partner.name}`);
+    lines.push('- 伙伴设定（按此内容生成并写入）:');
+    lines.push(JSON.stringify(toPartnerVariable(partner), null, 2));
+  });
+  lines.push('');
+};
+
+/**
+ * 将角色数据写入到 MVU 变量中
+ * 使用 lodash 的 _.set 直接操作 stat_data，然后通过 replaceMvuData 写回
+ */
+export async function writeCharacterToMvu(
+  character: CharacterConfig,
+  equipments: Equipment[],
+  items: Item[],
+  assets: Asset[],
+  skills: Skill[],
+  partners: Partner[],
+): Promise<void> {
+  await waitGlobalInitialized('Mvu');
+
+  const mvuData = Mvu.getMvuData({ type: 'message', message_id: 'latest' });
+  const displayValues = getCharacterDisplayValues(character);
+  const maxAp = calculateAPByLevel(character.level);
+  const usedAp = _.sum(_.values(character.attributePoints));
+  const finalAttributes = calculateFinalAttributes(character);
+  const resources = calculateInitialResources(character.level, finalAttributes);
+
+  // 命运点数
+  _.set(mvuData, 'stat_data.命运点数', character.destinyPoints);
+  _.set(mvuData, 'stat_data.主角', {
+    种族: displayValues.race || '',
+    职业: [],
+    生命层级: getLevelTierName(character.level),
+    等级: character.level,
+    累计经验值: 0,
+    升级所需经验: character.level >= 25 ? 'MAX' : 120,
+    属性点: Math.max(0, maxAp - usedAp),
+    属性: finalAttributes,
+    ...resources,
+    状态效果: {},
+    金钱: Math.max(0, Math.round(character.money)),
+    背包: toNamedRecord(items, toInventoryVariable),
+    资产: toNamedAssetRecord(assets, character.name),
+    装备: toNamedRecord(equipments, toEquipmentVariable),
+    技能: toNamedRecord(skills, toSkillVariable),
+    登神长阶: toAscensionVariable(),
+  });
+  _.set(mvuData, 'stat_data.关系列表', toNamedRecord(partners, toPartnerVariable));
+
+  // 将更新后的数据写回
+  await Mvu.replaceMvuData(mvuData, { type: 'message', message_id: 'latest' });
+  console.log('✅ 角色结构化数据已成功写入消息楼层变量');
+}
+
+/**
+ * 生成发送给 AI 的提示词数据（纯文本格式）
+ */
+export function generateAIPrompt(
+  character: CharacterConfig,
+  background: Background | null,
+  customBackgroundDescription?: string,
+  deferredCustomContent: DeferredCustomContent = {},
+): string {
+  const lines: string[] = [];
+  const deferredEquipments = deferredCustomContent.equipments || [];
+  const deferredItems = deferredCustomContent.items || [];
+  const deferredAssets = deferredCustomContent.assets || [];
+  const deferredSkills = deferredCustomContent.skills || [];
+  const deferredPartners = deferredCustomContent.partners || [];
+  const hasDeferredContent =
+    deferredEquipments.length +
+      deferredItems.length +
+      deferredAssets.length +
+      deferredSkills.length +
+      deferredPartners.length >
+    0;
+  const displayGender = character.gender === '自定义' ? character.customGender : character.gender;
+  const displayLocation =
+    character.startLocation === '自定义' ? character.customStartLocation : character.startLocation;
+  const displayIdentity = getCharacterDisplayValues(character).identity;
+
+  lines.push('【剧情生成上下文】');
+  lines.push(
+    hasDeferredContent
+      ? '角色、属性、金钱等一部分结构化数据已写入 <status_current_variables>；下方列出的已选内容尚未写入。'
+      : '角色、属性、金钱、装备、背包、资产、技能、伙伴等结构化数据已写入 <status_current_variables>。',
+  );
+  lines.push(
+    hasDeferredContent
+      ? '以下提供需要创作的开局以及未直接注入<status_current_variables>的内容。'
+      : '以下只提供需要创作的开局。',
+  );
+  lines.push('');
+  lines.push(`姓名: ${character.name || '未命名'}`);
+  lines.push(`身份: ${displayIdentity || '未设置'}`);
+  lines.push(`性别: ${displayGender || '未设置'}`);
+  lines.push(`年龄: ${character.age}岁`);
+  lines.push(`天赋水平: ${character.talentLevel}`);
+  lines.push(`起始地点: ${displayLocation || '未设置'}`);
+  lines.push('');
+  lines.push('【第一轮变量更新要求】');
+  lines.push('第一轮 AI 回复必须同步更新 <status_current_variables> 中的以下字段：');
+  lines.push('- 世界.时间');
+  lines.push('- 世界.地点');
+  lines.push('- 主角.装备.*.位置');
+  lines.push('- 资源（HP/MP/SP）额外上限: 上限.额外 记录装备/状态/临时增益');
+
+  if (hasDeferredContent) {
+    lines.push('');
+    lines.push('【需要本轮写入变量的其他已选内容】');
+    lines.push(
+      '以下条目因用户关闭了直接注入而尚未写入变量。请依据给定设定和当前世界观生成、调整为符合 schema 的数据，并在第一轮回复中通过变量更新写入指定路径；名称必须作为键名，不得在<UpdateVariable>块遗漏',
+    );
+    lines.push('');
+    appendDeferredItems(lines, '待生成道具', '背包', deferredItems);
+    appendDeferredItems(lines, '待生成装备', '装备', deferredEquipments);
+    appendDeferredAssets(lines, deferredAssets, character.name);
+    appendDeferredSkills(lines, deferredSkills);
+    appendDeferredPartners(lines, deferredPartners);
+  }
+
+  // 初始开局剧情
+  if (background) {
+    lines.push('');
+    lines.push('【初始开局剧情】');
+    lines.push(`${background.name}`);
+    // 自定义开局使用用户输入的描述，否则使用预设描述
+    const description =
+      background.name === '【自定义开局】' && customBackgroundDescription
+        ? customBackgroundDescription
+        : background.description;
+    lines.push(`描述: ${description}`);
+  }
+
+  const content = lines.join('\n');
+  const instructions = `---
+根据<status_current_variables>和以上内容，生成一个符合描述和情景的初始剧情！
+（注意：生成初始剧情时，先检查上述内容是否完整，如不完整，必须参考相关设定进行完善。）`;
+
+  return `${content}\n\n${instructions}`;
+}

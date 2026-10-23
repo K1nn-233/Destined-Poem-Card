@@ -1,0 +1,136 @@
+// 全局样式入口
+@use 'variables' as *;
+
+// 默认主题CSS变量（现代深色 RPG 面板）
+// 这些变量会在JS加载后被 themeStore.applyCssVariables() 覆盖
+// TODO 当前默认值不匹配 theme 颜色方案
+:root {
+  // 窗口容器
+  --theme-window-bg: #15171c;
+  --theme-window-border: #323846;
+
+  // 标题栏
+  --theme-title-bar-bg: #1a1d24;
+  --theme-title-bar-text: #f3f5f8;
+  --theme-title-bar-icon: #b9c0cc;
+  --theme-title-bar-btn-hover: rgba(255, 255, 255, 0.08);
+
+  // Tab 栏
+  --theme-tab-bar-bg: #171a21;
+  --theme-tab-text: #a6afbd;
+  --theme-tab-active-text: #f4f7fb;
+  --theme-tab-indicator: #8f9fff;
+  --theme-tab-hover-bg: rgba(255, 255, 255, 0.06);
+
+  // 内容区域
+  --theme-content-bg: #12151b;
+  --theme-card-bg: #1b1f27;
+  --theme-card-border: #2c3340;
+  --theme-surface-muted: color-mix(in srgb, var(--theme-window-bg) 72%, var(--theme-card-bg) 28%);
+  --theme-overlay-bg: color-mix(in srgb, var(--theme-window-bg) 58%, transparent);
+
+  // 文本颜色
+  --theme-text-primary: #f3f5f8;
+  --theme-text-secondary: #c1c8d4;
+  --theme-text-muted: #8f98a8;
+
+  // 资源条
+  --theme-resource-hp: #ff5f57;
+  --theme-resource-mp: #5b8cff;
+  --theme-resource-sp: #35c98a;
+  --theme-resource-exp: #f0b84b;
+  --theme-resource-text: #f3f5f8;
+
+  // 品质颜色
+  --theme-quality-common: #e2e8f0;
+  --theme-quality-unique: #f09f4d;
+  --theme-quality-mythic: #e4587d;
+  --theme-quality-legendary: #e5c166;
+  --theme-quality-epic: #9a72f8;
+  --theme-quality-rare: #5d97ff;
+  --theme-quality-uncommon: #56bf7b;
+
+  // 交互状态
+  --theme-primary-bg: #8f9fff;
+  --theme-primary-text: #10131a;
+  --theme-success: #35c98a;
+  --theme-warning: #f0b84b;
+  --theme-error: #ff6d6d;
+  --theme-error-text: #ff6d6d;
+  --theme-error-solid-text: #10131a;
+
+  // 命定系统
+  --theme-affection: #ff6f91;
+  --theme-affection-bg: rgba(255, 111, 145, 0.18);
+  --theme-affection-text: #ffb2c1;
+  --theme-tag-present: rgba(53, 201, 138, 0.16);
+  --theme-tag-present-text: #7ce3b4;
+  --theme-tag-contract: rgba(255, 111, 145, 0.16);
+  --theme-tag-contract-text: #ffb0c0;
+
+  // 登神长阶
+  --theme-ascension-element: rgba(91, 140, 255, 0.12);
+  --theme-ascension-power: rgba(240, 184, 75, 0.12);
+  --theme-ascension-law: rgba(154, 114, 248, 0.12);
+
+  // 货币
+  --theme-currency-gold: #f5c24f;
+  --theme-currency-silver: #d4dae4;
+  --theme-currency-copper: #d18b62;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.status-app {
+  padding: $spacing-md;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--theme-text-primary);
+  background: var(--theme-window-bg);
+}
+
+// 占位组件样式
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  color: var(--theme-text-muted);
+  font-size: 14px;
+  background: var(--theme-card-bg);
+  border: 1px dashed var(--theme-card-border);
+  border-radius: $border-radius-md;
+}
