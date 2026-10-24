@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import CategorySelectionLayout from '../../components/CategorySelectionLayout.vue';
+import ItemForge from '../../features/ai-forge/ItemForge.vue';
 import { getAssets } from '../../data/assets';
 import { getRaceCosts } from '../../data/base-info';
 import { getEquipments } from '../../data/equipments';
@@ -314,6 +315,7 @@ const handleEditCustomItem = (
       <!-- 自定义物品区域 -->
       <div class="custom-area">
         <MoneyExchangeCard />
+        <ItemForge />
         <CustomItemForm ref="customItemFormRef" @add="handleAddCustomItem" />
       </div>
 

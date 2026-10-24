@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import CategorySelectionLayout from '../../components/CategorySelectionLayout.vue';
+import PartnerForge from '../../features/ai-forge/PartnerForge.vue';
 import { getBackgrounds } from '../../data/backgrounds';
 import { getAllPartners } from '../../data/destined-ones';
 import { useCharacterStore } from '../../store/character';
@@ -140,6 +141,7 @@ onMounted(() => {
     </section>
 
     <!-- 自定义伙伴表单 -->
+    <PartnerForge />
     <CustomPartnerForm ref="customPartnerFormRef" @add="handleAddCustomPartner" />
 
     <!-- 命运点数兑换 -->
