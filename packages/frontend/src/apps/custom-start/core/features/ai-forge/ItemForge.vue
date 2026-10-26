@@ -2,7 +2,13 @@
 import { computed, ref } from 'vue';
 import { useCharacterStore } from '../../store/character';
 import { commitItems, prepareItems, remainingPoints } from './commit';
-import { CATEGORIES, CATEGORY_LABELS, itemCost, validationMessage } from './contracts';
+import {
+  CATEGORIES,
+  CATEGORY_LABELS,
+  itemCost,
+  resolveItemCategories,
+  validationMessage,
+} from './contracts';
 import type { Category } from './contracts';
 import { useForgeDrafts } from './drafts.store';
 import ForgeIcon from './ForgeIcon.vue';
@@ -37,6 +43,12 @@ const points = (n: number) => (Number.isFinite(n) ? n.toLocaleString() : '—');
 async function generate(categories: Category[]) {
   if (busy.value) return;
   message.value = '';
+  try {
+    categories = resolveItemCategories(state.requirements, categories);
+  } catch (e) {
+    error.value = validationMessage(e);
+    return;
+  }
   const config = JSON.parse(JSON.stringify(settings.settings));
   const invalid = apiProblem(config);
   if (invalid) {
@@ -91,16 +103,28 @@ function confirm() {
     <ForgeSettings :disabled="busy" mode="items" />
     <fieldset :disabled="busy">
       <div class="forge-tabs" aria-label="推演分类">
-        <button
+        <div
           v-for="category in CATEGORIES"
           :key="category"
-          type="button"
-          :aria-pressed="current === category"
-          @click="current = category"
+          class="forge-category-choice"
+          :class="{ 'is-included': state.selectedCategories.includes(category) }"
         >
-          {{ CATEGORY_LABELS[category] }}<span>{{ state.requirements[category].count }}</span>
-        </button>
+          <label class="forge-category-check">
+            <input
+              v-model="state.selectedCategories"
+              type="checkbox"
+              :value="category"
+              :aria-label="'参与生成' + CATEGORY_LABELS[category]"
+              @change="current = category"
+            />
+          </label>
+          <button type="button" :aria-pressed="current === category" @click="current = category">
+            {{ CATEGORY_LABELS[category]
+            }}<span>{{ state.requirements[category].count || 0 }}</span>
+          </button>
+        </div>
       </div>
+      <p class="forge-hint">只生成勾选且数量大于0的分类，要求可留空。</p>
       <div class="forge-request">
         <label
           >数量<input
@@ -134,8 +158,13 @@ function confirm() {
         </button>
       </div>
       <div class="forge-total-action">
-        <button type="button" class="forge-primary" @click="generate([...CATEGORIES])">
-          <ForgeIcon />结合四项总生成
+        <button
+          type="button"
+          class="forge-primary"
+          :disabled="!state.selectedCategories.length"
+          @click="generate([...state.selectedCategories])"
+        >
+          <ForgeIcon />结合已勾选项目生成
         </button>
       </div>
     </fieldset>

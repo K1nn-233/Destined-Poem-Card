@@ -741,6 +741,226 @@ await test('技能数量默认5，非默认结果可正常注入且价格沿用�
   assert.equal(st.selectedPartners[0].skills.length, 3);
   assert.equal(st.consumedPoints, 100);
 });
+await test('默认只勾选数量大于0的分类，切换步骤保留勾选', async () => {
+  const { useForgeDrafts } = await importFile('features/ai-forge/drafts.store.ts');
+  const pinia = createPinia();
+  const draftState = useForgeDrafts(pinia);
+  assert.deepEqual(draftState.selectedCategories, ['equipment', 'item', 'skill']);
+  draftState.selectedCategories = ['skill'];
+  assert.deepEqual(useForgeDrafts(pinia).selectedCategories, ['skill']);
+});
+await test('只勾选技能时其余空数量或非法数量不阻断，要求可留空', async () => {
+  const requirements = {
+    equipment: { count: '', requirement: '' },
+    item: { count: NaN, requirement: '' },
+    asset: { count: -1, requirement: '' },
+    skill: { count: 1, requirement: '  ' },
+  };
+  response = JSON.stringify({ skill: [skill()] });
+  const result = await s.generateItems({
+    settings: main,
+    context: '{}',
+    budget: 1000,
+    requirements,
+    categories: ['skill'],
+    id: 'selected',
+    isCurrent: () => true,
+  });
+  assert.equal(apiCalls, 1);
+  assert.equal(result.length, 1);
+  const prompt = config.ordered_prompts.at(-1).content;
+  assert.ok(prompt.includes('结合角色背景自由设计'));
+  assert.deepEqual(Object.keys(JSON.parse(prompt.slice(prompt.lastIndexOf('\n') + 1))), ['skill']);
+});
+await test('勾选武器道具时一次请求只生成两类，不要求技能和资产返回', async () => {
+  const requirements = _.cloneDeep(req);
+  requirements.equipment.count = 1;
+  requirements.item.count = 1;
+  response = JSON.stringify({ equipment: [item('刀')], item: [item('药')] });
+  const result = await s.generateItems({
+    settings: main,
+    context: '{}',
+    budget: 1000,
+    requirements,
+    categories: ['equipment', 'item'],
+    id: 'two',
+    isCurrent: () => true,
+  });
+  assert.equal(apiCalls, 1);
+  assert.deepEqual(
+    result.map(d => d.category),
+    ['equipment', 'item'],
+  );
+  const prompt = config.ordered_prompts.at(-1).content;
+  assert.deepEqual(Object.keys(JSON.parse(prompt.slice(prompt.lastIndexOf('\n') + 1))), [
+    'equipment',
+    'item',
+  ]);
+});
+await test('勾选分类的0或清空数量被跳过，不要求模型返回空数组', async () => {
+  for (const count of [0, '', null, undefined]) {
+    const requirements = _.cloneDeep(req);
+    requirements.equipment.count = count;
+    requirements.skill.count = 1;
+    response = JSON.stringify({ skill: [skill()] });
+    const result = await s.generateItems({
+      settings: main,
+      context: '{}',
+      budget: 1000,
+      requirements,
+      categories: ['equipment', 'asset', 'skill'],
+      id: 'empty',
+      isCurrent: () => true,
+    });
+    assert.deepEqual(
+      result.map(d => d.category),
+      ['skill'],
+    );
+  }
+  assert.equal(apiCalls, 4);
+});
+await test('取消全部勾选或全部数量为空时不调用API，保留明确提示', async () => {
+  await assert.rejects(
+    s.generateItems({
+      settings: main,
+      context: '',
+      budget: 1000,
+      requirements: req,
+      categories: [],
+      id: 'none',
+      isCurrent: () => true,
+    }),
+    /至少勾选/,
+  );
+  const requirements = Object.fromEntries(
+    c.CATEGORIES.map(k => [k, { count: '', requirement: '' }]),
+  );
+  await assert.rejects(
+    s.generateItems({
+      settings: main,
+      context: '',
+      budget: 1000,
+      requirements,
+      categories: c.CATEGORIES,
+      id: 'empty',
+      isCurrent: () => true,
+    }),
+    /至少设置一项/,
+  );
+  assert.equal(apiCalls, 0);
+});
+await test('已勾选的负数、小数、超限与NaN仍在请求前拒绝', async () => {
+  for (const count of [-1, 1.5, 11, NaN]) {
+    const requirements = { ...req, skill: { count, requirement: '' } };
+    await assert.rejects(
+      s.generateItems({
+        settings: main,
+        context: '',
+        budget: 1000,
+        requirements,
+        categories: ['skill'],
+        id: 'bad',
+        isCurrent: () => true,
+      }),
+      /0–10/,
+    );
+  }
+  assert.equal(apiCalls, 0);
+});
+await test('有效数量已勾选时仍拒绝模型漏项，不能把不完整批次当成功', async () => {
+  const requirements = _.cloneDeep(req);
+  requirements.equipment.count = 1;
+  requirements.skill.count = 1;
+  response = JSON.stringify({ equipment: [item()] });
+  await assert.rejects(
+    s.generateItems({
+      settings: main,
+      context: '',
+      budget: 1000,
+      requirements,
+      categories: ['equipment', 'skill'],
+      id: 'missing',
+      isCurrent: () => true,
+    }),
+    /技能应为1项/,
+  );
+  assert.equal(apiCalls, 1);
+});
+await test('伙伴可省略非必填喜爱，不影响正常生成与注入', async () => {
+  const p = partner();
+  delete p.like;
+  response = JSON.stringify({ partner: p });
+  const result = await s.generatePartner({
+    settings: main,
+    context: '',
+    budget: 1000,
+    description: '药师',
+    options,
+    id: 'p',
+    isCurrent: () => true,
+  });
+  assert.equal(result.like, '');
+  const st = store();
+  commits.commitPartner(st, result);
+  assert.equal(st.selectedPartners[0].like, '');
+  assert.equal(apiCalls, 1);
+});
+await test('伙伴零技能零装备时兼容省略或null，仍只生成一次', async () => {
+  for (const missing of [undefined, null]) {
+    const p = { ...partner(), skills: missing, equip: missing, like: undefined };
+    response = JSON.stringify({ partner: p });
+    const result = await s.generatePartner({
+      settings: main,
+      context: '',
+      budget: 1000,
+      description: '无武装的药师',
+      options: { ...options, skillCount: 0, equipmentCount: 0 },
+      id: 'p',
+      isCurrent: () => true,
+    });
+    assert.deepEqual(result.skills, []);
+    assert.deepEqual(result.equip, []);
+    assert.equal(c.toSelectedPartner(result).cost, 100);
+  }
+  assert.equal(apiCalls, 2);
+});
+await test('伙伴正数量时省略技能或装备仍拒绝，不自动补成空内容', () => {
+  for (const key of ['skills', 'equip']) {
+    const p = partner();
+    delete p[key];
+    assert.throws(() => c.parsePartner(JSON.stringify({ partner: p }), options));
+  }
+});
+await test('伙伴选0项时模型多返回内容仍按数量拒绝', () => {
+  assert.throws(
+    () => c.parsePartner(JSON.stringify({ partner: partner() }), { ...options, skillCount: 0 }),
+    /应有0个技能/,
+  );
+  assert.throws(
+    () => c.parsePartner(JSON.stringify({ partner: partner() }), { ...options, equipmentCount: 0 }),
+    /应携带0件装备/,
+  );
+});
+await test('伙伴必填描述和核心字段继续校验，不被可选字段兼容绕过', async () => {
+  await assert.rejects(
+    s.generatePartner({
+      settings: main,
+      context: '',
+      budget: 1000,
+      description: '  ',
+      options,
+      id: 'p',
+      isCurrent: () => true,
+    }),
+    /整体描述/,
+  );
+  assert.equal(apiCalls, 0);
+  for (const key of ['name', 'race', 'attributes']) {
+    const p = partner();
+    delete p[key];
+    assert.throws(() => c.parsePartner(JSON.stringify({ partner: p }), options));
+  }
+});
 const output = {
   passed: records.filter(r => r.passed).length,
   failed: records.filter(r => !r.passed).length,

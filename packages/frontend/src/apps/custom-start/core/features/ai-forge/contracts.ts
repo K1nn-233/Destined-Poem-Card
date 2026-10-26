@@ -18,6 +18,24 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 };
 export const DEFAULT_COUNTS = { equipment: 2, item: 2, asset: 0, skill: 4 };
 export type Requirements = Record<Category, { count: number; requirement: string }>;
+/** 只校验本次勾选的分类；清空数量或设为0表示本次不生成。 */
+export function resolveItemCategories(
+  requirements: Requirements,
+  selected: Category[],
+): Category[] {
+  if (!selected.length) throw new Error('请至少勾选一个生成分类');
+  const result: Category[] = [];
+  for (const category of new Set(selected)) {
+    if (!CATEGORIES.includes(category)) throw new Error('生成分类无效');
+    const count: unknown = requirements[category]?.count;
+    if (count === '' || count == null || count === 0) continue;
+    if (typeof count !== 'number' || !Number.isInteger(count) || count < 0 || count > 10)
+      throw new Error(`${CATEGORY_LABELS[category]}数量须为0–10的整数`);
+    result.push(category);
+  }
+  if (!result.length) throw new Error('已勾选分类的数量为空或0，请至少设置一项');
+  return result;
+}
 export const TIER_NAMES = [
   '第一层级 (普通)',
   '第二层级 (中坚)',
@@ -114,7 +132,7 @@ export const PartnerDraftSchema = z
     identity: tags,
     career: tags,
     personality: text.min(1),
-    like: text,
+    like: text.default(''),
     app: text.min(1),
     cloth: text.min(1),
     backgroundInfo: text.min(1),
@@ -270,8 +288,12 @@ export function parseItems(raw: string, counts: Partial<Record<Category, number>
 }
 export function parsePartner(raw: string, options: PartnerGenerationOptions): PartnerDraft {
   const { equipmentCount, level, skillCount } = PartnerGenerationSchema.parse(options);
-  const root = z.object({ partner: z.unknown() }).parse(parseResponse(raw));
-  const data = PartnerDraftSchema.parse(root.partner);
+  const root = z.object({ partner: z.record(z.string(), z.unknown()) }).parse(parseResponse(raw));
+  const value = { ...root.partner };
+  // 仅请求0项时容许模型省略空数组；正数量仍须完整返回并通过数量检查。
+  if (skillCount === 0 && value.skills == null) value.skills = [];
+  if (equipmentCount === 0 && value.equip == null) value.equip = [];
+  const data = PartnerDraftSchema.parse(value);
   if (data.skills.length !== skillCount)
     throw new Error(`伙伴应有${skillCount}个技能，实际收到${data.skills.length}个`);
   if (data.equip.length !== equipmentCount)

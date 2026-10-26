@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { CATEGORIES, DEFAULT_COUNTS } from './contracts';
-import type { ItemDraft, PartnerDraft, PartnerGenerationOptions, Requirements } from './contracts';
+import type {
+  Category,
+  ItemDraft,
+  PartnerDraft,
+  PartnerGenerationOptions,
+  Requirements,
+} from './contracts';
 
 // 只保留在本次开局内，切换步骤不丢草稿；不进入预设、角色卡或聊天变量。
 export const useForgeDrafts = defineStore('customStartAIDrafts', () => {
@@ -11,6 +17,7 @@ export const useForgeDrafts = defineStore('customStartAIDrafts', () => {
     ) as Requirements,
   );
   const items = ref<ItemDraft[]>([]);
+  const selectedCategories = ref<Category[]>(CATEGORIES.filter(c => DEFAULT_COUNTS[c] > 0));
   const partner = ref<PartnerDraft | null>(null);
   const partnerDescription = ref('');
   const partnerOptions = ref<PartnerGenerationOptions>({
@@ -23,6 +30,7 @@ export const useForgeDrafts = defineStore('customStartAIDrafts', () => {
   const partnerChat = ref<string | null>(null);
   return {
     requirements,
+    selectedCategories,
     items,
     partner,
     partnerDescription,

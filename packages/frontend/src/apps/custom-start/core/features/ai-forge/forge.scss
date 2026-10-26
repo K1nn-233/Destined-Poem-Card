@@ -113,6 +113,34 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    flex: 1;
+    min-width: 0;
+    padding-inline: 5px;
+    border: 0;
+    border-radius: 0 5px 5px 0;
+    background: transparent;
+  }
+  .forge-category-choice {
+    display: flex;
+    align-items: stretch;
+    min-width: 0;
+    border: 1px solid #bca88b;
+    border-radius: 6px;
+    background: #fffaf2;
+  }
+  .forge-category-choice.is-included {
+    border-color: #99742f;
+    box-shadow: inset 0 0 0 1px #99742f30;
+  }
+  .forge-category-check {
+    justify-content: center;
+    margin: 0;
+    padding: 0 3px 0 8px;
+    cursor: pointer;
+  }
+  .forge-category-check input {
+    margin: 0;
+    accent-color: #80623c;
   }
   .forge-tabs span {
     font-size: 11px;
@@ -345,6 +373,7 @@
       gap: 9px;
     }
     .forge-tabs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 5px;
     }
     .forge-tabs button {

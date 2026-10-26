@@ -1,13 +1,13 @@
 import type { useCharacterStore } from '../../store/character';
 import { ASSET_COST_RANGES, RARITY_COST_RANGES } from '../../utils/cost-calculator';
 import {
-  CATEGORIES,
   CATEGORY_LABELS,
   itemCost,
   partnerCost,
   parseItems,
   parsePartner,
   PartnerGenerationSchema,
+  resolveItemCategories,
   TIER_NAMES,
 } from './contracts';
 import type { Category, PartnerGenerationOptions, Requirements } from './contracts';
@@ -117,10 +117,10 @@ export function buildItemPrompts(
   prompts.push({
     role: 'user',
     content: [
-      '在同一次回复中生成下列全部分类；数量为0的分类必须返回空数组。武器分类生成可装备武器。每项有独立名称与完整效果。',
+      '在同一次回复中仅生成下列选中的分类，未列出的分类不要生成。武器分类生成可装备武器。每项有独立名称与完整效果。',
       ...categories.map(
         c =>
-          `${c}（${CATEGORY_LABELS[c]}）：${requirements[c].count}项；要求：${requirements[c].requirement.trim() || '结合角色背景自由设计'}`,
+          `${c}（${CATEGORY_LABELS[c]}）：${requirements[c].count}项；要求：${requirements[c].requirement?.trim() || '结合角色背景自由设计'}`,
       ),
       `单件武器/道具/技能价格：${JSON.stringify(costs)}；道具按quantity件数乘价。资产整项价格：${JSON.stringify(assetCosts)}。`,
       '各分类数组中的对象格式参考如下，替换示例值，不得照抄示例效果；仅输出请求的分类。资产的type/tag/description/totalSpace/settlement/location/internalAssets分别对应世界书的类型/标签/描述/总空间/结算/位置/内部资产，无内部组成时internalAssets为{}。',
@@ -221,19 +221,8 @@ export async function generateItems(input: {
   id: string;
   isCurrent: () => boolean;
 }) {
-  const { requirements, categories, settings } = input;
-  if (
-    !categories.length ||
-    categories.some(c => !CATEGORIES.includes(c)) ||
-    categories.some(
-      c =>
-        !Number.isInteger(requirements[c].count) ||
-        requirements[c].count < 0 ||
-        requirements[c].count > 10,
-    )
-  )
-    throw new Error('每个分类数量须为0–10的整数');
-  if (!categories.some(c => requirements[c].count > 0)) throw new Error('请至少指定一项内容');
+  const { requirements, settings } = input;
+  const categories = resolveItemCategories(requirements, input.categories);
   const rules = await readRules(settings, 'items');
   if (!input.isCurrent()) return null;
   const raw = await requestDraft(
